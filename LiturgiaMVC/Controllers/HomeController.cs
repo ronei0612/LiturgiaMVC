@@ -15,6 +15,8 @@ namespace LiturgiaMVC.Controllers
 
         public IActionResult Index()
         {
+            var links = new LinksModel();
+            links.Adoracao = "";
             return View();
         }
 

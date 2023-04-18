@@ -1,8 +1,100 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model LinksModel
+@{
+    ViewData["Title"] = "Liturgia";
 }
 
-<div class="text-center">
+@*<div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+<style>
+    img {
+        width: 33%;
+        height: 250px
+    }
+
+    iframe {
+        display: block;
+        border: none; /* Reset default border */
+        height: 100vh; /* Viewport-relative units */
+        width: 100vw;
+    }
+</style>
+
+
+
+<div class="">
+    @Model.Adoracao
+
+    <!-- Adoração -->
+    <a href="https://youtube.com/channel/UC43UPD79xr7t_Vx3HHd3gSw/live">
+        <img class="rounded" id="adoracao" src="https://i.ytimg.com/vi/Ur4XlO5NBvE/maxresdefault.jpg" />
+    </a>
+
+    <!-- Missa -->
+    <a href="">
+        <img class="rounded" id="missa" src="https://dia.portalodia.com/media/uploads/materias/2020/04/ao-vivo-acompanhe-a-santa-missa-desta-quarta-feira,-1o-de-abril.jpg" />@* height="auto" width="608px" onclick="missa()" style="object-fit:none; height:340px; width:698px">*@
+    </a>
+
+    <!-- Hesed -->
+    <a href="https://youtube.com/channel/UCm_nEAH7DCfjmXUbNkN6JFw/live">
+        <img class="rounded" id="hesed" src="https://img.cancaonova.com/cnimages/canais/uploads/sites/14/2018/12/Site.png" />@*  style="object-fit:none" height="auto" width="312px">*@
+    </a>
+
+    <!--  Canção Nova -->
+    <a href="https://youtube.com/channel/UCVrKQMmA2ew9LFzeIDaOFgw/live" id="cancao_nova">
+        <img class="rounded" id="cancao_nova-img" src="https://img.cancaonova.com/cnimages/canais/uploads/sites/7/2017/09/thumb-wide-blue.jpg" />@* height="234px" width="405px">*@
+    </a>
+
+    <!-- Radio america -->
+    <a href="https://youtube.com/channel/UCS5TpppbKe-ts4HG-NcJD7w/live" id="america">
+        <img class="rounded" id="america-img" src="https://img.radios.com.br/radio/xl/radio11124_1575571255.png" />@* height="234px" width="208px">*@
+    </a>
+
+    <!-- Santuário Nacional de Aparecida -->
+    <a href="https://youtube.com/channel/UCfYrK5JU5EznsnK3wQE7iIg/live" id="aparecida">
+        <img class="rounded" id="aparecida-img" src="https://stcotvfoco.com.br/2015/02/TV-Aparecida_logo.jpg" />@* height="234px" width="455px">*@
+    </a>
+
+    <!-- Seculo 21 -->
+    <!--<a href="https://youtube.com/channel/UCGm27Ndv8a-0yUJFVpRwkDQ/live" id="seculo">-->
+    <a href="https://player.jmvstream.com/lvw/DhqfxTybrvDUu7iMnuVVrGTZV2miq1" id="seculo">
+        <img class="rounded" id="seculo-img" src="https://showcasepro.com.br/blog/wp-content/uploads/2020/07/rs-21-logo.png" />@* height="184px" width="369px">*@
+    </a>
+
+    <!-- Frei Gilson -->
+    <a href="https://youtube.com/channel/UCbh6_TmFnAJLI56aAQeD3qw/live">
+        <!--<img class="rounded" src="https://i2.wp.com/ytimg.googleusercontent.com/vi/rI5aj8_S_ak/mqdefault.jpg" height="184px" width="300px" ></a>-->
+        <img class="rounded" src="https://direct.rhapsody.com/imageserver/images/alb.539572133/500x500.jpg" />@* height="184px" width="300px">*@
+    </a>
+
+    <!-- São Patricio -->
+    <a href="https://www.youtube.com/watch?v=0xNzlVHaEXY&list=PL_1F_fsE9bd6VY9DeflOcdqGld62uyt90&t=0">
+        <!--<a href="https://www.youtube.com/watch?v=unjRn11c7VE&t=0">-->
+        <img class="rounded" src="https://i.ytimg.com/vi/HuRHaZqhxsY/maxresdefault.jpg" />@* height="184px" width="400px">*@
+    </a>
+
+    <!-- Liturgia -->
+    <a href="https://www.youtube.com/results?search_query=%22frei+lu%C3%ADs+marin%22+%22liturgia+di%C3%A1ria%22+-ter%C3%A7o&sp=CAI%253D">
+        <img class="rounded" src="https://www.paroquiaimaculada7lagoas.com.br/wp-content/uploads/2019/03/images-4.jpeg" />@* height="184px" width="300px">*@
+    </a>
+
+    <!-- Resposta Católica -->
+    <a href="https://www.youtube.com/playlist?list=PLW4XZpSEOqXWV1OD6czlaMx6eubosHABj">
+        <img class="rounded" src="https://sumateologica.files.wordpress.com/2011/07/a_resposta_catolica_600.jpg" />@* height="184px" width="400px">*@
+    </a>
+
+    <!-- Rosário -->
+    <!--<a href="https://www.youtube.com/watch?v=Hdn2JWF-YjQ?t=0">-->
+    <a href="https://www.youtube.com/watch?v=DmRLkSsWk38">
+        <img class="rounded" src="https://www.acidigital.com/imagespp/size680/Rosario_011017.jpg" />@* height="184px" width="400px">*@
+    </a>
+
+    <!-- Livros -->
+    <a href="http://liturgia.somee.com/livros.html">
+        <img class="rounded" src="http://blog.crb6.org.br/wp-content/uploads/2016/08/LIVROS.jpg" />@* height="184px" width="400px">*@
+    </a>
 </div>
+
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSemOXOo7OhTeADpscfs580Tyhri72LZR6FpldgWVZVH3hCwHg/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
