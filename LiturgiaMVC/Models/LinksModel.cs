@@ -3,6 +3,7 @@
     public class LinksModel
     {
         public string? Adoracao { get; set; }
+        public string? AdoracaoImg { get; set; }
         public string? Missa { get; set; }
         public string? Hesed { get; set; }
         public string? CancaoNova { get; set; }

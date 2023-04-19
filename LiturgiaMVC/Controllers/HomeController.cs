@@ -16,8 +16,8 @@ namespace LiturgiaMVC.Controllers
         public IActionResult Index()
         {
             var links = new LinksModel();
-            links.Adoracao = "";
-            return View();
+            links.Adoracao = "https://youtube.com/channel/UC43UPD79xr7t_Vx3HHd3gSw/live";
+            return View(links);
         }
 
         public IActionResult Privacy()

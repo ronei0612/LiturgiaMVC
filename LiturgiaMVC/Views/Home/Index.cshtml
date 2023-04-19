@@ -1,4 +1,5 @@
 ﻿@model LinksModel
+@*@model LiturgiaMVC.Models.LinksModel*@
 @{
     ViewData["Title"] = "Liturgia";
 }
@@ -25,10 +26,7 @@
 
 
 <div class="">
-    @Model.Adoracao
-
-    <!-- Adoração -->
-    <a href="https://youtube.com/channel/UC43UPD79xr7t_Vx3HHd3gSw/live">
+    <a href="@Model.Adoracao">
         <img class="rounded" id="adoracao" src="https://i.ytimg.com/vi/Ur4XlO5NBvE/maxresdefault.jpg" />
     </a>
 
