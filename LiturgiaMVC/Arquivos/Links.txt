@@ -1,2 +1,7 @@
-hesed=
-hesedIMG=
+imagem = link
+https://i.ytimg.com/vi/Ur4XlO5NBvE/maxresdefault.jpg = https://youtube.com/channel/UC43UPD79xr7t_Vx3HHd3gSw/live
+#https://dia.portalodia.com/media/uploads/materias/2020/04/ao-vivo-acompanhe-a-santa-missa-desta-quarta-feira,-1o-de-abril.jpg = 
+https://img.cancaonova.com/cnimages/canais/uploads/sites/14/2018/12/Site.png = https://youtube.com/channel/UCm_nEAH7DCfjmXUbNkN6JFw/live #hesed
+https://img.cancaonova.com/cnimages/canais/uploads/sites/7/2017/09/thumb-wide-blue.jpg = https://youtube.com/channel/UCVrKQMmA2ew9LFzeIDaOFgw/live #cancao_nova
+#<a href="https://www.youtube.com/watch?v=0xNzlVHaEXY&amp;list=PL_1F_fsE9bd6VY9DeflOcdqGld62uyt90&amp;t=0">
+https://i.ytimg.com/vi/HuRHaZqhxsY/maxresdefault.jpg = https://www.youtube.com/watch?v=unjRn11c7VE&t=0 #patricio

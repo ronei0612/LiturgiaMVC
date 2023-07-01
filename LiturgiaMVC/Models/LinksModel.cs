@@ -30,5 +30,6 @@
         public string? RosarioImg { get; set; }
         public string? Livros { get; set; }
         public string? LivrosImg { get; set; }
+        public Dictionary<string, string> LinksDict { get; set; }
     }
 }
