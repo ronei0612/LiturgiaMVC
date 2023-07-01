@@ -6,11 +6,7 @@
 
 <style>
 
-    img {
-        width: 33%;
-        height: 250px;
-        vertical-align: baseline;
-    }
+    
 
 </style>
 
@@ -18,11 +14,15 @@
 
 <div class="">
 
-    @foreach (var linha in Model.LinksDict)
+    @if (Model.LinksDict != null)
     {
-        <a href="@linha.Value">
-            <img class="rounded" src="@linha.Key" />
-        </a>
+        foreach (var linha in Model.LinksDict)
+        {
+            <a href="@linha.Value">
+                <img class="rounded" src="@linha.Key" />
+            </a>
+        }
+
     }
 
 </div>

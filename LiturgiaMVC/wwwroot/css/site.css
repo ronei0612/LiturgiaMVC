@@ -16,3 +16,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+img {
+    width: 33%;
+    height: 250px;
+    vertical-align: baseline;
+}
