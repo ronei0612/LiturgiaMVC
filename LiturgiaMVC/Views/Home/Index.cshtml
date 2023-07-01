@@ -1,33 +1,22 @@
 ﻿@model LinksModel
-@*@model LiturgiaMVC.Models.LinksModel*@
+
 @{
     ViewData["Title"] = "Liturgia";
 }
 
-@*<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>*@
-
 <style>
+
     img {
         width: 33%;
         height: 250px;
         vertical-align: baseline;
     }
 
-    iframe {
-        display: block;
-        border: none; /* Reset default border */
-        height: 100vh; /* Viewport-relative units */
-        width: 100vw;
-    }
 </style>
 
 
 
 <div class="">
-    <a asp-area="" asp-controller="Youtube" asp-action="Index">Liturgia</a>
 
     @foreach (var linha in Model.LinksDict)
     {
