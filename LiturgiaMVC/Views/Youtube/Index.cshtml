@@ -4,7 +4,8 @@
     ViewData["Title"] = "Youtube";
 }
 
-<body onload='carregarLinkUrl()'>
+@*<body onload='carregarLinkUrl()'>*@
+<body>
 	<br />
 
 	<form method="post" asp-controller="Youtube" asp-action="GerarLink">
@@ -15,18 +16,22 @@
 	<br />
 	<br />
 
-	@if (Model.Youtube != null) {
+	@if (Model.YoutubeImageLinks != null) {
 
-		if (Model.Youtube.Length == 1)
+		if (Model.YoutubeImageLinks.Count == 1)
 		{
-			<iframe style="display:block" id="youtubeFrame" src="@Model.Youtube[0]" allowfullscreen allow="autoplay"></iframe>
+			<iframe style="display:block" id="youtubeFrame" src="@Model.YoutubeImageLinks.ElementAt(0).Value" allowfullscreen allow="autoplay"></iframe>
 		}
 
 		else
 		{
-			foreach (string linkYoutube in Model.Youtube)
+			foreach (var linkYoutube in Model.YoutubeImageLinks)
 			{
-				<iframe src="@linkYoutube" allowfullscreen ></iframe>
+				<a href="@linkYoutube.Value" target="@linkYoutube.Value.Replace("https://www.youtube.com/embed/", "")">
+					<img class="rounded" src="@linkYoutube.Key" />
+				</a>
+				<iframe id="@linkYoutube.Value.Replace("https://www.youtube.com/embed/", "")" name="@linkYoutube.Value.Replace("https://www.youtube.com/embed/", "")"></iframe>
+				@*<iframe src="@linkYoutube" allowfullscreen ></iframe>*@
 			}
 		}
 	}
@@ -37,20 +42,5 @@
 	}
 
 	<br>
-
-	@*<a class="navbar-brand" asp-area="" asp-controller="Youtube" asp-action="Index">Liturgia</a>*@
-
-	<script>
-		//var base = 'http://liturgia.somee.com/youtube.htm?';
-		//var base = 'https://lyoutubei.somee.com/Youtube?';
-		//var input = document.getElementById("input");
-
-		//input.addEventListener("keyup", function (event) {
-		//	if (event.keyCode === 13) {
-		//		event.preventDefault();
-		//		document.getElementById("okButton").click();
-		//	}
-		//});
-	</script>
 
 </body>
