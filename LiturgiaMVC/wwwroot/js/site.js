@@ -7,7 +7,8 @@ function carregarLinkUrl() {
 	var url = window.location.href;
 
 	if (url.includes('?')) {
-		var link = url.replace(base, '');
+		var urlRemover = url.split('?')[0];
+		var link = url.replace(urlRemover, '');
 		// link = https://www.youtube.com/embed/videoseries?list=PLc2L-_BdS7A5SHoqM4ZEMD95Prw1-LmRg&index=7?rel=0&autoplay=1
 
 		if (link.includes('?')) {
@@ -43,7 +44,8 @@ function gerarLink() {
 		} catch { }
 	}
 
-	location.replace(base + link);
+	var urlAtual = window.location.href;
+	location.replace(urlAtual + '?' + link);
 }
 
 window.onload = function () {

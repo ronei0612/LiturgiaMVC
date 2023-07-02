@@ -4,14 +4,6 @@
     ViewData["Title"] = "Liturgia";
 }
 
-<style>
-
-    
-
-</style>
-
-
-
 <div class="">
 
     @if (Model.LinksDict != null)
@@ -22,7 +14,8 @@
                 <img class="rounded" src="@linha.Key" />
             </a>
         }
-
     }
+
+    <a class="navbar-brand" asp-area="" asp-controller="Youtube" asp-action="Index">Liturgia</a>
 
 </div>
