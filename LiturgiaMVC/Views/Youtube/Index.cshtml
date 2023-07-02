@@ -5,19 +5,13 @@
 }
 
 <body onload='carregarLinkUrl()'>
-
-	<br>
-
-	@*<input type="text" autocomplete="off" onfocus="this.select()" id="input" name="input"> &nbsp
-	<button id="okButton" onclick="gerarLink()" type="button">&nbsp Ir &nbsp</button>*@
-	@*@Html.TextBox("aaaa")
-	<input type="button" value="Ir" onclick="location.href='@Url.Action("Index", "Youtube", new { v = "123" })'" />*@
+	<br />
 
 	<form method="post" asp-controller="Youtube" asp-action="GerarLink">
-		@*<label for="busca">aa</label>*@
 		<input type="text" id="input" name="texto" onfocus="this.select()">
 		<button id="okButton" type="submit">Ir</button>
 	</form>
+
 	<br />
 	<br />
 
@@ -48,8 +42,8 @@
 
 	<script>
 		//var base = 'http://liturgia.somee.com/youtube.htm?';
-		var base = 'https://lyoutubei.somee.com/Youtube?';
-		var input = document.getElementById("input");
+		//var base = 'https://lyoutubei.somee.com/Youtube?';
+		//var input = document.getElementById("input");
 
 		//input.addEventListener("keyup", function (event) {
 		//	if (event.keyCode === 13) {
@@ -57,29 +51,6 @@
 		//		document.getElementById("okButton").click();
 		//	}
 		//});
-
-		//function gerarLink() {
-		//	var link = document.getElementById('input').value;
-
-		//	if (link.includes("list=")) { //youtube.com/watch?v=0xNzlVHaEXY&list=PL_1F_fsE9bd6VY9DeflOcdqGld62uyt90
-		//		link = link.split("list=")[1];
-		//		link = "videoseries?list=" + link; //link = videoseries?list=PLc2L-_BdS7A5SHoqM4ZEMD95Prw1-LmRg&index=7
-		//	}
-		//	else if (link.includes("v=")) { //youtube.com/watch?v=sTTnkDKQIjM
-		//		link = link.split("v=")[1];
-		//		try {
-		//			link = link.split('&')[0];
-		//		} catch { }
-		//	}
-		//	else if (link.includes(".be")) { //youtu.be/sTTnkDKQIjM
-		//		link = link.split(".be/")[1];
-		//		try {
-		//			link = link.split('&')[0];
-		//		} catch { }
-		//	}
-
-		//	location.replace(base + link);
-		//}
 	</script>
 
 </body>
