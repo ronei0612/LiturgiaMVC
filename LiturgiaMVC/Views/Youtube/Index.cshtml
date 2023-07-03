@@ -29,14 +29,9 @@
 			{
 				string linkid = linkYoutube.Value.Replace("https://www.youtube.com/embed/", "");
 
-				@*<a href="@linkYoutube.Value" target="@linkid">*@
 				<a href="#" id="@linkid" onclick="AbrirVideo('@linkid')">
 					<img class="rounded" src="@linkYoutube.Key" />
 				</a>
-
-				@*<iframe id="@linkid" name="@linkid"></iframe>*@
-
-				@*<iframe src="@linkYoutube" allowfullscreen ></iframe>*@
 			}
 		}
 	}
