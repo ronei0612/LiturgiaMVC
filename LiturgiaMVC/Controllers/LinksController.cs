@@ -1,6 +1,5 @@
 ﻿using LiturgiaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
 
 namespace LiturgiaMVC.Controllers
 {
@@ -42,8 +41,6 @@ namespace LiturgiaMVC.Controllers
             linksModel.LinksDict = dict;
 
             return RedirectToAction("Index", "Home", linksModel);
-
-            //return View("Home", linksModel);
         }
     }
 }
