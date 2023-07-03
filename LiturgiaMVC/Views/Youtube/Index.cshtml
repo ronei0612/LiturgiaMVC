@@ -30,9 +30,10 @@
 				string linkid = linkYoutube.Value.Replace("https://www.youtube.com/embed/", "");
 
 				@*<a href="@linkYoutube.Value" target="@linkid">*@
-				<a href="@linkYoutube.Value" id="@linkid" onclick="AbrirVideo(@linkid)">
+				<a href="#" id="@linkid" onclick="AbrirVideo('@linkid')">
 					<img class="rounded" src="@linkYoutube.Key" />
 				</a>
+
 				@*<iframe id="@linkid" name="@linkid"></iframe>*@
 
 				@*<iframe src="@linkYoutube" allowfullscreen ></iframe>*@
@@ -48,17 +49,14 @@
 	<br>
 
 	<script>
-		function AbrirVideo(linkid){
+		function AbrirVideo(linkid) {
 			var linkElement = document.getElementById(linkid);
 			var frame = document.createElement("iframe");
 
-			frame.setAttribute('src', linkElement.getAttribute('href'));
-			//frame.setAttribute('class', linkElement.getAttribute('class'));
-			//frame.style.width = "100%";
-			//frame.onload = function () {
-			//	frame.style.height = frame.contentWindow.document.body.scrollHeight + "px";
-			//};
-
+			frame.setAttribute('src', "https://www.youtube.com/embed/" + linkid);
+			frame.style.position = "absolute";
+			frame.style.height = "auto";
+			frame.style.width = "33%";
 			linkElement.parentNode.replaceChild(frame, linkElement);
 		}
 	</script>
