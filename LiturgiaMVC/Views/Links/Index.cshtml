@@ -1,0 +1,79 @@
+﻿@model LinksModel
+
+@{
+    ViewData["Title"] = "Links";
+}
+
+<h1>Edite imagens e links abaixo:</h1>
+
+<button type="button" onclick="Salvar()">Salvar</button>
+
+<br />
+
+<table class ="table table-bordered" id="tabela">
+    <tr>
+        <th>Imagem</th>
+        <th>Link</th>
+    </tr>
+
+    @if (Model.LinksDict != null)
+    {
+        foreach (var linha in Model.LinksDict)
+        {
+            <tr>
+                <td> <div contenteditable>@linha.Key</div> </td>
+                <td> <div contenteditable>@linha.Value</div> </td>
+            </tr>
+        }
+    }
+
+    <tr>
+        <td> <div contenteditable>Nova imagem</div> </td>
+        <td> <div contenteditable>Novo link</div> </td>
+    </tr>
+    
+</table>
+
+<p id="erro" style="color: red; display: none" onclick="document.getElementById('erro').style.display = 'none'">Url incorreta (precisa começar com http)</p>
+
+<button type="button" onclick="Novo()">Nova linha</button>
+
+<script>
+    
+    function Salvar() {
+        document.getElementById('erro').style.display = 'none';
+        var tabela = document.getElementById('tabela');
+        //var linhas = tabela.rows;
+        var cells = document.getElementsByTagName("td");
+
+        var data = [];
+        for (var i = 0; i < cells.length; i++) {
+            data.push(cells[i].innerHTML);
+        }
+
+        window.location.href = '@Url.Action("Salvar", "Links")' + "?dados=" + data;
+    }
+
+    function Novo() {
+        document.getElementById('erro').style.display = 'none';
+
+        var tabela = document.getElementById('tabela');
+        var ultimaLinha = tabela.rows[tabela.rows.length - 1];
+
+        if (ultimaLinha.innerHTML.includes('http')) {
+            document.getElementById('erro').style.display = 'none';
+
+            var row = tabela.insertRow(tabela.rows.length);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+
+            cell1.innerHTML = "<div contenteditable>Nova imagem</div>";
+            cell2.innerHTML = "<div contenteditable>Novo link</div>";
+        }
+
+        else {
+            document.getElementById('erro').style.display = 'block';
+        }
+    }
+
+</script>

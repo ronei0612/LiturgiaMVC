@@ -6,14 +6,23 @@ namespace LiturgiaMVC
     {
         public static Dictionary<string, string> LerArquivoLinks()
         {
+            string[] linhas = File.ReadAllLines(Variaveis.arquivoLinks);
+            var linksDict = new Dictionary<string, string>();
+
             if (Directory.Exists(Variaveis.pastaArquivos) == false)
                 Directory.CreateDirectory(Variaveis.pastaArquivos);
 
             if (File.Exists(Variaveis.arquivoLinks) == false)
-                File.WriteAllText(Variaveis.arquivoLinks, "imagem=link");
+            {
+                File.WriteAllText(Variaveis.arquivoLinks, "imagem = link");
+                return linksDict;
+            }
 
-            string[] linhas = File.ReadAllLines(Variaveis.arquivoLinks);
-            var linksDict = new Dictionary<string, string>();
+            if (File.ReadAllText(Variaveis.arquivoLinks) == "imagem = link")
+                return linksDict;
+
+            if (File.ReadAllText(Variaveis.arquivoLinks).Contains('=') == false)
+                return linksDict;
 
             foreach (string linha in linhas)
             {
@@ -43,6 +52,11 @@ namespace LiturgiaMVC
             }
 
             return linksDict;
+        }
+
+        public static void EscreverArquivoLinks(string dados)
+        {
+            File.WriteAllText(Variaveis.arquivoLinks, dados);
         }
     }
 }

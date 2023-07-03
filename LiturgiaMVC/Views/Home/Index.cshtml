@@ -8,13 +8,25 @@
 
     @if (Model.LinksDict != null)
     {
-        foreach (var linha in Model.LinksDict)
+        if (Model.LinksDict.Count > 0)
         {
-            <a href="@linha.Value">
-                <img class="rounded" src="@linha.Key" />
-            </a>
+            foreach (var linha in Model.LinksDict)
+            {
+                <a href="@linha.Value">
+                    <img class="rounded" src="@linha.Key" />
+                </a>
+            }
+        }
+
+        else
+        {
+            <input type="button"
+                   value="Não há links configurados, clique aqui para configurar"
+                   onclick="location.href='@Url.Action("Index", "Links")'" />
         }
     }
+        
+        @*<a href="" onclick="@Action("Index", "Links")"><h2></h2></a>*@
 
     <a class="navbar-brand" asp-area="" asp-controller="Youtube" asp-action="Index">Liturgia</a>
 

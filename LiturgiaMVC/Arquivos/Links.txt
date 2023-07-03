@@ -1,4 +1,3 @@
-imagem = link
 https://i.ytimg.com/vi/Ur4XlO5NBvE/maxresdefault.jpg = https://youtube.com/channel/UC43UPD79xr7t_Vx3HHd3gSw/live
 #https://dia.portalodia.com/media/uploads/materias/2020/04/ao-vivo-acompanhe-a-santa-missa-desta-quarta-feira,-1o-de-abril.jpg = 
 https://img.cancaonova.com/cnimages/canais/uploads/sites/14/2018/12/Site.png = https://youtube.com/channel/UCm_nEAH7DCfjmXUbNkN6JFw/live #hesed
