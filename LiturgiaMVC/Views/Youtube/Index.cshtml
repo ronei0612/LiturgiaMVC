@@ -54,9 +54,13 @@
 			var frame = document.createElement("iframe");
 
 			frame.setAttribute('src', "https://www.youtube.com/embed/" + linkid);
-			frame.style.position = "absolute";
+			frame.style.position = "relative";
 			frame.style.height = "auto";
-			frame.style.width = "33%";
+
+			if ($(window).width() <= 699)
+				frame.style.width = "100%";
+			else
+				frame.style.width = "33%";
 			linkElement.parentNode.replaceChild(frame, linkElement);
 		}
 	</script>
