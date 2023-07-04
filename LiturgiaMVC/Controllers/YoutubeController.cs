@@ -124,6 +124,18 @@ namespace LiturgiaMVC.Controllers
 					imagesLinksYoutube.Add(videoImage, "https://www.youtube.com/embed/" + linkId);
 			}
 
+			var videosList = textoHtml.Split("playlistRenderer").Skip(1).ToArray();
+
+			foreach (var videoList in videosList)
+			{
+				var linkId = Regex.Split(videoList, "playlistId\":\"")[1].Split('"')[0];
+				var videoImage = Regex.Split(videoList, "\"url\":\"")[1].Split('\"')[0];
+
+				if (imagesLinksYoutube.ContainsKey(videoImage) == false)
+					imagesLinksYoutube.Add(videoImage, "https://www.youtube.com/embed/videoseries?list=" + linkId);
+				//https://www.youtube.com/embed/videoseries?list=PLDD382858034CD2DF
+			}
+
 			return imagesLinksYoutube;
 		}
 	}

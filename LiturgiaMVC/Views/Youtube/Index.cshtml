@@ -32,10 +32,22 @@
 			foreach (var linkYoutube in Model.YoutubeImageLinks)
 			{
 				string linkid = linkYoutube.Value.Replace("https://www.youtube.com/embed/", "");
+				string playlistid = linkYoutube.Value.Replace("https://www.youtube.com/embed/videoseries?list=", "");
 
-				<a href="#" id="@linkid" onclick="AbrirVideo('@linkid')">
-					<img class="rounded" src="@linkYoutube.Key" />
-				</a>
+				if (linkYoutube.Value.Contains("playlist"))
+				{
+					<a href="#" id="@playlistid" onclick="AbrirVideo('playlist' + '@playlistid')">
+						<img class="rounded border-1" src="@linkYoutube.Key" />
+					</a>
+				}
+
+				else
+				{
+					<a href="#" id="@linkid" onclick="AbrirVideo('@linkid')">
+						<img class="rounded" src="@linkYoutube.Key" />
+					</a>
+				}
+				
 			}
 
 			<div id="video"></div>
@@ -102,10 +114,14 @@
 		}
 
 		function AbrirVideo(linkid) {
-			var linkElement = document.getElementById(linkid);
+			debugger;
+			var linkElement = document.getElementById(linkid.replace('playlist', ''));
 			var frame = document.createElement("iframe");
 
-			frame.setAttribute('src', "https://www.youtube.com/embed/" + linkid);
+			if (linkid.includes('playlist'))
+				frame.setAttribute('src', "https://www.youtube.com/embed/videoseries?list==" + linkid.replace('playlist', ''));
+			else
+				frame.setAttribute('src', "https://www.youtube.com/embed/" + linkid);
 			frame.style.position = "relative";
 			frame.style.height = "250px";
 

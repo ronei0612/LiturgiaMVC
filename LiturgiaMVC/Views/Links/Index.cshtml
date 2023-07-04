@@ -6,8 +6,6 @@
 
 <h1>Edite imagens e links abaixo:</h1>
 
-<button type="button" onclick="Salvar()">Salvar</button>
-
 <br />
 
 <table class ="table table-bordered" id="tabela">
@@ -36,17 +34,18 @@
 
 <p id="erro" style="color: red; display: none" onclick="document.getElementById('erro').style.display = 'none'">Url incorreta (precisa começar com http)</p>
 
-<button type="button" onclick="Novo()">Nova linha</button>
+<button type="button" class="btn btn-success" onclick="Salvar()">Salvar</button>
+<button type="button" class="btn btn-secondary" onclick="Novo()">Nova linha</button>
 
 <script>
     
     function Salvar() {
         document.getElementById('erro').style.display = 'none';
-        var tabela = document.getElementById('tabela');
-        //var linhas = tabela.rows;
-        var cells = document.getElementsByTagName("td");
 
+        var tabela = document.getElementById('tabela');
+        var cells = document.getElementsByTagName("td");
         var data = [];
+
         for (var i = 0; i < cells.length; i++) {
             data.push(cells[i].innerHTML);
         }
