@@ -17,6 +17,8 @@ namespace LiturgiaMVC.Controllers
 			var link = v;
 			var dictYoutube = new Dictionary<string, string>();
 
+			link = link.Replace("t=", "start=");
+
 			if (string.IsNullOrEmpty(v) == false)
 			{
 				if (v.Contains("live/")) {
