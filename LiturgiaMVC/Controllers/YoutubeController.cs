@@ -33,13 +33,9 @@ namespace LiturgiaMVC.Controllers
 				else
 					link += "?rel=0&autoplay=1&loop=1";
 
-				//if (v.Contains("t="))
-
 
 				dictYoutube.Add("", "https://www.youtube.com/embed/" + link);
 				linksModel.YoutubeImageLinks = dictYoutube;
-				//string[] arr = { "https://www.youtube.com/embed/" + link };
-				//linksModel.Youtube = arr;
 			}
 
 			return View(linksModel);
