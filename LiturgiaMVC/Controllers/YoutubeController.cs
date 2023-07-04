@@ -11,13 +11,12 @@ namespace LiturgiaMVC.Controllers
     public class YoutubeController : Controller
     {
 		[HttpGet]
-        public IActionResult Index(string v = "")
+        public IActionResult Index(string v = "", string t = "")
         {
 			var linksModel = new LinksModel();
-			var link = v;
 			var dictYoutube = new Dictionary<string, string>();
-
-			link = link.Replace("t=", "start=");
+			var link = v;
+			
 
 			if (string.IsNullOrEmpty(v) == false)
 			{
@@ -33,6 +32,11 @@ namespace LiturgiaMVC.Controllers
 				else
 					link += "?rel=0&autoplay=1&loop=1";
 
+				if (string.IsNullOrEmpty("t") == false)
+					if (t == "0")
+						link += "&start=1";
+					else
+						link += "&start=" + t;
 
 				dictYoutube.Add("", "https://www.youtube.com/embed/" + link);
 				linksModel.YoutubeImageLinks = dictYoutube;
