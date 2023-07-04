@@ -50,7 +50,8 @@
             data.push(cells[i].innerHTML);
         }
 
-        window.location.href = '@Url.Action("Salvar", "Links")' + "?dados=" + data;
+        // preciso corrigir isso
+        window.location.href = '@Url.Action("Salvar", "Links") data-form-method="post"' + "?dados=" + data;
     }
 
     function Novo() {

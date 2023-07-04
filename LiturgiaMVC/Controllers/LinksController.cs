@@ -15,7 +15,7 @@ namespace LiturgiaMVC.Controllers
             return View(linksModel);
         }
 
-        
+        [HttpPost]
         public IActionResult Salvar(string dados)
         {
             string[] linhas = dados.Split(',');
