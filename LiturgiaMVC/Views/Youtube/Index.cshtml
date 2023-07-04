@@ -4,13 +4,12 @@
     ViewData["Title"] = "Youtube";
 }
 
-@*<body onload='carregarLinkUrl()'>*@
 <body>
 	<br />
 
 	<form method="post" asp-controller="Youtube" asp-action="GerarLink">
 		<input type="text" id="input" name="texto" onfocus="this.select()">
-		<button id="okButton" type="submit">Ir</button>
+		<button id="okButton" type="submit">Buscar</button>
 	</form>
 
 	<br />
@@ -20,7 +19,7 @@
 
 		if (Model.YoutubeImageLinks.Count == 1)
 		{
-			<iframe style="display:block" id="youtubeFrame" src="@Model.YoutubeImageLinks.ElementAt(0).Value" allowfullscreen allow="autoplay"></iframe>
+			<iframe id="youtubeFrame" src="@Model.YoutubeImageLinks.ElementAt(0).Value" allowfullscreen allow="autoplay" style="width ='100%'"></iframe>
 		}
 
 		else
@@ -44,6 +43,19 @@
 	<br>
 
 	<script>
+		//var frame = document.getElementById('youtubeFrame');
+		//alert(frame);
+		//if (frame != null){
+		//	alert('sdf');
+		//	//alert($(window).width());
+		//	//alert('sdfbbb');
+		//	//frame.style.width = "100%";
+		//	//if ($(window).width() <= 699){
+		//	//	alert('b');
+		//	//	frame.style.width = "100%";
+		//	//}
+		//}
+
 		function AbrirVideo(linkid) {
 			var linkElement = document.getElementById(linkid);
 			var frame = document.createElement("iframe");

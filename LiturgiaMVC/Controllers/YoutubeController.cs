@@ -15,16 +15,29 @@ namespace LiturgiaMVC.Controllers
         {
 			var linksModel = new LinksModel();
 			var link = v;
+			var dictYoutube = new Dictionary<string, string>();
 
 			if (string.IsNullOrEmpty(v) == false)
 			{
-				if (v.Contains('?'))
+				if (v.Contains("live/")) {
+					var canalid = Regex.Split(v, "live/")[1];
+					if (canalid.Contains('?'))
+						canalid = canalid.Split('?')[0];
+					link += "live_stream?channel=" + canalid + "&rel=0&autoplay=1&loop=1";
+				}
+					
+				else if (v.Contains('?'))
 					link += "&rel=0&autoplay=1&loop=1";
 				else
 					link += "?rel=0&autoplay=1&loop=1";
 
-				string[] arr = { "https://www.youtube.com/embed/" + link };
-				linksModel.Youtube = arr;
+				//if (v.Contains("t="))
+
+
+				dictYoutube.Add("", "https://www.youtube.com/embed/" + link);
+				linksModel.YoutubeImageLinks = dictYoutube;
+				//string[] arr = { "https://www.youtube.com/embed/" + link };
+				//linksModel.Youtube = arr;
 			}
 
 			return View(linksModel);

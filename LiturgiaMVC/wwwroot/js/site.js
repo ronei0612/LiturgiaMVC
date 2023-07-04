@@ -36,5 +36,8 @@ $(document).ready(function () {
 			.css('min-width', '100%')
 			.css('object-fit', 'fill')
 			.css('height', 'auto');
+		//alert('aa');
+		$('iframe')
+			.css('width', '100%')
 	}
 });

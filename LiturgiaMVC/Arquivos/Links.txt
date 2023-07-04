@@ -3,5 +3,5 @@ https://i.ytimg.com/vi/Ur4XlO5NBvE/maxresdefault.jpg = https://youtube.com/chann
 https://img.cancaonova.com/cnimages/canais/uploads/sites/14/2018/12/Site.png = https://youtube.com/channel/UCm_nEAH7DCfjmXUbNkN6JFw/live #hesed
 https://img.cancaonova.com/cnimages/canais/uploads/sites/7/2017/09/thumb-wide-blue.jpg = https://youtube.com/channel/UCVrKQMmA2ew9LFzeIDaOFgw/live #cancao_nova
 #<a href="https://www.youtube.com/watch?v=0xNzlVHaEXY&amp;list=PL_1F_fsE9bd6VY9DeflOcdqGld62uyt90&amp;t=0">
-https://i.ytimg.com/vi/HuRHaZqhxsY/maxresdefault.jpg = https://www.youtube.com/watch?v=unjRn11c7VE&t=0 #patricio
+https://i.ytimg.com/vi/HuRHaZqhxsY/maxresdefault.jpg = https://localhost:7188/youtube?v=unjRn11c7VE #patricio
 https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/1200px-YouTube_full-color_icon_%282017%29.svg.png = http://youtubei.somee.com/youtube.htm?yPlfUWr1NFg
