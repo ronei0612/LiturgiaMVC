@@ -5,13 +5,14 @@ using LiturgiaMVC.Models;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using System.Net;
+using Microsoft.Extensions.Primitives;
 
 namespace LiturgiaMVC.Controllers
 {
     public class YoutubeController : Controller
     {
 		[HttpGet]
-        public IActionResult Index(string v = "", string t = "")
+        public IActionResult Index(string v = "", string t = "", string live = "", string list = "")
         {
 			var linksModel = new LinksModel();
 			var dictYoutube = new Dictionary<string, string>();
@@ -20,14 +21,7 @@ namespace LiturgiaMVC.Controllers
 
 			if (string.IsNullOrEmpty(v) == false)
 			{
-				if (v.Contains("live/")) {
-					var canalid = Regex.Split(v, "live/")[1];
-					if (canalid.Contains('?'))
-						canalid = canalid.Split('?')[0];
-					link += "live_stream?channel=" + canalid + "&rel=0&autoplay=1&loop=1";
-				}
-					
-				else if (v.Contains('?'))
+                if (v.Contains('?'))
 					link += "&rel=0&autoplay=1&loop=1";
 				else
 					link += "?rel=0&autoplay=1&loop=1";
@@ -42,7 +36,19 @@ namespace LiturgiaMVC.Controllers
 				linksModel.YoutubeImageLinks = dictYoutube;
 			}
 
-			return View(linksModel);
+			else if (string.IsNullOrEmpty(list) == false)
+			{
+                dictYoutube.Add("", "https://www.youtube.com/embed/" + "videoseries?list=" + list);
+                linksModel.YoutubeImageLinks = dictYoutube;
+            }
+
+            else if (string.IsNullOrEmpty(live) == false)
+            {
+                dictYoutube.Add("", "https://www.youtube.com/embed/" + "live_stream?channel=" + live + "&rel=0&autoplay=1&loop=1");
+                linksModel.YoutubeImageLinks = dictYoutube;
+            }
+
+            return View(linksModel);
         }
 
 		[HttpPost]

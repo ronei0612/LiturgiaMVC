@@ -26,25 +26,28 @@ namespace LiturgiaMVC
 
             foreach (string linha in linhas)
             {
-                if (linha[0] != '#')
+                if (string.IsNullOrEmpty(linha) == false)
                 {
-                    if (linha.Contains(" = "))
+                    if (linha[0] != '#')
                     {
-                        string imagem = Regex.Split(linha, " = ")[0];
-
-                        if (imagem.Contains("http"))
+                        if (linha.Contains(" = "))
                         {
-                            string link = Regex.Split(linha, " = ")[1];
+                            string imagem = Regex.Split(linha, " = ")[0];
 
-                            if (link.Contains("http"))
+                            if (imagem.Contains("http"))
                             {
-                                if (link.Contains('#'))
-                                    link = link.Split('#')[0];
+                                string link = Regex.Split(linha, " = ")[1];
 
-                                if (imagem.Contains('#'))
-                                    imagem = imagem.Split('#')[0];
+                                if (link.Contains("http"))
+                                {
+                                    if (link.Contains('#'))
+                                        link = link.Split('#')[0];
 
-                                linksDict.Add(imagem.Trim(), link.Trim());
+                                    if (imagem.Contains('#'))
+                                        imagem = imagem.Split('#')[0];
+
+                                    linksDict.Add(imagem.Trim(), link.Trim());
+                                }
                             }
                         }
                     }
