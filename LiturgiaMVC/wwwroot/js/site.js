@@ -19,6 +19,12 @@
 	}
 }
 
+function DarkMode() {
+	if (document.body.style.backgroundColor == "white")
+		document.body.style.backgroundColor = "#0D1117";
+	else
+		document.body.style.backgroundColor = "white";
+}
 
 $(document).ready(function () {
 	//Remover Comercial

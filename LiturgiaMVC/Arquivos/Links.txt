@@ -14,7 +14,7 @@ https://img.cancaonova.com/cnimages/canais/uploads/sites/7/2017/09/thumb-wide-bl
 https://stcotvfoco.com.br/2015/02/TV-Aparecida_logo.jpg = https://localhost:7188/youtube?live=UCfYrK5JU5EznsnK3wQE7iIg #Santuário Nacional de Aparecida
 # https://showcasepro.com.br/blog/wp-content/uploads/2020/07/rs-21-logo.png = https://player.jmvstream.com/lvw/DhqfxTybrvDUu7iMnuVVrGTZV2miq1 #seculo 21
 https://direct.rhapsody.com/imageserver/images/alb.539572133/500x500.jpg = https://localhost:7188/youtube?live=UCbh6_TmFnAJLI56aAQeD3qw #Frei Gilson
-https://i.ytimg.com/vi/HuRHaZqhxsY/maxresdefault.jpg = https://www.youtube.com/watch?v=0xNzlVHaEXY&amp;list=PL_1F_fsE9bd6VY9DeflOcdqGld62uyt90&amp;t=0 #São Patricio
+https://i.ytimg.com/vi/HuRHaZqhxsY/maxresdefault.jpg = https://localhost:7188/youtube?v=0xNzlVHaEXY&amp;list=PL_1F_fsE9bd6VY9DeflOcdqGld62uyt90&amp;t=0 #São Patricio
 https://www.paroquiaimaculada7lagoas.com.br/wp-content/uploads/2019/03/images-4.jpeg = https://www.youtube.com/results?search_query=%22frei+lu%C3%ADs+marin%22+%22liturgia+di%C3%A1ria%22+-ter%C3%A7o&amp;sp=CAI%253D #Liturgia
 https://sumateologica.files.wordpress.com/2011/07/a_resposta_catolica_600.jpg = https://localhost:7188/youtube?list=PLW4XZpSEOqXWV1OD6czlaMx6eubosHABj #Resposta Católica
 https://www.acidigital.com/imagespp/size680/Rosario_011017.jpg = https://localhost:7188/youtube?v=DmRLkSsWk38 #Rosário
