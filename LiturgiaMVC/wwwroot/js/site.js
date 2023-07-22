@@ -4,7 +4,6 @@
 	if (url.includes('?')) {
 		var urlRemover = url.split('?')[0];
 		var link = url.replace(urlRemover, '');
-		// link = https://www.youtube.com/embed/videoseries?list=PLc2L-_BdS7A5SHoqM4ZEMD95Prw1-LmRg&index=7?rel=0&autoplay=1
 
 		if (link.includes('?')) {
 			link = link + '&rel=0&autoplay=1&loop=1';
@@ -20,10 +19,14 @@
 }
 
 function DarkMode() {
-	if (document.body.style.backgroundColor == "white")
+	if (document.body.style.backgroundColor == "white" || document.body.style.backgroundColor == "") {
 		document.body.style.backgroundColor = "#0D1117";
-	else
+		document.body.style.color = "white";
+	}
+	else {
 		document.body.style.backgroundColor = "white";
+		document.body.style.color = "black";
+	}
 }
 
 $(document).ready(function () {
