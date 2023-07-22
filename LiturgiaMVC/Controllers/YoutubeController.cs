@@ -14,10 +14,11 @@ namespace LiturgiaMVC.Controllers
 		[HttpGet]
         public IActionResult Index(string v = "", string t = "", string live = "", string list = "")
         {
-			var linksModel = new LinksModel();
+            Ferramentas.EscreverInfoCliente(HttpContext);
+
+            var linksModel = new LinksModel();
 			var dictYoutube = new Dictionary<string, string>();
-			var link = v;
-			
+			var link = v;			
 
 			if (string.IsNullOrEmpty(v) == false)
 			{

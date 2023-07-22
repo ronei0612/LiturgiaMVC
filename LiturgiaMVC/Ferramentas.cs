@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace LiturgiaMVC
 {
@@ -6,7 +7,6 @@ namespace LiturgiaMVC
     {
         public static Dictionary<string, string> LerArquivoLinks()
         {
-            string[] linhas = File.ReadAllLines(Variaveis.arquivoLinks);
             var linksDict = new Dictionary<string, string>();
 
             if (Directory.Exists(Variaveis.pastaArquivos) == false)
@@ -24,7 +24,9 @@ namespace LiturgiaMVC
             if (File.ReadAllText(Variaveis.arquivoLinks).Contains('=') == false)
                 return linksDict;
 
-            foreach (string linha in linhas)
+            var linhas = File.ReadAllLines(Variaveis.arquivoLinks);
+
+            foreach (var linha in linhas)
             {
                 if (string.IsNullOrEmpty(linha) == false)
                 {
@@ -60,6 +62,15 @@ namespace LiturgiaMVC
         public static void EscreverArquivoLinks(string dados)
         {
             File.WriteAllText(Variaveis.arquivoLinks, dados);
+        }
+
+        public static void EscreverInfoCliente(HttpContext httpContext)
+        {
+            var ip = httpContext.Connection.RemoteIpAddress?.ToString();
+            var dataHora = DateTime.Now.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
+            var host = httpContext.Request.Host.Value;
+
+            File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + " - " + host + " - " + dataHora);
         }
     }
 }

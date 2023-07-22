@@ -1,6 +1,7 @@
 ﻿using LiturgiaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace LiturgiaMVC.Controllers
 {
@@ -15,6 +16,8 @@ namespace LiturgiaMVC.Controllers
 
         public IActionResult Index()
         {
+            Ferramentas.EscreverInfoCliente(HttpContext);
+
             var linksModel = new LinksModel
             {
                 LinksDict = Ferramentas.LerArquivoLinks()
