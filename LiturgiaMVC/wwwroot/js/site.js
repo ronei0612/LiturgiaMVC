@@ -1,24 +1,4 @@
-﻿function carregarLinkUrl() {
-	var url = window.location.href;
-
-	if (url.includes('?')) {
-		var urlRemover = url.split('?')[0];
-		var link = url.replace(urlRemover, '');
-
-		if (link.includes('?')) {
-			link = link + '&rel=0&autoplay=1&loop=1';
-			console.log(link);
-			document.getElementById('youtubeFrame').src = 'https://www.youtube.com/embed/' + link;
-		} else {
-			link = link + '?rel=0&autoplay=1&loop=1';
-			console.log(link);
-			document.getElementById('youtubeFrame').src = 'https://www.youtube.com/embed/' + link;
-		}
-		document.getElementById('youtubeFrame').style.display = 'block';
-	}
-}
-
-function DarkMode() {
+﻿function DarkMode() {
 	if (document.body.style.backgroundColor == "white" || document.body.style.backgroundColor == "") {
 		document.body.style.backgroundColor = "#0D1117";
 		document.body.style.color = "white";

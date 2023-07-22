@@ -24,13 +24,6 @@ img {
     vertical-align: baseline;
 }
 
-/*iframe.full {
-    display: block;
-    border: none;
-    height: 100vh;
-    width: 100vw;
-}*/
-
 iframe {
     position: relative;
     width: 33%;
