@@ -69,8 +69,9 @@ namespace LiturgiaMVC
             var ip = httpContext.Connection.RemoteIpAddress?.ToString();
             var dataHora = DateTime.Now.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
             var host = httpContext.Request.Host.Value;
+            var path = httpContext.Request.Path.Value;
 
-            File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + " - " + host + " - " + dataHora);
+            File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + " - " + host + path + " - " + dataHora);
         }
     }
 }
