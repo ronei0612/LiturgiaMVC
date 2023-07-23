@@ -1,12 +1,12 @@
 ﻿function DarkMode() {
-	if (document.body.style.backgroundColor == "white" || document.body.style.backgroundColor == "") {
-		document.body.style.backgroundColor = "#0D1117";
-		document.body.style.color = "white";
-	}
-	else {
-		document.body.style.backgroundColor = "white";
-		document.body.style.color = "black";
-	}
+    if (document.body.classList.contains("bg-dark")) {
+        document.body.classList = "bg-light text-dark";
+        document.getElementById("navBar").classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3";
+    }
+    else {
+        document.body.classList = "bg-dark text-light";
+        document.getElementById("navBar").classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black box-shadow mb-3";
+    }
 }
 
 $(document).ready(function () {

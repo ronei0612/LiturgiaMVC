@@ -6,7 +6,7 @@
 
         public static string links = "Links.txt";
 
-        public static string IPs = "IPs.txt";
+        public static string IPs = "IPs.csv";
 
         public static string arquivoLinks = Path.Combine(pastaArquivos, links);
 

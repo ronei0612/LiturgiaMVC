@@ -71,7 +71,7 @@ namespace LiturgiaMVC
             var host = httpContext.Request.Host.Value;
             var path = httpContext.Request.Path.Value;
 
-            File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + " - " + host + path + " - " + dataHora);
+            File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
         }
     }
 }
