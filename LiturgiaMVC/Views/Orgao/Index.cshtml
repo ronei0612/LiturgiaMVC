@@ -1,0 +1,112 @@
+﻿@model LinksModel
+
+@{
+	string[] acidentes = { "5+", "6", "7", "7+", "9", "11" };
+}
+
+<style>
+	input:focus {
+		background: #92a8d1;
+	}
+</style>
+
+<body onload="setTom('@Model.Tom')">
+    <button id="play-pause" data-playing="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+            <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z" />
+        </svg>
+    </button>
+
+	@*<audio id="myVideo" width="320" height="176" controls>
+		<source src="https://freewavesamples.com/files/Bass-Drum-1.wav" type="audio/wav">
+	</audio>*@
+    <br />
+    <br />
+
+	<select id="tomSelect" onchange="mudarTom()">
+		<option value="C">C</option>
+		<option value="D">D</option>
+		<option value="E">E</option>
+		<option value="F">F</option>
+	</select>
+
+	<br />
+	<br />
+
+	@if (Model.AcordesLinks != null)
+	{
+		<table>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><input type="button" value="@acidentes[0]" onclick="playAcorde(this.value)"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><input type="button" value="@acidentes[1]" onclick="playAcorde(this.value)"></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="@Model.AcordesLinks[0]" onclick="playAcorde(0)"></td>
+				<td><input type="button" value="@Model.AcordesLinks[2]" onclick="playAcorde('subDominante')"></td>
+				<td><input type="button" value="@Model.AcordesLinks[4]" onclick="playAcorde('dominantea')"></td>
+				<td><input type="button" value="@acidentes[2]" onclick="playAcorde(this.value)"></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="@Model.AcordesLinks[1]" onclick="playAcorde(1)"></td>
+				<td><input type="button" value="@Model.AcordesLinks[3]" onclick="playAcorde('subDominanteaMenor')"></td>
+				<td><input type="button" value="@Model.AcordesLinks[5]" onclick="playAcorde('dominanteaMenor')"></td>
+				<td><input type="button" value="@acidentes[3]" onclick="playAcorde(this.value)"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><input type="button" value="@acidentes[4]" onclick="playAcorde(this.value)"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><input type="button" value="@acidentes[5]" onclick="playAcorde(this.value)"></td>
+			</tr>
+		</table>
+	}
+
+	<script>
+		var acordes = [ new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[0]])'),
+						new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[1]])') ];
+
+		var tocando = -1;
+		var tonicaMenor = new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[1]])');
+
+		function mudarTom() {
+			var tomSelecionado = document.getElementById("tomSelect").value;
+			window.location.href = '@Url.Action("Index", "Orgao")?tom=' + tomSelecionado;
+		}
+
+		function playAcorde(acorde) {
+			for (let i = 0; i < acordes.length; i++) {
+				acordes[i].pause();
+				acordes[i].currentTime = 0;
+			}
+
+			if (tocando != acorde) {				
+				acordes[acorde].play();
+				tocando = acorde;
+			}
+		}
+
+		function setTom(acorde = 'C') {
+			document.getElementById('tomSelect').value = acorde;
+		}
+
+		function setPlaySpeed() {
+			let vid = document.getElementById("myVideo");
+			vid.playbackRate = 0.5;
+		}
+	</script>
+
+</body>

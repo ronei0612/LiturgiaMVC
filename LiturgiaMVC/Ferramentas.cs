@@ -73,5 +73,38 @@ namespace LiturgiaMVC
 
             File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
         }
+
+        public static readonly Dictionary<string, string[]> acordes = new()
+        {
+            { "C", new string[] { "C", "Am", "F", "Dm", "G", "Em" } },
+            { "D", new string[] { "D", "Bm", "G", "Em", "A", "F#m" } }
+        };
+
+        public static readonly Dictionary<string, string> acordesLinks = new()
+        {
+            { "orgaoC", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoCm", "https://docs.google.com/uc?export=download&id=1gbyBBLDo8CPoNPYBBnk-Y_6BfwejabHS" },
+            { "orgaoC#", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoC#m", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoD", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoDm", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoD#", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoD#m", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoE", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoEm", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoF", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoFm", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoF#m", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoG", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoGm", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoG#", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoG#m", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoA", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoAm", "https://docs.google.com/uc?export=download&id=1gbyBBLDo8CPoNPYBBnk-Y_6BfwejabHS" },
+            { "orgaoA#", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },            
+            { "orgaoA#m", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoB", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgaoBm", "https://docs.google.com/uc?export=download&id=1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+        };
     }
 }
