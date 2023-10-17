@@ -76,18 +76,18 @@ namespace LiturgiaMVC
 
         public static readonly Dictionary<string, string[]> acordes = new()
         {
-            { "C", new string[] { "C", "Dm", "Em", "F", "G", "Am" } },
-            { "D", new string[] { "D", "Em", "F#m", "G", "A", "Bm" } },
-            { "E", new string[] { "E", "F#m", "G#m", "A", "B", "C#m" } },
-            { "F", new string[] { "F", "Gm", "Am", "Bb", "C", "Dm" } },
-            { "G", new string[] { "G", "Am", "Bm", "C", "D", "Em" } },
-            { "A", new string[] { "A", "Bm", "C#m", "D", "E", "F#m" } },
-            { "Am", new string[] { "Am", "C", "Dm", "Em", "F", "G", "A", "E" } },
-            { "Bm", new string[] { "Bm", "D", "Em", "F#m", "G", "A", "B", "F#" } },
-            { "C#m", new string[] { "Cm", "E", "F#m", "G#m", "A", "B", "C#", "G#" } },
-            { "Dm", new string[] { "Dm", "F", "Gm", "Am", "Bb", "C", "D", "A" } },
-            { "Em", new string[] { "Em", "G", "Am", "Bm", "C", "D", "E", "B" } },
-            { "F#m", new string[] { "F#m", "A", "Bm", "C#m", "D", "E", "F#", "C#" } },
+            { "C", new string[] { "C", "Dm", "Em", "F", "G", "Am", "", "" } },
+            { "D", new string[] { "D", "Em", "F#m", "G", "A", "Bm", "", "" } },
+            { "E", new string[] { "E", "F#m", "G#m", "A", "B", "C#m", "", "" } },
+            { "F", new string[] { "F", "Gm", "Am", "Bb", "C", "Dm" , "", ""} },
+            { "G", new string[] { "G", "Am", "Bm", "C", "D", "Em" , "", ""} },
+            { "A", new string[] { "A", "Bm", "C#m", "D", "E", "F#m" , "", ""} },
+            { "Am", new string[] { "C", "Dm", "Em", "F", "G", "Am", "A", "E" } },
+            { "Bm", new string[] { "D", "Em", "F#m", "G", "A", "Bm", "B", "F#" } },
+            { "C#m", new string[] { "E", "F#m", "G#m", "A", "B", "Cm", "C#", "G#" } },
+            { "Dm", new string[] { "F", "Gm", "Am", "Bb", "C", "Dm", "D", "A" } },
+            { "Em", new string[] { "G", "Am", "Bm", "C", "D", "Em", "E", "B" } },
+            { "F#m", new string[] { "A", "Bm", "C#m", "D", "E", "F#m", "F#", "C#" } },
         };
 
         public static readonly Dictionary<string, string> acordesLinks = new()

@@ -136,41 +136,29 @@
 
 	@if (Model.AcordesLinks != null)
 	{
+		<div class="container mt-3">
+			<label>Tom:</label>
+			<select class="form-control" id="tomSelect" onchange="mudarTom()">
+				<option value="C">C</option>
+				<option value="D">D</option>
+				<option value="E">E</option>
+				<option value="F">F</option>
+				<option value="G">G</option>
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="Am">Am</option>
+				<option value="Bm">Bm</option>
+				<option value="Cm">Cm</option>
+				<option value="Dm">Dm</option>
+				<option value="Em">Em</option>
+				<option value="Fm">Fm</option>
+				<option value="Gm">Gm</option>
+			</select>
+		</div>
+
 		<table>
 			<tr>
-				<td>
-					<div class="container mt-3">
-					Tom:
-					</div>
-				</td>
-				<td>
-					<div class="container mt-3">
-						<select class="form-control" id="tomSelect" onchange="mudarTom()">
-							<option value="C">C</option>
-							<option value="D">D</option>
-							<option value="E">E</option>
-							<option value="F">F</option>
-							<option value="G">G</option>
-							<option value="A">A</option>
-							<option value="B">B</option>
-						</select>
-					</div>
-				</td>
-				<td>
-					<div class="container mt-3">
-						<select class="form-control" id="tomSelect" onchange="mudarTom()">
-							<option value="Am">Am</option>
-							<option value="Bm">Bm</option>
-							<option value="Cm">Cm</option>
-							<option value="Dm">Dm</option>
-							<option value="Em">Em</option>
-							<option value="Fm">Fm</option>
-							<option value="Gm">Gm</option>
-						</select>
-					</div>
-				</td>
-			</tr>
-			<tr>
+				<td></td>
 				<td></td>
 				<td>
 					<button id="play-pause" data-playing="false" class="botao parar" onclick="playAcorde(-1, this)">
@@ -180,21 +168,38 @@
 					</button>
 				</td>
 				<td></td>
+				<td></td>
 			</tr>
 			<tr>
+				<td></td>
 				<td><input type="button" class="botao azul" value="@Model.AcordesLinks[0]" onclick="playAcorde(0, this)"></td>
 				<td><input type="button" class="botao vermelho" value="@Model.AcordesLinks[3]" onclick="playAcorde(3, this)"></td>
 				<td><input type="button" class="botao amarelo" value="@Model.AcordesLinks[4]" onclick="playAcorde(4, this)"></td>
+				<td></td>
 			</tr>
 			<tr>
+				<td>
+					@if (@Model.AcordesLinks[6] != "")
+					{
+						<input type="button" class="botao marrom" value="@Model.AcordesLinks[6]" onclick="playAcorde(6, this)">
+					}
+				</td>
 				<td><input type="button" class="botao roxo" value="@Model.AcordesLinks[5]" onclick="playAcorde(5, this)"></td>
 				<td><input type="button" class="botao rosa" value="@Model.AcordesLinks[2]" onclick="playAcorde(2, this)"></td>
 				<td><input type="button" class="botao marrom" value="@Model.AcordesLinks[1]" onclick="playAcorde(1, this)"></td>
+				<td>
+					@if (@Model.AcordesLinks[7] != "")
+					{
+						<input type="button" class="botao marrom" value="@Model.AcordesLinks[7]" onclick="playAcorde(7, this)">
+					}
+				</td>
 			</tr>
 			<tr>
+				<td></td>
 				<td><input type="button" class="botao cinza" value="@acidentes[1]" onclick="playAcorde(this.value, this)"></td>
 				<td><input type="button" class="botao cinza" value="@acidentes[2]" onclick="playAcorde(this.value, this)"></td>
 				<td><input type="button" class="botao cinza" value="@acidentes[4]" onclick="playAcorde(this.value, this)"></td>
+				<td></td>
 			</tr>
 		</table>
 	}
