@@ -232,19 +232,19 @@
 		// Levanta todos os botões
 		if (tocando > -1)
 			document.getElementsByClassName('pressionado')[0].classList.toggle('pressionado', false);
-		
-		if (acorde > -1) {
-			botao.classList.toggle('pressionado', true);
 
-			if (tocando == acorde)
-				setTimeout(() => {
+		if (tocando != acorde) {
+			if (acorde > -1) {
+				botao.classList.toggle('pressionado', true);
+
+				if (tocando != acorde)
 					acordes[acorde].play();
-				}, "50");
-			else
-				acordes[acorde].play();
-		}
+			}
+			tocando = acorde;
 
-		tocando = acorde;
+		}
+		else
+			tocando = -1;
 	}
 
 	function setTom(acorde = 'C') {
