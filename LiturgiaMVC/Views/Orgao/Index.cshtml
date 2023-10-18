@@ -224,14 +224,8 @@
 	}
 
 	function playAcorde(acorde, botao) {
-		for (let i = 0; i < acordes.length; i++) {
-			acordes[i].pause();
-			acordes[i].currentTime = 0;
-		}
-
-		// Levanta todos os botões
-		if (tocando > -1)
-			document.getElementsByClassName('pressionado')[0].classList.toggle('pressionado', false);
+		pararOsAcordes();
+		levantarOsBotoes();
 
 		if (tocando != acorde) {
 			if (acorde > -1) {
@@ -241,7 +235,6 @@
 					acordes[acorde].play();
 			}
 			tocando = acorde;
-
 		}
 		else
 			tocando = -1;
@@ -251,8 +244,15 @@
 		document.getElementById('tomSelect').value = acorde;
 	}
 
-	function setPlaySpeed() {
-		let vid = document.getElementById("myVideo");
-		vid.playbackRate = 0.5;
+	function pararOsAcordes() {
+		for (let i = 0; i < acordes.length; i++) {
+			acordes[i].pause();
+			acordes[i].currentTime = 0;
+		}
+	}
+
+	function levantarOsBotoes(){
+		if (tocando > -1)
+			document.getElementsByClassName('pressionado')[0].classList.toggle('pressionado', false);
 	}
 </script>
