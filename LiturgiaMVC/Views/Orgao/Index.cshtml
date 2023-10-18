@@ -148,10 +148,10 @@
 				<option value="B">B</option>
 				<option value="Am">Am</option>
 				<option value="Bm">Bm</option>
-				<option value="Cm">Cm</option>
+				<option value="Cm">C#m</option>
 				<option value="Dm">Dm</option>
 				<option value="Em">Em</option>
-				<option value="Fm">Fm</option>
+				<option value="Fm">F#m</option>
 				<option value="Gm">Gm</option>
 			</select>
 		</div>
@@ -215,6 +215,8 @@
 					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[4]])'),
 					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[5]])')
 	];
+
+	var notasAcordes = @Html.Raw(Json.Serialize(@Model.NotasAcordes));
 
 	var tocando = -1;
 

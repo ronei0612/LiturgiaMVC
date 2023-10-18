@@ -12,7 +12,9 @@ namespace LiturgiaMVC.Controllers
             var linksModel = new LinksModel
             {
                 AcordesLinks = Ferramentas.acordes[tom],
-                LinksDict = Ferramentas.acordesLinks,                
+                LinksDict = Ferramentas.acordesLinks,
+                NotasAcordes = Ferramentas.escalas,
+                NotasLinks = Ferramentas.notasLinks,
                 Tom = tom
             };
 

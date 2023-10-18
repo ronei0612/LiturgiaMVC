@@ -79,15 +79,47 @@ namespace LiturgiaMVC
             { "C", new string[] { "C", "Dm", "Em", "F", "G", "Am", "", "" } },
             { "D", new string[] { "D", "Em", "F#m", "G", "A", "Bm", "", "" } },
             { "E", new string[] { "E", "F#m", "G#m", "A", "B", "C#m", "", "" } },
-            { "F", new string[] { "F", "Gm", "Am", "Bb", "C", "Dm" , "", ""} },
-            { "G", new string[] { "G", "Am", "Bm", "C", "D", "Em" , "", ""} },
-            { "A", new string[] { "A", "Bm", "C#m", "D", "E", "F#m" , "", ""} },
+            { "F", new string[] { "F", "Gm", "Am", "Bb", "C", "Dm", "", ""} },
+            { "G", new string[] { "G", "Am", "Bm", "C", "D", "Em", "", ""} },
+            { "A", new string[] { "A", "Bm", "C#m", "D", "E", "F#m", "", ""} },
             { "Am", new string[] { "C", "Dm", "Em", "F", "G", "Am", "A", "E" } },
             { "Bm", new string[] { "D", "Em", "F#m", "G", "A", "Bm", "B", "F#" } },
             { "C#m", new string[] { "E", "F#m", "G#m", "A", "B", "Cm", "C#", "G#" } },
             { "Dm", new string[] { "F", "Gm", "Am", "Bb", "C", "Dm", "D", "A" } },
             { "Em", new string[] { "G", "Am", "Bm", "C", "D", "Em", "E", "B" } },
-            { "F#m", new string[] { "A", "Bm", "C#m", "D", "E", "F#m", "F#", "C#" } },
+            { "F#m", new string[] { "A", "Bm", "C#m", "D", "E", "F#m", "F#", "C#" } }
+        };
+
+        public static readonly Dictionary<string, string[]> escalas = new()
+        {
+            { "C", new string[] { "do", "re", "mi", "fa", "sol", "la", "si", "re#", "la#" } },
+            { "D", new string[] { "re", "mi", "fa#", "sol", "la", "si", "do#", "fa", "do" } },
+            { "E", new string[] { "mi", "fa#", "sol#", "la#", "si", "do#", "re#", "sol", "re" } },
+            { "F", new string[] { "fa", "sol", "la", "la#", "do", "re", "mi", "sol#", "re#" } },
+            { "G", new string[] { "sol", "la", "si", "do", "re", "mi", "fa#", "la#", "fa" } },
+            { "A", new string[] { "la", "si", "do#", "re", "mi", "fa#", "sol#", "do", "sol" } },
+            { "Am", new string[] { "la", "si", "do", "re", "mi", "fa", "sol", "do#", "sol#" } },
+            { "Bm", new string[] { "si", "do", "re", "mi", "fa#", "sol", "la", "re#", "la#" } },
+            { "C#m", new string[] { "do#", "re#", "fa", "fa#", "sol#", "la#", "do", "mi", "si" } },
+            { "Dm", new string[] { "re", "mi", "fa", "sol", "la", "la#", "do", "fa#", "do#" } },
+            { "Em", new string[] { "mi", "fa#", "sol", "la", "si", "do", "re", "sol#", "re#" } },
+            { "F#m", new string[] { "fa#", "sol#", "la", "si", "do#", "re", "mi", "la#", "fa" } }
+        };
+
+        public static readonly Dictionary<string, string> notasLinks = new()
+        {
+            { "orgao_do", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_do#", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_re", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_re#", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_mi", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_fa", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_fa#", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_sol", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_sol#", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_la", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_la#", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_si", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" }
         };
 
         public static readonly Dictionary<string, string> acordesLinks = new()
@@ -115,7 +147,7 @@ namespace LiturgiaMVC
             { "orgaoA#", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },            
             { "orgaoA#m", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
             { "orgaoB", "https://docs.google.com/uc?export=download&id=" + "1jwX3WuxcBNLSV2lkrW6UHpjtO9qtpFAa" },
-            { "orgaoBm", "https://docs.google.com/uc?export=download&id=" + "1xgdJALMsRfea6eOsEVNuBlTupabp4JdD" },
+            { "orgaoBm", "https://docs.google.com/uc?export=download&id=" + "1xgdJALMsRfea6eOsEVNuBlTupabp4JdD" }
         };
     }
 }
