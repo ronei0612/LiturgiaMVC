@@ -172,7 +172,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="button" class="botao azul" value="@Model.AcordesLinks[0]" onclick="playAcorde(0, this)"></td>
+				<td><input type="button" class="botao azul" value="@Model.AcordesLinks[0]" onclick="playAcorde(0, this, 'C')"></td>
 				<td><input type="button" class="botao vermelho" value="@Model.AcordesLinks[3]" onclick="playAcorde(3, this)"></td>
 				<td><input type="button" class="botao amarelo" value="@Model.AcordesLinks[4]" onclick="playAcorde(4, this)"></td>
 				<td></td>
@@ -208,24 +208,44 @@
 <script>
 	document.getElementById('tomSelect').value = '@Model.Tom';
 
-	var acordes = [ new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[0]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[1]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[2]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[3]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[4]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[5]])')
+	var notas = [
+		new Audio('@Html.Raw(@Model.NotasLinks[0])'),
+		new Audio('@Html.Raw(@Model.NotasLinks[1])'),
+		new Audio('@Html.Raw(@Model.NotasLinks[2])'),
+		new Audio('@Html.Raw(@Model.NotasLinks[3])'),
+		new Audio('@Html.Raw(@Model.NotasLinks[4])'),
+		new Audio('@Html.Raw(@Model.NotasLinks[5])'),
+		new Audio('@Html.Raw(@Model.NotasLinks[6])'),
+		new Audio('@Html.Raw(@Model.NotasLinks[7])'),
+		new Audio('@Html.Raw(@Model.NotasLinks[8])')
 	];
+	notas.forEach((acorde) => acorde.loop = true);
 
 	var notasAcordes = @Html.Raw(Json.Serialize(@Model.NotasAcordes));
-
+	var notasLinks = @Html.Raw(Json.Serialize(@Model.NotasLinks));
+	var indicesNotasAcordes = @Html.Raw(Json.Serialize(@Model.IndicesNotasAcordes));
 	var tocando = -1;
+
+	function montarAcordes(){
+		var tonica = [ notas[0], notas[2], notas[4] ];
+		var dominante = notas[2], notas[4], notas[6] ];
+		var subdominante = notas[1], notas[3], notas[5] ];
+		var tonicaMenor = notas[3], notas[5], notas[0] ];
+		var dominante = notas[4], notas[6], notas[1] ];
+		var subdominante = notas[5], notas[0], notas[2] ];
+
+		if (string.IsNullOrEmpty(acordesArray[6]) == false) {
+			dict.Add(acordesArray[6], new int[] { 0, 7, 4 });
+			dict.Add(acordesArray[7], new int[] { 4, 8, 1 });
+		}
+	}
 
 	function mudarTom() {
 		var tomSelecionado = document.getElementById("tomSelect").value;
 		window.location.href = '@Url.Action("Index", "Orgao")?tom=' + tomSelecionado;
 	}
 
-	function playAcorde(acorde, botao) {
+	function playAcorde(acorde, botao, acordeLetra) {
 		pararOsAcordes();
 		levantarOsBotoes();
 
@@ -233,13 +253,20 @@
 			if (acorde > -1) {
 				botao.classList.toggle('pressionado', true);
 
-				if (tocando != acorde)
+				if (tocando != acorde) {
+					montarAcorde(acordeLetra);
 					acordes[acorde].play();
+				}
 			}
 			tocando = acorde;
 		}
 		else
 			tocando = -1;
+	}
+
+	function montarAcorde(acordeLetra) {
+		console.log(notasAcordes[acordeLetra]);
+		//console.log(NotasLinks)
 	}
 
 	function setTom(acorde = 'C') {
@@ -248,8 +275,8 @@
 
 	function pararOsAcordes() {
 		for (let i = 0; i < acordes.length; i++) {
-			acordes[i].pause();
-			acordes[i].currentTime = 0;
+			notas[i].pause();
+			notas[i].currentTime = 0;
 		}
 	}
 

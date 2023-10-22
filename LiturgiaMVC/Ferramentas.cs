@@ -72,6 +72,37 @@ namespace LiturgiaMVC
             var path = httpContext.Request.Path.Value;
 
             File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
+        }        
+
+        public static string[] MontarNotasLinks(string tom)
+        {
+            var list = new List<string>();
+
+            foreach (var nota in escalas[tom])
+                list.Add(notasLinks["orgao_" + nota]);
+
+            return list.ToArray();
+        }
+
+        public static Dictionary<string, int[]> MontarAcorde(string tom)
+        {
+            var dict = new Dictionary<string, int[]>();
+            var acordesArray = acordes[tom];
+
+            dict.Add(acordesArray[0], new int[] { 0, 2, 4 });//C
+            dict.Add(acordesArray[1], new int[] { 1, 3, 5 });//Dm
+            dict.Add(acordesArray[2], new int[] { 2, 4, 6 });//Em
+            dict.Add(acordesArray[3], new int[] { 3, 5, 0 });//F
+            dict.Add(acordesArray[4], new int[] { 4, 6, 1 });//G
+            dict.Add(acordesArray[5], new int[] { 5, 0, 2 });//Am
+
+            if (string.IsNullOrEmpty(acordesArray[6]) == false)
+            {
+                dict.Add(acordesArray[6], new int[] { 0, 7, 4 });
+                dict.Add(acordesArray[7], new int[] { 4, 8, 1 });
+            }
+
+            return dict;
         }
 
         public static readonly Dictionary<string, string[]> acordes = new()
@@ -108,11 +139,11 @@ namespace LiturgiaMVC
 
         public static readonly Dictionary<string, string> notasLinks = new()
         {
-            { "orgao_do", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_do", "https://docs.google.com/uc?export=download&id=" + "1iQYSUhlefQyJGp5xj9Rxp7F_7w9o2wrW" },
             { "orgao_do#", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
             { "orgao_re", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
             { "orgao_re#", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
-            { "orgao_mi", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_mi", "https://docs.google.com/uc?export=download&id=" + "1-7hpAfo-W1XuZ4jd75qVmbckStN4pdPG" },
             { "orgao_fa", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
             { "orgao_fa#", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
             { "orgao_sol", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },

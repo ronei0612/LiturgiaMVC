@@ -14,20 +14,9 @@ namespace LiturgiaMVC.Controllers
                 AcordesLinks = Ferramentas.acordes[tom],
                 LinksDict = Ferramentas.acordesLinks,
                 NotasAcordes = Ferramentas.escalas,
-                NotasLinks = Ferramentas.notasLinks,
+                NotasLinks = Ferramentas.MontarNotasLinks(tom),
+                IndicesNotasAcordes = Ferramentas.MontarAcorde(tom),
                 Tom = tom
-            };
-
-            return View(linksModel);
-        }
-
-        public IActionResult MudarTom(string tom)
-        {
-            Ferramentas.EscreverInfoCliente(HttpContext);
-
-            var linksModel = new LinksModel
-            {
-                AcordesLinks = Ferramentas.acordes[tom]
             };
 
             return View(linksModel);
