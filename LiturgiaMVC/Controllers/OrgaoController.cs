@@ -18,17 +18,5 @@ namespace LiturgiaMVC.Controllers
 
             return View(linksModel);
         }
-
-        public IActionResult MudarTom(string tom)
-        {
-            Ferramentas.EscreverInfoCliente(HttpContext);
-
-            var linksModel = new LinksModel
-            {
-                AcordesLinks = Ferramentas.acordes[tom]
-            };
-
-            return View(linksModel);
-        }
     }
 }

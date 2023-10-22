@@ -38,6 +38,17 @@
 				transform: translateY(4px);
 			}
 
+		.botao.amarelo {
+			background-color: #F1C40F;
+			box-shadow: 0px 4px 0px 0px #B7950B;
+		}
+
+			.botao.amarelo.pressionado {
+				background-color: #B7950B;
+				box-shadow: 0px 2px 0px 0px #7D6608;
+				transform: translateY(4px);
+			}
+
 		.botao.azul {
 			background-color: #3498DB;
 			box-shadow: 0px 4px 0px 0px #2874A6;
@@ -46,28 +57,6 @@
 			.botao.azul.pressionado {
 				background-color: #2874A6;
 				box-shadow: 0px 2px 0px 0px #1B4F72;
-				transform: translateY(4px);
-			}
-
-		.botao.roxo {
-			background-color: #8E44AD;
-			box-shadow: 0px 4px 0px 0px #76448A;
-		}
-
-			.botao.roxo.pressionado {
-				background-color: #76448A;
-				box-shadow: 0px 2px 0px 0px #4A235A;
-				transform: translateY(4px);
-			}
-
-		.botao.vermelho {
-			background-color: #E74C3C;
-			box-shadow: 0px 4px 0px 0px #B03A2E;
-		}
-
-			.botao.vermelho.pressionado {
-				background-color: #B03A2E;
-				box-shadow: 0px 2px 0px 0px #78281F;
 				transform: translateY(4px);
 			}
 
@@ -82,14 +71,47 @@
 				transform: translateY(4px);
 			}
 
-		.botao.amarelo {
-			background-color: #F1C40F;
-			box-shadow: 0px 4px 0px 0px #B7950B;
+		.botao.rosaClaro {
+			background-color: #e093bb;
+			box-shadow: 0px 4px 0px 0px #D15591;
 		}
 
-			.botao.amarelo.pressionado {
-				background-color: #B7950B;
-				box-shadow: 0px 2px 0px 0px #7D6608;
+			.botao.rosaClaro.pressionado {
+				background-color: #e27cb1;
+				box-shadow: 0px 2px 0px 0px #A92D69;
+				transform: translateY(4px);
+			}
+
+		.botao.roxo {
+			background-color: #8E44AD;
+			box-shadow: 0px 4px 0px 0px #6C3483;
+		}
+
+			.botao.roxo.pressionado {
+				background-color: #6C3483;
+				box-shadow: 0px 2px 0px 0px #4A235A;
+				transform: translateY(4px);
+			}
+
+		.botao.roxoClaro {
+			background-color: #BB8FCE;
+			box-shadow: 0px 4px 0px 0px #8E44AD;
+		}
+
+			.botao.roxoClaro.pressionado {
+				background-color: #A569BD;
+				box-shadow: 0px 2px 0px 0px #7D3C98;
+				transform: translateY(4px);
+			}
+
+		.botao.vermelho {
+			background-color: #E74C3C;
+			box-shadow: 0px 4px 0px 0px #B03A2E;
+		}
+
+			.botao.vermelho.pressionado {
+				background-color: #B03A2E;
+				box-shadow: 0px 2px 0px 0px #78281F;
 				transform: translateY(4px);
 			}
 
@@ -101,6 +123,17 @@
 			.botao.marrom.pressionado {
 				background-color: #B9770E;
 				box-shadow: 0px 2px 0px 0px #7E5109;
+				transform: translateY(4px);
+			}
+
+		.botao.marromClaro {
+			background-color: #F8C471;
+			box-shadow: 0px 4px 0px 0px #F39C12;
+		}
+
+			.botao.marromClaro.pressionado {
+				background-color: #F5B041;
+				box-shadow: 0px 2px 0px 0px #D68910;
 				transform: translateY(4px);
 			}
 
@@ -129,7 +162,7 @@
 	}
 </style>
 
-<div class="container">
+<div class="container" id="container" style="display:none">
 	@*https://media.istockphoto.com/id/1072152878/vector/organ-icon-with-long-shadow.jpg?s=170667a&w=0&k=20&c=A8p43QxO8SYq-wRB6CH_wdT3Pblwob6YsuoOaR79wXI=*@
 
 	
@@ -146,13 +179,13 @@
 				<option value="G">G</option>
 				<option value="A">A</option>
 				<option value="B">B</option>
-				<option value="Am">Am</option>
+				@*<option value="Am">Am</option>
 				<option value="Bm">Bm</option>
 				<option value="Cm">Cm</option>
 				<option value="Dm">Dm</option>
 				<option value="Em">Em</option>
 				<option value="Fm">Fm</option>
-				<option value="Gm">Gm</option>
+				<option value="Gm">Gm</option>*@
 			</select>
 		</div>
 
@@ -179,28 +212,37 @@
 			</tr>
 			<tr>
 				<td>
-					@if (@Model.AcordesLinks[6] != "")
+					@*@if (@Model.AcordesLinks[6] != "")
 					{
 						<input type="button" class="botao marrom" value="@Model.AcordesLinks[6]" onclick="playAcorde(6, this)">
-					}
+					}*@
 				</td>
 				<td><input type="button" class="botao roxo" value="@Model.AcordesLinks[5]" onclick="playAcorde(5, this)"></td>
 				<td><input type="button" class="botao rosa" value="@Model.AcordesLinks[2]" onclick="playAcorde(2, this)"></td>
 				<td><input type="button" class="botao marrom" value="@Model.AcordesLinks[1]" onclick="playAcorde(1, this)"></td>
 				<td>
-					@if (@Model.AcordesLinks[7] != "")
+					@*@if (@Model.AcordesLinks[7] != "")
 					{
 						<input type="button" class="botao marrom" value="@Model.AcordesLinks[7]" onclick="playAcorde(7, this)">
-					}
+					}*@
 				</td>
 			</tr>
 			<tr>
-				<td></td>
-				<td><input type="button" class="botao cinza" value="@acidentes[1]" onclick="playAcorde(this.value, this)"></td>
-				<td><input type="button" class="botao cinza" value="@acidentes[2]" onclick="playAcorde(this.value, this)"></td>
-				<td><input type="button" class="botao cinza" value="@acidentes[4]" onclick="playAcorde(this.value, this)"></td>
-				<td></td>
+				<td>
+				</td>
+				<td><input type="button" class="botao roxoClaro" value="@Model.AcordesLinks[9]" onclick="playAcorde(5, this)"></td>
+				<td><input type="button" class="botao rosaClaro" value="@Model.AcordesLinks[10]" onclick="playAcorde(2, this)"></td>
+				<td><input type="button" class="botao marromClaro" value="@Model.AcordesLinks[7]" onclick="playAcorde(1, this)"></td>
+				<td>
+				</td>
 			</tr>
+			@*<tr>
+				<td></td>
+				<td><input type="button" class="botao cinza" value="@acidentes[1]" onclick="playAcorde(8, this)"></td>
+				<td><input type="button" class="botao cinza" value="@acidentes[2]" onclick="playAcorde(9, this)"></td>
+				<td><input type="button" class="botao cinza" value="@acidentes[4]" onclick="playAcorde(10, this)"></td>
+				<td></td>
+			</tr>*@
 		</table>
 	}
 </div>
@@ -208,13 +250,25 @@
 <script>
 	document.getElementById('tomSelect').value = '@Model.Tom';
 
-	var acordes = [ new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[0]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[1]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[2]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[3]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[4]])'),
-					new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[5]])')
+	var acordes = [
+		new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[0]])'),
+		new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[1]])'),
+		new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[2]])'),
+		new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[3]])'),
+		new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[4]])'),
+		new Audio('@Html.Raw(@Model.LinksDict["orgao" + @Model.AcordesLinks[5]])'),
+		
 	];
+
+	function esperarAudios(aguardar) {
+		if (!aguardar)
+			document.getElementById('container').style.display = 'block';
+		setTimeout(function() {
+			document.getElementById('container').style.display = 'block';
+		}, 3000)
+	}
+
+	esperarAudios(false);
 
 	var tocando = -1;
 
