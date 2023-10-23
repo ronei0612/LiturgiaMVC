@@ -2,157 +2,14 @@
 
 @{
 	string[] acidentes = { "5+", "6", "7", "7+", "9", "11" };
+	string[] tons = { "C", "D", "E", "F", "G", "A", "B" };
+	string[] tonsMenores = { "Am", "Bm", "Cm", "Dm", "Em", "Fm", "Gm" };
 }
 
 <style>
-	input:focus {
+	/*input:focus {
 		background: #92a8d1;
-	}
-
-	.botao {
-		border: none;
-		color: white;
-		/*padding: 10px 20px;*/
-		width: 60px;
-		height: 35px;
-		text-align: center;
-		font-weight: bold;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
-		margin: 10px 2px;
-		cursor: pointer;
-		border-radius: 8px;
-		/*box-shadow: 0px 4px 0px 0px #696969;*/
-		transition: background-color 0.1s, box-shadow 0.1s;
-	}
-
-	.botao.parar{
-		background-color: #922B21;
-		box-shadow: 0px 4px 0px 0px #7B241C;
-	}
-
-			.botao.parar:active {
-				background-color: #7B241C;
-				box-shadow: 0px 4px 0px 0px #641E16;
-				transform: translateY(4px);
-			}
-
-		.botao.amarelo {
-			background-color: #F1C40F;
-			box-shadow: 0px 4px 0px 0px #B7950B;
-		}
-
-			.botao.amarelo.pressionado {
-				background-color: #B7950B;
-				box-shadow: 0px 2px 0px 0px #7D6608;
-				transform: translateY(4px);
-			}
-
-		.botao.azul {
-			background-color: #3498DB;
-			box-shadow: 0px 4px 0px 0px #2874A6;
-		}
-
-			.botao.azul.pressionado {
-				background-color: #2874A6;
-				box-shadow: 0px 2px 0px 0px #1B4F72;
-				transform: translateY(4px);
-			}
-
-		.botao.rosa {
-			background-color: #D15591;
-			box-shadow: 0px 4px 0px 0px #A92D69;
-		}
-
-			.botao.rosa.pressionado {
-				background-color: #A92D69;
-				box-shadow: 0px 2px 0px 0px #8B0F4B;
-				transform: translateY(4px);
-			}
-
-		.botao.rosaClaro {
-			background-color: #e093bb;
-			box-shadow: 0px 4px 0px 0px #D15591;
-		}
-
-			.botao.rosaClaro.pressionado {
-				background-color: #e27cb1;
-				box-shadow: 0px 2px 0px 0px #A92D69;
-				transform: translateY(4px);
-			}
-
-		.botao.roxo {
-			background-color: #8E44AD;
-			box-shadow: 0px 4px 0px 0px #6C3483;
-		}
-
-			.botao.roxo.pressionado {
-				background-color: #6C3483;
-				box-shadow: 0px 2px 0px 0px #4A235A;
-				transform: translateY(4px);
-			}
-
-		.botao.roxoClaro {
-			background-color: #BB8FCE;
-			box-shadow: 0px 4px 0px 0px #8E44AD;
-		}
-
-			.botao.roxoClaro.pressionado {
-				background-color: #A569BD;
-				box-shadow: 0px 2px 0px 0px #7D3C98;
-				transform: translateY(4px);
-			}
-
-		.botao.vermelho {
-			background-color: #E74C3C;
-			box-shadow: 0px 4px 0px 0px #B03A2E;
-		}
-
-			.botao.vermelho.pressionado {
-				background-color: #B03A2E;
-				box-shadow: 0px 2px 0px 0px #78281F;
-				transform: translateY(4px);
-			}
-
-		.botao.marrom {
-			background-color: #F39C12;
-			box-shadow: 0px 4px 0px 0px #B9770E;
-		}
-
-			.botao.marrom.pressionado {
-				background-color: #B9770E;
-				box-shadow: 0px 2px 0px 0px #7E5109;
-				transform: translateY(4px);
-			}
-
-		.botao.marromClaro {
-			background-color: #F8C471;
-			box-shadow: 0px 4px 0px 0px #F39C12;
-		}
-
-			.botao.marromClaro.pressionado {
-				background-color: #F5B041;
-				box-shadow: 0px 2px 0px 0px #D68910;
-				transform: translateY(4px);
-			}
-
-		.botao.cinza {
-			background-color: #BDC3C7;
-			box-shadow: 0px 4px 0px 0px #909497;
-		}
-
-			.botao.cinza.pressionado {
-				background-color: #909497;
-				box-shadow: 0px 2px 0px 0px #626567;
-				transform: translateY(4px);
-			}
-
-	.mt-3 {
-		width: 80px;
-		text-align-last: center;
-	}
-
+	}*/
 	table {
 		margin: 0 auto;
 	}
@@ -172,20 +29,10 @@
 		<div class="container mt-3">
 			<label>Tom:</label>
 			<select class="form-control" id="tomSelect" onchange="mudarTom()">
-				<option value="C">C</option>
-				<option value="D">D</option>
-				<option value="E">E</option>
-				<option value="F">F</option>
-				<option value="G">G</option>
-				<option value="A">A</option>
-				<option value="B">B</option>
-				@*<option value="Am">Am</option>
-				<option value="Bm">Bm</option>
-				<option value="Cm">Cm</option>
-				<option value="Dm">Dm</option>
-				<option value="Em">Em</option>
-				<option value="Fm">Fm</option>
-				<option value="Gm">Gm</option>*@
+				@foreach (var tom in tons)
+				{
+					<option value="@tom">@tom</option>
+				}
 			</select>
 		</div>
 
@@ -243,6 +90,19 @@
 				<td><input type="button" class="botao cinza" value="@acidentes[4]" onclick="playAcorde(10, this)"></td>
 				<td></td>
 			</tr>*@
+			<tr>
+				<td></td>
+				<td></td>
+				<td>
+					<button class="botao dedo" onclick="playAcorde(99, this)"></button>
+				</td>
+				<td>
+					<button class="botao mao" onclick="playAcorde(99, this)"></button>
+				</td>
+				<td>
+					<button class="botao duasmaos" onclick="playAcorde(99, this)"></button>
+				</td>
+			</tr>
 		</table>
 	}
 </div>
@@ -272,41 +132,4 @@
 
 	var tocando = -1;
 
-	function mudarTom() {
-		var tomSelecionado = document.getElementById("tomSelect").value;
-		window.location.href = '@Url.Action("Index", "Orgao")?tom=' + tomSelecionado;
-	}
-
-	function playAcorde(acorde, botao) {
-		pararOsAcordes();
-		levantarOsBotoes();
-
-		if (tocando != acorde) {
-			if (acorde > -1) {
-				botao.classList.toggle('pressionado', true);
-
-				if (tocando != acorde)
-					acordes[acorde].play();
-			}
-			tocando = acorde;
-		}
-		else
-			tocando = -1;
-	}
-
-	function setTom(acorde = 'C') {
-		document.getElementById('tomSelect').value = acorde;
-	}
-
-	function pararOsAcordes() {
-		for (let i = 0; i < acordes.length; i++) {
-			acordes[i].pause();
-			acordes[i].currentTime = 0;
-		}
-	}
-
-	function levantarOsBotoes(){
-		if (tocando > -1)
-			document.getElementsByClassName('pressionado')[0].classList.toggle('pressionado', false);
-	}
 </script>

@@ -31,3 +31,40 @@ $(document).ready(function () {
 	}
 });
 
+function mudarTom() {
+	var tomSelecionado = document.getElementById("tomSelect").value;
+	window.location.href = '@Url.Action("Index", "Orgao")?tom=' + tomSelecionado;
+}
+
+function playAcorde(acorde, botao) {
+	pararOsAcordes();
+	levantarOsBotoes();
+
+	if (tocando != acorde) {
+		if (acorde > -1) {
+			botao.classList.toggle('pressionado', true);
+
+			if (tocando != acorde)
+				acordes[acorde].play();
+		}
+		tocando = acorde;
+	}
+	else
+		tocando = -1;
+}
+
+function setTom(acorde = 'C') {
+	document.getElementById('tomSelect').value = acorde;
+}
+
+function pararOsAcordes() {
+	for (let i = 0; i < acordes.length; i++) {
+		acordes[i].pause();
+		acordes[i].currentTime = 0;
+	}
+}
+
+function levantarOsBotoes() {
+	if (tocando > -1)
+		document.getElementsByClassName('pressionado')[0].classList.toggle('pressionado', false);
+}
