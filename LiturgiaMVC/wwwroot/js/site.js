@@ -68,3 +68,12 @@ function levantarOsBotoes() {
 	if (tocando > -1)
 		document.getElementsByClassName('pressionado')[0].classList.toggle('pressionado', false);
 }
+
+function acompanhamento(funcao, botao) {
+	if (botao.classList.contains('pressionado'))
+		botao.classList.toggle('pressionado', false);
+	else
+		botao.classList.toggle('pressionado', true);
+
+	
+}
