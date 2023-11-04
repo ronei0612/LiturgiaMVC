@@ -155,6 +155,11 @@
 		'orgao_E_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[10] + "_full"])')
 	};
 
+	for (let [acorde, link] of Object.entries(acordes)) {
+		acordes[acorde].loop = true;
+		acordes[acorde].currentTime = 0.1;
+	}
+
 	function esperarAudios(aguardar) {
 		if (!aguardar)
 			document.getElementById('container').style.display = 'block';

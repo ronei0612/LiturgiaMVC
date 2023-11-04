@@ -17,14 +17,17 @@ function mudarTom() {
 }
 
 function escolherAcorde(acorde, botao) {
-	_acordeSelecionado = acorde;
+	if (_acordeAntesSelecionado == acorde)
+		_acordeSelecionado = '';
+	else
+		_acordeSelecionado = acorde;
 	levantarBotoesAcordes();
 	pararOsAcordes();
 
-	if (acorde != '')
+	if (_acordeSelecionado != '')
 		tocarAcorde(acorde, botao);
 
-	_acordeAntesSelecionado = acorde;
+	_acordeAntesSelecionado = _acordeSelecionado;
 }
 
 function escolherAcompanhamento(funcao, botao) {
@@ -45,17 +48,28 @@ function setTom(acorde = 'C') {
 
 function verificarAcompanhamentoEtocar(acorde) {
 	if (_acompanhamentoSelecionado == 'full') {
-		acordes[acorde].loop = true;
-		acordes[acorde + '_solo'].loop = true;
-		acordes[acorde + '_full'].loop = true;
-
-		acordes[acorde].play();
+		acordes[acorde + '_mao'].currentTime = 0;
+		acordes[acorde + '_mao'].play();
+		acordes[acorde + '_solo'].currentTime = 0;
 		acordes[acorde + '_solo'].play();
+		acordes[acorde + '_full'].currentTime = 0;
 		acordes[acorde + '_full'].play();
 	}
+	else if (_acompanhamentoSelecionado == 'mao') {
+		acordes[acorde + '_mao'].currentTime = 0;
+		acordes[acorde + '_mao'].play();
+		acordes[acorde + '_full'].pause();
+		acordes[acorde + '_full'].currentTime = 0;
+		acordes[acorde + '_solo'].pause();
+		acordes[acorde + '_solo'].currentTime = 0;
+	}
 	else {
-		acordes[acorde + '_' + _acompanhamentoSelecionado].loop = true;
-		acordes[acorde + '_' + _acompanhamentoSelecionado].play();
+		acordes[acorde + '_solo'].currentTime = 0;
+		acordes[acorde + '_solo'].play();
+		acordes[acorde + '_mao'].pause();
+		acordes[acorde + '_mao'].currentTime = 0;
+		acordes[acorde + '_full'].pause();
+		acordes[acorde + '_full'].currentTime = 0;
 	}
 }
 
@@ -63,7 +77,7 @@ function pararOsAcordes() {
 	for (let [acorde, link] of Object.entries(acordes)) {
 		if (acordes[acorde].paused == false) {
 			acordes[acorde].pause();
-			acordes[acorde].currentTime = 0.1;
+			acordes[acorde].currentTime = 0;
 		}
 	}
 	//for (let i = 0; i < acordes.length; i++) {

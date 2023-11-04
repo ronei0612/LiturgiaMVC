@@ -92,7 +92,7 @@ namespace LiturgiaMVC
 
         public static readonly Dictionary<string, string> acordesLinks = new()
         {
-            { "orgao_C_mao", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_C_mao", "https://docs.google.com/uc?export=download&id=" + "1BWIg8AHI21WzimmfK2RfB7ZM9SCzM06G" },
             { "orgao_Cm_mao", "https://docs.google.com/uc?export=download&id=" + "1P_pGNapihJdTilsBo1y8ija0Afm7m5_3" },
             { "orgao_C#_mao", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
             { "orgao_C#m_mao", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
@@ -118,7 +118,7 @@ namespace LiturgiaMVC
             { "orgao_B_mao", "https://docs.google.com/uc?export=download&id=" + "1jwX3WuxcBNLSV2lkrW6UHpjtO9qtpFAa" },
             { "orgao_Bm_mao", "https://docs.google.com/uc?export=download&id=" + "1xgdJALMsRfea6eOsEVNuBlTupabp4JdD" },
 
-            { "orgao_C_solo", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_C_solo", "https://docs.google.com/uc?export=download&id=" + "1KUelyfI40QuCw4h-WgEPbAbPa414MZ01" },
             { "orgao_Cm_solo", "https://docs.google.com/uc?export=download&id=" + "1P_pGNapihJdTilsBo1y8ija0Afm7m5_3" },
             { "orgao_C#_solo", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
             { "orgao_C#m_solo", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
@@ -144,7 +144,7 @@ namespace LiturgiaMVC
             { "orgao_B_solo", "https://docs.google.com/uc?export=download&id=" + "1jwX3WuxcBNLSV2lkrW6UHpjtO9qtpFAa" },
             { "orgao_Bm_solo", "https://docs.google.com/uc?export=download&id=" + "1xgdJALMsRfea6eOsEVNuBlTupabp4JdD" },
 
-            { "orgao_C_full", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
+            { "orgao_C_full", "https://docs.google.com/uc?export=download&id=" + "1lCOqdc5FZ-f_1yD1AaH7AN_K0YeBYrPy" },
             { "orgao_Cm_full", "https://docs.google.com/uc?export=download&id=" + "1P_pGNapihJdTilsBo1y8ija0Afm7m5_3" },
             { "orgao_C#_full", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
             { "orgao_C#m_full", "https://docs.google.com/uc?export=download&id=" + "1ZYNZotCi_OJ2Bs-ot4FGk0eR4zsWuw1W" },
