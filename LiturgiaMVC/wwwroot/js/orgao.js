@@ -5,7 +5,7 @@ var _acompanhamentoSolo = false;
 var _acompanhamentoFull = false;
 var _acompanhamentoMao = false;
 
-deixarAcompanhamentoSelecionado('mao');
+deixarAcompanhamentoSelecionado('full');
 
 function deixarAcompanhamentoSelecionado(funcao) {
 	escolherAcompanhamento(funcao, document.getElementById(funcao));

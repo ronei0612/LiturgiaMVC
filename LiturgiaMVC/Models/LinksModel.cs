@@ -9,5 +9,8 @@
 
         public string[]? RelatorioLines { get; set; }
         public string? Tom { get; set; }
+        public int? TomIndex { get; set; }
+        public string[]? TonsMaiores { get; set; }
+        public string[]? TonsMenores { get; set; }
     }
 }
