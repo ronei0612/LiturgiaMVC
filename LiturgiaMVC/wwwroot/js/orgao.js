@@ -13,7 +13,7 @@ function deixarAcompanhamentoSelecionado(funcao) {
 
 function mudarTom() {
 	var tomSelecionado = document.getElementById("tomSelect").value;
-	window.location.href = '@Url.Action("Index", "Orgao")?tom=' + tomSelecionado;
+	window.location.href = "Index?tom=" + tomSelecionado;
 }
 
 function escolherAcorde(acorde, botao) {
@@ -116,3 +116,5 @@ function botaoAcompPressionado(botao) {
 function pressionarBotaoAcomp(botao) {
 	botao.classList.toggle('selecionado', true);
 }
+
+//[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
