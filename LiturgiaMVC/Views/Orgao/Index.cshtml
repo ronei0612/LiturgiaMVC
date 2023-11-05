@@ -56,8 +56,8 @@
 		<tr>
 			<td></td>
 			<td><input type="button" class="botao azul" value="@Model.Acordes[0]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
-			<td><input type="button" class="botao vermelho" value="@Model.Acordes[3]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-			<td><input type="button" class="botao amarelo" value="@Model.Acordes[4]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+			<td><input type="button" class="botao vermelho" value="@Model.Acordes[3]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
+			<td><input type="button" class="botao amarelo" value="@Model.Acordes[4]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
 			<td></td>
 		</tr>
 		<tr>
@@ -67,9 +67,9 @@
 					<input type="button" class="botao marrom" value="@Model.Acordes[6]" onclick="escolherAcorde(6, this)">
 				}*@
 			</td>
-			<td><input type="button" class="botao roxo" value="@Model.Acordes[5]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-			<td><input type="button" class="botao rosa" value="@Model.Acordes[2]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-			<td><input type="button" class="botao marrom" value="@Model.Acordes[1]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+			<td><input type="button" class="botao roxo" value="@Model.Acordes[5]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
+			<td><input type="button" class="botao rosa" value="@Model.Acordes[2]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
+			<td><input type="button" class="botao marrom" value="@Model.Acordes[1]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
 			<td>
 				@*@if (@Model.Acordes[7] != "")
 				{
@@ -80,9 +80,9 @@
 		<tr>
 			<td>
 			</td>
-			<td><input type="button" class="botao roxoClaro" value="@Model.Acordes[9]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-			<td><input type="button" class="botao rosaClaro" value="@Model.Acordes[10]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-			<td><input type="button" class="botao marromClaro" value="@Model.Acordes[7]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+			<td><input id="acordesAdicionais" style="display:none" type="button" class="botao roxoClaro" value="@Model.Acordes[9]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
+			<td><input id="acordesAdicionais1" style="display:none" type="button" class="botao rosaClaro" value="@Model.Acordes[10]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
+			<td><input id="acordesAdicionais2" style="display:none" type="button" class="botao marromClaro" value="@Model.Acordes[7]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
 			<td>
 			</td>
 		</tr>
@@ -129,8 +129,6 @@
 		'orgao_Bb_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_mao"])'),
 		'orgao_D_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_mao"])'),
 		'orgao_Cm_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_mao"])'),
-		'orgao_A_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_mao"])'),
-		'orgao_E_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_mao"])'),
 
 		'orgao_C_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_solo"])'),
 		'orgao_Dm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_solo"])'),
@@ -141,8 +139,6 @@
 		'orgao_Bb_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_solo"])'),
 		'orgao_D_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_solo"])'),
 		'orgao_Cm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_solo"])'),
-		'orgao_A_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_solo"])'),
-		'orgao_E_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_solo"])'),
 
 		'orgao_C_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_full"])'),
 		'orgao_Dm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_full"])'),
@@ -152,9 +148,7 @@
 		'orgao_Am_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_full"])'),
 		'orgao_Bb_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_full"])'),
 		'orgao_D_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_full"])'),
-		'orgao_Cm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_full"])'),
-		'orgao_A_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_full"])'),
-		'orgao_E_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_full"])')
+		'orgao_Cm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_full"])')
 	};
 
 	for (let [acorde, link] of Object.entries(acordes)) {
@@ -175,12 +169,32 @@
 
 	function selecionarTomMenor(selecionadoMenor){
 		if (selecionadoMenor) {
+			if (Object.keys(acordes).includes('orgao_A_mao') == false) {
+				Object.assign(acordes, {
+					'orgao_A_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_mao"])'),
+					'orgao_E_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_mao"])'),
+					'orgao_A_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_solo"])'),
+					'orgao_E_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_solo"])'),
+					'orgao_A_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_full"])'),
+					'orgao_E_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_full"])')
+				 });
+				for (let [acorde, link] of Object.entries(acordes)) {
+					acordes[acorde].loop = true;
+				}
+			}
+
 			document.getElementById('textoAcordeMenor').style.color = 'black';
 			document.getElementById('tomSelect').style.color = 'lightgrey';
+			document.getElementById('acordesAdicionais').style.display = 'block';
+			document.getElementById('acordesAdicionais1').style.display = 'block';
+			document.getElementById('acordesAdicionais2').style.display = 'block';
 		}
-		else{
+		else {
 			document.getElementById('textoAcordeMenor').style.color = 'lightgrey';
 			document.getElementById('tomSelect').style.color = 'black';
+			document.getElementById('acordesAdicionais').style.display = 'none';
+			document.getElementById('acordesAdicionais1').style.display = 'none';
+			document.getElementById('acordesAdicionais2').style.display = 'none';
 		}
 	}
 </script>
