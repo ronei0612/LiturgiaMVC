@@ -20,7 +20,7 @@
 
 	
 
-	@if (Model.AcordesLinks != null)
+	@if (Model.Acordes != null)
 	{
 		<div class="container mt-3" style="text-align-last: center; width:230px">
 			<div class="d-flex justify-content-between align-items-center">
@@ -61,34 +61,34 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="button" class="botao azul" value="@Model.AcordesLinks[0]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
-				<td><input type="button" class="botao vermelho" value="@Model.AcordesLinks[3]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-				<td><input type="button" class="botao amarelo" value="@Model.AcordesLinks[4]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+				<td><input type="button" class="botao azul" value="@Model.Acordes[0]" onclick="escolherAcorde('orgao_' + this.value, this)"></td>
+				<td><input type="button" class="botao vermelho" value="@Model.Acordes[3]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+				<td><input type="button" class="botao amarelo" value="@Model.Acordes[4]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td>
-					@*@if (@Model.AcordesLinks[6] != "")
+					@*@if (@Model.Acordes[6] != "")
 					{
-						<input type="button" class="botao marrom" value="@Model.AcordesLinks[6]" onclick="escolherAcorde(6, this)">
+						<input type="button" class="botao marrom" value="@Model.Acordes[6]" onclick="escolherAcorde(6, this)">
 					}*@
 				</td>
-				<td><input type="button" class="botao roxo" value="@Model.AcordesLinks[5]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-				<td><input type="button" class="botao rosa" value="@Model.AcordesLinks[2]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-				<td><input type="button" class="botao marrom" value="@Model.AcordesLinks[1]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+				<td><input type="button" class="botao roxo" value="@Model.Acordes[5]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+				<td><input type="button" class="botao rosa" value="@Model.Acordes[2]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+				<td><input type="button" class="botao marrom" value="@Model.Acordes[1]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
 				<td>
-					@*@if (@Model.AcordesLinks[7] != "")
+					@*@if (@Model.Acordes[7] != "")
 					{
-						<input type="button" class="botao marrom" value="@Model.AcordesLinks[7]" onclick="escolherAcorde(7, this)">
+						<input type="button" class="botao marrom" value="@Model.Acordes[7]" onclick="escolherAcorde(7, this)">
 					}*@
 				</td>
 			</tr>
 			<tr>
 				<td>
 				</td>
-				<td><input type="button" class="botao roxoClaro" value="@Model.AcordesLinks[9]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-				<td><input type="button" class="botao rosaClaro" value="@Model.AcordesLinks[10]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
-				<td><input type="button" class="botao marromClaro" value="@Model.AcordesLinks[7]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+				<td><input type="button" class="botao roxoClaro" value="@Model.Acordes[9]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+				<td><input type="button" class="botao rosaClaro" value="@Model.Acordes[10]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
+				<td><input type="button" class="botao marromClaro" value="@Model.Acordes[7]" onclick="escolherAcorde('orgao' + this.value, this)"></td>
 				<td>
 				</td>
 			</tr>
@@ -127,41 +127,41 @@
 	esperarAudios(false);
 
 	var acordes = {
-		'orgao_C_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[0] + "_mao"])'),
-		'orgao_Dm_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[1] + "_mao"])'),
-		'orgao_Em_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[2] + "_mao"])'),
-		'orgao_F_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[3] + "_mao"])'),
-		'orgao_G_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[4] + "_mao"])'),
-		'orgao_Am_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[5] + "_mao"])'),
-		'orgao_Bb_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[6] + "_mao"])'),
-		'orgao_D_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[7] + "_mao"])'),
-		'orgao_Cm_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[8] + "_mao"])'),
-		'orgao_A_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[9] + "_mao"])'),
-		'orgao_E_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[10] + "_mao"])'),
+		'orgao_C_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_mao"])'),
+		'orgao_Dm_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_mao"])'),
+		'orgao_Em_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_mao"])'),
+		'orgao_F_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_mao"])'),
+		'orgao_G_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_mao"])'),
+		'orgao_Am_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_mao"])'),
+		'orgao_Bb_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_mao"])'),
+		'orgao_D_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_mao"])'),
+		'orgao_Cm_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_mao"])'),
+		'orgao_A_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_mao"])'),
+		'orgao_E_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_mao"])'),
 
-		'orgao_C_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[0] + "_solo"])'),
-		'orgao_Dm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[1] + "_solo"])'),
-		'orgao_Em_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[2] + "_solo"])'),
-		'orgao_F_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[3] + "_solo"])'),
-		'orgao_G_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[4] + "_solo"])'),
-		'orgao_Am_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[5] + "_solo"])'),
-		'orgao_Bb_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[6] + "_solo"])'),
-		'orgao_D_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[7] + "_solo"])'),
-		'orgao_Cm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[8] + "_solo"])'),
-		'orgao_A_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[9] + "_solo"])'),
-		'orgao_E_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[10] + "_solo"])'),
+		'orgao_C_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_solo"])'),
+		'orgao_Dm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_solo"])'),
+		'orgao_Em_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_solo"])'),
+		'orgao_F_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_solo"])'),
+		'orgao_G_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_solo"])'),
+		'orgao_Am_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_solo"])'),
+		'orgao_Bb_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_solo"])'),
+		'orgao_D_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_solo"])'),
+		'orgao_Cm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_solo"])'),
+		'orgao_A_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_solo"])'),
+		'orgao_E_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_solo"])'),
 
-		'orgao_C_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[0] + "_full"])'),
-		'orgao_Dm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[1] + "_full"])'),
-		'orgao_Em_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[2] + "_full"])'),
-		'orgao_F_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[3] + "_full"])'),
-		'orgao_G_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[4] + "_full"])'),
-		'orgao_Am_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[5] + "_full"])'),
-		'orgao_Bb_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[6] + "_full"])'),
-		'orgao_D_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[7] + "_full"])'),
-		'orgao_Cm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[8] + "_full"])'),
-		'orgao_A_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[9] + "_full"])'),
-		'orgao_E_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.AcordesLinks[10] + "_full"])')
+		'orgao_C_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_full"])'),
+		'orgao_Dm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_full"])'),
+		'orgao_Em_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_full"])'),
+		'orgao_F_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_full"])'),
+		'orgao_G_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_full"])'),
+		'orgao_Am_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_full"])'),
+		'orgao_Bb_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_full"])'),
+		'orgao_D_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_full"])'),
+		'orgao_Cm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_full"])'),
+		'orgao_A_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_full"])'),
+		'orgao_E_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_full"])')
 	};
 
 	for (let [acorde, link] of Object.entries(acordes)) {

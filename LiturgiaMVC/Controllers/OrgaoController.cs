@@ -11,7 +11,7 @@ namespace LiturgiaMVC.Controllers
 
             var linksModel = new LinksModel
             {
-                AcordesLinks = Ferramentas.acordes[tom],
+                Acordes = Ferramentas.acordes[tom],
                 LinksDict = Ferramentas.acordesLinks,
                 TomIndex = Array.IndexOf(Variaveis.tonsMaiores, tom),
                 TonsMaiores = Variaveis.tonsMaiores,
