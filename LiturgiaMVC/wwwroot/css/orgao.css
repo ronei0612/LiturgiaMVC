@@ -163,10 +163,10 @@
 			background: linear-gradient(rgba(144, 148, 151, 0.5), rgba(144, 148, 151, 0.5)), url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSwIGNFNlJEqCkfP9eG4UY1HhbbUWZqUwGIE_pljZJVLKajtHXO') center/contain no-repeat;
 		}
 
-/*.mt-3 {
-	width: 80px;
-	text-align-last: center;
-}*/
+#tomSelect {
+	width: 60px;
+	/*text-align-last: center;*/
+}
 
 .botao.dedo.selecionado {
 	border-bottom: 2px solid #626567;
