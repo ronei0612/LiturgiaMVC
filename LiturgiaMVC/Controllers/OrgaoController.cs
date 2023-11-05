@@ -9,10 +9,13 @@ namespace LiturgiaMVC.Controllers
         {
             Ferramentas.EscreverInfoCliente(HttpContext);
 
+            if (Variaveis.acordesLinks == null)
+                Ferramentas.LerArquivoAcordesLinks();
+
             var linksModel = new LinksModel
             {
-                Acordes = Ferramentas.acordes[tom],
-                LinksDict = Ferramentas.acordesLinks,
+                Acordes = Variaveis.acordes[tom],
+                LinksDict = Variaveis.acordesLinks,
                 TomIndex = Array.IndexOf(Variaveis.tonsMaiores, tom),
                 TonsMaiores = Variaveis.tonsMaiores,
                 TonsMenores = Variaveis.tonsMenores
