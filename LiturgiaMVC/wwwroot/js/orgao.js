@@ -13,7 +13,7 @@ function deixarAcompanhamentoSelecionado(funcao) {
 
 function mudarTom() {
 	var tomSelecionado = document.getElementById("tomSelect").value;
-	window.location.href = "Index?tom=" + tomSelecionado;
+	window.location.href = "Orgao?tom=" + tomSelecionado;
 }
 
 function escolherAcorde(acorde, botao) {
