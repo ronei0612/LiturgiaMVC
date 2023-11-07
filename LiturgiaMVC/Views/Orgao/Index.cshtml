@@ -98,8 +98,9 @@
 </div>
 
 <script>
+	var esperar_audios = true;
 	deixarTomSelecionado('@Model.TonsMaiores[(int)Model.TomIndex]');
-	esperarAudios(false);
+	esperarAudios(3000);
 
 	var acordes = {
 		'orgao_C_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_mao"])'),
@@ -137,12 +138,13 @@
 		acordes[acorde].loop = true;
 	}
 
-	function esperarAudios(aguardar) {
-		if (!aguardar)
+	function esperarAudios(tempoMiliseg) {
+		document.getElementById('container').style.display = 'none';
+		if (!esperar_audios)
 			document.getElementById('container').style.display = 'block';
 		setTimeout(function() {
 			document.getElementById('container').style.display = 'block';
-		}, 3000)
+		}, tempoMiliseg)
 	}
 
 	function deixarTomSelecionado(tom){
@@ -152,6 +154,8 @@
 	function selecionarTomMenor(selecionadoMenor){
 		if (selecionadoMenor) {
 			if (Object.keys(acordes).includes('orgao_A_mao') == false) {
+				esperarAudios(500);
+
 				Object.assign(acordes, {
 					'orgao_A_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_mao"])'),
 					'orgao_E_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_mao"])'),
