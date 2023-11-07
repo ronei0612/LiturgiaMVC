@@ -74,6 +74,36 @@ namespace LiturgiaMVC
             File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
         }
 
+        public static void LerArquivoAcordesLista()
+        {
+            var tonsMaiores = new List<string>();
+            var tonsMenores = new List<string>();
+
+            if (File.Exists(Variaveis.arquivoAcordesLista) == false)
+                File.WriteAllText(Variaveis.arquivoAcordesLista, "C, G");
+
+            var linhas = File.ReadAllLines(Variaveis.arquivoAcordesLista);
+
+            foreach (var linha in linhas)
+                if (string.IsNullOrEmpty(linha) == false)
+                {
+                    if (linha.Contains(','))
+                        foreach (var item in linha.Split(','))
+                        {
+                            tonsMaiores.Add(item);
+                            tonsMenores.Add(Variaveis.acordesMenoresRelativos[item.Trim()]);
+                        }
+                    else
+                    {
+                        tonsMaiores.Add(linha);
+                        tonsMenores.Add(Variaveis.acordesMenoresRelativos[linha.Trim()]);
+                    }
+                }
+
+            Variaveis.tonsMaiores = tonsMaiores.ToArray();
+            Variaveis.tonsMenores = tonsMenores.ToArray();
+        }
+
         public static void LerArquivoAcordesLinks()
         {
             var acordesLinksDict = new Dictionary<string, string>();
@@ -165,7 +195,7 @@ namespace LiturgiaMVC
             foreach (var linha in linhas)
                 if (string.IsNullOrEmpty(linha) == false)
                     if (linha.Contains(','))
-                        acordesLinksDict.Add(linha.Split(',')[0], linha.Split(',')[1]);
+                        acordesLinksDict.Add(linha.Split(',')[0].Trim(), linha.Split(',')[1].Trim());
 
             Variaveis.acordesLinks = acordesLinksDict;
         }

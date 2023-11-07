@@ -11,6 +11,8 @@ namespace LiturgiaMVC.Controllers
 
             if (Variaveis.acordesLinks == null)
                 Ferramentas.LerArquivoAcordesLinks();
+            if (Variaveis.tonsMaiores == null)
+                Ferramentas.LerArquivoAcordesLista();
 
             var linksModel = new LinksModel
             {
