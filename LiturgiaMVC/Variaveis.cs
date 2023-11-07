@@ -8,9 +8,9 @@
 
         public static string IPs = "IPs.csv";
 
-        public static string acordesLinksCsv = "AcordesLinks.csv";
+        public static string acordesLinksCsv = "AcordesLinks.txt";
 
-        public static string acordesListaCsv = "AcordesLista.csv";
+        public static string acordesListaCsv = "AcordesLista.txt";
 
         public static string arquivoLinks = Path.Combine(pastaArquivos, links);
 
