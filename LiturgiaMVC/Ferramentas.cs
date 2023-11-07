@@ -90,12 +90,12 @@ namespace LiturgiaMVC
                     if (linha.Contains(','))
                         foreach (var item in linha.Split(','))
                         {
-                            tonsMaiores.Add(item);
+                            tonsMaiores.Add(item.Trim());
                             tonsMenores.Add(Variaveis.acordesMenoresRelativos[item.Trim()]);
                         }
                     else
                     {
-                        tonsMaiores.Add(linha);
+                        tonsMaiores.Add(linha.Trim());
                         tonsMenores.Add(Variaveis.acordesMenoresRelativos[linha.Trim()]);
                     }
                 }
