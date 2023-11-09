@@ -12,6 +12,8 @@
 
         public static string acordesListaCsv = "AcordesLista.txt";
 
+        public static string pastaSons = "./Sons/";
+
         public static string arquivoLinks = Path.Combine(pastaArquivos, links);
 
         public static string arquivoIPs = Path.Combine(pastaArquivos, IPs);
