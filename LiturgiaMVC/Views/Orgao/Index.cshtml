@@ -41,7 +41,7 @@
 			<td></td>
 			<td></td>
 			<td>
-				<button id="play-pause" data-playing="false" class="botao parar" onclick="escolherAcorde('', this)">
+				<button id="play-pause" data-playing="false" class="botao parar" onclick="asdf('', this)">
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stop-fill" viewBox="0 0 16 16">
 						<path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
 					</svg>
@@ -97,46 +97,93 @@
 	</table>
 </div>
 
+
+<script src="~/js/Pizzicato.js" asp-append-version="true"></script>
 <script>
-	var esperar_audios = true;
+	var mao = new Pizzicato.Sound({ source: 'file', options: { path: './Sons/orgao_G_mao.ogg', loop: true } });
+	var solo = new Pizzicato.Sound({ source: 'file', options: { path: './Sons/orgao_G_solo.ogg', loop: true } });
+	var baixo = new Pizzicato.Sound({ source: 'file', options: { path: './Sons/orgao_G_baixo.ogg', loop: true } });
+
+	var group = new Pizzicato.Group([mao, solo, baixo]);
+	
+	var sound = new Pizzicato.Sound({
+		source: 'file',
+		options: { path: [
+			'./Sons/orgao_G_mao.ogg',
+			'./Sons/orgao_G_solo.ogg',
+			'./Sons/orgao_G_baixo.ogg'
+		], loop: true },
+	});
+
+	var tremolo = new Pizzicato.Effects.Tremolo({
+		speed: 1,
+		depth: 0.6,
+		mix: 0.8
+	});
+
+	var flanger = new Pizzicato.Effects.Flanger({
+		time: 0.45,
+		speed: 0.2,
+		depth: 0.1,
+		feedback: 0.1,
+		mix: 0.5
+	});
+
+	var pingPongDelay = new Pizzicato.Effects.PingPongDelay({
+		feedback: 0.6,
+		time: 0.4,
+		mix: 0.5
+	});
+
+	group.addEffect(tremolo);
+	//sound.addEffect(tremolo);
+	//sound.addEffect(flanger);
+	//sound.addEffect(pingPongDelay);
+	
+	function asdf(f, g) {
+		group.play();
+		//sound.play();
+	}
+
+	var esperar_audios = false;
 	deixarTomSelecionado('@Model.TonsMaiores[(int)Model.TomIndex]');
 	esperarAudios(3000);
 
-	var acordes = {
-		'orgao_C_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_mao"])'),
-		'orgao_Dm_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_mao"])'),
-		'orgao_Em_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_mao"])'),
-		'orgao_F_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_mao"])'),
-		'orgao_G_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_mao"])'),
-		'orgao_Am_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_mao"])'),
-		'orgao_Bb_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_mao"])'),
-		'orgao_D_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_mao"])'),
-		'orgao_Cm_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_mao"])'),
+	//var acordes = {
+	//	'orgao_C_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_mao"])'),
+	//	'orgao_Dm_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_mao"])'),
+	//	'orgao_Em_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_mao"])'),
+	//	'orgao_F_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_mao"])'),
+	//	'orgao_G_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_mao"])'),
+	//	'orgao_Am_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_mao"])'),
+	//	'orgao_Bb_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_mao"])'),
+	//	'orgao_D_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_mao"])'),
+	//	'orgao_Cm_mao': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_mao"])'),
 
-		'orgao_C_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_solo"])'),
-		'orgao_Dm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_solo"])'),
-		'orgao_Em_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_solo"])'),
-		'orgao_F_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_solo"])'),
-		'orgao_G_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_solo"])'),
-		'orgao_Am_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_solo"])'),
-		'orgao_Bb_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_solo"])'),
-		'orgao_D_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_solo"])'),
-		'orgao_Cm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_solo"])'),
+	//	'orgao_C_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_solo"])'),
+	//	'orgao_Dm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_solo"])'),
+	//	'orgao_Em_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_solo"])'),
+	//	'orgao_F_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_solo"])'),
+	//	'orgao_G_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_solo"])'),
+	//	'orgao_Am_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_solo"])'),
+	//	'orgao_Bb_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_solo"])'),
+	//	'orgao_D_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_solo"])'),
+	//	'orgao_Cm_solo': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_solo"])'),
 
-		'orgao_C_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_full"])'),
-		'orgao_Dm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_full"])'),
-		'orgao_Em_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_full"])'),
-		'orgao_F_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_full"])'),
-		'orgao_G_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_full"])'),
-		'orgao_Am_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_full"])'),
-		'orgao_Bb_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_full"])'),
-		'orgao_D_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_full"])'),
-		'orgao_Cm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_full"])')
-	};
+	//	'orgao_C_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_full"])'),
+	//	'orgao_Dm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_full"])'),
+	//	'orgao_Em_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_full"])'),
+	//	'orgao_F_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_full"])'),
+	//	'orgao_G_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_full"])'),
+	//	'orgao_Am_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_full"])'),
+	//	'orgao_Bb_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_full"])'),
+	//	'orgao_D_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_full"])'),
+	//	'orgao_Cm_full': new Audio('@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_full"])')
+	//};
 
-	for (let [acorde, link] of Object.entries(acordes)) {
-		acordes[acorde].loop = true;
-	}
+	//for (let [acorde, link] of Object.entries(acordes)) {
+	//	acordes[acorde].loop = true;
+	//}
 
 	function esperarAudios(tempoMiliseg) {
 		document.getElementById('container').style.display = 'none';
