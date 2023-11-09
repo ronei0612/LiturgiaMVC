@@ -2519,5 +2519,3 @@
 
 	return Pizzicato;
 })(typeof window !== "undefined" ? window : global);
-
-

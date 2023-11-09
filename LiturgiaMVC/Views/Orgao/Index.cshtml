@@ -150,11 +150,6 @@
 					'orgao_A_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_baixo"])', loop: true } }),
 					'orgao_E_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_baixo"])', loop: true } })
 				 });
-
-				for (let [acorde, link] of Object.entries(acordes)) {
-					acordes[acorde].addEffect(tremolo);
-					acordes[acorde].addEffect(flanger);
-				}
 			}
 
 			document.getElementById('textoAcordeMenor').style.color = 'black';
