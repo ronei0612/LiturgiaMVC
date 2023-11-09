@@ -4,6 +4,7 @@ var _acompanhamentoSelecionado = '';
 var _acompanhamentoSolo = false;
 var _acompanhamentoFull = false;
 var _acompanhamentoMao = false;
+var _grupoNotas;
 
 deixarAcompanhamentoSelecionado('full');
 
@@ -48,42 +49,27 @@ function setTom(acorde = 'C') {
 
 function verificarAcompanhamentoEtocar(acorde) {
 	if (_acompanhamentoSelecionado == 'full') {
-		acordes[acorde + '_mao'].currentTime = 0;
-		acordes[acorde + '_mao'].play();
-		acordes[acorde + '_solo'].currentTime = 0;
-		acordes[acorde + '_solo'].play();
-		acordes[acorde + '_full'].currentTime = 0;
-		acordes[acorde + '_full'].play();
+		_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao'], acordes[acorde + '_baixo']]);
+		_grupoNotas.addEffect(tremolo);
+		_grupoNotas.addEffect(flanger);
+		_grupoNotas.play();
 	}
 	else if (_acompanhamentoSelecionado == 'mao') {
-		acordes[acorde + '_mao'].currentTime = 0;
-		acordes[acorde + '_mao'].play();
-		acordes[acorde + '_full'].pause();
-		acordes[acorde + '_full'].currentTime = 0;
-		acordes[acorde + '_solo'].pause();
-		acordes[acorde + '_solo'].currentTime = 0;
+		_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
+		_grupoNotas.addEffect(tremolo);
+		_grupoNotas.addEffect(flanger);
+		_grupoNotas.play();
 	}
 	else {
-		acordes[acorde + '_solo'].currentTime = 0;
-		acordes[acorde + '_solo'].play();
-		acordes[acorde + '_mao'].pause();
-		acordes[acorde + '_mao'].currentTime = 0;
-		acordes[acorde + '_full'].pause();
-		acordes[acorde + '_full'].currentTime = 0;
+		_grupoNotas = new Pizzicato.Group([acordes[acorde + '_baixo']]);
+		_grupoNotas.addEffect(tremolo);
+		_grupoNotas.addEffect(flanger);
+		_grupoNotas.play();
 	}
 }
 
 function pararOsAcordes() {
-	for (let [acorde, link] of Object.entries(acordes)) {
-		if (acordes[acorde].paused == false) {
-			acordes[acorde].pause();
-			acordes[acorde].currentTime = 0;
-		}
-	}
-	//for (let i = 0; i < acordes.length; i++) {
-	//	acordes[i].pause();
-	//	acordes[i].currentTime = 0.1;
-	//}
+	_grupoNotas.stop();
 }
 
 function levantarBotoesAcordes() {

@@ -20,8 +20,6 @@
 
         public static string arquivoAcordesLista = Path.Combine(pastaArquivos, acordesListaCsv);
 
-        //public static string[] tonsMaiores = { "C", "D", "E", "F", "G", "A", "B" };
-        //public static string[] tonsMenores = { "Am", "Bm", "Cm", "Dm", "Em", "Fm", "Gm" };
         public static string[] tonsMaiores, tonsMenores;
 
         public static readonly string[] acidentes = { "5+", "6", "7", "7+", "9", "11" };
