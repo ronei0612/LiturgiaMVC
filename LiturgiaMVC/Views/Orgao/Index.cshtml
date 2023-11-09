@@ -147,8 +147,10 @@
 				Object.assign(acordes, {
 					'orgao_A_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_mao"])', loop: true } }),
 					'orgao_E_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_mao"])', loop: true } }),
+					'orgao_D_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_mao"])', loop: true } }),
 					'orgao_A_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_baixo"])', loop: true } }),
-					'orgao_E_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_baixo"])', loop: true } })
+					'orgao_E_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_baixo"])', loop: true } }),
+					'orgao_D_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_baixo"])', loop: true } })
 				 });
 			}
 
