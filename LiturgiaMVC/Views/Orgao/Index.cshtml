@@ -41,7 +41,7 @@
 			<td></td>
 			<td></td>
 			<td>
-				<button id="play-pause" data-playing="false" class="botao parar" onclick="asdf('', this)">
+				<button id="play-pause" data-playing="false" class="botao parar" onclick="escolherAcorde('', this)">
 					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stop-fill" viewBox="0 0 16 16">
 						<path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z" />
 					</svg>
@@ -126,38 +126,6 @@
 		'orgao_Cm_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_baixo"])', loop: true } })
 	};
 
-	var tremolo = new Pizzicato.Effects.Tremolo({
-		speed: 1,
-		depth: 0.6,
-		mix: 0.8
-	});
-
-	var flanger = new Pizzicato.Effects.Flanger({
-		time: 0.45,
-		speed: 0.2,
-		depth: 0.1,
-		feedback: 0.1,
-		mix: 0.5
-	});
-
-	var pingPongDelay = new Pizzicato.Effects.PingPongDelay({
-		feedback: 0.6,
-		time: 0.4,
-		mix: 0.5
-	});
-
-	var mao = new Pizzicato.Sound({ source: 'file', options: { path: './Sons/orgao G mao.ogg', loop: true } });
-	var baixo = new Pizzicato.Sound({ source: 'file', options: { path: './Sons/orgao G baixo.ogg', loop: true } });
-	var group;
-	group = new Pizzicato.Group([mao]);
-	group.addEffect(tremolo);
-	group.addEffect(flanger);
-
-	function asdf(f, g) {
-		//group = new Pizzicato.Group([mao, baixo]);
-		group.play();
-	}
-
 	function esperarAudios(tempoMiliseg) {
 		document.getElementById('container').style.display = 'none';
 		if (!esperar_audios)
@@ -182,8 +150,10 @@
 					'orgao_A_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_baixo"])', loop: true } }),
 					'orgao_E_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_baixo"])', loop: true } })
 				 });
+
 				for (let [acorde, link] of Object.entries(acordes)) {
-					acordes[acorde].loop = true;
+					acordes[acorde].addEffect(tremolo);
+					acordes[acorde].addEffect(flanger);
 				}
 			}
 
