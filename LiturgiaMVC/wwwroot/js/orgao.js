@@ -43,10 +43,12 @@ function escolherAcorde(acorde, botao) {
 		_acordeSelecionado = '';
 	else
 		_acordeSelecionado = acorde;
-	levantarBotoesAcordes();
-	pararOsAcordes();
 
-	if (_acordeSelecionado != '')
+	levantarBotoesAcordes();
+
+	if (_acordeSelecionado == '')
+		pararOsAcordes();
+	else
 		tocarAcorde(acorde, botao);
 
 	_acordeAntesSelecionado = _acordeSelecionado;
@@ -74,18 +76,19 @@ function verificarAcompanhamentoEtocar(acorde) {
 	if (_grupoNotas == null) {
 		_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
 		_grupoNotas.addEffect(flanger);
-		//_grupoNotas.addEffect(tremolo);
 	}
+
 	if (_acompanhamentoSelecionado == 'full') {
 		_grupoNotas.addSound(acordes[acorde + '_mao']);
-		_grupoNotas.addSound(acordes[acorde + '_baixo']);		
-	}
-	else if (_acompanhamentoSelecionado == 'mao') {
-		_grupoNotas.addSound(acordes[acorde + '_mao']);
-	}
-	else {
 		_grupoNotas.addSound(acordes[acorde + '_baixo']);
 	}
+
+	else if (_acompanhamentoSelecionado == 'mao')
+		_grupoNotas.addSound(acordes[acorde + '_mao']);
+	
+	else
+		_grupoNotas.addSound(acordes[acorde + '_baixo']);
+	
 	_grupoNotas.play();
 }
 
@@ -93,8 +96,8 @@ function pararOsAcordes() {
 	if (_grupoNotas != null) {
 		_grupoNotas.stop();
 
-		for (let sound of _grupoNotas.sounds)
-			_grupoNotas.removeSound(sound);
+		_grupoNotas.removeSound(_grupoNotas.sounds[0]);
+		_grupoNotas.removeSound(_grupoNotas.sounds[0]);
 	}
 }
 
