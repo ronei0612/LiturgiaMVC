@@ -18,7 +18,7 @@ var flanger = new Pizzicato.Effects.Flanger({
 	speed: 0.2,
 	depth: 0.1,
 	feedback: 0.1,
-	mix: 0.1
+	mix: 0.2
 });
 
 var pingPongDelay = new Pizzicato.Effects.PingPongDelay({
@@ -74,7 +74,7 @@ function verificarAcompanhamentoEtocar(acorde) {
 	if (_grupoNotas == null) {
 		_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
 		_grupoNotas.addEffect(flanger);
-		_grupoNotas.addEffect(tremolo);
+		//_grupoNotas.addEffect(tremolo);
 	}
 	if (_acompanhamentoSelecionado == 'full') {
 		_grupoNotas.addSound(acordes[acorde + '_mao']);
