@@ -94,7 +94,7 @@ function pararOsAcordes() {
 		_grupoNotas.stop();
 
 		for (let sound of _grupoNotas.sounds)
-			_grupoNotas.removeSound(sound)
+			_grupoNotas.removeSound(sound);
 	}
 }
 
