@@ -203,8 +203,7 @@
 }
 
 .orgao-background {
-	/*background-image: url('../orgao-background.webp');*/
-	background-image: url('../orgao5.jpg');
+	background-image: url('../orgao-background.webp');
 	background-position: center; /* Center the image */
 	background-repeat: no-repeat; /* Do not repeat the image */
 	background-size: cover; /* Resize the background image to cover the entire container */
