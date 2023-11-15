@@ -3,13 +3,13 @@
 	border: none;
 	color: white;
 	/*padding: 10px 20px;*/
-	width: 70px;
-	height: 40px;
+	width: 77px;
+	height: 44px;
 	text-align: center;
 	font-weight: bold;
 	/*text-decoration: none;*/
 	display: inline-block;
-	font-size: 16px;
+	font-size: 18px;
 	margin: 8px 8px;
 	/*cursor: default;*/
 	border-radius: 8px;
@@ -163,11 +163,6 @@
 			background: linear-gradient(rgba(144, 148, 151, 0.5), rgba(144, 148, 151, 0.5)), url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSwIGNFNlJEqCkfP9eG4UY1HhbbUWZqUwGIE_pljZJVLKajtHXO') center/contain no-repeat;
 		}
 
-#tomSelect {
-	width: 60px;
-	/*text-align-last: center;*/
-}
-
 .botao.dedo.selecionado {
 	border-bottom: 2px solid #626567;
 	box-shadow: 0 0 10px 3px #ffeb3b;
@@ -187,10 +182,62 @@
 }
 
 #textoAcordeMenor {
-	color: lightgrey;
+	color: grey;
+}
+
+#tomSelect {
+	width: 62px;
+	font-size: 18px;
+	font-weight: bold;
+	/*text-align-last: center;*/
 }
 
 #flexSwitchCheckDefault {
 	width: 2.5em;
 	height: 1.2em;
 }
+
+#container {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.orgao-background {
+	/*background-image: url('../orgao-background.webp');*/
+	background-image: url('../orgao5.jpg');
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+	.orgao-background:before {
+		content: "";
+		display: block;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		z-index: -1;
+		background-color: rgba(255, 255, 255, 0.9);
+	}
+
+.orgao-background-dark {
+	/*background-image: url('../orgao-background.webp');*/
+	background-image: url('../orgao5.jpg');
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+	.orgao-background-dark:before {
+		content: "";
+		display: block;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		z-index: -1;
+		background-color: rgba(1, 1, 1, 0.9);
+	}

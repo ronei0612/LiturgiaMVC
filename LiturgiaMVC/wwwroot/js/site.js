@@ -1,10 +1,10 @@
 ﻿function DarkMode() {
     if (document.body.classList.contains("bg-dark")) {
-        document.body.classList = "bg-light text-dark";
+		document.body.classList = "bg-light text-dark orgao-background";
         document.getElementById("navBar").classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3";
     }
     else {
-        document.body.classList = "bg-dark text-light";
+		document.body.classList = "bg-dark text-light orgao-background-dark";
         document.getElementById("navBar").classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black box-shadow mb-3";
     }
 }
