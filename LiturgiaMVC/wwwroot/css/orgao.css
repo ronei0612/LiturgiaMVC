@@ -222,11 +222,10 @@
 	}
 
 .orgao-background-dark {
-	/*background-image: url('../orgao-background.webp');*/
-	background-image: url('../orgao5.jpg');
-	background-position: center; /* Center the image */
-	background-repeat: no-repeat; /* Do not repeat the image */
-	background-size: cover; /* Resize the background image to cover the entire container */
+	background-image: url('../orgao-background.webp');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 	.orgao-background-dark:before {
