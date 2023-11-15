@@ -31,12 +31,29 @@
         public static Dictionary<string, string> acordesMenoresRelativos = new()
         {
             { "C", "Am" },
+            { "C#", "A#m" },
             { "D", "Bm" },
+            { "D#", "Cm" },
             { "E", "C#m" },
             { "F", "Dm" },
+            { "F#", "D#m" },
             { "G", "Em" },
+            { "G#", "Fm" },
             { "A", "F#m" },
-            { "B", "G#m" },
+            { "A#", "Gm" },
+            { "B", "G#m" }
+        };
+
+        public static Dictionary<string, string> acidentesCorrespondentes = new()
+        {
+            { "Db", "C#" },
+            { "Eb", "D#" },
+            { "Ab", "G#" },
+            { "Bb", "A#" },
+            { "E#", "F" },
+            { "B#", "C" },
+            { "Fb", "E" },
+            { "Cb", "B" }
         };
 
         public static readonly Dictionary<string, string[]> acordes = new()

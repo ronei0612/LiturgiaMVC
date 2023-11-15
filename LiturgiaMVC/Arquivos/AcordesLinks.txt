@@ -8,6 +8,8 @@ orgao_D#_mao, ./Sons/orgao D_ mao.ogg
 orgao_D#m_mao, ./Sons/orgao D_m mao.ogg
 orgao_E_mao, ./Sons/orgao E mao.ogg
 orgao_Em_mao, ./Sons/orgao Em mao.ogg
+orgao_Eb_mao, ./Sons/orgao D_ mao.ogg
+orgao_Ebm_mao, ./Sons/orgao D_m mao.ogg
 orgao_F_mao, ./Sons/orgao F mao.ogg
 orgao_Fm_mao, ./Sons/orgao Fm mao.ogg
 orgao_F#_mao, ./Sons/orgao F_ mao.ogg
@@ -20,9 +22,10 @@ orgao_A_mao, ./Sons/orgao A mao.ogg
 orgao_Am_mao, ./Sons/orgao Am mao.ogg
 orgao_A#_mao, ./Sons/orgao A_ mao.ogg
 orgao_A#m_mao, ./Sons/orgao A_m mao.ogg
-orgao_Bb_mao, ./Sons/orgao Bb mao.ogg
 orgao_B_mao, ./Sons/orgao B mao.ogg
 orgao_Bm_mao, ./Sons/orgao Bm mao.ogg
+orgao_Bb_mao, ./Sons/orgao A_ mao.ogg
+orgao_Bbm_mao, ./Sons/orgao A_m mao.ogg
 
 orgao_C_baixo, ./Sons/orgao C baixo.ogg
 orgao_Cm_baixo, ./Sons/orgao C baixo.ogg
@@ -34,6 +37,8 @@ orgao_D#_baixo, ./Sons/orgao D_ baixo.ogg
 orgao_D#m_baixo, ./Sons/orgao D_ baixo.ogg
 orgao_E_baixo, ./Sons/orgao E baixo.ogg
 orgao_Em_baixo, ./Sons/orgao E baixo.ogg
+orgao_Eb_baixo, ./Sons/orgao D_ baixo.ogg
+orgao_Ebm_baixo, ./Sons/orgao D_ baixo.ogg
 orgao_F_baixo, ./Sons/orgao F baixo.ogg
 orgao_Fm_baixo, ./Sons/orgao F baixo.ogg
 orgao_F#_baixo, ./Sons/orgao F_ baixo.ogg
@@ -46,6 +51,7 @@ orgao_A_baixo, ./Sons/orgao A baixo.ogg
 orgao_Am_baixo, ./Sons/orgao A baixo.ogg
 orgao_A#_baixo, ./Sons/orgao A_ baixo.ogg
 orgao_A#m_baixo, ./Sons/orgao A_ baixo.ogg
-orgao_Bb_baixo, ./Sons/orgao Bb baixo.ogg
 orgao_B_baixo, ./Sons/orgao B baixo.ogg
 orgao_Bm_baixo, ./Sons/orgao B baixo.ogg
+orgao_Bb_baixo, ./Sons/orgao A_ baixo.ogg
+orgao_Bbm_baixo, ./Sons/orgao A_ baixo.ogg

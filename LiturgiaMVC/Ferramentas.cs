@@ -76,9 +76,9 @@ namespace LiturgiaMVC
             var dataHora = dataHoraBrasilia.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
 
             if (File.Exists(Variaveis.arquivoIPs) == false)
-                File.WriteAllText(Variaveis.arquivoIPs, ip + ";" + host + path + ";" + dataHora);
-            else
-                File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
+                File.WriteAllText(Variaveis.arquivoIPs, "IP;EndPoint;Data e Hora");
+            
+            File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
         }
 
         public static void LerArquivoAcordesLista()
@@ -127,6 +127,8 @@ namespace LiturgiaMVC
                     "orgao_D#m_mao, " + Variaveis.pastaSons + "orgao D_m mao.ogg" + Environment.NewLine +
                     "orgao_E_mao, " + Variaveis.pastaSons + "orgao E mao.ogg" + Environment.NewLine +
                     "orgao_Em_mao, " + Variaveis.pastaSons + "orgao Em mao.ogg" + Environment.NewLine +
+                    "orgao_Eb_mao, " + Variaveis.pastaSons + "orgao D_ mao.ogg" + Environment.NewLine +
+                    "orgao_Ebm_mao, " + Variaveis.pastaSons + "orgao D_m mao.ogg" + Environment.NewLine +
                     "orgao_F_mao, " + Variaveis.pastaSons + "orgao F mao.ogg" + Environment.NewLine +
                     "orgao_Fm_mao, " + Variaveis.pastaSons + "orgao Fm mao.ogg" + Environment.NewLine +
                     "orgao_F#_mao, " + Variaveis.pastaSons + "orgao F_ mao.ogg" + Environment.NewLine +
@@ -141,6 +143,8 @@ namespace LiturgiaMVC
                     "orgao_A#m_mao, " + Variaveis.pastaSons + "orgao A_m mao.ogg" + Environment.NewLine +
                     "orgao_B_mao, " + Variaveis.pastaSons + "orgao B mao.ogg" + Environment.NewLine +
                     "orgao_Bm_mao, " + Variaveis.pastaSons + "orgao Bm mao.ogg" + Environment.NewLine +
+                    "orgao_Bb_mao, " + Variaveis.pastaSons + "orgao A_ mao.ogg" + Environment.NewLine +
+                    "orgao_Bbm_mao, " + Variaveis.pastaSons + "orgao A_m mao.ogg" + Environment.NewLine +
                     Environment.NewLine +
                     "orgao_C_baixo, " + Variaveis.pastaSons + "orgao C baixo.ogg" + Environment.NewLine +
                     "orgao_Cm_baixo, " + Variaveis.pastaSons + "orgao C baixo.ogg" + Environment.NewLine +
@@ -152,6 +156,8 @@ namespace LiturgiaMVC
                     "orgao_D#m_baixo, " + Variaveis.pastaSons + "orgao D_ baixo.ogg" + Environment.NewLine +
                     "orgao_E_baixo, " + Variaveis.pastaSons + "orgao E baixo.ogg" + Environment.NewLine +
                     "orgao_Em_baixo, " + Variaveis.pastaSons + "orgao E baixo.ogg" + Environment.NewLine +
+                    "orgao_Eb_baixo, " + Variaveis.pastaSons + "orgao D_ baixo.ogg" + Environment.NewLine +
+                    "orgao_Ebm_baixo, " + Variaveis.pastaSons + "orgao D_ baixo.ogg" + Environment.NewLine +
                     "orgao_F_baixo, " + Variaveis.pastaSons + "orgao F baixo.ogg" + Environment.NewLine +
                     "orgao_Fm_baixo, " + Variaveis.pastaSons + "orgao F baixo.ogg" + Environment.NewLine +
                     "orgao_F#_baixo, " + Variaveis.pastaSons + "orgao F_ baixo.ogg" + Environment.NewLine +
@@ -165,7 +171,9 @@ namespace LiturgiaMVC
                     "orgao_A#_baixo, " + Variaveis.pastaSons + "orgao A_ baixo.ogg" + Environment.NewLine +
                     "orgao_A#m_baixo, " + Variaveis.pastaSons + "orgao A_ baixo.ogg" + Environment.NewLine +
                     "orgao_B_baixo, " + Variaveis.pastaSons + "orgao B baixo.ogg" + Environment.NewLine +
-                    "orgao_Bm_baixo, " + Variaveis.pastaSons + "orgao B baixo.ogg"
+                    "orgao_Bm_baixo, " + Variaveis.pastaSons + "orgao B baixo.ogg" + Environment.NewLine +
+                    "orgao_Bb_baixo, " + Variaveis.pastaSons + "orgao A_ baixo.ogg" + Environment.NewLine +
+                    "orgao_Bbm_baixo, " + Variaveis.pastaSons + "orgao A_ baixo.ogg"
                 );
             }
 
@@ -174,7 +182,7 @@ namespace LiturgiaMVC
             foreach (var linha in linhas)
                 if (string.IsNullOrEmpty(linha) == false)
                     if (linha.Contains(','))
-                        if (File.Exists(linha.Split(',')[1].Trim()) == false)
+                        if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", linha.Split(',')[1].Trim())))
                             acordesLinksDict.Add(linha.Split(',')[0].Trim(), linha.Split(',')[1].Trim());
                         else
                             throw new ArgumentException("Arquivo não existe na pasta wwwroot: " + linha.Split(',')[1].Trim());
