@@ -10,9 +10,26 @@ namespace LiturgiaMVC.Controllers
             Ferramentas.EscreverInfoCliente(HttpContext);
 
             if (Variaveis.acordesLinks == null)
-                Ferramentas.LerArquivoAcordesLinks();
+                try {
+                    Ferramentas.LerArquivoAcordesLinks();
+                }
+                catch (Exception ex) {
+                    return View("Error", new ErrorViewModel {                    
+                        Titulo = "Ler Arquivo dos links dos acordes",
+                        Mensagem = ex.Message
+                    });
+                }
+
             if (Variaveis.tonsMaiores == null)
-                Ferramentas.LerArquivoAcordesLista();
+                try {
+                    Ferramentas.LerArquivoAcordesLista();
+                }
+                catch (Exception ex) {
+                    return View("Error", new ErrorViewModel {                    
+                        Titulo = "Ler Arquivo da lista de acordes",
+                        Mensagem = ex.Message
+                    });
+                }
 
             var linksModel = new LinksModel
             {

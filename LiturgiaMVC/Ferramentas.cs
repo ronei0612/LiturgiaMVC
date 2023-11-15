@@ -69,11 +69,16 @@ namespace LiturgiaMVC
         public static void EscreverInfoCliente(HttpContext httpContext)
         {
             var ip = httpContext.Connection.RemoteIpAddress?.ToString();
-            var dataHora = DateTime.Now.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
             var host = httpContext.Request.Host.Value;
             var path = httpContext.Request.Path.Value;
 
-            File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
+            var dataHoraBrasilia = DateTime.Now.AddHours(3);
+            var dataHora = dataHoraBrasilia.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
+
+            if (File.Exists(Variaveis.arquivoIPs) == false)
+                File.WriteAllText(Variaveis.arquivoIPs, ip + ";" + host + path + ";" + dataHora);
+            else
+                File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
         }
 
         public static void LerArquivoAcordesLista()
@@ -82,7 +87,7 @@ namespace LiturgiaMVC
             var tonsMenores = new List<string>();
 
             if (File.Exists(Variaveis.arquivoAcordesLista) == false)
-                File.WriteAllText(Variaveis.arquivoAcordesLista, "C, G");
+                File.WriteAllText(Variaveis.arquivoAcordesLista, "C, D, E, G, A");
 
             var linhas = File.ReadAllLines(Variaveis.arquivoAcordesLista);
 
@@ -134,7 +139,6 @@ namespace LiturgiaMVC
                     "orgao_Am_mao, " + Variaveis.pastaSons + "orgao Am mao.ogg" + Environment.NewLine +
                     "orgao_A#_mao, " + Variaveis.pastaSons + "orgao A_ mao.ogg" + Environment.NewLine +
                     "orgao_A#m_mao, " + Variaveis.pastaSons + "orgao A_m mao.ogg" + Environment.NewLine +
-                    "orgao_Bb_mao, " + Variaveis.pastaSons + "orgao Bb mao.ogg" + Environment.NewLine +
                     "orgao_B_mao, " + Variaveis.pastaSons + "orgao B mao.ogg" + Environment.NewLine +
                     "orgao_Bm_mao, " + Variaveis.pastaSons + "orgao Bm mao.ogg" + Environment.NewLine +
                     Environment.NewLine +
@@ -160,7 +164,6 @@ namespace LiturgiaMVC
                     "orgao_Am_baixo, " + Variaveis.pastaSons + "orgao A baixo.ogg" + Environment.NewLine +
                     "orgao_A#_baixo, " + Variaveis.pastaSons + "orgao A_ baixo.ogg" + Environment.NewLine +
                     "orgao_A#m_baixo, " + Variaveis.pastaSons + "orgao A_ baixo.ogg" + Environment.NewLine +
-                    "orgao_Bb_baixo, " + Variaveis.pastaSons + "orgao Bb baixo.ogg" + Environment.NewLine +
                     "orgao_B_baixo, " + Variaveis.pastaSons + "orgao B baixo.ogg" + Environment.NewLine +
                     "orgao_Bm_baixo, " + Variaveis.pastaSons + "orgao B baixo.ogg"
                 );
@@ -171,7 +174,10 @@ namespace LiturgiaMVC
             foreach (var linha in linhas)
                 if (string.IsNullOrEmpty(linha) == false)
                     if (linha.Contains(','))
-                        acordesLinksDict.Add(linha.Split(',')[0].Trim(), linha.Split(',')[1].Trim());
+                        if (File.Exists(linha.Split(',')[1].Trim()) == false)
+                            acordesLinksDict.Add(linha.Split(',')[0].Trim(), linha.Split(',')[1].Trim());
+                        else
+                            throw new ArgumentException("Arquivo não existe na pasta wwwroot: " + linha.Split(',')[1].Trim());
 
             Variaveis.acordesLinks = acordesLinksDict;
         }
