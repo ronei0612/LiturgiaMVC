@@ -8,7 +8,7 @@ var _grupoNotas;
 
 
 var tremolo = new Pizzicato.Effects.Tremolo({
-	speed: 1,
+	speed: 0,
 	depth: 0.6,
 	mix: 0.8
 });
@@ -70,12 +70,19 @@ function setTom(acorde = 'C') {
 	document.getElementById('tomSelect').value = acorde;
 }
 
+function grupoNotasIntanciado() {
+	if (_grupoNotas == null)
+		return false;
+	return true;
+}
+
 function verificarAcompanhamentoEtocar(acorde) {
 	pararOsAcordes();
 
-	if (_grupoNotas == null) {
+	if (grupoNotasIntanciado() == false) {
 		_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
 		_grupoNotas.addEffect(flanger);
+		_grupoNotas.addEffect(tremolo);
 	}
 
 	if (_acompanhamentoSelecionado == 'full') {
@@ -132,5 +139,11 @@ function pressionarBotaoAcomp(botao) {
 	botao.classList.toggle('selecionado', true);
 }
 
-//[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
+function alterarEfeitoTremolo(velocidade) {
+	if (grupoNotasIntanciado())
+		_grupoNotas.effects[1].speed = velocidade;
 
+	console.log(_grupoNotas.effects[1]);
+}
+
+//[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
