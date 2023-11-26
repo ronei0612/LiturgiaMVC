@@ -145,24 +145,6 @@
 			transform: translateY(4px);
 		}
 
-	.botao.bass {
-		/*background-image: url(https://cdn4.vectorstock.com/i/1000x1000/55/33/music-equalizer-icon-vector-21705533.jpg);*/
-		width: 70px;
-		height: 40px;
-		border: 1px solid #626567;
-		border-radius: 8px;
-		box-shadow: 0px 4px 0px 0px #626567;
-		background: url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSwIGNFNlJEqCkfP9eG4UY1HhbbUWZqUwGIE_pljZJVLKajtHXO') center/contain no-repeat;
-	}
-
-		.botao.bass.pressionado {
-			/*background-image: url(https://cdn4.vectorstock.com/i/1000x1000/55/33/music-equalizer-icon-vector-21705533.jpg);*/
-			border: 1px solid #909497;
-			transform: translateY(4px);
-			box-shadow: 0px 4px 0px 0px #2e2e2e;
-			background: linear-gradient(rgba(144, 148, 151, 0.5), rgba(144, 148, 151, 0.5)), url('https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSwIGNFNlJEqCkfP9eG4UY1HhbbUWZqUwGIE_pljZJVLKajtHXO') center/contain no-repeat;
-		}
-
 .botao.dedo.selecionado {
 	border-bottom: 2px solid #626567;
 	box-shadow: 0 0 10px 3px #ffeb3b;
