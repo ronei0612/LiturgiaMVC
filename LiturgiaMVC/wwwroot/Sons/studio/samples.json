@@ -1,0 +1,25 @@
+{
+  "name": "Pearl Master Studio",
+  "description": "Pearl Master Studio Pack 1 by enoe",
+  "url": "./Sons/studio/Drums/",
+  "license": "Creative Commons Attribution 3.0",
+  "type": "Acoustic Drum",
+  "samples": "./Sons/studio/Drums/",
+  "files": [
+    "crash-01.mp3",
+    "crash-02.mp3",
+    "hihat-closed.mp3",
+    "hihat-open.mp3",
+    "kick-01.mp3",
+    "ride-01.mp3",
+    "ride-02.mp3",
+    "snare-01.mp3",
+    "snare-02.mp3",
+    "snare-03.mp3",
+    "splash-01.mp3",
+    "splash-02.mp3",
+    "tom-01.mp3",
+    "tom-02.mp3",
+    "tom-03.mp3"
+  ]
+}

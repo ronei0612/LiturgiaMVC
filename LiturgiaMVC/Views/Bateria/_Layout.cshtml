@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" charset="utf-8">
+
+    <title>@ViewData["Title"] - Liturgia</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/orgao.css" asp-append-version="true" />*@
+    <link rel="stylesheet" href="~/LiturgiaMVC.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/css/pure-min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+</head>
+
+<body id="corpo" class="bg-light text-dark orgao-background">
+    <header>
+        <nav id="navBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <label for="theme" class="theme">
+                    <span class="theme__toggle-wrap">
+                        <input id="theme" class="theme__toggle" type="checkbox" role="switch" name="theme" value="dark" onclick="DarkMode()" />
+                        <span class="theme__fill"></span>
+                        <span class="theme__icon">
+                            <span class="theme__icon-part"></span>
+                            <span class="theme__icon-part"></span>
+                            <span class="theme__icon-part"></span>
+                            <span class="theme__icon-part"></span>
+                            <span class="theme__icon-part"></span>
+                            <span class="theme__icon-part"></span>
+                            <span class="theme__icon-part"></span>
+                            <span class="theme__icon-part"></span>
+                            <span class="theme__icon-part"></span>
+                        </span>
+                    </span>
+                </label>
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@ViewData["Title"]</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Sugestões</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Sobre</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/orgao.js" asp-append-version="true"></script>*@
+
+    <script src="~/lib/jquery/dist/jquery-3.4.1.slim.js"></script>
+    <script src="~/js/bundle.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
