@@ -932,7 +932,7 @@ window.onload = function () {
     formValues.set(form, defaultTrack.settings);
     getSetAudioOptions.setTrackerControls(defaultTrack.settings);
 
-    initializeSampleSet(ctx, defaultTrack.settings.sampleSet, defaultTrack);
+    initializeSampleSet(ctx, defaultTrack.settings.sampleSet, defaultTrack); //inicializa tracks
     setupBaseEvents();
 
     storage = new tracksLocalStorage();
