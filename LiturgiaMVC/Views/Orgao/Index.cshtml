@@ -12,7 +12,7 @@
 </style>
 
 <div class="container" id="container" style="display:none">
-	<div class="container mt-3" style="text-align-last: center; width: 280px">
+	<div class="container mt-3" style="text-align-last: center; width: 430px">
 		<div class="d-flex justify-content-between align-items-center">
 			<div class="d-flex justify-content-between align-items-center">
 				<label class="col-sm-10">
@@ -27,11 +27,18 @@
 					</select>
 				</div>
 			</div>
+			&nbsp;&nbsp;
+			<div class="form-check form-switch">
+				<input class="form-check-input" type="checkbox" role="switch" id="tomMenorSwitch" onchange="selecionarTomMenor(this.checked)">
+				<label for="tomMenorSwitch" class="form-check-label" id="textoAcordeMenor">
+					@Model.TonsMenores[(int)Model.TomIndex]
+				</label>
+			</div>
 
 			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onchange="selecionarTomMenor(this.checked)">
-				<label class="form-check-label" id="textoAcordeMenor">
-					&nbsp; @Model.TonsMenores[(int)Model.TomIndex]
+				<input class="form-check-input" type="checkbox" role="switch" id="bateriaSwitch" onchange="showBateria(this.checked)">
+				<label for="bateriaSwitch" class="form-check-label" id="textoBateria">
+					Bateria
 				</label>
 			</div>
 		</div>
@@ -98,11 +105,26 @@
 	</table>
 </div>
 
-<partial name="~/Views/Bateria/Index.cshtml" />
-
+<div id="bateria">
+	<partial name="~/Views/Bateria/Index.cshtml"/>
+</div>
 
 <script src="~/js/Pizzicato.js" asp-append-version="true"></script>
 <script>
+	var div = document.getElementById('bateria');
+	div.style.display = 'none';
+
+	function showBateria(mostrarBateria) {		
+		if (mostrarBateria) {
+			document.getElementById('textoBateria').style.color = 'black';
+			div.style.display = 'block';
+		}
+		else {
+			div.style.display = 'none';
+			document.getElementById('textoBateria').style.color = 'grey';
+		}
+	}
+
 	var esperar_audios = false;
 	deixarTomSelecionado('@Model.TonsMaiores[(int)Model.TomIndex]');
 	esperarAudios(3000);

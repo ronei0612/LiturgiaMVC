@@ -167,6 +167,10 @@
 	color: grey;
 }
 
+#textoBateria {
+	color: grey;
+}
+
 #tomSelect {
 	width: 62px;
 	font-size: 18px;
@@ -174,7 +178,7 @@
 	/*text-align-last: center;*/
 }
 
-#flexSwitchCheckDefault {
+.form-check-input {
 	width: 2.5em;
 	height: 1.2em;
 }

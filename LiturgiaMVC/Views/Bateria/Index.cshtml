@@ -3,6 +3,16 @@
 	Layout = "~/Views/Bateria/_Layout.cshtml";
 }
 
+@*<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" charset="utf-8">
+
+    <link rel="stylesheet" href="~/css/pure-min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+
+</head>
+
+<body>*@
 <table>
 	<tr>
 		<td></td>
@@ -30,6 +40,174 @@
 <div id="tracker-container">
 	<div id="tracker-parent">
 		<table id="tracker-table">
+			<tbody>
+				<tr class="tracker-row header">
+					<td class="tracker-first-cell" data-row-id="header"></td>
+					<td class="tracker-cell-header" data-row-id="header" data-col-id="0">1</td>
+					<td class="tracker-cell-header" data-row-id="header" data-col-id="1">2</td>
+					<td class="tracker-cell-header" data-row-id="header" data-col-id="2">3</td>
+					<td class="tracker-cell-header" data-row-id="header" data-col-id="3">4</td>
+					<td class="tracker-cell-header" data-row-id="header" data-col-id="4">5</td>
+					<td class="tracker-cell-header" data-row-id="header" data-col-id="5">6</td>
+					<td class="tracker-cell-header" data-row-id="header" data-col-id="6">7</td>
+					<td class="tracker-cell-header" data-row-id="header" data-col-id="7">8</td>
+				</tr>
+				<tr class="tracker-row" data-id="0">
+					<td class="tracker-first-cell" data-row-id="0">crash-01</td>
+					<td class="tracker-cell" data-row-id="0" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="0" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="0" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="0" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="0" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="0" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="0" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="0" data-col-id="7"></td>
+				</tr>
+				<tr class="tracker-row" data-id="1">
+					<td class="tracker-first-cell" data-row-id="1">crash-02</td>
+					<td class="tracker-cell" data-row-id="1" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="1" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="1" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="1" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="1" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="1" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="1" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="1" data-col-id="7"></td>
+				</tr>
+				<tr class="tracker-row" data-id="2">
+					<td class="tracker-first-cell" data-row-id="2">
+						hihat-closed
+					</td>
+					<td class="tracker-cell" data-row-id="2" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="2" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="2" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="2" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="2" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="2" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="2" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="2" data-col-id="7"></td>
+				</tr>
+				<tr class="tracker-row" data-id="3">
+					<td class="tracker-first-cell" data-row-id="3">hihat-open</td>
+					<td class="tracker-cell" data-row-id="3" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="3" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="3" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="3" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="3" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="3" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="3" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="3" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="4">
+					<td class="tracker-first-cell" data-row-id="4">kick-01</td>
+					<td class="tracker-cell" data-row-id="4" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="4" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="4" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="4" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="4" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="4" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="4" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="4" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="5">
+					<td class="tracker-first-cell" data-row-id="5">ride-01</td>
+					<td class="tracker-cell" data-row-id="5" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="5" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="5" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="5" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="5" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="5" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="5" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="5" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="6">
+					<td class="tracker-first-cell" data-row-id="6">ride-02</td>
+					<td class="tracker-cell" data-row-id="6" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="6" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="6" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="6" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="6" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="6" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="6" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="6" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="7">
+					<td class="tracker-first-cell" data-row-id="7">snare-01</td>
+					<td class="tracker-cell" data-row-id="7" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="7" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="7" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="7" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="7" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="7" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="7" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="7" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="8">
+					<td class="tracker-first-cell" data-row-id="8">snare-02</td>
+					<td class="tracker-cell" data-row-id="8" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="8" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="8" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="8" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="8" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="8" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="8" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="8" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="9">
+					<td class="tracker-first-cell" data-row-id="9">snare-03</td>
+					<td class="tracker-cell" data-row-id="9" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="9" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="9" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="9" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="9" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="9" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="9" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="9" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="10">
+					<td class="tracker-first-cell" data-row-id="10">splash-01</td>
+					<td class="tracker-cell" data-row-id="10" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="10" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="10" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="10" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="10" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="10" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="10" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="10" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="11">
+					<td class="tracker-first-cell" data-row-id="11">splash-02</td>
+					<td class="tracker-cell" data-row-id="11" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="11" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="11" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="11" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="11" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="11" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="11" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="11" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="12">
+					<td class="tracker-first-cell" data-row-id="12">tom-01</td>
+					<td class="tracker-cell" data-row-id="12" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="12" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="12" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="12" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="12" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="12" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="12" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="12" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="13">
+					<td class="tracker-first-cell" data-row-id="13">tom-02</td>
+					<td class="tracker-cell" data-row-id="13" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="13" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="13" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="13" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="13" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="13" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="13" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="13" data-col-id="7"></td>
+				<tr class="tracker-row" data-id="14">
+					<td class="tracker-first-cell" data-row-id="14">tom-03</td>
+					<td class="tracker-cell" data-row-id="14" data-col-id="0"></td>
+					<td class="tracker-cell" data-row-id="14" data-col-id="1"></td>
+					<td class="tracker-cell" data-row-id="14" data-col-id="2"></td>
+					<td class="tracker-cell" data-row-id="14" data-col-id="3"></td>
+					<td class="tracker-cell" data-row-id="14" data-col-id="4"></td>
+					<td class="tracker-cell" data-row-id="14" data-col-id="5"></td>
+					<td class="tracker-cell" data-row-id="14" data-col-id="6"></td>
+					<td class="tracker-cell" data-row-id="14" data-col-id="7"></td>
+			</tbody>
 		</table>
 	</div>
 	<div id="tracker-controls">
@@ -83,6 +261,3 @@
 	</div>
 </div>
 
-<script>
-
-</script>
