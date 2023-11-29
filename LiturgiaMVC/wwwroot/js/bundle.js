@@ -1037,7 +1037,33 @@ function scheduleAudioBeat(beat, triggerTime) {
 
 var schedule = new simpleTracker(ctx, scheduleAudioBeat);
 
+    function playBateria() {
+        let storage = new tracksLocalStorage();
+        let track = storage.getTrack();
+
+        schedule.measureLength = track.settings.measureLength;
+        schedule.stop();
+
+        schedule.runSchedule(getSetAudioOptions.options.bpm);
+    }
+
+    function stopBateria() {
+        schedule.stop();
+        schedule = new simpleTracker(ctx, scheduleAudioBeat);
+    }
+
 function setupBaseEvents() {
+    document.getElementById('aro').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        if (botao.classList.contains('selecionado')) {
+            stopBateria();
+            botao.classList.toggle('selecionado', false);
+        }
+        else {
+            playBateria();
+            botao.classList.toggle('selecionado', true);
+        }
+    });
 
     // var initializedCtx;
     document.getElementById('play').addEventListener('click', function (e) {
@@ -1336,19 +1362,19 @@ module.exports = {
         { rowId: "11", colId: "7", enabled: true },
         { rowId: "12", colId: "0", enabled: false },
         { rowId: "12", colId: "1", enabled: false },
-        { rowId: "12", colId: "2", enabled: false },
+        { rowId: "12", colId: "2", enabled: true },
         { rowId: "12", colId: "3", enabled: false },
         { rowId: "12", colId: "4", enabled: false },
         { rowId: "12", colId: "5", enabled: false },
-        { rowId: "12", colId: "6", enabled: false },
+        { rowId: "12", colId: "6", enabled: true },
         { rowId: "12", colId: "7", enabled: false },
         { rowId: "13", colId: "0", enabled: false },
         { rowId: "13", colId: "1", enabled: false },
-        { rowId: "13", colId: "2", enabled: true },
+        { rowId: "13", colId: "2", enabled: false },
         { rowId: "13", colId: "3", enabled: false },
         { rowId: "13", colId: "4", enabled: false },
         { rowId: "13", colId: "5", enabled: false },
-        { rowId: "13", colId: "6", enabled: true },
+        { rowId: "13", colId: "6", enabled: false },
         { rowId: "13", colId: "7", enabled: false },
         { rowId: "14", colId: "0", enabled: true },
         { rowId: "14", colId: "1", enabled: false },
@@ -1363,7 +1389,7 @@ module.exports = {
     sampleSet:
       "./Sons/studio/samples.json",
     measureLength: 8,
-    bpm: 120,
+    bpm: 90,
     detune: 0,
     gainEnabled: "gain",
     attackAmp: 0,
