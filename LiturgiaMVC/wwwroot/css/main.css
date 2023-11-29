@@ -16,9 +16,10 @@ a {
 
 #tracker-container {
     background-color: ghostwhite;
-    width: 100%;
-    padding: 20px;
-    background-color: #F4A360;
+    width: 80%;
+    padding: 10px;
+    /*background-color: #F4A360;*/
+    background-color: gainsboro;
     display: flex;
     flex-wrap: wrap;
 }
@@ -31,7 +32,7 @@ a {
 
 
 #tracker-parent {
-    padding: 20px;
+    padding: 0px;
     flex-basis: auto;
     background-color: gainsboro;
     /*overflow-x: visible;*/

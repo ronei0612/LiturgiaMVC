@@ -75,10 +75,14 @@ namespace LiturgiaMVC
             var dataHoraBrasilia = DateTime.Now.AddHours(3);
             var dataHora = dataHoraBrasilia.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
 
-            if (File.Exists(Variaveis.arquivoIPs) == false)
-                File.WriteAllText(Variaveis.arquivoIPs, "IP;EndPoint;Data e Hora");
-            
-            File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
+            try
+            {
+                if (File.Exists(Variaveis.arquivoIPs) == false)
+                    File.WriteAllText(Variaveis.arquivoIPs, "IP;EndPoint;Data e Hora");
+
+                File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
+            }
+            catch { }
         }
 
         public static void LerArquivoAcordesLista()
