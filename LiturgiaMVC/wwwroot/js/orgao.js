@@ -5,6 +5,7 @@ var _acompanhamentoSolo = false;
 var _acompanhamentoFull = false;
 var _acompanhamentoMao = false;
 var _grupoNotas;
+var _volume = 0.7;
 
 
 var tremolo = new Pizzicato.Effects.Tremolo({
@@ -90,6 +91,7 @@ function verificarAcompanhamentoEtocar(acorde) {
 		_grupoNotas.addSound(acordes[acorde + '_baixo']);
 	
 	_grupoNotas.play();
+	_grupoNotas.volume = _volume;
 }
 
 function pararOsAcordes() {
@@ -130,6 +132,13 @@ function botaoAcompPressionado(botao) {
 
 function pressionarBotaoAcomp(botao) {
 	botao.classList.toggle('selecionado', true);
+}
+
+function alterarVolume(volume) {
+	volume = volume / 10;
+	if (_grupoNotas != null)
+		_grupoNotas.volume = volume;
+	_volume = volume;
 }
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
