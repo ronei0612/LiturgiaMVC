@@ -72,26 +72,37 @@ function setTom(acorde = 'C') {
 }
 
 function verificarAcompanhamentoEtocar(acorde) {
-	pararOsAcordes();
-
-	if (_grupoNotas == null) {
-		_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
-		_grupoNotas.addEffect(flanger);
-	}
+	pararOsAcordes();	
 
 	if (_acompanhamentoSelecionado == 'full') {
-		_grupoNotas.addSound(acordes[acorde + '_mao']);
-		_grupoNotas.addSound(acordes[acorde + '_baixo']);
+		if (_grupoNotas == null) {
+			_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
+			_grupoNotas.addSound(acordes[acorde + '_baixo']);
+			_grupoNotas.addEffect(flanger);
+		} else {
+			_grupoNotas.addSound(acordes[acorde + '_mao']);
+			_grupoNotas.addSound(acordes[acorde + '_baixo']);
+		}
 	}
 
-	else if (_acompanhamentoSelecionado == 'mao')
-		_grupoNotas.addSound(acordes[acorde + '_mao']);
-	
-	else
-		_grupoNotas.addSound(acordes[acorde + '_baixo']);
+	else if (_acompanhamentoSelecionado == 'mao') {
+		if (_grupoNotas == null) {
+			_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
+			_grupoNotas.addEffect(flanger);
+		} else
+			_grupoNotas.addSound(acordes[acorde + '_mao']);
+	}
+
+	else {
+		if (_grupoNotas == null) {
+			_grupoNotas = new Pizzicato.Group([acordes[acorde + '_baixo']]);
+			_grupoNotas.addEffect(flanger);
+		} else
+			_grupoNotas.addSound(acordes[acorde + '_baixo']);
+	}
 	
 	_grupoNotas.play();
-	_grupoNotas.volume = _volume;
+	//_grupoNotas.volume = _volume;
 }
 
 function pararOsAcordes() {
@@ -135,6 +146,13 @@ function pressionarBotaoAcomp(botao) {
 }
 
 function alterarVolume(volume) {
+	var numero = document.getElementById('volumeTexto');
+	numero.innerHTML = volume;
+	if (volume == 7)
+		numero.style.color = '#00008b';
+	else
+		numero.style.color = '#8b0000';
+
 	volume = volume / 10;
 	if (_grupoNotas != null)
 		_grupoNotas.volume = volume;
