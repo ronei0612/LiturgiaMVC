@@ -15,33 +15,33 @@ a {
 }
 
 #tracker-container {
-    background-color: ghostwhite;
-    width: 80%;
+    /*background-color: ghostwhite;*/
+    width: 100%;
     padding: 10px;
     /*background-color: #F4A360;*/
-    background-color: gainsboro;
+    /*background-color: gainsboro;*/
     display: flex;
     flex-wrap: wrap;
 }
 
 #tracker-controls {
-    margin-left: 20px;
-    padding: 20px;
-    background-color: #bc8f8f;
+    margin-left: 0px;
+    padding: 0px;
+    /*background-color: #bc8f8f;*/
 }
 
 
 #tracker-parent {
     padding: 0px;
     flex-basis: auto;
-    background-color: gainsboro;
+    /*background-color: gainsboro;*/
     /*overflow-x: visible;*/
 }
 
 
 .tracker-cell, .tracker-first-cell, .tracker-cell-header {
     height: 20px;
-    min-width: 20px;
+    min-width: 21px;
     border: black;
     border-color: black;
     background: #fff;
