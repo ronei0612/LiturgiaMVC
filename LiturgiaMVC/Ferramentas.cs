@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Html;
-using System.Globalization;
-using System.Text.Encodings.Web;
+﻿using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace LiturgiaMVC
@@ -192,6 +190,21 @@ namespace LiturgiaMVC
                             throw new ArgumentException("Arquivo não existe na pasta wwwroot: " + linha.Split(',')[1].Trim());
 
             Variaveis.acordesLinks = acordesLinksDict;
+        }
+
+        public static void LerArquivoRitmosBateria()
+        {
+            if (File.Exists(Variaveis.arquivoRitmosBateria) == false)
+            {
+                File.WriteAllText(Variaveis.arquivoRitmosBateria, "{ \"Pop\": [13, 10], \"Country\": [15, 16] }");
+            }
+
+            var texto = File.ReadAllText(Variaveis.arquivoRitmosBateria);
+
+            if (string.IsNullOrEmpty(texto))
+                throw new ArgumentException("Arquivo de ritmos vazio: " + Variaveis.arquivoRitmosBateria);
+            
+            Variaveis.textoRitmos = texto;
         }
     }
 }
