@@ -129,20 +129,21 @@
 	const ritmosJson = JSON.parse('@Html.Raw(@Model.RitmosBateria)');
 	const ritmosNomes = Object.keys(ritmosJson);
 
-	var ritmoSelecionadoIndex = 0;
+	var ritmoSelecionado = 'aro';
 
 	for (var i = 0, len = ritmosNomes.length; i < len; i++) {
 		if (ritmosNomes[i].includes('_') == false) {
 			let opt = document.createElement('option');
-			opt.value = i;
+			opt.value = ritmosNomes[i];
 			opt.textContent += ritmosNomes[i];
 			selecionarRitmoElem.appendChild(opt);
 		}
 	}
 	
-	function selectionarRitmo(index){
-		ritmoSelecionadoIndex = index;
-		var numerosIndex = ritmosJson[ritmosNomes[index]];
+	function selectionarRitmo(nome){
+		if (nome.includes('_') == false)
+			ritmoSelecionado = nome;
+		var numerosIndex = ritmosJson[nome];
 		var tabelaBateria = document.getElementById('tracker-table');
 
 		var tdsAtivados = document.getElementsByClassName('tracker-enabled');
@@ -157,22 +158,26 @@
 	}
 
 	function mudarRitmo(ritmo){
-		var numerosIndex;
 		if (ritmo == '')
-			numerosIndex = ritmosJson[ritmosNomes[ritmoSelecionadoIndex]];
+			selectionarRitmo(ritmoSelecionado);
 		else
-			numerosIndex = ritmosJson[ritmosNomes[ritmoSelecionadoIndex] + "_" + ritmo];
+			selectionarRitmo(ritmoSelecionado + "_" + ritmo);
+		//var numerosIndex;
+		//if (ritmo == '')
+		//	numerosIndex = ritmosJson[ritmosNomes[ritmoSelecionado]];
+		//else
+		//	numerosIndex = ritmosJson[ritmosNomes[ritmoSelecionado] + "_" + ritmo];
 
-		var tabelaBateria = document.getElementById('tracker-table');
+		//var tabelaBateria = document.getElementById('tracker-table');
 
-		var tdsAtivados = document.getElementsByClassName('tracker-enabled');
-		Array.from(tdsAtivados).forEach((tdAtivado) => {
-			tdAtivado.classList.remove('tracker-enabled');
-		});
+		//var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+		//Array.from(tdsAtivados).forEach((tdAtivado) => {
+		//	tdAtivado.classList.remove('tracker-enabled');
+		//});
 
-		var tdsAtivar = tabelaBateria.getElementsByTagName('td');
-		numerosIndex.forEach((numeroIndex) => {
-			tdsAtivar[numeroIndex].classList.add('tracker-enabled');
-		});
+		//var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+		//numerosIndex.forEach((numeroIndex) => {
+		//	tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+		//});
 	}
 </script>

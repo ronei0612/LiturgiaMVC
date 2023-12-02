@@ -163,6 +163,24 @@
 	transform: translateY(4px);
 }
 
+	.botao.dedo.selecionadoDrum {
+		border-bottom: 2px solid #626567;
+		box-shadow: 0 0 10px 3px #ffeb3b;
+		transform: translateY(4px);
+	}
+
+	.botao.mao.selecionadoDrum {
+		border-bottom: 2px solid #626567;
+		box-shadow: 0 0 10px 3px #ffeb3b;
+		transform: translateY(4px);
+	}
+
+	.botao.duasmaos.selecionadoDrum {
+		border-bottom: 2px solid #626567;
+		box-shadow: 0 0 10px 3px #ffeb3b;
+		transform: translateY(4px);
+	}
+
 #textoAcordeMenor {
 	color: grey;
 }

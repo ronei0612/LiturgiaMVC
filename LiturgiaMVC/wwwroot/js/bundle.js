@@ -1054,50 +1054,58 @@ var schedule = new simpleTracker(ctx, scheduleAudioBeat);
 
 function setupBaseEvents() {
     document.getElementById('aro').addEventListener('click', function (e) {
+        if (document.getElementsByClassName('selecionadoDrum').length > 0)
+            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
-        if (botao.classList.contains('selecionado')) {
+        if (botao.classList.contains('selecionadoDrum')) {
             stopBateria();
-            botao.classList.toggle('selecionado', false);
+            botao.classList.toggle('selecionadoDrum', false);
         }
         else {
             playBateria();
-            botao.classList.toggle('selecionado', true);
+            botao.classList.toggle('selecionadoDrum', true);
         }
     });
 
     document.getElementById('caixa').addEventListener('click', function (e) {
+        if (document.getElementsByClassName('selecionadoDrum').length > 0)
+            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
-        if (botao.classList.contains('selecionado')) {
+        if (botao.classList.contains('selecionadoDrum')) {
             stopBateria();
-            botao.classList.toggle('selecionado', false);
+            botao.classList.toggle('selecionadoDrum', false);
         }
         else {
             playBateria();
-            botao.classList.toggle('selecionado', true);
+            botao.classList.toggle('selecionadoDrum', true);
         }
     });
 
     document.getElementById('ride').addEventListener('click', function (e) {
+        if (document.getElementsByClassName('selecionadoDrum').length > 0)
+            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
-        if (botao.classList.contains('selecionado')) {
+        if (botao.classList.contains('selecionadoDrum')) {
             stopBateria();
-            botao.classList.toggle('selecionado', false);
+            botao.classList.toggle('selecionadoDrum', false);
         }
         else {
             playBateria();
-            botao.classList.toggle('selecionado', true);
+            botao.classList.toggle('selecionadoDrum', true);
         }
     });
 
     document.getElementById('chimbal').addEventListener('click', function (e) {
+        if (document.getElementsByClassName('selecionadoDrum').length > 0)
+            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
-        if (botao.classList.contains('selecionado')) {
+        if (botao.classList.contains('selecionadoDrum')) {
             stopBateria();
-            botao.classList.toggle('selecionado', false);
+            botao.classList.toggle('selecionadoDrum', false);
         }
         else {
             playBateria();
-            botao.classList.toggle('selecionado', true);
+            botao.classList.toggle('selecionadoDrum', true);
         }
     });
 
