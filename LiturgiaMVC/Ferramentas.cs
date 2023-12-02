@@ -200,7 +200,7 @@ namespace LiturgiaMVC
             }
 
             var texto = File.ReadAllText(Variaveis.arquivoRitmosBateria);
-            texto = texto.Replace(Environment.NewLine, "");
+            texto = texto.Replace(Environment.NewLine, "").Replace(" ", "").Replace("],}", "]}");
 
             if (string.IsNullOrEmpty(texto))
                 throw new ArgumentException("Arquivo de ritmos vazio: " + Variaveis.arquivoRitmosBateria);

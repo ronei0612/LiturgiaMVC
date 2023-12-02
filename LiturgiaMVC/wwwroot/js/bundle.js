@@ -1098,73 +1098,50 @@ var schedule = new simpleTracker(ctx, scheduleAudioBeat);
         selecionarRitmo(_ritmoSelecionado);
     }
 
-function setupBaseEvents() {
-    document.getElementById('selectRitmo').addEventListener('change', function (e) {
-        var botao = document.activeElement;
-        selecionarRitmo(botao.value);
-    });
-    document.getElementById('aro').addEventListener('click', function (e) {
+    function pressionarBotao(botao) {
         if (document.getElementsByClassName('selecionadoDrum').length > 0)
             document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
         else
             playBateria();
 
-        var botao = document.activeElement;
-
-        mudarRitmo('aro');
-
         if (botao.classList.contains('selecionadoDrum')) {
             stopBateria();
             botao.classList.toggle('selecionadoDrum', false);
         }
-        else {
-            //playBateria();
+        else
             botao.classList.toggle('selecionadoDrum', true);
-        }
+    }
+
+function setupBaseEvents() {
+    document.getElementById('selectRitmo').addEventListener('change', function (e) {
+        if (document.getElementsByClassName('selecionadoDrum').length > 0)
+            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
+        var botao = document.activeElement;
+        selecionarRitmo(botao.value);
+    });
+
+    document.getElementById('aro').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        pressionarBotao(botao);
+        mudarRitmo('aro');
     });
 
     document.getElementById('caixa').addEventListener('click', function (e) {
-        if (document.getElementsByClassName('selecionadoDrum').length > 0)
-            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
+        pressionarBotao(botao);
         mudarRitmo('');
-
-        if (botao.classList.contains('selecionadoDrum')) {
-            stopBateria();
-            botao.classList.toggle('selecionadoDrum', false);
-        }
-        else {
-            //playBateria();
-            botao.classList.toggle('selecionadoDrum', true);
-        }
     });
 
     document.getElementById('ride').addEventListener('click', function (e) {
-        if (document.getElementsByClassName('selecionadoDrum').length > 0)
-            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
-        if (botao.classList.contains('selecionadoDrum')) {
-            stopBateria();
-            botao.classList.toggle('selecionadoDrum', false);
-        }
-        else {
-            //playBateria();
-            botao.classList.toggle('selecionadoDrum', true);
-        }
+        pressionarBotao(botao);
+        mudarRitmo('ride');
     });
 
     document.getElementById('chimbal').addEventListener('click', function (e) {
-        if (document.getElementsByClassName('selecionadoDrum').length > 0)
-            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
-        if (botao.classList.contains('selecionadoDrum')) {
-            stopBateria();
-            botao.classList.toggle('selecionadoDrum', false);
-        }
-        else {
-            //playBateria();
-            botao.classList.toggle('selecionadoDrum', true);
-        }
+        pressionarBotao(botao);
+        mudarRitmo('chimbal');
     });
 
     // var initializedCtx;
