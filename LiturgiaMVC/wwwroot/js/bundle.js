@@ -1,4 +1,10 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+const ritmosNomes = Object.keys(ritmosJson);
+var _ritmoSelecionado = 'aro';
+var selecionarRitmoElem = document.getElementById('selectRitmo');
+var _trocarRitmo = false;
+
+(function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s })({
+    1: [function (require, module, exports) {
 function AdsrGainNode(ctx) {
 
     this.ctx = ctx;
@@ -1052,17 +1058,67 @@ var schedule = new simpleTracker(ctx, scheduleAudioBeat);
         schedule = new simpleTracker(ctx, scheduleAudioBeat);
     }
 
+    for (var i = 0, len = ritmosNomes.length; i < len; i++) {
+        if (ritmosNomes[i].includes('_') == false) {
+            let opt = document.createElement('option');
+            opt.value = ritmosNomes[i];
+            opt.textContent += ritmosNomes[i];
+            selecionarRitmoElem.appendChild(opt);
+        }
+    }
+
+    function selecionarRitmo(ritmo) {
+        if (_trocarRitmo) {
+            _trocarRitmo = false;
+
+            var numerosIndex = ritmosJson[ritmo];
+            var tabelaBateria = document.getElementById('tracker-table');
+            var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+
+            Array.from(tdsAtivados).forEach((tdAtivado) => {
+                tdAtivado.classList.remove('tracker-enabled');
+            });
+
+            var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+            numerosIndex.forEach((numeroIndex) => {
+                tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+            });
+        }
+    }
+
+    function mudarRitmo(ritmo) {
+        _trocarRitmo = true;
+        var selectRitmo = document.getElementById('selectRitmo');
+
+        if (ritmo == '')
+            _ritmoSelecionado = selectRitmo.value;
+        else
+            _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
+
+        selecionarRitmo(_ritmoSelecionado);
+    }
+
 function setupBaseEvents() {
+    document.getElementById('selectRitmo').addEventListener('change', function (e) {
+        var botao = document.activeElement;
+        selecionarRitmo(botao.value);
+    });
     document.getElementById('aro').addEventListener('click', function (e) {
         if (document.getElementsByClassName('selecionadoDrum').length > 0)
             document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
+        else
+            playBateria();
+
         var botao = document.activeElement;
+
+        mudarRitmo('aro');
+
         if (botao.classList.contains('selecionadoDrum')) {
             stopBateria();
             botao.classList.toggle('selecionadoDrum', false);
         }
         else {
-            playBateria();
+            //playBateria();
             botao.classList.toggle('selecionadoDrum', true);
         }
     });
@@ -1071,12 +1127,14 @@ function setupBaseEvents() {
         if (document.getElementsByClassName('selecionadoDrum').length > 0)
             document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
+        mudarRitmo('');
+
         if (botao.classList.contains('selecionadoDrum')) {
             stopBateria();
             botao.classList.toggle('selecionadoDrum', false);
         }
         else {
-            playBateria();
+            //playBateria();
             botao.classList.toggle('selecionadoDrum', true);
         }
     });
@@ -1090,7 +1148,7 @@ function setupBaseEvents() {
             botao.classList.toggle('selecionadoDrum', false);
         }
         else {
-            playBateria();
+            //playBateria();
             botao.classList.toggle('selecionadoDrum', true);
         }
     });
@@ -1104,7 +1162,7 @@ function setupBaseEvents() {
             botao.classList.toggle('selecionadoDrum', false);
         }
         else {
-            playBateria();
+            //playBateria();
             botao.classList.toggle('selecionadoDrum', true);
         }
     });
@@ -1510,6 +1568,27 @@ const hasClass = require('has-class');
  * @param {audioContext} ctx 
  * @param {function} scheduleAudioBeat funtion when an audio is played
  */
+
+    //function selectionarRitmo() {
+    //    if (_trocarRitmo) {
+    //        _trocarRitmo = false;
+
+    //        var numerosIndex = ritmosJson[_ritmoSelecionado];
+    //        var tabelaBateria = document.getElementById('tracker-table');
+    //        var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+
+    //        Array.from(tdsAtivados).forEach((tdAtivado) => {
+    //            tdAtivado.classList.remove('tracker-enabled');
+    //        });
+
+    //        var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+    //        numerosIndex.forEach((numeroIndex) => {
+                
+    //            tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+    //        });
+    //    }
+    //}
+
 function tracker(ctx, scheduleAudioBeat) {
 
     this.measureLength = 16;
@@ -1595,6 +1674,7 @@ function tracker(ctx, scheduleAudioBeat) {
             })
         }, now + this.scheduleForward + this.milliPerBeat(this.bpm) / 1000);
 
+
         beatColumn.forEach((beat) => {
             this.scheduleBeat(beat, now);
         });
@@ -1646,7 +1726,6 @@ function tracker(ctx, scheduleAudioBeat) {
         this.interval = setInterval(() => {
             this.schedule();
             this.next();
-
         }, interval);
     };
 
