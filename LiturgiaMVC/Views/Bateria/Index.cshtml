@@ -1,7 +1,13 @@
-﻿@{
+﻿@model LinksModel
+
+@{
 	ViewData["Title"] = "Bateria";
 	Layout = "~/Views/Bateria/_Layout.cshtml";
 }
+
+
+<select class="form-control" id="selecionarRitmo" onchange="selectionadoRitmo(this.value)">
+</select>
 
 <table>
 	<tr>
@@ -117,5 +123,33 @@
 		
 	</div>
 
+<script>
+	var selecionarRitmoElem = document.getElementById("selecionarRitmo");
+	var option = document.createElement("option");
+	const ritmosJson = JSON.parse('@Html.Raw(@Model.RitmosBateria)');
+	const ritmosNomes = Object.keys(ritmosJson);
 
-@*document.querySelector('[data-row-id="0"][data-col-id="0"]');*@
+	for (var i = 0, len = ritmosNomes.length; i < len; i++) {
+		if (ritmosNomes[i].includes('_') == false) {
+			let opt = document.createElement('option');
+			opt.value = i;
+			opt.textContent += ritmosNomes[i];
+			selecionarRitmoElem.appendChild(opt);
+		}
+	}
+	
+	function selectionadoRitmo(index){
+		var numerosIndex = ritmosJson[ritmosNomes[index]];
+		var tabelaBateria = document.getElementById('tracker-table');
+
+		var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+		Array.from(tdsAtivados).forEach((tdAtivado) => {
+			tdAtivado.classList.remove('tracker-enabled');
+		});
+
+		var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+		numerosIndex.forEach((numeroIndex) => {
+			tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+		});
+	}
+</script>

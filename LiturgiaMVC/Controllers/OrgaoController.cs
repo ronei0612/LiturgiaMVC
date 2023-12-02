@@ -1,5 +1,6 @@
 ﻿using LiturgiaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace LiturgiaMVC.Controllers
 {
@@ -31,13 +32,25 @@ namespace LiturgiaMVC.Controllers
                     });
                 }
 
+            if (Variaveis.textoRitmos == "")
+                try {
+                    Ferramentas.LerArquivoRitmosBateria();
+                }
+                catch (Exception ex) {
+                    return View("Error", new ErrorViewModel {                    
+                        Titulo = "Ler Arquivo dos ritmos de bateria",
+                        Mensagem = ex.Message
+                    });
+                }
+
             var linksModel = new LinksModel
             {
                 Acordes = Variaveis.acordes[tom],
                 LinksDict = Variaveis.acordesLinks,
                 TomIndex = Array.IndexOf(Variaveis.tonsMaiores, tom),
                 TonsMaiores = Variaveis.tonsMaiores,
-                TonsMenores = Variaveis.tonsMenores
+                TonsMenores = Variaveis.tonsMenores,
+                RitmosBateria = Variaveis.textoRitmos
             };
 
             return View(linksModel);
