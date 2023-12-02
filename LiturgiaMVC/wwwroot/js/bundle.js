@@ -1065,6 +1065,42 @@ function setupBaseEvents() {
         }
     });
 
+    document.getElementById('caixa').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        if (botao.classList.contains('selecionado')) {
+            stopBateria();
+            botao.classList.toggle('selecionado', false);
+        }
+        else {
+            playBateria();
+            botao.classList.toggle('selecionado', true);
+        }
+    });
+
+    document.getElementById('ride').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        if (botao.classList.contains('selecionado')) {
+            stopBateria();
+            botao.classList.toggle('selecionado', false);
+        }
+        else {
+            playBateria();
+            botao.classList.toggle('selecionado', true);
+        }
+    });
+
+    document.getElementById('chimbal').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        if (botao.classList.contains('selecionado')) {
+            stopBateria();
+            botao.classList.toggle('selecionado', false);
+        }
+        else {
+            playBateria();
+            botao.classList.toggle('selecionado', true);
+        }
+    });
+
     // var initializedCtx;
     document.getElementById('play').addEventListener('click', function (e) {
         let storage = new tracksLocalStorage();
