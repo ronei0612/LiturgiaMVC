@@ -114,44 +114,21 @@
 	</tr>
 </table>
 
-
-		Tempo: <input name="bpm" id="bpm" style="width: 60px" value="90">
-		<input id="bpmRange" type="range" max="240" min="40" step="1" value="90">
-
-<div class="form-check form-switch">
-	<input class="form-check-input" type="checkbox" role="switch" id="bateriaSwitch" onchange="showBateria(this.checked)">
-	<label for="bateriaSwitch" class="form-check-label" id="textoBateria">Editar Ritmo</label>
-</div>
-
-<div id="app-message"></div>
-
-<div id="bateria" style="display:none">
-	<div id="tracker-parent">
-		<table id="tracker-table">
-		</table>
-	</div>
-	<div id="tracker-controls">
-		<div style="display:none">
-		<button id="play">Play</button>
-		<button id="pause">Pause</button>
-		<button id="stop">Stop</button>
-		<br>
-	</div>
-</div>
 		<form class="pure-form" id="trackerControls">
+			Tempo: <input name="bpm" id="bpm" style="width: 60px" value="90">
+			<input id="bpmRange" type="range" max="240" min="40" step="1" value="90">
+
+			<div style="display:none">
+
+				<label for="measureLength">Compasso:</label>
+				<select name="measureLength" id="measureLength" aria-label="Compasso">
+					<option value="6">3/4</option>
+					<option selected value="8">4/4</option>
+					<option value="12">6/8</option>
+				</select>
+			</div>
+
 			<br>
-		
-		<div>
-
-			<label for="measureLength">Compasso:</label>
-			<select name="measureLength" id="measureLength" aria-label="Compasso">
-				<option value="6">3/4</option>
-				<option selected value="8">4/4</option>
-				<option value="12">6/8</option>
-			</select>
-		</div>
-
-		<br>
 
 			<div id="options" style="display:none">
 				<hr>
@@ -175,6 +152,28 @@
 			</div>
 
 		</form>
+
+<div class="form-check form-switch">
+	<input class="form-check-input" type="checkbox" role="switch" id="bateriaSwitch" onchange="showBateria(this.checked)">
+	<label for="bateriaSwitch" class="form-check-label" id="textoBateria">Editar Ritmo</label>
+</div>
+
+<div id="app-message"></div>
+
+<div id="bateria" style="display:none">
+	<div id="tracker-parent">
+		<table id="tracker-table">
+		</table>
+	</div>
+	<div id="tracker-controls">
+		<div style="display:none">
+		<button id="play">Play</button>
+		<button id="pause">Pause</button>
+		<button id="stop">Stop</button>
+		<br>
+	</div>
+</div>
+		
 	<div style="display:none">
 			<hr>
 			<form class="pure-form">

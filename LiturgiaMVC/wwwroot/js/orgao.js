@@ -75,10 +75,10 @@ function verificarAcompanhamentoEtocar(acorde) {
 	pararOsAcordes();	
 
 	if (_acompanhamentoSelecionado == 'full') {
-		acordes[acorde + '_mao'].attack = 0.2;
-		acordes[acorde + '_mao'].release = 0.5;
-		acordes[acorde + '_baixo'].attack = 0.2;
-		acordes[acorde + '_baixo'].release = 0.5;
+		acordes[acorde + '_mao'].attack = 0.1;
+		acordes[acorde + '_mao'].release = 0.4;
+		acordes[acorde + '_baixo'].attack = 0.1;
+		acordes[acorde + '_baixo'].release = 0.4;
 
 		if (_grupoNotas == null) {
 			_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
