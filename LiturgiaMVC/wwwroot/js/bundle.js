@@ -1130,7 +1130,8 @@ var schedule = new simpleTracker(ctx, scheduleAudioBeat);
         }
 
         if (botao != '') {
-            playBateria();
+            if (!schedule.running)
+                playBateria();
             botao.classList.toggle('selecionadoDrum', true);
         }
     }
