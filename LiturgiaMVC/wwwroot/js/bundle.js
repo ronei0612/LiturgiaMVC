@@ -967,76 +967,32 @@ function scheduleAudioBeat(beat, triggerTime) {
     let instrument = buffers[instrumentName].get();
     let options = getSetAudioOptions.getTrackerControls();
 
-
     function play(source) {
-
-        source.detune.value = options.detune;
-
-        // Gain
         let node = routeGain(source)
         node = routeDelay(node);
-        // node = routeCompressor(node);
         node.connect(ctx.destination);
         source.start(triggerTime);
 
     }
-
 
     function routeGain (source) {
         let gain = new adsrGainNode(ctx);
         gain.mode = 'linearRampToValueAtTime';
         let options = getSetAudioOptions.getTrackerControls();
 
-        let gainNode; 
-
-        // Not enabled - default gain
-        if (!options.gainEnabled) {
-            gainNode = gain.getGainNode(triggerTime);
-            source.connect(gainNode);
-            return gainNode;
-        }
+        let gainNode;
 
         gain.setOptions(options);
         gainNode = gain.getGainNode(triggerTime);
         source.connect(gainNode);
+
         return gainNode;
-
-
     }
 
     // Note delay always uses above gain - even if not enabled
     function routeDelay(node) {
-        if (!options.delayEnabled) {
+        if (!options.delayEnabled)
             return node;
-        }
-
-        // create delay node
-        let delay = ctx.createDelay();
-        delay.delayTime.value = options.delay;
-
-        // create adsr gain node
-        let gain = new adsrGainNode(ctx);
-        gain.mode = 'linearRampToValueAtTime';
-        gain.setOptions(options);
-        let feedbackGain = gain.getGainNode(triggerTime);
-
-        // create filter
-        let filter = ctx.createBiquadFilter();
-        filter.frequency.value = options.filter;
-
-        // delay -> feedbackGain
-        delay.connect(feedbackGain);
-        disconnectNode(delay, options);
-
-        // feedback -> filter
-        feedbackGain.connect(filter);
-
-        // filter ->delay
-        filter.connect(delay);
-
-        node.connect(delay);
-
-        return delay;
     }
     play(instrument);
 }
@@ -1112,20 +1068,23 @@ var schedule = new simpleTracker(ctx, scheduleAudioBeat);
 
     function pressionarBotao(botao) {
         if (document.getElementsByClassName('selecionadoDrum').length > 0) {
-            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
+            var botaoPressionado = document.getElementsByClassName('selecionadoDrum')[0];
+            botaoPressionado.classList.toggle('selecionadoDrum', false);
 
             if (botao == '') {
                 stopBateria();
 
-                let pratoAtaque1 = buffers['pratoAtaque-01'].get();
-                let node = routeGain(pratoAtaque1);
-                node.connect(ctx.destination);
+                if (botaoPressionado.id != 'brush') {
+                    let pratoAtaque1 = buffers['pratoAtaque-01'].get();
+                    let node = routeGain(pratoAtaque1);
+                    node.connect(ctx.destination);
 
-                let pratoAtaque2 = buffers['pratoAtaque-01'].get();
-                let node2 = routeGain(pratoAtaque2);
-                node2.connect(ctx.destination);
-                pratoAtaque1.start();
-                pratoAtaque2.start();
+                    let pratoAtaque2 = buffers['pratoAtaque-01'].get();
+                    let node2 = routeGain(pratoAtaque2);
+                    node2.connect(ctx.destination);
+                    pratoAtaque1.start();
+                    pratoAtaque2.start();
+                }
             }
         }
 
@@ -1542,10 +1501,6 @@ function getSetControls() {
             
             if (key === 'delayEnabled') {
                 ret[key] = 'delay';
-                continue;
-            }
-            if (key === 'gainEnabled') {
-                ret[key] = 'gain';
                 continue;
             }
             
