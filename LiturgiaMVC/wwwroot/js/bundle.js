@@ -1098,18 +1098,41 @@ var schedule = new simpleTracker(ctx, scheduleAudioBeat);
         selecionarRitmo(_ritmoSelecionado);
     }
 
-    function pressionarBotao(botao) {
-        if (document.getElementsByClassName('selecionadoDrum').length > 0)
-            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
-        else
-            playBateria();
+    function routeGain(source) {
+        let gain = new adsrGainNode(ctx);
+        gain.mode = 'linearRampToValueAtTime';
+        let options = getSetAudioOptions.getTrackerControls();
+        let gainNode;
 
-        if (botao.classList.contains('selecionadoDrum')) {
-            stopBateria();
-            botao.classList.toggle('selecionadoDrum', false);
+        gain.setOptions(options);
+        gainNode = gain.getGainNode(0);
+        source.connect(gainNode);
+        return gainNode;
+    }
+
+    function pressionarBotao(botao) {
+        if (document.getElementsByClassName('selecionadoDrum').length > 0) {
+            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
+
+            if (botao == '') {
+                stopBateria();
+
+                let pratoAtaque1 = buffers['pratoAtaque-01'].get();
+                let node = routeGain(pratoAtaque1);
+                node.connect(ctx.destination);
+
+                let pratoAtaque2 = buffers['pratoAtaque-01'].get();
+                let node2 = routeGain(pratoAtaque2);
+                node2.connect(ctx.destination);
+                pratoAtaque1.start();
+                pratoAtaque2.start();
+            }
         }
-        else
+
+        if (botao != '') {
+            playBateria();
             botao.classList.toggle('selecionadoDrum', true);
+        }
     }
 
 function setupBaseEvents() {
@@ -1132,6 +1155,12 @@ function setupBaseEvents() {
         mudarRitmo('');
     });
 
+    document.getElementById('brush').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        pressionarBotao(botao);
+        mudarRitmo('brush');
+    });
+
     document.getElementById('ride').addEventListener('click', function (e) {
         var botao = document.activeElement;
         pressionarBotao(botao);
@@ -1142,6 +1171,10 @@ function setupBaseEvents() {
         var botao = document.activeElement;
         pressionarBotao(botao);
         mudarRitmo('chimbal');
+    });
+
+    document.getElementById('play-pause_bateria').addEventListener('click', function (e) {
+        pressionarBotao('');
     });
 
     // var initializedCtx;
