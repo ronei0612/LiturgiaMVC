@@ -1181,8 +1181,8 @@ function setupBaseEvents() {
         }
     });
 
-    document.getElementById('measureLength').addEventListener('change', (e) => {
-        let value = document.getElementById('measureLength').value;
+    document.getElementById('selectCompasso').addEventListener('change', (e) => {
+        let value = document.getElementById('selectCompasso').value;
         let length = parseInt(value);
 
         if (length < 1) return;

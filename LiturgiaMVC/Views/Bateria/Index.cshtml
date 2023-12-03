@@ -5,9 +5,14 @@
 	Layout = "~/Views/Bateria/_Layout.cshtml";
 }
 
-
-<select class="form-control" id="selectRitmo">
+<div class="slidecontainer pure-form">
+<select class="form-control" id="selectRitmo" style="height:3m">
 </select>
+
+	Tempo: <input name="bpm" id="bpm" style="width: 60px;" value="90">
+	<input id="bpmRange" type="range" max="240" min="40" step="1" value="90">
+
+</div>
 
 <table>
 	<tr>
@@ -30,6 +35,49 @@
 		</td>
 		<td>
 			<button id="chimbal" class="botao mao">
+				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+					<g>
+						<g>
+							<path d="M442.514,210.831c-7.106-1.448-14.575-2.801-22.32-4.061c-46.076,9.44-102.01,16.097-160.96,19.039
+							c-21.975,1.098-43.591,1.641-64.477,1.641c-47.447,0-91.162-2.799-126.956-8.254c-6.989-1.064-13.547-2.212-19.702-3.438
+							C8.783,226.036,0,236.16,0,238.647c0,2.885,11.713,16.058,69.381,27.816c43.181,8.803,98.697,14.168,158.898,15.425v21.747
+							v120.508c0,9.207,7.649,16.67,16.856,16.67c9.207,0,16.856-7.463,16.856-16.67V303.904v-21.742h0
+							c68.63-0.297,132.263-5.846,180.606-15.699C500.268,254.705,512,241.532,512,238.647C512,235.762,500.184,222.589,442.514,210.831
+							z" />
+						</g>
+					</g>
+					<g>
+						<g>
+							<path d="M440.871,123.538c-34.736-5.293-77.172-8.009-123.466-8.009c-20.314,0-40.964,0.526-62.636,1.583V95.344V82.059
+							c0-6.005-4.832-10.871-10.836-10.871s-10.836,4.867-10.836,10.871v14.516v21.789c-62.61,4.119-120.418,12.439-164.636,23.777
+							c-57.011,14.618-68.206,28.365-68.063,31.245c0.144,2.88,12.536,15.45,70.719,24.318c50.153,7.642,116.573,9.913,187.047,6.392
+							c70.48-3.521,136.348-12.397,185.49-24.997c57.006-14.617,68.12-28.362,67.978-31.243
+							C511.487,144.976,499.053,132.406,440.871,123.538z" />
+						</g>
+					</g>
+				</svg>
+			</button>
+		</td>		
+	</tr>
+	<tr>
+		<td>
+			<button id="brush" class="botao dedo">
+				<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 32 32">
+					<g>
+						<path d="M13.9,6.7C13,3.5,10.1,1.4,7.2,2C4.3,2.5,2.4,5.5,2.7,8.9C6.6,9.4,10.5,8.6,13.9,6.7z" />
+						<path d="M11.8,14.3c1.6-1.2,2.5-3.2,2.5-5.4c-2.8,1.5-6,2.2-9.1,2.2c-0.6,0-1.3,0-1.9-0.1c0.8,2,2.4,3.6,4.2,4.1l1.7,11.7
+					c0.1,0.8,0.5,1.5,1.1,1.9c0.5,0.4,1.1,0.5,1.6,0.5c0.2,0,0.3,0,0.5,0c0.8-0.1,1.4-0.6,1.8-1.2c0.4-0.6,0.5-1.4,0.3-2.2L11.8,14.3z" />
+					</g>
+					<g>
+						<path d="M29,10.6c0.3-3.2-1.5-6.1-4.3-6.6c0,0,0,0,0,0c-2.8-0.5-5.6,1.5-6.5,4.6C21.5,10.3,25.3,11.1,29,10.6z" />
+						<path d="M26.8,12.7c-3.1,0-6.1-0.7-8.9-2.1c0,2.1,0.9,4,2.4,5.1l-2.7,10.9c-0.2,0.7-0.1,1.5,0.3,2.1c0.4,0.6,1,1.1,1.8,1.2
+					c0.2,0,0.3,0,0.5,0c0.6,0,1.1-0.2,1.6-0.5c0.6-0.4,1-1.1,1.1-1.8l1.6-11.2c1.8-0.5,3.2-2,4-3.9C28,12.7,27.4,12.7,26.8,12.7z" />
+					</g>
+				</svg>
+			</button>
+		</td>
+		<td>
+			<button id="prato" class="botao duasmaos">
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
 					<g>
 						<path d="M19,16c-1.7,0-3,1.3-3,3c0,0.9,0.4,1.7,1,2.2V20c0-0.6,0.4-1,1-1h2c0.6,0,1,0.4,1,1v1.2c0.6-0.6,1-1.3,1-2.2 C22,17.3,20.7,16,19,16z" />
@@ -54,12 +102,12 @@
 				</svg>
 			</button>
 		</td>
-		<td></td>
 	</tr>
 </table>
 
 <div id="app-message"></div>
 
+<div id="bateria" style="display:none">
 	<div id="tracker-parent">
 		<table id="tracker-table">
 		</table>
@@ -71,19 +119,18 @@
 		<button id="stop">Stop</button>
 		<br>
 	</div>
+</div>
 		<form class="pure-form" id="trackerControls">
 			<br>
-		<div class="slidecontainer">
-			Tempo: <input class="base" name="bpm" id="bpm" style="width: 60px;" value="90">
-			<input id="bpmRange" type="range" max="240" min="40" step="1" value="90">
+		
+		<div>
 
-			<label for="measureLength">Compasso:</label>
-			<select name="measureLength" id="measureLength" aria-label="Compasso">
+			<label for="selectCompasso">Compasso:</label>
+			<select name="selectCompasso" id="selectCompasso" aria-label="Compasso">
 				<option value="6">3/4</option>
 				<option selected value="8">4/4</option>
 				<option value="12">6/8</option>
 			</select>
-			<br>
 		</div>
 
 		<br>
@@ -124,7 +171,19 @@
 	</div>
 
 <script>
-
+	var div = document.getElementById('bateria');
+	function showBateria(mostrarBateria) {
+		if (mostrarBateria) {
+			document.getElementById('container').classList.remove('container');
+			document.getElementById('textoBateria').style.color = 'black';
+			div.style.display = 'block';
+		}
+		else {
+			document.getElementById('container').classList.add('container');
+			div.style.display = 'none';
+			document.getElementById('textoBateria').style.color = 'grey';
+		}
+	}
 	var selecionarRitmoElem = document.getElementById("selecionarRitmo");
 	const ritmosJson = JSON.parse('@Html.Raw(@Model.RitmosBateria)');
 </script>

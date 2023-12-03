@@ -109,31 +109,12 @@
 				<label for="bateriaSwitch" class="form-check-label" id="textoBateria">Bateria</label>
 			</div>
 		</div>
-	</div>
-
-	<div id="bateria">
-		<partial name="~/Views/Bateria/Index.cshtml"/>
+		<partial name="~/Views/Bateria/Index.cshtml" />
 	</div>
 </div>
 
 <script src="~/js/Pizzicato.js" asp-append-version="true"></script>
 <script>
-	var div = document.getElementById('bateria');
-	div.style.display = 'none';
-
-	function showBateria(mostrarBateria) {		
-		if (mostrarBateria) {
-			document.getElementById('container').classList.remove('container');
-			document.getElementById('textoBateria').style.color = 'black';
-			div.style.display = 'block';
-		}
-		else {
-			document.getElementById('container').classList.add('container');
-			div.style.display = 'none';
-			document.getElementById('textoBateria').style.color = 'grey';
-		}
-	}
-
 	var esperar_audios = false;
 	deixarTomSelecionado('@Model.TonsMaiores[(int)Model.TomIndex]');
 	esperarAudios(3000);
