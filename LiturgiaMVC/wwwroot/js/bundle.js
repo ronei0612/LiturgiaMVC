@@ -1068,20 +1068,23 @@ var schedule = new simpleTracker(ctx, scheduleAudioBeat);
 
     function pressionarBotao(botao) {
         if (document.getElementsByClassName('selecionadoDrum').length > 0) {
-            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
+            var botaoPressionado = document.getElementsByClassName('selecionadoDrum')[0];
+            botaoPressionado.classList.toggle('selecionadoDrum', false);
 
             if (botao == '') {
                 stopBateria();
 
-                let pratoAtaque1 = buffers['pratoAtaque-01'].get();
-                let node = routeGain(pratoAtaque1);
-                node.connect(ctx.destination);
+                if (botaoPressionado.id != 'brush') {
+                    let pratoAtaque1 = buffers['pratoAtaque-01'].get();
+                    let node = routeGain(pratoAtaque1);
+                    node.connect(ctx.destination);
 
-                let pratoAtaque2 = buffers['pratoAtaque-01'].get();
-                let node2 = routeGain(pratoAtaque2);
-                node2.connect(ctx.destination);
-                pratoAtaque1.start();
-                pratoAtaque2.start();
+                    let pratoAtaque2 = buffers['pratoAtaque-01'].get();
+                    let node2 = routeGain(pratoAtaque2);
+                    node2.connect(ctx.destination);
+                    pratoAtaque1.start();
+                    pratoAtaque2.start();
+                }
             }
         }
 
