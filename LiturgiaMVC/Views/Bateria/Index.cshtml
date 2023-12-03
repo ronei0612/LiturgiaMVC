@@ -7,6 +7,7 @@
 
 <div class="slidecontainer pure-form">
 <select class="form-control" id="selectRitmo" style="height:3m">
+		<option value="" disabled selected hidden>Bateria ↓</option>
 </select>
 
 	Tempo: <input name="bpm" id="bpm" style="width: 60px;" value="90">
@@ -105,6 +106,12 @@
 	</tr>
 </table>
 
+
+<div class="form-check form-switch">
+	<input class="form-check-input" type="checkbox" role="switch" id="bateriaSwitch" onchange="showBateria(this.checked)">
+	<label for="bateriaSwitch" class="form-check-label" id="textoBateria">Editar Ritmo</label>
+</div>
+
 <div id="app-message"></div>
 
 <div id="bateria" style="display:none">
@@ -125,8 +132,8 @@
 		
 		<div>
 
-			<label for="selectCompasso">Compasso:</label>
-			<select name="selectCompasso" id="selectCompasso" aria-label="Compasso">
+			<label for="measureLength">Compasso:</label>
+			<select name="measureLength" id="measureLength" aria-label="Compasso">
 				<option value="6">3/4</option>
 				<option selected value="8">4/4</option>
 				<option value="12">6/8</option>
