@@ -115,6 +115,8 @@
 <script src="~/js/Pizzicato.js" asp-append-version="true"></script>
 <script>
 	var esperar_audios = false;
+	const notasAcordesJson = JSON.parse('@Html.Raw(@Model.NotasAcordes)');
+
 	deixarTomSelecionado('@Model.TonsMaiores[(int)Model.TomIndex]');
 	esperarAudios(3000);
 

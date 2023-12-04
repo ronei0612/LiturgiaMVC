@@ -13,5 +13,6 @@
         public string[]? TonsMaiores { get; set; }
         public string[]? TonsMenores { get; set; }
         public string? RitmosBateria { get; set; }
+        public string? NotasAcordes { get; set; }
     }
 }

@@ -178,13 +178,15 @@
 				<span id="load-storage"><select id="beat-list"><option value="Select">Select</option></select></span>
 				<button id="delete">Delete selected</button>
 			</form>
-			</div>
-		
-	</div>
+			</div>		
+		</div>
 	</div>
 </div>
 <script>
 	var div = document.getElementById('bateria');
+	var selecionarRitmoElem = document.getElementById("selecionarRitmo");
+	const ritmosJson = JSON.parse('@Html.Raw(@Model.RitmosBateria)');
+
 	function showBateria(mostrarBateria) {
 		if (mostrarBateria) {
 			document.getElementById('container').classList.remove('container');
@@ -197,6 +199,4 @@
 			document.getElementById('textoBateria').style.color = 'grey';
 		}
 	}
-	var selecionarRitmoElem = document.getElementById("selecionarRitmo");
-	const ritmosJson = JSON.parse('@Html.Raw(@Model.RitmosBateria)');
 </script>

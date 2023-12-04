@@ -10,6 +10,17 @@ namespace LiturgiaMVC.Controllers
         {
             Ferramentas.EscreverInfoCliente(HttpContext);
 
+            if (Variaveis.textoNotasAcordes == "")
+                try {
+                    Ferramentas.LerArquivoNotasAcordes();
+                }
+                catch (Exception ex) {
+                    return View("Error", new ErrorViewModel {                    
+                        Titulo = "Ler Arquivo das notas dos acordes",
+                        Mensagem = ex.Message
+                    });
+                }
+
             if (Variaveis.acordesLinks == null)
                 try {
                     Ferramentas.LerArquivoAcordesLinks();
@@ -50,7 +61,8 @@ namespace LiturgiaMVC.Controllers
                 TomIndex = Array.IndexOf(Variaveis.tonsMaiores, tom),
                 TonsMaiores = Variaveis.tonsMaiores,
                 TonsMenores = Variaveis.tonsMenores,
-                RitmosBateria = Variaveis.textoRitmos
+                RitmosBateria = Variaveis.textoRitmos,
+                NotasAcordes = Variaveis.textoNotasAcordes
             };
 
             return View(linksModel);

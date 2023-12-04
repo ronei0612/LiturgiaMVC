@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Newtonsoft.Json;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace LiturgiaMVC
@@ -195,9 +196,7 @@ namespace LiturgiaMVC
         public static void LerArquivoRitmosBateria()
         {
             if (File.Exists(Variaveis.arquivoRitmosBateria) == false)
-            {
                 File.WriteAllText(Variaveis.arquivoRitmosBateria, "{ \"Pop\": [13, 10], \"Country\": [15, 16] }");
-            }
 
             var texto = File.ReadAllText(Variaveis.arquivoRitmosBateria);
             texto = texto.Replace(Environment.NewLine, "").Replace(" ", "").Replace("],}", "]}");
@@ -206,6 +205,19 @@ namespace LiturgiaMVC
                 throw new ArgumentException("Arquivo de ritmos vazio: " + Variaveis.arquivoRitmosBateria);
             
             Variaveis.textoRitmos = texto;
+        }
+
+        public static void LerArquivoNotasAcordes()
+        {
+            if (File.Exists(Variaveis.arquivonotasAcordes) == false)
+                File.WriteAllText(Variaveis.arquivonotasAcordes, JsonConvert.SerializeObject(Variaveis.notasAcordes));
+
+            var texto = File.ReadAllText(Variaveis.arquivonotasAcordes);
+
+            if (string.IsNullOrEmpty(texto))
+                throw new ArgumentException("Arquivo de notas vazio: " + Variaveis.arquivonotasAcordes);
+            
+            Variaveis.textoNotasAcordes = texto;
         }
     }
 }

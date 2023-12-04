@@ -3,34 +3,28 @@
     public class Variaveis
     {
         public static string pastaArquivos = "Arquivos";
-
-        static string links = "Links.txt";
-
-        static string IPs = "IPs.csv";
-
-        static string acordesLinksCsv = "AcordesLinks.txt";
-
-        static string acordesListaCsv = "AcordesLista.txt";
-
-        static string ritmosBateriaJson = "RitmosLista.txt";
-
         public static string pastaSons = "./Sons/";
 
+        static string links = "Links.txt";
+        static string IPs = "IPs.csv";
+        static string acordesLinksCsv = "AcordesLinks.txt";
+        static string acordesListaCsv = "AcordesLista.txt";
+        static string ritmosBateriaJson = "RitmosLista.txt";
+        static string notasAcordesJson = "NotasAcordes.txt";
+
         public static string arquivoLinks = Path.Combine(pastaArquivos, links);
-
         public static string arquivoIPs = Path.Combine(pastaArquivos, IPs);
-
         public static string arquivoAcordesLinks = Path.Combine(pastaArquivos, acordesLinksCsv);
-
         public static string arquivoAcordesLista = Path.Combine(pastaArquivos, acordesListaCsv);
-
         public static string arquivoRitmosBateria = Path.Combine(pastaArquivos, ritmosBateriaJson);
+        public static string arquivonotasAcordes = Path.Combine(pastaArquivos, notasAcordesJson);
 
         public static string[] tonsMaiores, tonsMenores;
 
         public static readonly string[] acidentes = { "5+", "6", "7", "7+", "9", "11" };
 
         public static string textoRitmos = "";
+        public static string textoNotasAcordes = "";
 
         public static Dictionary<string, string> acordesLinks;
 
@@ -78,6 +72,34 @@
             { "Em", new string[] { "G", "Am", "Bm", "C", "D", "Em", "E", "B", "", "Em7", "Em9" } },
             { "F#m", new string[] { "A", "Bm", "C#m", "D", "E", "F#m", "F#", "C#", "", "F#m7", "F#m9" } },
             { "G#m", new string[] { "B", "C#m", "D#m", "E", "F#", "G#m", "G#", "D#", "", "G#m7", "G#m9" } }
+        };
+
+        public static readonly Dictionary<string, string[]> notasAcordes = new()
+        {
+            { "C", new string[] { "do", "mi", "sol" } },
+            { "Cm", new string[] { "do", "re#", "sol" } },
+            { "C#", new string[] { "do#", "fa", "sol#" } },
+            { "C#m", new string[] { "do#", "mi", "sol#" } },
+            { "D", new string[] { "re", "fa#", "la", } },
+            { "Dm", new string[] { "re", "fa", "la", } },
+            { "D#", new string[] { "re#", "sol", "la#", } },
+            { "D#m", new string[] { "re#", "fa#", "la#", } },
+            { "E", new string[] { "mi", "sol#", "si" } },
+            { "Em", new string[] { "mi", "sol", "si" } },
+            { "F", new string[] { "fa", "la", "do" } },
+            { "Fm", new string[] { "fa", "sol#", "do" } },
+            { "F#", new string[] { "fa#", "la#", "do#" } },
+            { "F#m", new string[] { "fa#", "la", "do#" } },
+            { "G", new string[] { "sol", "si", "re" } },
+            { "Gm", new string[] { "sol", "la#", "re" } },
+            { "G#", new string[] { "sol#", "do", "re#" } },
+            { "G#m", new string[] { "sol#", "si", "re#" } },
+            { "A", new string[] { "la", "do#", "mi" } },
+            { "Am", new string[] { "la", "do", "mi" } },
+            { "A#", new string[] { "la#", "re", "fa" } },
+            { "A#m", new string[] { "la#", "do#", "fa" } },
+            { "B", new string[] { "si", "re#", "fa#" } },
+            { "Bm", new string[] { "si", "re", "fa#" } }
         };
     }
 }
