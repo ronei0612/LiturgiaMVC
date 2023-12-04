@@ -7,7 +7,9 @@ var _acompanhamentoMao = false;
 var _grupoNotas;
 var _volume = 0.7;
 
+const notasAcordes = Object.keys(notasAcordesJson);
 
+debugger;
 var tremolo = new Pizzicato.Effects.Tremolo({
 	speed: 1,
 	depth: 0.6,
