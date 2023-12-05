@@ -8,6 +8,7 @@ namespace LiturgiaMVC.Controllers
     {
         public IActionResult Index(string tom = "C")
         {
+            //verificar arquivo acordeslinks.txt
             Ferramentas.EscreverInfoCliente(HttpContext);
 
             if (Variaveis.textoNotasAcordes == "")

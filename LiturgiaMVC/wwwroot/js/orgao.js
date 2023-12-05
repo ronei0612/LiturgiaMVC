@@ -9,7 +9,6 @@ var _volume = 0.7;
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
-debugger;
 var tremolo = new Pizzicato.Effects.Tremolo({
 	speed: 1,
 	depth: 0.6,
@@ -73,19 +72,35 @@ function setTom(acorde = 'C') {
 	document.getElementById('tomSelect').value = acorde;
 }
 
+function criarAcorde(acorde, grupoNotas) {
+	if (acorde.includes('_'))
+		acorde = acorde.split('_')[1];
+
+	var notas = notasAcordesJson[acorde];
+
+	for (var i = 0, len = notas.length; i < len; i++) {
+		acordes['orgao_' + notas[i]].attack = 0.1;
+		acordes['orgao_' + notas[i]].release = 0.4;	
+		if (grupoNotas == null)
+			grupoNotas = new Pizzicato.Group(acordes['orgao_' + notas[i]]);
+		else
+			grupoNotas.addSound(acordes['orgao_' + notas[i]]);
+	}
+
+	grupoNotas.addEffect(flanger);
+
+	return grupoNotas;
+}
+
 function verificarAcompanhamentoEtocar(acorde) {
-	pararOsAcordes();	
+	pararOsAcordes();
 
 	if (_acompanhamentoSelecionado == 'full') {
-		acordes[acorde + '_mao'].attack = 0.1;
-		acordes[acorde + '_mao'].release = 0.4;
-		acordes[acorde + '_baixo'].attack = 0.1;
-		acordes[acorde + '_baixo'].release = 0.4;
 
 		if (_grupoNotas == null) {
-			_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
-			_grupoNotas.addSound(acordes[acorde + '_baixo']);
-			_grupoNotas.addEffect(flanger);
+			//_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
+			debugger;
+			var acordeCriado = criarAcorde(acorde, _grupoNotas);
 		} else {
 			_grupoNotas.addSound(acordes[acorde + '_mao']);
 			_grupoNotas.addSound(acordes[acorde + '_baixo']);
@@ -117,8 +132,9 @@ function verificarAcompanhamentoEtocar(acorde) {
 		} else
 			_grupoNotas.addSound(acordes[acorde + '_baixo']);
 	}
-	
-	_grupoNotas.play();
+
+	acordeCriado.play();	
+	//_grupoNotas.play();
 }
 
 function pararOsAcordes() {

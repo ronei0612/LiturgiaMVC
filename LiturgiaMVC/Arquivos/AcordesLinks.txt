@@ -55,3 +55,16 @@ orgao_B_baixo, ./Sons/orgao B baixo.ogg
 orgao_Bm_baixo, ./Sons/orgao B baixo.ogg
 orgao_Bb_baixo, ./Sons/orgao A_ baixo.ogg
 orgao_Bbm_baixo, ./Sons/orgao A_ baixo.ogg
+
+orgao_do, ./Sons/orgao do.ogg
+orgao_do#, ./Sons/orgao do_.ogg
+orgao_re, ./Sons/orgao re.ogg
+orgao_re#, ./Sons/orgao re_.ogg
+orgao_mi, ./Sons/orgao mi.ogg
+orgao_fa, ./Sons/orgao fa.ogg
+orgao_fa#, ./Sons/orgao fa_.ogg
+orgao_sol, ./Sons/orgao sol.ogg
+orgao_sol#, ./Sons/orgao sol_.ogg
+orgao_la, ./Sons/orgao la.ogg
+orgao_la#, ./Sons/orgao la_.ogg
+orgao_si, ./Sons/orgao si.ogg
