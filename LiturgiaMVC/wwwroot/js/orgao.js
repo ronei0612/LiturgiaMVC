@@ -78,27 +78,18 @@ function criarAcorde(acorde, grupoNotas) {
 
 	var notas = notasAcordesJson[acorde];
 
-	for (var i = 0, len = notas.length; i < len; i++) {
-		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
-			var nota = acordes['orgao_' + notas[i] + '_baixo'];
-
-			if (grupoNotas == null)
-				grupoNotas = new Pizzicato.Group(nota);
-			else
-				grupoNotas.addSound(nota);
-		}
-
-		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao') {
-			var nota = acordes['orgao_' + notas[i]];
-
-			if (grupoNotas == null)
-				grupoNotas = new Pizzicato.Group(nota);
-			else
-				grupoNotas.addSound(nota);
-		}
+	if (grupoNotas == null) {
+		grupoNotas = new Pizzicato.Group();
+		grupoNotas.addEffect(flanger);
 	}
 
-	grupoNotas.addEffect(flanger);
+	for (var i = 0, len = notas.length; i < len; i++) {
+		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo')
+			grupoNotas.addSound(acordes['orgao_' + notas[i] + '_baixo']);
+
+		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
+			grupoNotas.addSound(acordes['orgao_' + notas[i]]);
+	}
 
 	return grupoNotas;
 }
@@ -114,8 +105,9 @@ function pararOsAcordes() {
 	if (_grupoNotas != null) {
 		_grupoNotas.stop();
 
-		_grupoNotas.removeSound(_grupoNotas.sounds[0]);
-		_grupoNotas.removeSound(_grupoNotas.sounds[0]);
+		var sons = _grupoNotas.sounds.length;
+		for (let i = sons - 1; i > -1; i--)
+			_grupoNotas.removeSound(_grupoNotas.sounds[i]);
 	}
 }
 
@@ -134,6 +126,7 @@ function pressionarBotaoAcompanhamento(botao) {
 	if (botaoAcompPressionado(botao) == false) {
 		if (_acordeAntesSelecionado != '')
 			verificarAcompanhamentoEtocar(_acordeAntesSelecionado);
+
 		levantarBotoesAcompanhamento();
 		pressionarBotaoAcomp(botao);
 	}
@@ -153,6 +146,7 @@ function pressionarBotaoAcomp(botao) {
 function alterarVolume(volume) {
 	var numero = document.getElementById('volumeTexto');
 	numero.innerHTML = volume;
+
 	if (volume == 7)
 		numero.style.color = '#00008b';
 	else
