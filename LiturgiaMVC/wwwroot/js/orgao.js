@@ -112,37 +112,7 @@ function criarAcorde(acorde, grupoNotas) {
 function verificarAcompanhamentoEtocar(acorde) {
 	pararOsAcordes();
 
-	if (_acompanhamentoSelecionado == 'full') {
-		_grupoNotas = criarAcorde(acorde, _grupoNotas);
-	}
-
-	else if (_acompanhamentoSelecionado == 'mao') {
-		acordes[acorde + '_mao'].attack = 0.2;
-		acordes[acorde + '_mao'].release = 0.5;
-
-		if (_grupoNotas == null) {
-			_grupoNotas = new Pizzicato.Group([acordes[acorde + '_mao']]);
-			_grupoNotas.addEffect(flanger);
-			_grupoNotas.attack = 1;
-			_grupoNotas.release = 1;
-		} else
-			_grupoNotas.addSound(acordes[acorde + '_mao']);
-	}
-
-	else {
-		acordes[acorde + '_baixo'].attack = 0.2;
-		acordes[acorde + '_baixo'].release = 0.5;
-
-		if (_grupoNotas == null) {
-			_grupoNotas = new Pizzicato.Group([acordes[acorde + '_baixo']]);
-			_grupoNotas.addEffect(flanger);
-			_grupoNotas.attack = 1;
-			_grupoNotas.release = 1;
-		} else
-			_grupoNotas.addSound(acordes[acorde + '_baixo']);
-	}
-
-	//acordeCriado.play();	
+	_grupoNotas = criarAcorde(acorde, _grupoNotas);
 	_grupoNotas.play();
 }
 
