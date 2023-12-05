@@ -114,6 +114,53 @@ namespace LiturgiaMVC
             Variaveis.tonsMenores = tonsMenores.ToArray();
         }
 
+        public static void LerArquivoNotasLinks()
+        {
+            var notasLinksDict = new Dictionary<string, string>();
+
+            if (File.Exists(Variaveis.arquivoNotasLinks) == false) {
+                File.WriteAllText(Variaveis.arquivoNotasLinks,
+                    "orgao_do, " + Variaveis.pastaSonsOrgao + "orgao do.ogg" + Environment.NewLine +
+                    "orgao_do#, " + Variaveis.pastaSonsOrgao + "orgao do_.ogg" + Environment.NewLine +
+                    "orgao_re, " + Variaveis.pastaSonsOrgao + "orgao re.ogg" + Environment.NewLine +
+                    "orgao_re#, " + Variaveis.pastaSonsOrgao + "orgao re_.ogg" + Environment.NewLine +
+                    "orgao_mi, " + Variaveis.pastaSonsOrgao + "orgao mi.ogg" + Environment.NewLine +
+                    "orgao_fa, " + Variaveis.pastaSonsOrgao + "orgao fa.ogg" + Environment.NewLine +
+                    "orgao_fa#, " + Variaveis.pastaSonsOrgao + "orgao fa_.ogg" + Environment.NewLine +
+                    "orgao_sol, " + Variaveis.pastaSonsOrgao + "orgao sol.ogg" + Environment.NewLine +
+                    "orgao_sol#, " + Variaveis.pastaSonsOrgao + "orgao sol_.ogg" + Environment.NewLine +
+                    "orgao_la, " + Variaveis.pastaSonsOrgao + "orgao la.ogg" + Environment.NewLine +
+                    "orgao_la#, " + Variaveis.pastaSonsOrgao + "orgao la_.ogg" + Environment.NewLine +
+                    "orgao_si, " + Variaveis.pastaSonsOrgao + "orgao si.ogg" + Environment.NewLine +
+                    Environment.NewLine +
+                    "orgao_do_baixo, " + Variaveis.pastaSonsOrgao + "orgao do baixo.ogg" + Environment.NewLine +
+                    "orgao_do#_baixo, " + Variaveis.pastaSonsOrgao + "orgao do_ baixo.ogg" + Environment.NewLine +
+                    "orgao_re_baixo, " + Variaveis.pastaSonsOrgao + "orgao re baixo.ogg" + Environment.NewLine +
+                    "orgao_re#_baixo, " + Variaveis.pastaSonsOrgao + "orgao re_ baixo.ogg" + Environment.NewLine +
+                    "orgao_mi_baixo, " + Variaveis.pastaSonsOrgao + "orgao mi baixo.ogg" + Environment.NewLine +
+                    "orgao_fa_baixo, " + Variaveis.pastaSonsOrgao + "orgao fa baixo.ogg" + Environment.NewLine +
+                    "orgao_fa#_baixo, " + Variaveis.pastaSonsOrgao + "orgao fa_ baixo.ogg" + Environment.NewLine +
+                    "orgao_sol_baixo, " + Variaveis.pastaSonsOrgao + "orgao sol baixo.ogg" + Environment.NewLine +
+                    "orgao_sol#_baixo, " + Variaveis.pastaSonsOrgao + "orgao sol_ baixo.ogg" + Environment.NewLine +
+                    "orgao_la_baixo, " + Variaveis.pastaSonsOrgao + "orgao la baixo.ogg" + Environment.NewLine +
+                    "orgao_la#_baixo, " + Variaveis.pastaSonsOrgao + "orgao la_ baixo.ogg" + Environment.NewLine +
+                    "orgao_si_baixo, " + Variaveis.pastaSonsOrgao + "orgao si baixo.ogg"
+                );
+            }
+
+            var linhas = File.ReadAllLines(Variaveis.arquivoNotasLinks);
+
+            foreach (var linha in linhas)
+                if (string.IsNullOrEmpty(linha) == false)
+                    if (linha.Contains(','))
+                        if (File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", linha.Split(',')[1].Trim())))
+                            notasLinksDict.Add(linha.Split(',')[0].Trim(), linha.Split(',')[1].Trim());
+                        else
+                            throw new ArgumentException("Arquivo não existe na pasta wwwroot: " + linha.Split(',')[1].Trim());
+
+            Variaveis.notasLinks = notasLinksDict;
+        }
+
         public static void LerArquivoAcordesLinks()
         {
             var acordesLinksDict = new Dictionary<string, string>();
@@ -210,9 +257,12 @@ namespace LiturgiaMVC
         public static void LerArquivoNotasAcordes()
         {
             if (File.Exists(Variaveis.arquivonotasAcordes) == false)
-                File.WriteAllText(Variaveis.arquivonotasAcordes, JsonConvert.SerializeObject(Variaveis.notasAcordes));
+            {
+                var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
+                File.WriteAllText(Variaveis.arquivonotasAcordes, JsonConvert.SerializeObject(Variaveis.notasAcordes, settings));
+            }
 
-            var texto = File.ReadAllText(Variaveis.arquivonotasAcordes);
+            var texto = File.ReadAllText(Variaveis.arquivonotasAcordes).Replace(Environment.NewLine, "").Replace(@"\s+", "").Replace("],}", "]}");
 
             if (string.IsNullOrEmpty(texto))
                 throw new ArgumentException("Arquivo de notas vazio: " + Variaveis.arquivonotasAcordes);

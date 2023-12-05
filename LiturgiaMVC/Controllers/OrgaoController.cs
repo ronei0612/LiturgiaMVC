@@ -9,6 +9,7 @@ namespace LiturgiaMVC.Controllers
         public IActionResult Index(string tom = "C")
         {
             //verificar arquivo acordeslinks.txt
+            //criar arquivo AcordesLinks.txt
             Ferramentas.EscreverInfoCliente(HttpContext);
 
             if (Variaveis.textoNotasAcordes == "")
@@ -24,11 +25,11 @@ namespace LiturgiaMVC.Controllers
 
             if (Variaveis.acordesLinks == null)
                 try {
-                    Ferramentas.LerArquivoAcordesLinks();
+                    Ferramentas.LerArquivoNotasLinks ();
                 }
                 catch (Exception ex) {
                     return View("Error", new ErrorViewModel {                    
-                        Titulo = "Ler Arquivo dos links dos acordes",
+                        Titulo = "Ler Arquivo dos links das notas",
                         Mensagem = ex.Message
                     });
                 }
@@ -58,7 +59,7 @@ namespace LiturgiaMVC.Controllers
             var linksModel = new LinksModel
             {
                 Acordes = Variaveis.acordes[tom],
-                LinksDict = Variaveis.acordesLinks,
+                LinksDict = Variaveis.notasLinks,
                 TomIndex = Array.IndexOf(Variaveis.tonsMaiores, tom),
                 TonsMaiores = Variaveis.tonsMaiores,
                 TonsMenores = Variaveis.tonsMenores,

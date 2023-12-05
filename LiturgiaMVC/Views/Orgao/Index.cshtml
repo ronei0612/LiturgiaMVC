@@ -100,8 +100,8 @@
 			</table>
 
 			<div class="slidecontainer">
-				Volume Órgão (<span id="volumeTexto" style="color: #00008b">7</span>):
-				<input type="range" min="0" max="10" value="7" oninput="alterarVolume(this.value)">
+				Volume Órgão (<span id="volumeTexto" style="color: #00008b">8</span>):
+				<input type="range" min="0" max="10" value="8" oninput="alterarVolume(this.value)">
 
 				<hr />
 			</div>
@@ -122,29 +122,31 @@
 	esperarAudios(3000);
 
 	var acordes = {
-		'orgao_do': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_do"])', loop: true } }),
-		'orgao_mi': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_mi"])', loop: true } }),
-		'orgao_sol': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_sol"])', loop: true } }),
+		'orgao_do': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_do"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_do#': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_do#"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_re': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_re"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_re#': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_re#"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_mi': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_mi"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_fa': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_fa"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_fa#': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_fa#"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_sol': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_sol"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_sol#': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_sol#"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_la': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_la"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_la#': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_la#"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_si': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_si"])', loop: true, release: 0.5, attack: 0.2 } }),
 		
-		//'orgao_C_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_mao"])', loop: true } }),
-		//'orgao_Dm_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_mao"])', loop: true } }),
-		//'orgao_Em_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_mao"])', loop: true } }),
-		//'orgao_F_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_mao"])', loop: true } }),
-		//'orgao_G_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_mao"])', loop: true } }),
-		//'orgao_Am_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_mao"])', loop: true } }),
-		//'orgao_Bb_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_mao"])', loop: true } }),
-		//'orgao_D_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_mao"])', loop: true } }),
-		//'orgao_Cm_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_mao"])', loop: true } }),
-
-		//'orgao_C_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[0] + "_baixo"])', loop: true } }),
-		//'orgao_Dm_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[1] + "_baixo"])', loop: true } }),
-		//'orgao_Em_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[2] + "_baixo"])', loop: true } }),
-		//'orgao_F_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[3] + "_baixo"])', loop: true } }),
-		//'orgao_G_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[4] + "_baixo"])', loop: true } }),
-		//'orgao_Am_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[5] + "_baixo"])', loop: true } }),
-		//'orgao_Bb_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[6] + "_baixo"])', loop: true } }),
-		//'orgao_D_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_baixo"])', loop: true } }),
-		//'orgao_Cm_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[8] + "_baixo"])', loop: true } })
+		'orgao_do_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_do_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_do#_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_do#_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_re_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_re_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_re#_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_re#_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_mi_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_mi_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_fa_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_fa_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_fa#_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_fa#_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_sol_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_sol_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_sol#_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_sol#_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_la_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_la_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_la#_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_la#_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
+		'orgao_si_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_si_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
 	};
 
 	function esperarAudios(tempoMiliseg) {
@@ -162,19 +164,6 @@
 
 	function selecionarTomMenor(selecionadoMenor){
 		if (selecionadoMenor) {
-			if (Object.keys(acordes).includes('orgao_A_mao') == false) {
-				esperarAudios(500);
-
-				Object.assign(acordes, {
-					'orgao_A_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_mao"])', loop: true } }),
-					'orgao_E_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_mao"])', loop: true } }),
-					'orgao_D_mao': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_mao"])', loop: true } }),
-					'orgao_A_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[9] + "_baixo"])', loop: true } }),
-					'orgao_E_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[10] + "_baixo"])', loop: true } }),
-					'orgao_D_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_" + @Model.Acordes[7] + "_baixo"])', loop: true } })
-				 });
-			}
-
 			document.getElementById('textoAcordeMenor').style.color = 'black';
 			document.getElementById('tomSelect').style.color = 'grey';
 			document.getElementById('acordesAdicionais').style.display = 'block';

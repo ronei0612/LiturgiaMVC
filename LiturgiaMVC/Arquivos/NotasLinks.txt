@@ -1,0 +1,25 @@
+orgao_do, ./Sons/Orgao/orgao do.ogg
+orgao_do#, ./Sons/Orgao/orgao do_.ogg
+orgao_re, ./Sons/Orgao/orgao re.ogg
+orgao_re#, ./Sons/Orgao/orgao re_.ogg
+orgao_mi, ./Sons/Orgao/orgao mi.ogg
+orgao_fa, ./Sons/Orgao/orgao fa.ogg
+orgao_fa#, ./Sons/Orgao/orgao fa_.ogg
+orgao_sol, ./Sons/Orgao/orgao sol.ogg
+orgao_sol#, ./Sons/Orgao/orgao sol_.ogg
+orgao_la, ./Sons/Orgao/orgao la.ogg
+orgao_la#, ./Sons/Orgao/orgao la_.ogg
+orgao_si, ./Sons/Orgao/orgao si.ogg
+
+orgao_do_baixo, ./Sons/Orgao/orgao do baixo.ogg
+orgao_do#_baixo, ./Sons/Orgao/orgao do_ baixo.ogg
+orgao_re_baixo, ./Sons/Orgao/orgao re baixo.ogg
+orgao_re#_baixo, ./Sons/Orgao/orgao re_ baixo.ogg
+orgao_mi_baixo, ./Sons/Orgao/orgao mi baixo.ogg
+orgao_fa_baixo, ./Sons/Orgao/orgao fa baixo.ogg
+orgao_fa#_baixo, ./Sons/Orgao/orgao fa_ baixo.ogg
+orgao_sol_baixo, ./Sons/Orgao/orgao sol baixo.ogg
+orgao_sol#_baixo, ./Sons/Orgao/orgao sol_ baixo.ogg
+orgao_la_baixo, ./Sons/Orgao/orgao la baixo.ogg
+orgao_la#_baixo, ./Sons/Orgao/orgao la_ baixo.ogg
+orgao_si_baixo, ./Sons/Orgao/orgao si baixo.ogg

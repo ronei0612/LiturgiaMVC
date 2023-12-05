@@ -5,7 +5,7 @@ var _acompanhamentoSolo = false;
 var _acompanhamentoFull = false;
 var _acompanhamentoMao = false;
 var _grupoNotas;
-var _volume = 0.7;
+var _volume = 0.8;
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
@@ -80,10 +80,7 @@ function criarAcorde(acorde, grupoNotas) {
 
 	for (var i = 0, len = notas.length; i < len; i++) {
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
-			var nota = acordes['orgao_baixo_' + notas[i]];
-
-			nota.attack = 0.2;
-			nota.release = 0.5;
+			var nota = acordes['orgao_' + notas[i] + '_baixo'];
 
 			if (grupoNotas == null)
 				grupoNotas = new Pizzicato.Group(nota);
@@ -93,9 +90,6 @@ function criarAcorde(acorde, grupoNotas) {
 
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao') {
 			var nota = acordes['orgao_' + notas[i]];
-
-			nota.attack = 0.2;
-			nota.release = 0.5;
 
 			if (grupoNotas == null)
 				grupoNotas = new Pizzicato.Group(nota);
@@ -172,3 +166,4 @@ function alterarVolume(volume) {
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
 
+//som do órgão no lmms até o número 5 exporta para ogg bits 160 e depois abre o audacity e  remove o começo do som do órgão até o 0,500130

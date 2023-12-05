@@ -4,10 +4,12 @@
     {
         public static string pastaArquivos = "Arquivos";
         public static string pastaSons = "./Sons/";
+        public static string pastaSonsOrgao = "./Sons/Orgao/";
 
         static string links = "Links.txt";
         static string IPs = "IPs.csv";
         static string acordesLinksCsv = "AcordesLinks.txt";
+        static string notasLinksCsv = "NotasLinks.txt";
         static string acordesListaCsv = "AcordesLista.txt";
         static string ritmosBateriaJson = "RitmosLista.txt";
         static string notasAcordesJson = "NotasAcordes.txt";
@@ -15,6 +17,7 @@
         public static string arquivoLinks = Path.Combine(pastaArquivos, links);
         public static string arquivoIPs = Path.Combine(pastaArquivos, IPs);
         public static string arquivoAcordesLinks = Path.Combine(pastaArquivos, acordesLinksCsv);
+        public static string arquivoNotasLinks = Path.Combine(pastaArquivos, notasLinksCsv);
         public static string arquivoAcordesLista = Path.Combine(pastaArquivos, acordesListaCsv);
         public static string arquivoRitmosBateria = Path.Combine(pastaArquivos, ritmosBateriaJson);
         public static string arquivonotasAcordes = Path.Combine(pastaArquivos, notasAcordesJson);
@@ -27,6 +30,7 @@
         public static string textoNotasAcordes = "";
 
         public static Dictionary<string, string> acordesLinks;
+        public static Dictionary<string, string> notasLinks;
 
         public static Dictionary<string, string> acordesMenoresRelativos = new()
         {
