@@ -1074,17 +1074,17 @@ var schedule = new simpleTracker(ctx, scheduleAudioBeat);
             if (botao == '') {
                 stopBateria();
 
-                if (botaoPressionado.id != 'brush') {
-                    let pratoAtaque1 = buffers['pratoAtaque-01'].get();
-                    let node = routeGain(pratoAtaque1);
-                    node.connect(ctx.destination);
+                //if (botaoPressionado.id != 'brush') {
+                //    let pratoAtaque1 = buffers['pratoAtaque-01'].get();
+                //    let node = routeGain(pratoAtaque1);
+                //    node.connect(ctx.destination);
 
-                    let pratoAtaque2 = buffers['pratoAtaque-01'].get();
-                    let node2 = routeGain(pratoAtaque2);
-                    node2.connect(ctx.destination);
-                    pratoAtaque1.start();
-                    pratoAtaque2.start();
-                }
+                //    let pratoAtaque2 = buffers['pratoAtaque-01'].get();
+                //    let node2 = routeGain(pratoAtaque2);
+                //    node2.connect(ctx.destination);
+                //    pratoAtaque1.start();
+                //    pratoAtaque2.start();
+                //}
             }
         }
 
