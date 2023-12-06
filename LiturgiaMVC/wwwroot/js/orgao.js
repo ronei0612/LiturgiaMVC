@@ -85,7 +85,8 @@ function criarAcorde(acorde, grupoNotas) {
 
 	for (var i = 0, len = notas.length; i < len; i++) {
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo')
-			grupoNotas.addSound(acordes['orgao_' + notas[i] + '_baixo']);
+			if (i != 1)
+				grupoNotas.addSound(acordes['orgao_' + notas[i] + '_baixo']);
 
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
 			grupoNotas.addSound(acordes['orgao_' + notas[i]]);
