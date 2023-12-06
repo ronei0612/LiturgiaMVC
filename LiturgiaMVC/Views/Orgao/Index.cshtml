@@ -55,26 +55,26 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="button" class="botao azul" value="@Model.Acordes[0]" onmouseup="escolherAcorde('orgao_' + 'C', this)"></td>
-					<td><input type="button" class="botao vermelho" value="@Model.Acordes[3]" onmouseup="escolherAcorde('orgao_' + 'F', this)"></td>
-					<td><input type="button" class="botao amarelo" value="@Model.Acordes[4]" onmouseup="escolherAcorde('orgao_' + 'G', this)"></td>
+					<td><input type="button" class="botao azul acorde" id="acorde_0" value="@Model.Acordes[0]" onmouseup="escolherAcorde('orgao_' + 'C', this)"></td>
+					<td><input type="button" class="botao vermelho acorde" id="acorde_3" value="@Model.Acordes[3]" onmouseup="escolherAcorde('orgao_' + 'F', this)"></td>
+					<td><input type="button" class="botao amarelo acorde" id="acorde_4" value="@Model.Acordes[4]" onmouseup="escolherAcorde('orgao_' + 'G', this)"></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td>
 					</td>
-					<td><input type="button" class="botao roxo" value="@Model.Acordes[5]" onmouseup="escolherAcorde('orgao_' + 'Am', this)"></td>
-					<td><input type="button" class="botao rosa" value="@Model.Acordes[1]" onmouseup="escolherAcorde('orgao_' + 'Dm', this)"></td>
-					<td><input type="button" class="botao marrom" value="@Model.Acordes[2]" onmouseup="escolherAcorde('orgao_' + 'Em', this)"></td>
+					<td><input type="button" class="botao roxo acorde" id="acorde_5" value="@Model.Acordes[5]" onmouseup="escolherAcorde('orgao_' + 'Am', this)"></td>
+					<td><input type="button" class="botao rosa acorde" id="acorde_1" value="@Model.Acordes[1]" onmouseup="escolherAcorde('orgao_' + 'Dm', this)"></td>
+					<td><input type="button" class="botao marrom acorde" id="acorde_2" value="@Model.Acordes[2]" onmouseup="escolherAcorde('orgao_' + 'Em', this)"></td>
 					<td>
 					</td>
 				</tr>
 				<tr>
 					<td>
 					</td>
-					<td><input id="acordesAdicionais" style="display:none" type="button" class="botao roxoClaro" value="@Model.Acordes[9]" onmouseup="escolherAcorde('orgao_' + 'A', this)"></td>
-					<td><input id="acordesAdicionais1" style="display:none" type="button" class="botao rosaClaro" value="@Model.Acordes[7]" onmouseup="escolherAcorde('orgao_' + 'D', this)"></td>
-					<td><input id="acordesAdicionais2" style="display:none" type="button" class="botao marromClaro" value="@Model.Acordes[10]" onmouseup="escolherAcorde('orgao_' + 'E', this)"></td>
+					<td><input id="acordesAdicionais" style="display:none" id="acorde_9" type="button" class="botao roxoClaro acorde" value="@Model.Acordes[9]" onmouseup="escolherAcorde('orgao_' + 'A', this)"></td>
+					<td><input id="acordesAdicionais1" style="display:none" id="acorde_7" type="button" class="botao rosaClaro acorde" value="@Model.Acordes[7]" onmouseup="escolherAcorde('orgao_' + 'D', this)"></td>
+					<td><input id="acordesAdicionais2" style="display:none" id="acorde_10" type="button" class="botao marromClaro acorde" value="@Model.Acordes[10]" onmouseup="escolherAcorde('orgao_' + 'E', this)"></td>
 					<td>
 					</td>
 				</tr>
@@ -116,7 +116,7 @@
 <script>
 	var esperar_audios = false;
 	const notasAcordesJson = JSON.parse('@Html.Raw(@Model.NotasAcordes)');
-	const acordesNotasJson = JSON.parse('@Html.Raw(@Model.AcordesCampoHarmonico)');
+	const acordesCampoHarmonicoJson = JSON.parse('@Html.Raw(@Model.AcordesCampoHarmonico)');
 
 	var tomSelecionado = '@Model.TonsMaiores[(int)Model.TomIndex]'
 	deixarTomSelecionado(tomSelecionado);
@@ -149,6 +149,17 @@
 		'orgao_la#_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_la#_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
 		'orgao_si_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_si_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
 	};
+
+	function mudarTom() {
+		var tomSelecionado = document.getElementById("tomSelect").value;
+		var acordesCampoHarmonico = acordesCampoHarmonicoJson[tomSelecionado];
+		var acordesElements = document.getElementsByClassName('acorde');
+
+		for (var i = 0, len = acordesElements.length; i < len; i++) {
+			var acordeIndex = acordesElements[i].id.split('_')[1];
+			acordesElements[i].value = acordesCampoHarmonico[acordeIndex];
+		}			
+	}
 
 	function esperarAudios(tempoMiliseg) {
 		document.getElementById('container').style.display = 'none';

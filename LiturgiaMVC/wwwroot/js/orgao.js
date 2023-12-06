@@ -35,11 +35,6 @@ function deixarAcompanhamentoSelecionado(funcao) {
 	escolherAcompanhamento(funcao, document.getElementById(funcao));
 }
 
-function mudarTom() {
-	var tomSelecionado = document.getElementById("tomSelect").value;
-	window.location.href = "Orgao?tom=" + tomSelecionado;
-}
-
 function escolherAcorde(acorde, botao) {
 	if (_acordeAntesSelecionado == acorde)
 		_acordeSelecionado = '';
@@ -64,7 +59,7 @@ function escolherAcompanhamento(funcao, botao) {
 function tocarAcorde(acorde, botao) {
 	if (_acordeAntesSelecionado != acorde) {
 		botao.classList.toggle('pressionado', true);
-		verificarAcompanhamentoEtocar(acorde);
+		verificarAcompanhamentoEtocar(botao.value);
 	}
 }
 
