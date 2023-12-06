@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using LiturgiaMVC.Models;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -268,6 +270,55 @@ namespace LiturgiaMVC
                 throw new ArgumentException("Arquivo de notas vazio: " + Variaveis.arquivonotasAcordes);
             
             Variaveis.textoNotasAcordes = texto;
+        }
+
+        public static JsonResult? CarregarVariaveis()
+        {
+            if (Variaveis.textoNotasAcordes == "")
+                try {
+                    Ferramentas.LerArquivoNotasAcordes();
+                }
+                catch (Exception ex) {
+                    return new JsonResult("Error", new ErrorViewModel {                    
+                        Titulo = "Ler Arquivo das notas dos acordes",
+                        Mensagem = ex.Message
+                    });
+                }
+
+            if (Variaveis.acordesLinks == null)
+                try {
+                    Ferramentas.LerArquivoNotasLinks();
+                }
+                catch (Exception ex) {
+                    return new JsonResult("Error", new ErrorViewModel {                    
+                        Titulo = "Ler Arquivo dos links das notas",
+                        Mensagem = ex.Message
+                    });
+                }
+
+            if (Variaveis.tonsMaiores == null)
+                try {
+                    Ferramentas.LerArquivoAcordesLista();
+                }
+                catch (Exception ex) {
+                    return new JsonResult("Error", new ErrorViewModel {                    
+                        Titulo = "Ler Arquivo da lista de acordes",
+                        Mensagem = ex.Message
+                    });
+                }
+
+            if (Variaveis.textoRitmos == "")
+                try {
+                    Ferramentas.LerArquivoRitmosBateria();
+                }
+                catch (Exception ex) {
+                    return new JsonResult(new ErrorViewModel {
+                        Titulo = "Ler Arquivo dos ritmos de bateria",
+                        Mensagem = ex.Message
+                    });
+                }
+
+            return null;
         }
     }
 }
