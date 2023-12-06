@@ -95,19 +95,21 @@ function criarAcorde(acorde, grupoNotas) {
 }
 
 function verificarAcompanhamentoEtocar(acorde) {
-	pararOsAcordes();
+	pararOsAcordes(true);
 
 	_grupoNotas = criarAcorde(acorde, _grupoNotas);
 	_grupoNotas.play();
 }
 
-function pararOsAcordes() {
+function pararOsAcordes(removerSons = false) {
 	if (_grupoNotas != null) {
 		_grupoNotas.stop();
 
-		var sons = _grupoNotas.sounds.length;
-		for (let i = sons - 1; i > -1; i--)
-			_grupoNotas.removeSound(_grupoNotas.sounds[i]);
+		if (removerSons) {
+			var sons = _grupoNotas.sounds.length;
+			for (let i = sons - 1; i > -1; i--)
+				_grupoNotas.removeSound(_grupoNotas.sounds[i]);
+		}
 	}
 }
 
