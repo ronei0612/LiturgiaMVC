@@ -25,7 +25,7 @@ namespace LiturgiaMVC.Controllers
 
             if (Variaveis.acordesLinks == null)
                 try {
-                    Ferramentas.LerArquivoNotasLinks ();
+                    Ferramentas.LerArquivoNotasLinks();
                 }
                 catch (Exception ex) {
                     return View("Error", new ErrorViewModel {                    
