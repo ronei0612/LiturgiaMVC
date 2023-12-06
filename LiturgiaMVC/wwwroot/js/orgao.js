@@ -145,11 +145,11 @@ function pressionarBotaoAcomp(botao) {
 	botao.classList.toggle('selecionado', true);
 }
 
-function alterarVolume(volume) {
+function alterarVolume(volume, padrao) {
 	var numero = document.getElementById('volumeTexto');
 	numero.innerHTML = volume;
 
-	if (volume == 7)
+	if (volume == padrao)
 		numero.style.color = '#00008b';
 	else
 		numero.style.color = '#8b0000';
