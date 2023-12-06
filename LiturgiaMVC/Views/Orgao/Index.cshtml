@@ -86,9 +86,9 @@
 				<tr>
 					<td>
 					</td>
-					<td><input id="acordesAdicionais" style="display:none" id="acorde_9" type="button" class="botao roxoClaro acorde" value="@Model.Acordes[9]" onmouseup="escolherAcorde('orgao_' + 'A', this)"></td>
-					<td><input id="acordesAdicionais1" style="display:none" id="acorde_7" type="button" class="botao rosaClaro acorde" value="@Model.Acordes[7]" onmouseup="escolherAcorde('orgao_' + 'D', this)"></td>
-					<td><input id="acordesAdicionais2" style="display:none" id="acorde_10" type="button" class="botao marromClaro acorde" value="@Model.Acordes[10]" onmouseup="escolherAcorde('orgao_' + 'E', this)"></td>
+					<td><input id="acorde_6" style="display:none" id="acorde_9" type="button" class="botao roxoClaro acorde" value="@Model.Acordes[9]" onmouseup="escolherAcorde('orgao_' + 'A', this)"></td>
+					<td><input id="acorde_7" style="display:none" id="acorde_7" type="button" class="botao rosaClaro acorde" value="@Model.Acordes[7]" onmouseup="escolherAcorde('orgao_' + 'D', this)"></td>
+					<td><input id="acorde_8" style="display:none" id="acorde_10" type="button" class="botao marromClaro acorde" value="@Model.Acordes[10]" onmouseup="escolherAcorde('orgao_' + 'E', this)"></td>
 					<td>
 					</td>
 				</tr>
@@ -173,7 +173,13 @@
 		for (var i = 0, len = acordesElements.length; i < len; i++) {
 			var acordeIndex = acordesElements[i].id.split('_')[1];
 			acordesElements[i].value = acordesCampoHarmonico[acordeIndex];
-		}			
+		}
+
+		mudarTomMenor(document.getElementById("tomSelect").selectedIndex);
+	}
+
+	function mudarTomMenor(acordeIndex) {
+		document.getElementById('textoAcordeMenor').innerText = acordesTons[acordeIndex + 7];
 	}
 
 	function aumentarTom(aumentar) {
@@ -213,16 +219,16 @@
 		if (selecionadoMenor) {
 			document.getElementById('textoAcordeMenor').style.color = 'black';
 			document.getElementById('tomSelect').style.color = 'grey';
-			document.getElementById('acordesAdicionais').style.display = 'block';
-			document.getElementById('acordesAdicionais1').style.display = 'block';
-			document.getElementById('acordesAdicionais2').style.display = 'block';
+			document.getElementById('acorde_6').style.display = 'block';
+			document.getElementById('acorde_7').style.display = 'block';
+			document.getElementById('acorde_8').style.display = 'block';
 		}
 		else {
 			document.getElementById('textoAcordeMenor').style.color = 'grey';
 			document.getElementById('tomSelect').style.color = 'black';
-			document.getElementById('acordesAdicionais').style.display = 'none';
-			document.getElementById('acordesAdicionais1').style.display = 'none';
-			document.getElementById('acordesAdicionais2').style.display = 'none';
+			document.getElementById('acorde_6').style.display = 'none';
+			document.getElementById('acorde_7').style.display = 'none';
+			document.getElementById('acorde_8').style.display = 'none';
 		}
 	}
 </script>
