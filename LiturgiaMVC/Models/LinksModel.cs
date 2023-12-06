@@ -5,6 +5,7 @@
         public Dictionary<string, string>? LinksDict { get; set; }
         public string[]? Youtube { get; set; }
 		public Dictionary<string, string>? YoutubeImageLinks { get; set; }
+        public string? AcordesCampoHarmonico { get; set; }
         public string[]? Acordes { get; set; }
 
         public string[]? RelatorioLines { get; set; }

@@ -259,10 +259,7 @@ namespace LiturgiaMVC
         public static void LerArquivoNotasAcordes()
         {
             if (File.Exists(Variaveis.arquivonotasAcordes) == false)
-            {
-                var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
-                File.WriteAllText(Variaveis.arquivonotasAcordes, JsonConvert.SerializeObject(Variaveis.notasAcordes, settings));
-            }
+                File.WriteAllText(Variaveis.arquivonotasAcordes, ConvertToJson(Variaveis.notasAcordes));
 
             var texto = File.ReadAllText(Variaveis.arquivonotasAcordes).Replace(Environment.NewLine, "").Replace(@"\s+", "").Replace("],}", "]}");
 
@@ -270,6 +267,17 @@ namespace LiturgiaMVC
                 throw new ArgumentException("Arquivo de notas vazio: " + Variaveis.arquivonotasAcordes);
             
             Variaveis.textoNotasAcordes = texto;
+        }
+
+        public static string ConvertToJson(object obj, bool indentado = false)
+        {
+            var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
+            var json = JsonConvert.SerializeObject(obj, settings);
+
+            if (indentado)
+                json = json.Replace(Environment.NewLine, "").Replace(@"\s+", "").Replace("],}", "]}");
+
+            return json;
         }
 
         public static JsonResult? CarregarVariaveis()

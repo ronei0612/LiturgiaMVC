@@ -116,6 +116,7 @@
 <script>
 	var esperar_audios = false;
 	const notasAcordesJson = JSON.parse('@Html.Raw(@Model.NotasAcordes)');
+	const acordesNotasJson = JSON.parse('@Html.Raw(@Model.AcordesCampoHarmonico)');
 
 	var tomSelecionado = '@Model.TonsMaiores[(int)Model.TomIndex]'
 	deixarTomSelecionado(tomSelecionado);
