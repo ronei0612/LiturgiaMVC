@@ -14,22 +14,37 @@
 <div id="tracker-container">
 	<div id="container" class="container d-sm-flex" style="display:none">
 		<div class="box">
-			<div class="mt-3" style="text-align-last: center; width: 85%">
+			<div class="mt-3" style="text-align-last: center; width: 75%">
 				<div class="d-flex justify-content-between align-items-center">
 					<div class="d-flex justify-content-between align-items-center">
-						<label class="col-sm-10">
-							Tom: 
-						</label>
-						<div class="col-sm-10">
-							<select class="form-control" id="tomSelect" onchange="mudarTom()">
-								@foreach (var tom in Model.TonsMaiores)
-								{
-									<option value="@tom">@tom</option>
-								}
-							</select>
-						</div>
+						<label for="tomSelect">
+							Tom:&nbsp;
+						</label>						
+						
+							<div class="d-flex">
+								<button class="btn btn-primary" type="button" id="minusBtn">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8" />
+									</svg>
+								</button>
+							
+								<select class="form-control" id="tomSelect" onchange="mudarTom()">
+									@foreach (var tom in Model.TonsMaiores)
+									{
+										<option value="@tom">@tom</option>
+									}
+								</select>
+
+								<button class="btn btn-primary" type="button" id="minusBtn">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+									</svg>
+								</button>
+							</div>
+						
+						
 					</div>
-					&nbsp;&nbsp;
+
 					<div class="form-check form-switch">
 						<input class="form-check-input" type="checkbox" role="switch" id="tomMenorSwitch" onchange="selecionarTomMenor(this.checked)">
 						<label for="tomMenorSwitch" class="form-check-label" id="textoAcordeMenor">
