@@ -169,9 +169,12 @@
 	function mudarTom(tomSelecionado) {
 		var acordesCampoHarmonico = acordesCampoHarmonicoJson[tomSelecionado];
 		var acordesElements = document.getElementsByClassName('acorde');
+		debugger;
 
 		for (var i = 0, len = acordesElements.length; i < len; i++) {
 			var acordeIndex = acordesElements[i].id.split('_')[1];
+			if (i == 8)
+				acordeIndex = 9;
 			acordesElements[i].value = acordesCampoHarmonico[acordeIndex];
 		}
 
