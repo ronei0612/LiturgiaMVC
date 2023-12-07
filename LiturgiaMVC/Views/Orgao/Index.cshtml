@@ -113,7 +113,7 @@
 
 			<div class="centralizado-no-container">
 				Volume Órgão (<span id="volumeTexto" style="color: #00008b">8</span>):
-				<input type="range" min="0" max="10" value="8" oninput="alterarVolume(this.value, 8)">
+				<input type="range" min="0" max="1" value="0.8" step="0.1" oninput="alterarVolume(this.value, 0.8)">
 
 				<hr />
 			</div>
@@ -162,42 +162,6 @@
 		'orgao_la#_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_la#_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
 		'orgao_si_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_si_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
 	};
-
-	function mudarTom(tomSelecionado) {
-		var acordesCampoHarmonico = acordesCampoHarmonicoJson[tomSelecionado];
-		var acordesElements = document.getElementsByClassName('acorde');
-
-		Array.from(acordesElements).forEach((acordesElement) => {
-            var acordeIndex = acordesElement.id.split('_')[1];
-			acordesElement.value = acordesCampoHarmonico[acordeIndex];
-        });
-
-		mudarTomMenor(document.getElementById("tomSelect").selectedIndex);
-	}
-
-	function mudarTomMenor(acordeIndex) {
-		document.getElementById('textoAcordeMenor').innerText = acordesTons[acordeIndex + 7];
-	}
-
-	function aumentarTom(aumentar) {
-		var tomElement = document.getElementById("tomSelect");
-		var tomSelecionadoIndex = tomElement.selectedIndex;
-		
-		if (aumentar) {
-			if (tomSelecionadoIndex == tomElement.length - 1)
-				tomElement.value = acordesTons[0];
-			else
-				tomElement.value = acordesTons[tomSelecionadoIndex + 1];
-		}
-		else {
-			if (tomSelecionadoIndex == 0)
-				tomElement.value = acordesTons[tomElement.length - 1];
-			else
-				tomElement.value = acordesTons[tomSelecionadoIndex - 1];
-		}
-
-		mudarTom(tomElement.value);
-	}
 
 	function esperarAudios(tempoMiliseg) {
 		document.getElementById('container').style.display = 'none';

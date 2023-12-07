@@ -47,8 +47,6 @@ function escolherAcorde(acorde, botao) {
 		pararOsAcordes();
 	else
 		tocarAcorde(acorde, botao);
-
-	_acordeAntesSelecionado = _acordeSelecionado;
 }
 
 function escolherAcompanhamento(funcao, botao) {
@@ -58,8 +56,8 @@ function escolherAcompanhamento(funcao, botao) {
 
 function tocarAcorde(acorde, botao) {
 	if (_acordeAntesSelecionado != acorde) {
-		botao.classList.toggle('pressionado', true);
 		verificarAcompanhamentoEtocar(botao.value);
+		botao.classList.toggle('pressionado', true);
 	}
 }
 
@@ -76,6 +74,7 @@ function criarAcorde(acorde, grupoNotas) {
 	if (grupoNotas == null) {
 		grupoNotas = new Pizzicato.Group();
 		grupoNotas.addEffect(flanger);
+		grupoNotas.volume = _volume;
 	}
 
 	for (var i = 0, len = notas.length; i < len; i++) {
@@ -87,11 +86,15 @@ function criarAcorde(acorde, grupoNotas) {
 			grupoNotas.addSound(acordes['orgao_' + notas[i]]);
 	}
 
+	
+
 	return grupoNotas;
 }
 
 function verificarAcompanhamentoEtocar(acorde) {
 	pararOsAcordes(true);
+
+	_acordeAntesSelecionado = acorde;
 
 	_grupoNotas = criarAcorde(acorde, _grupoNotas);
 	_grupoNotas.play();
@@ -110,8 +113,9 @@ function pararOsAcordes(removerSons = false) {
 }
 
 function levantarBotoesAcordes() {
-	if (document.getElementsByClassName('pressionado').length > 0)
-		document.getElementsByClassName('pressionado')[0].classList.toggle('pressionado', false);
+	var botoesPressionados = document.getElementsByClassName('pressionado');
+	if (botoesPressionados.length > 0)
+		botoesPressionados[0].classList.toggle('pressionado', false);
 }
 
 function levantarBotoesAcompanhamento() {
@@ -142,18 +146,64 @@ function pressionarBotaoAcomp(botao) {
 }
 
 function alterarVolume(volume, padrao) {
+	_volume = parseFloat(volume);
+
+	if (_grupoNotas != null)
+		_grupoNotas.volume = _volume;
+
 	var numero = document.getElementById('volumeTexto');
-	numero.innerHTML = volume;
+	numero.innerHTML = volume * 10;
 
 	if (volume == padrao)
 		numero.style.color = '#00008b';
 	else
 		numero.style.color = '#8b0000';
+}
 
-	volume = volume / 10;
-	if (_grupoNotas != null)
-		_grupoNotas.volume = volume;
-	_volume = volume;
+
+
+function mudarTom(tomSelecionado) {
+	var acordesCampoHarmonico = acordesCampoHarmonicoJson[tomSelecionado];
+	var acordesElements = document.getElementsByClassName('acorde');
+
+	Array.from(acordesElements).forEach((acordesElement) => {
+		var acordeIndex = acordesElement.id.split('_')[1];
+		acordesElement.value = acordesCampoHarmonico[acordeIndex];
+	});
+
+	var botoesSelecionados = document.getElementsByClassName('pressionado');
+
+	if (botoesSelecionados.length > 0) {
+		var botaoSelecionado = botoesSelecionados[0];
+		var acordeSelecionado = botaoSelecionado.value;
+		escolherAcorde('orgao_' + acordeSelecionado, botaoSelecionado);
+	}
+
+	mudarTomMenor(document.getElementById("tomSelect").selectedIndex);
+}
+
+function mudarTomMenor(acordeIndex) {
+	document.getElementById('textoAcordeMenor').innerText = acordesTons[acordeIndex + 7];
+}
+
+function aumentarTom(aumentar) {
+	var tomElement = document.getElementById("tomSelect");
+	var tomSelecionadoIndex = tomElement.selectedIndex;
+
+	if (aumentar) {
+		if (tomSelecionadoIndex == tomElement.length - 1)
+			tomElement.value = acordesTons[0];
+		else
+			tomElement.value = acordesTons[tomSelecionadoIndex + 1];
+	}
+	else {
+		if (tomSelecionadoIndex == 0)
+			tomElement.value = acordesTons[tomElement.length - 1];
+		else
+			tomElement.value = acordesTons[tomSelecionadoIndex - 1];
+	}
+
+	mudarTom(tomElement.value);
 }
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
