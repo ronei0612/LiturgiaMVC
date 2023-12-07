@@ -115,7 +115,9 @@
 </table>
 
 		<form class="pure-form" id="trackerControls">
-			Tempo: <input name="bpm" id="bpm" style="width: 60px" value="90">
+			<div class="d-flex align-items-center">
+				<label for="bpm">Tempo:</label>&nbsp;<input name="bpm" id="bpm" style="width: 60px" value="90" class="form-control">
+			</div>
 			<input id="bpmRange" type="range" max="240" min="40" step="1" value="90">
 
 			<div style="display:none">
