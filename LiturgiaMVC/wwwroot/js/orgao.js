@@ -43,8 +43,10 @@ function escolherAcorde(acorde, botao) {
 
 	levantarBotoesAcordes();
 
-	if (_acordeSelecionado == '')
+	if (_acordeSelecionado == '') {
+		_acordeAntesSelecionado = _acordeSelecionado;
 		pararOsAcordes();
+	}
 	else
 		tocarAcorde(acorde, botao);
 }
