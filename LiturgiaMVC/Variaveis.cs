@@ -103,6 +103,7 @@
             { "A#", new string[] { "la#", "re", "fa" } },
             { "A#m", new string[] { "la#", "do#", "fa" } },
             { "B", new string[] { "si", "re#", "fa#" } },
+            { "Bb", new string[] { "la#", "re", "fa" } },
             { "Bm", new string[] { "si", "re", "fa#" } }
         };
     }
