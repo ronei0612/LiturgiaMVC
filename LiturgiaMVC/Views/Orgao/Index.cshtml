@@ -26,14 +26,14 @@
 								<path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8" />
 							</svg>
 						</button>
-							
+							&nbsp;
 						<select class="form-control" id="tomSelect" onchange="mudarTom(this.value)" style="text-align-last:center">
 							@foreach (var tom in Model.TonsMaiores)
 							{
 								<option value="@tom">@tom</option>
 							}
 						</select>
-
+						&nbsp;
 						<button class="btn btn-primary" type="button" id="minusBtn" onclick="aumentarTom(true)">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
@@ -85,9 +85,9 @@
 				<tr>
 					<td>
 					</td>
-					<td><input id="acorde_6" style="display:none" id="acorde_9" type="button" class="botao roxoClaro acorde" value="@Model.Acordes[9]" onmouseup="escolherAcorde('orgao_' + 'A', this)"></td>
+					<td><input id="acorde_9" style="display:none" id="acorde_9" type="button" class="botao roxoClaro acorde" value="@Model.Acordes[9]" onmouseup="escolherAcorde('orgao_' + 'A', this)"></td>
 					<td><input id="acorde_7" style="display:none" id="acorde_7" type="button" class="botao rosaClaro acorde" value="@Model.Acordes[7]" onmouseup="escolherAcorde('orgao_' + 'D', this)"></td>
-					<td><input id="acorde_8" style="display:none" id="acorde_10" type="button" class="botao marromClaro acorde" value="@Model.Acordes[10]" onmouseup="escolherAcorde('orgao_' + 'E', this)"></td>
+					<td><input id="acorde_10" style="display:none" id="acorde_10" type="button" class="botao marromClaro acorde" value="@Model.Acordes[10]" onmouseup="escolherAcorde('orgao_' + 'E', this)"></td>
 					<td>
 					</td>
 				</tr>
@@ -131,7 +131,6 @@
 	const notasAcordesJson = JSON.parse('@Html.Raw(@Model.NotasAcordes)');
 	const acordesCampoHarmonicoJson = JSON.parse('@Html.Raw(@Model.AcordesCampoHarmonico)');
 	const acordesTons = Object.keys(acordesCampoHarmonicoJson);
-	//const tonsMaiores = '@Model.TonsMaiores';
 
 	var tomSelecionado = '@Model.TonsMaiores[(int)Model.TomIndex]';
 	deixarTomSelecionado(tomSelecionado);
@@ -168,14 +167,11 @@
 	function mudarTom(tomSelecionado) {
 		var acordesCampoHarmonico = acordesCampoHarmonicoJson[tomSelecionado];
 		var acordesElements = document.getElementsByClassName('acorde');
-		debugger;
 
-		for (var i = 0, len = acordesElements.length; i < len; i++) {
-			var acordeIndex = acordesElements[i].id.split('_')[1];
-			if (i == 8)
-				acordeIndex = 9;
-			acordesElements[i].value = acordesCampoHarmonico[acordeIndex];
-		}
+		Array.from(acordesElements).forEach((acordesElement) => {
+            var acordeIndex = acordesElement.id.split('_')[1];
+			acordesElement.value = acordesCampoHarmonico[acordeIndex];
+        });
 
 		mudarTomMenor(document.getElementById("tomSelect").selectedIndex);
 	}
@@ -221,16 +217,16 @@
 		if (selecionadoMenor) {
 			document.getElementById('textoAcordeMenor').style.color = 'black';
 			document.getElementById('tomSelect').style.color = 'grey';
-			document.getElementById('acorde_6').style.display = 'block';
+			document.getElementById('acorde_10').style.display = 'block';
 			document.getElementById('acorde_7').style.display = 'block';
-			document.getElementById('acorde_8').style.display = 'block';
+			document.getElementById('acorde_9').style.display = 'block';
 		}
 		else {
 			document.getElementById('textoAcordeMenor').style.color = 'grey';
 			document.getElementById('tomSelect').style.color = 'black';
-			document.getElementById('acorde_6').style.display = 'none';
+			document.getElementById('acorde_10').style.display = 'none';
 			document.getElementById('acorde_7').style.display = 'none';
-			document.getElementById('acorde_8').style.display = 'none';
+			document.getElementById('acorde_9').style.display = 'none';
 		}
 	}
 </script>
