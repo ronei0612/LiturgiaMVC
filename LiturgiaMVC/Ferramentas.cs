@@ -92,7 +92,7 @@ namespace LiturgiaMVC
             var tonsMenores = new List<string>();
 
             if (File.Exists(Variaveis.arquivoAcordesLista) == false)
-                File.WriteAllText(Variaveis.arquivoAcordesLista, "C, D, E, G, A");
+                File.WriteAllText(Variaveis.arquivoAcordesLista, "C, C#, D, Eb, E, F, F#, G, Ab, A, Bb, B");
 
             var linhas = File.ReadAllLines(Variaveis.arquivoAcordesLista);
 
