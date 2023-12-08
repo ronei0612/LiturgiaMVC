@@ -5,1100 +5,1116 @@ var _trocarRitmo = false;
 
 (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s })({
     1: [function (require, module, exports) {
-function AdsrGainNode(ctx) {
+        function AdsrGainNode(ctx) {
 
-    this.ctx = ctx;
+            this.ctx = ctx;
 
-    this.mode = 'exponentialRampToValueAtTime';
-    // this.mode = 'linearRampToValueAtTime';
+            this.mode = 'exponentialRampToValueAtTime';
+            // this.mode = 'linearRampToValueAtTime';
 
-    this.options = {
-        attackAmp: 0.1, 
-        decayAmp: 0.3,
-        sustainAmp: 0.7,
-        releaseAmp: 0.01,
-        attackTime: 0.1,
-        decayTime: 0.2,
-        sustainTime: 1.0, 
-        releaseTime: 3.4,
-        autoRelease: true
-    };
+            this.options = {
+                attackAmp: 0.1,
+                decayAmp: 0.3,
+                sustainAmp: 0.7,
+                releaseAmp: 0.01,
+                attackTime: 0.1,
+                decayTime: 0.2,
+                sustainTime: 1.0,
+                releaseTime: 3.4,
+                autoRelease: true
+            };
 
-    /**
-     * Set options or use defaults
-     * @param {object} options 
-     */
-    this.setOptions = function (options) {
-        this.options = Object.assign(this.options, options);
-    };
+            /**
+             * Set options or use defaults
+             * @param {object} options 
+             */
+            this.setOptions = function (options) {
+                this.options = Object.assign(this.options, options);
+            };
 
-    this.gainNode
-    this.audioTime
-    
-    /**
-     * Get a gain node from defined options
-     * @param {float} audioTime an audio context time stamp
-     */
-    this.getGainNode =  (audioTime) => {
+            this.gainNode
+            this.audioTime
 
-        this.gainNode = this.ctx.createGain();
-        this.audioTime = audioTime
+            /**
+             * Get a gain node from defined options
+             * @param {float} audioTime an audio context time stamp
+             */
+            this.getGainNode = (audioTime) => {
 
-        // Firefox does not like 0 -> therefor 0.0000001
-        this.gainNode.gain.setValueAtTime(0.0000001, audioTime)        
-        
-        // Attack
-        this.gainNode.gain[this.mode](
-            this.options.attackAmp, 
-            audioTime + this.options.attackTime)
+                this.gainNode = this.ctx.createGain();
+                this.audioTime = audioTime
 
-        // Decay
-        this.gainNode.gain[this.mode](
-            this.options.decayAmp, 
-            audioTime + this.options.attackTime + this.options.decayTime)
+                // Firefox does not like 0 -> therefor 0.0000001
+                this.gainNode.gain.setValueAtTime(0.0000001, audioTime)
 
-        // Sustain
-        this.gainNode.gain[this.mode](
-            this.options.sustainAmp, 
-            audioTime + this.options.attackTime + this.options.sustainTime)
- 
-        // Check if auto-release
-        // Then calculate when note should stop
-        if (this.options.autoRelease) {
-            this.gainNode.gain[this.mode](
-                this.options.releaseAmp,
-                audioTime + this.releaseTime()
-            )
-            
-            // Disconnect the gain node 
-            this.disconnect(audioTime + this.releaseTime())
-        }
-        return this.gainNode;
-    };
+                // Attack
+                this.gainNode.gain[this.mode](
+                    this.options.attackAmp,
+                    audioTime + this.options.attackTime)
 
-    /**
-     * Release the note dynamicaly
-     * E.g. if your are making a keyboard, and you want the note
-     * to be released according to current audio time + the ADSR release time 
-     */
-    this.releaseNow = () => {
-        this.gainNode.gain[this.mode](
-            this.options.releaseAmp,
-            this.ctx.currentTime + this.options.releaseTime) 
-        this.disconnect(this.options.releaseTime)
-    }
+                // Decay
+                this.gainNode.gain[this.mode](
+                    this.options.decayAmp,
+                    audioTime + this.options.attackTime + this.options.decayTime)
 
-    /**
-     * Get release time according to the adsr release time
-     */
-    this.releaseTime = function() {
-        return this.options.attackTime + this.options.decayTime + this.options.sustainTime + this.options.releaseTime
-    }
+                // Sustain
+                this.gainNode.gain[this.mode](
+                    this.options.sustainAmp,
+                    audioTime + this.options.attackTime + this.options.sustainTime)
 
-    /**
-     * Get release time according to 'now'
-     */
-    this.releaseTimeNow = function () {
-        return this.ctx.currentTime + this.releaseTime()
-    }
-    
-    /**
-     * 
-     * @param {float} disconnectTime the time when gainNode should disconnect 
-     */
-    this.disconnect = (disconnectTime) => {
-        setTimeout( () => {
-            this.gainNode.disconnect();
-        },
-        disconnectTime * 1000);
-    };
-}
+                // Check if auto-release
+                // Then calculate when note should stop
+                if (this.options.autoRelease) {
+                    this.gainNode.gain[this.mode](
+                        this.options.releaseAmp,
+                        audioTime + this.releaseTime()
+                    )
 
-module.exports = AdsrGainNode;
-
-},{}],2:[function(require,module,exports){
-// From: https://dev.opera.com/articles/drum-sounds-webaudio/
-function audioBufferInstrument(context, buffer) {
-    this.context = context;
-    this.buffer = buffer;
-}
-
-audioBufferInstrument.prototype.setup = function () {
-    this.source = this.context.createBufferSource();
-    this.source.buffer = this.buffer;
-    this.source.connect(this.context.destination);
-};
-
-audioBufferInstrument.prototype.get = function () {
-    this.source = this.context.createBufferSource();
-    this.source.buffer = this.buffer;
-    return this.source;
-};
-
-audioBufferInstrument.prototype.trigger = function (time) {
-    this.setup();
-    this.source.start(time);
-};
-
-module.exports = audioBufferInstrument;
-},{}],3:[function(require,module,exports){
-/* FileSaver.js
- * A saveAs() FileSaver implementation.
- * 1.3.2
- * 2016-06-16 18:25:19
- *
- * By Eli Grey, http://eligrey.com
- * License: MIT
- *   See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
- */
-
-/*global self */
-/*jslint bitwise: true, indent: 4, laxbreak: true, laxcomma: true, smarttabs: true, plusplus: true */
-
-/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
-
-var saveAs = saveAs || (function(view) {
-	"use strict";
-	// IE <10 is explicitly unsupported
-	if (typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
-		return;
-	}
-	var
-		  doc = view.document
-		  // only get URL when necessary in case Blob.js hasn't overridden it yet
-		, get_URL = function() {
-			return view.URL || view.webkitURL || view;
-		}
-		, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
-		, can_use_save_link = "download" in save_link
-		, click = function(node) {
-			var event = new MouseEvent("click");
-			node.dispatchEvent(event);
-		}
-		, is_safari = /constructor/i.test(view.HTMLElement) || view.safari
-		, is_chrome_ios =/CriOS\/[\d]+/.test(navigator.userAgent)
-		, throw_outside = function(ex) {
-			(view.setImmediate || view.setTimeout)(function() {
-				throw ex;
-			}, 0);
-		}
-		, force_saveable_type = "application/octet-stream"
-		// the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
-		, arbitrary_revoke_timeout = 1000 * 40 // in ms
-		, revoke = function(file) {
-			var revoker = function() {
-				if (typeof file === "string") { // file is an object URL
-					get_URL().revokeObjectURL(file);
-				} else { // file is a File
-					file.remove();
-				}
-			};
-			setTimeout(revoker, arbitrary_revoke_timeout);
-		}
-		, dispatch = function(filesaver, event_types, event) {
-			event_types = [].concat(event_types);
-			var i = event_types.length;
-			while (i--) {
-				var listener = filesaver["on" + event_types[i]];
-				if (typeof listener === "function") {
-					try {
-						listener.call(filesaver, event || filesaver);
-					} catch (ex) {
-						throw_outside(ex);
-					}
-				}
-			}
-		}
-		, auto_bom = function(blob) {
-			// prepend BOM for UTF-8 XML and text/* types (including HTML)
-			// note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
-			if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
-				return new Blob([String.fromCharCode(0xFEFF), blob], {type: blob.type});
-			}
-			return blob;
-		}
-		, FileSaver = function(blob, name, no_auto_bom) {
-			if (!no_auto_bom) {
-				blob = auto_bom(blob);
-			}
-			// First try a.download, then web filesystem, then object URLs
-			var
-				  filesaver = this
-				, type = blob.type
-				, force = type === force_saveable_type
-				, object_url
-				, dispatch_all = function() {
-					dispatch(filesaver, "writestart progress write writeend".split(" "));
-				}
-				// on any filesys errors revert to saving with object URLs
-				, fs_error = function() {
-					if ((is_chrome_ios || (force && is_safari)) && view.FileReader) {
-						// Safari doesn't allow downloading of blob urls
-						var reader = new FileReader();
-						reader.onloadend = function() {
-							var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
-							var popup = view.open(url, '_blank');
-							if(!popup) view.location.href = url;
-							url=undefined; // release reference before dispatching
-							filesaver.readyState = filesaver.DONE;
-							dispatch_all();
-						};
-						reader.readAsDataURL(blob);
-						filesaver.readyState = filesaver.INIT;
-						return;
-					}
-					// don't create more object URLs than needed
-					if (!object_url) {
-						object_url = get_URL().createObjectURL(blob);
-					}
-					if (force) {
-						view.location.href = object_url;
-					} else {
-						var opened = view.open(object_url, "_blank");
-						if (!opened) {
-							// Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
-							view.location.href = object_url;
-						}
-					}
-					filesaver.readyState = filesaver.DONE;
-					dispatch_all();
-					revoke(object_url);
-				}
-			;
-			filesaver.readyState = filesaver.INIT;
-
-			if (can_use_save_link) {
-				object_url = get_URL().createObjectURL(blob);
-				setTimeout(function() {
-					save_link.href = object_url;
-					save_link.download = name;
-					click(save_link);
-					dispatch_all();
-					revoke(object_url);
-					filesaver.readyState = filesaver.DONE;
-				});
-				return;
-			}
-
-			fs_error();
-		}
-		, FS_proto = FileSaver.prototype
-		, saveAs = function(blob, name, no_auto_bom) {
-			return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
-		}
-	;
-	// IE 10+ (native saveAs)
-	if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
-		return function(blob, name, no_auto_bom) {
-			name = name || blob.name || "download";
-
-			if (!no_auto_bom) {
-				blob = auto_bom(blob);
-			}
-			return navigator.msSaveOrOpenBlob(blob, name);
-		};
-	}
-
-	FS_proto.abort = function(){};
-	FS_proto.readyState = FS_proto.INIT = 0;
-	FS_proto.WRITING = 1;
-	FS_proto.DONE = 2;
-
-	FS_proto.error =
-	FS_proto.onwritestart =
-	FS_proto.onprogress =
-	FS_proto.onwrite =
-	FS_proto.onabort =
-	FS_proto.onerror =
-	FS_proto.onwriteend =
-		null;
-
-	return saveAs;
-}(
-	   typeof self !== "undefined" && self
-	|| typeof window !== "undefined" && window
-	|| this.content
-));
-// `self` is undefined in Firefox for Android content script context
-// while `this` is nsIContentFrameMessageManager
-// with an attribute `content` that corresponds to the window
-
-if (typeof module !== "undefined" && module.exports) {
-  module.exports.saveAs = saveAs;
-} else if ((typeof define !== "undefined" && define !== null) && (define.amd !== null)) {
-  define("FileSaver.js", function() {
-    return saveAs;
-  });
-}
-
-},{}],4:[function(require,module,exports){
-function getJSONPromise(url) {
-
-    var promise = new Promise((resolve, reject) => {
-        var request = new XMLHttpRequest();
-
-        request.open('get', url, true);
-        request.responseType = 'text';
-        request.onload = function () {
-            if (request.status === 200) {
-                try {
-                    resolve(JSON.parse(request.responseText));
-                } catch (error) {
-                    reject(error);
+                    // Disconnect the gain node 
+                    this.disconnect(audioTime + this.releaseTime())
                 }
-            } else {
-                reject('JSON could not be loaded ' + url);
+                return this.gainNode;
+            };
+
+            /**
+             * Release the note dynamicaly
+             * E.g. if your are making a keyboard, and you want the note
+             * to be released according to current audio time + the ADSR release time 
+             */
+            this.releaseNow = () => {
+                this.gainNode.gain[this.mode](
+                    this.options.releaseAmp,
+                    this.ctx.currentTime + this.options.releaseTime)
+                this.disconnect(this.options.releaseTime)
             }
+
+            /**
+             * Get release time according to the adsr release time
+             */
+            this.releaseTime = function () {
+                return this.options.attackTime + this.options.decayTime + this.options.sustainTime + this.options.releaseTime
+            }
+
+            /**
+             * Get release time according to 'now'
+             */
+            this.releaseTimeNow = function () {
+                return this.ctx.currentTime + this.releaseTime()
+            }
+
+            /**
+             * 
+             * @param {float} disconnectTime the time when gainNode should disconnect 
+             */
+            this.disconnect = (disconnectTime) => {
+                setTimeout(() => {
+                    this.gainNode.disconnect();
+                },
+                    disconnectTime * 1000);
+            };
+        }
+
+        module.exports = AdsrGainNode;
+
+    }, {}], 2: [function (require, module, exports) {
+        // From: https://dev.opera.com/articles/drum-sounds-webaudio/
+        function audioBufferInstrument(context, buffer) {
+            this.context = context;
+            this.buffer = buffer;
+        }
+
+        audioBufferInstrument.prototype.setup = function () {
+            this.source = this.context.createBufferSource();
+            this.source.buffer = this.buffer;
+            this.source.connect(this.context.destination);
         };
-        request.send();
-    });
 
-    return promise;
-}
+        audioBufferInstrument.prototype.get = function () {
+            this.source = this.context.createBufferSource();
+            this.source.buffer = this.buffer;
+            return this.source;
+        };
 
-module.exports = getJSONPromise;
+        audioBufferInstrument.prototype.trigger = function (time) {
+            this.setup();
+            this.source.start(time);
+        };
 
-},{}],5:[function(require,module,exports){
-function getFormValues(formElement) {
-    var formElements = formElement.elements;
-    var formParams = {};
-    var i = 0;
-    var elem = null;
-    for (i = 0; i < formElements.length; i += 1) {
-        elem = formElements[i];
-        switch (elem.type) {
+        module.exports = audioBufferInstrument;
+    }, {}], 3: [function (require, module, exports) {
+        /* FileSaver.js
+         * A saveAs() FileSaver implementation.
+         * 1.3.2
+         * 2016-06-16 18:25:19
+         *
+         * By Eli Grey, http://eligrey.com
+         * License: MIT
+         *   See https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+         */
 
-            case 'submit':
-                break;
+        /*global self */
+        /*jslint bitwise: true, indent: 4, laxbreak: true, laxcomma: true, smarttabs: true, plusplus: true */
 
-            case 'radio':
-                if (elem.checked) {
-                    formParams[elem.name] = elem.value;
+        /*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
+
+        var saveAs = saveAs || (function (view) {
+            "use strict";
+            // IE <10 is explicitly unsupported
+            if (typeof view === "undefined" || typeof navigator !== "undefined" && /MSIE [1-9]\./.test(navigator.userAgent)) {
+                return;
+            }
+            var
+                doc = view.document
+                // only get URL when necessary in case Blob.js hasn't overridden it yet
+                , get_URL = function () {
+                    return view.URL || view.webkitURL || view;
                 }
-                break;
-
-            case 'checkbox':
-                if (elem.checked) {
-                    formParams[elem.name] = elem.value;
+                , save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
+                , can_use_save_link = "download" in save_link
+                , click = function (node) {
+                    var event = new MouseEvent("click");
+                    node.dispatchEvent(event);
                 }
-                break;
-
-            case 'select-multiple':
-                var selectValues = getSelectValues(elem);
-                if (selectValues.length > 0) {
-                    formParams[elem.name] = selectValues;
+                , is_safari = /constructor/i.test(view.HTMLElement) || view.safari
+                , is_chrome_ios = /CriOS\/[\d]+/.test(navigator.userAgent)
+                , throw_outside = function (ex) {
+                    (view.setImmediate || view.setTimeout)(function () {
+                        throw ex;
+                    }, 0);
                 }
-                break;
-            default:
-                if (elem.value !== undefined) {
-                    formParams[elem.name] = elem.value;
+                , force_saveable_type = "application/octet-stream"
+                // the Blob API is fundamentally broken as there is no "downloadfinished" event to subscribe to
+                , arbitrary_revoke_timeout = 1000 * 40 // in ms
+                , revoke = function (file) {
+                    var revoker = function () {
+                        if (typeof file === "string") { // file is an object URL
+                            get_URL().revokeObjectURL(file);
+                        } else { // file is a File
+                            file.remove();
+                        }
+                    };
+                    setTimeout(revoker, arbitrary_revoke_timeout);
                 }
-        }
-    }
-    return formParams;
-}
-
-function setFormValues(formElement, values) {
-    var formElements = formElement.elements;
-    var i = 0;
-    var elem = null;
-    for (i = 0; i < formElements.length; i += 1) {
-        elem = formElements[i];
-
-        switch (elem.type) {
-            case 'submit':
-                break;
-            case 'radio':
-                if (values[elem.name] === elem.value) {
-                    elem.checked = true;
-                } else {
-                    elem.checked = false;
+                , dispatch = function (filesaver, event_types, event) {
+                    event_types = [].concat(event_types);
+                    var i = event_types.length;
+                    while (i--) {
+                        var listener = filesaver["on" + event_types[i]];
+                        if (typeof listener === "function") {
+                            try {
+                                listener.call(filesaver, event || filesaver);
+                            } catch (ex) {
+                                throw_outside(ex);
+                            }
+                        }
+                    }
                 }
-                break;
-            case 'checkbox':
-                if (values[elem.name] === elem.value) {
-                    elem.checked = true;
-                } else {
-                    elem.checked = false;
+                , auto_bom = function (blob) {
+                    // prepend BOM for UTF-8 XML and text/* types (including HTML)
+                    // note: your browser will automatically convert UTF-16 U+FEFF to EF BB BF
+                    if (/^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(blob.type)) {
+                        return new Blob([String.fromCharCode(0xFEFF), blob], { type: blob.type });
+                    }
+                    return blob;
                 }
-                break;
-            case 'select-multiple':
-                if (values[elem.name]) {
-                    setSelectValues(elem, values[elem.name]);
+                , FileSaver = function (blob, name, no_auto_bom) {
+                    if (!no_auto_bom) {
+                        blob = auto_bom(blob);
+                    }
+                    // First try a.download, then web filesystem, then object URLs
+                    var
+                        filesaver = this
+                        , type = blob.type
+                        , force = type === force_saveable_type
+                        , object_url
+                        , dispatch_all = function () {
+                            dispatch(filesaver, "writestart progress write writeend".split(" "));
+                        }
+                        // on any filesys errors revert to saving with object URLs
+                        , fs_error = function () {
+                            if ((is_chrome_ios || (force && is_safari)) && view.FileReader) {
+                                // Safari doesn't allow downloading of blob urls
+                                var reader = new FileReader();
+                                reader.onloadend = function () {
+                                    var url = is_chrome_ios ? reader.result : reader.result.replace(/^data:[^;]*;/, 'data:attachment/file;');
+                                    var popup = view.open(url, '_blank');
+                                    if (!popup) view.location.href = url;
+                                    url = undefined; // release reference before dispatching
+                                    filesaver.readyState = filesaver.DONE;
+                                    dispatch_all();
+                                };
+                                reader.readAsDataURL(blob);
+                                filesaver.readyState = filesaver.INIT;
+                                return;
+                            }
+                            // don't create more object URLs than needed
+                            if (!object_url) {
+                                object_url = get_URL().createObjectURL(blob);
+                            }
+                            if (force) {
+                                view.location.href = object_url;
+                            } else {
+                                var opened = view.open(object_url, "_blank");
+                                if (!opened) {
+                                    // Apple does not allow window.open, see https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/WorkingwithWindowsandTabs/WorkingwithWindowsandTabs.html
+                                    view.location.href = object_url;
+                                }
+                            }
+                            filesaver.readyState = filesaver.DONE;
+                            dispatch_all();
+                            revoke(object_url);
+                        }
+                        ;
+                    filesaver.readyState = filesaver.INIT;
+
+                    if (can_use_save_link) {
+                        object_url = get_URL().createObjectURL(blob);
+                        setTimeout(function () {
+                            save_link.href = object_url;
+                            save_link.download = name;
+                            click(save_link);
+                            dispatch_all();
+                            revoke(object_url);
+                            filesaver.readyState = filesaver.DONE;
+                        });
+                        return;
+                    }
+
+                    fs_error();
                 }
-                break;
-            default:
-                if (values[elem.name] !== undefined) {
-                    elem.value = values[elem.name];
+                , FS_proto = FileSaver.prototype
+                , saveAs = function (blob, name, no_auto_bom) {
+                    return new FileSaver(blob, name || blob.name || "download", no_auto_bom);
                 }
+                ;
+            // IE 10+ (native saveAs)
+            if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob) {
+                return function (blob, name, no_auto_bom) {
+                    name = name || blob.name || "download";
 
-        }
-    }
-}
+                    if (!no_auto_bom) {
+                        blob = auto_bom(blob);
+                    }
+                    return navigator.msSaveOrOpenBlob(blob, name);
+                };
+            }
 
-function setSelectValues(selectElem, values) {
-    var options = selectElem.options;
-    var opt;
+            FS_proto.abort = function () { };
+            FS_proto.readyState = FS_proto.INIT = 0;
+            FS_proto.WRITING = 1;
+            FS_proto.DONE = 2;
 
-    for (var i = 0, iLen = options.length; i < iLen; i++) {
-        opt = options[i];
-        if (values.indexOf(opt.value) > -1) {
-            opt.selected = true;
-        } else {
-            opt.selected = false;
-        }
-    }
-}
+            FS_proto.error =
+                FS_proto.onwritestart =
+                FS_proto.onprogress =
+                FS_proto.onwrite =
+                FS_proto.onabort =
+                FS_proto.onerror =
+                FS_proto.onwriteend =
+                null;
 
-function getSelectValues(select) {
-    var result = [];
-    var options = select && select.options;
-    var opt;
+            return saveAs;
+        }(
+            typeof self !== "undefined" && self
+            || typeof window !== "undefined" && window
+            || this.content
+        ));
+        // `self` is undefined in Firefox for Android content script context
+        // while `this` is nsIContentFrameMessageManager
+        // with an attribute `content` that corresponds to the window
 
-    for (var i = 0, iLen = options.length; i < iLen; i++) {
-        opt = options[i];
-
-        if (opt.selected) {
-            result.push(opt.value || opt.text);
-        }
-    }
-    return result;
-}
-
-function getSetFormValues() {
-    this.set = setFormValues;
-    this.get = getFormValues;
-}
-
-module.exports = getSetFormValues;
-
-},{}],6:[function(require,module,exports){
-'use strict';
-var objType = require('obj-type');
-
-module.exports = function (el, str) {
-	if (objType(el).indexOf('element') === -1) {
-		throw new TypeError('Expected an HTML DOM element as first argument');
-	}
-
-	if (typeof str !== 'string') {
-		throw new TypeError('Expected a string as second argument');
-	}
-
-	if (el.classList) {
-		return el.classList.contains(str);
-	}
-
-	return new RegExp('(^| )' + str + '( |$)', 'gi').test(el.className);
-};
-
-},{"obj-type":9}],7:[function(require,module,exports){
-var tinySampleLoader = require('tiny-sample-loader');
-var audioBufferInstrument = require('audio-buffer-instrument');
-var getJSON = require('get-json-promise');
-
-var buffers = {};
-function getSamplePromises (ctx, data) {
-    var baseUrl = data.samples;
-    var promises = [];
-
-    data.filename = [];
-    var i = 0;
-    data.files.forEach(function (val) {
-        var filename = val.replace(/\.[^/.]+$/, "");
-        data.filename.push(filename);
-        var remoteUrl = baseUrl + val;
-
-        let loaderPromise = tinySampleLoader(ctx, remoteUrl);
-        loaderPromise.then(function (buffer) {
-            buffers[filename] = new audioBufferInstrument(ctx, buffer);
-        });
-
-        promises.push(loaderPromise);
-
-    });
-    
-    return promises;
-}
-
-function sampleAllPromise(ctx, dataUrl) {
-    var promise = new Promise((resolve, reject) => {
-        var jsonPromise = getJSON(dataUrl);
-        jsonPromise.then(function(data) {
-            var samplePromises = getSamplePromises(ctx, data);
-            Promise.all(samplePromises).then(function() {
-                resolve({data: data, buffers: buffers});
-            }).catch(function (error) {
-                console.log(error);
+        if (typeof module !== "undefined" && module.exports) {
+            module.exports.saveAs = saveAs;
+        } else if ((typeof define !== "undefined" && define !== null) && (define.amd !== null)) {
+            define("FileSaver.js", function () {
+                return saveAs;
             });
-        }).catch (function (error) {
-            reject(error);
-        });
-    });
+        }
 
-    return promise;
-}
+    }, {}], 4: [function (require, module, exports) {
+        function getJSONPromise(url) {
 
-function loadSampleSet(ctx, dataUrl) {
-    return sampleAllPromise(ctx, dataUrl);
-}
+            var promise = new Promise((resolve, reject) => {
+                var request = new XMLHttpRequest();
 
-module.exports = loadSampleSet;
+                request.open('get', url, true);
+                request.responseType = 'text';
+                request.onload = function () {
+                    if (request.status === 200) {
+                        try {
+                            resolve(JSON.parse(request.responseText));
+                        } catch (error) {
+                            reject(error);
+                        }
+                    } else {
+                        reject('JSON could not be loaded ' + url);
+                    }
+                };
+                request.send();
+            });
 
-},{"audio-buffer-instrument":2,"get-json-promise":4,"tiny-sample-loader":8}],8:[function(require,module,exports){
-function sampleLoader (context, url) {
-    
-    var promise = new Promise((resolve, reject) => { 
-        var request = new XMLHttpRequest();
-    
-        request.open('get', url, true);
-        request.responseType = 'arraybuffer';
-        request.onload = function () {
-            if(request.status === 200){
-                context.decodeAudioData(request.response, function (buffer) {
-                    resolve(buffer);
+            return promise;
+        }
+
+        module.exports = getJSONPromise;
+
+    }, {}], 5: [function (require, module, exports) {
+        function getFormValues(formElement) {
+            var formElements = formElement.elements;
+            var formParams = {};
+            var i = 0;
+            var elem = null;
+            for (i = 0; i < formElements.length; i += 1) {
+                elem = formElements[i];
+                switch (elem.type) {
+
+                    case 'submit':
+                        break;
+
+                    case 'radio':
+                        if (elem.checked) {
+                            formParams[elem.name] = elem.value;
+                        }
+                        break;
+
+                    case 'checkbox':
+                        if (elem.checked) {
+                            formParams[elem.name] = elem.value;
+                        }
+                        break;
+
+                    case 'select-multiple':
+                        var selectValues = getSelectValues(elem);
+                        if (selectValues.length > 0) {
+                            formParams[elem.name] = selectValues;
+                        }
+                        break;
+                    default:
+                        if (elem.value !== undefined) {
+                            formParams[elem.name] = elem.value;
+                        }
+                }
+            }
+            return formParams;
+        }
+
+        function setFormValues(formElement, values) {
+            var formElements = formElement.elements;
+            var i = 0;
+            var elem = null;
+            for (i = 0; i < formElements.length; i += 1) {
+                elem = formElements[i];
+
+                switch (elem.type) {
+                    case 'submit':
+                        break;
+                    case 'radio':
+                        if (values[elem.name] === elem.value) {
+                            elem.checked = true;
+                        } else {
+                            elem.checked = false;
+                        }
+                        break;
+                    case 'checkbox':
+                        if (values[elem.name] === elem.value) {
+                            elem.checked = true;
+                        } else {
+                            elem.checked = false;
+                        }
+                        break;
+                    case 'select-multiple':
+                        if (values[elem.name]) {
+                            setSelectValues(elem, values[elem.name]);
+                        }
+                        break;
+                    default:
+                        if (values[elem.name] !== undefined) {
+                            elem.value = values[elem.name];
+                        }
+
+                }
+            }
+        }
+
+        function setSelectValues(selectElem, values) {
+            var options = selectElem.options;
+            var opt;
+
+            for (var i = 0, iLen = options.length; i < iLen; i++) {
+                opt = options[i];
+                if (values.indexOf(opt.value) > -1) {
+                    opt.selected = true;
+                } else {
+                    opt.selected = false;
+                }
+            }
+        }
+
+        function getSelectValues(select) {
+            var result = [];
+            var options = select && select.options;
+            var opt;
+
+            for (var i = 0, iLen = options.length; i < iLen; i++) {
+                opt = options[i];
+
+                if (opt.selected) {
+                    result.push(opt.value || opt.text);
+                }
+            }
+            return result;
+        }
+
+        function getSetFormValues() {
+            this.set = setFormValues;
+            this.get = getFormValues;
+        }
+
+        module.exports = getSetFormValues;
+
+    }, {}], 6: [function (require, module, exports) {
+        'use strict';
+        var objType = require('obj-type');
+
+        module.exports = function (el, str) {
+            if (objType(el).indexOf('element') === -1) {
+                throw new TypeError('Expected an HTML DOM element as first argument');
+            }
+
+            if (typeof str !== 'string') {
+                throw new TypeError('Expected a string as second argument');
+            }
+
+            if (el.classList) {
+                return el.classList.contains(str);
+            }
+
+            return new RegExp('(^| )' + str + '( |$)', 'gi').test(el.className);
+        };
+
+    }, { "obj-type": 9 }], 7: [function (require, module, exports) {
+        var tinySampleLoader = require('tiny-sample-loader');
+        var audioBufferInstrument = require('audio-buffer-instrument');
+        var getJSON = require('get-json-promise');
+
+        var buffers = {};
+        function getSamplePromises(ctx, data) {
+            var baseUrl = data.samples;
+            var promises = [];
+
+            data.filename = [];
+            var i = 0;
+            data.files.forEach(function (val) {
+                var filename = val.replace(/\.[^/.]+$/, "");
+                data.filename.push(filename);
+                var remoteUrl = baseUrl + val;
+
+                let loaderPromise = tinySampleLoader(ctx, remoteUrl);
+                loaderPromise.then(function (buffer) {
+                    buffers[filename] = new audioBufferInstrument(ctx, buffer);
                 });
-            } else {
-                reject('tiny-sample-loader request failed');
-            }
 
+                promises.push(loaderPromise);
+
+            });
+
+            return promises;
+        }
+
+        function sampleAllPromise(ctx, dataUrl) {
+            var promise = new Promise((resolve, reject) => {
+                var jsonPromise = getJSON(dataUrl);
+                jsonPromise.then(function (data) {
+                    var samplePromises = getSamplePromises(ctx, data);
+                    Promise.all(samplePromises).then(function () {
+                        resolve({ data: data, buffers: buffers });
+                    }).catch(function (error) {
+                        console.log(error);
+                    });
+                }).catch(function (error) {
+                    reject(error);
+                });
+            });
+
+            return promise;
+        }
+
+        function loadSampleSet(ctx, dataUrl) {
+            return sampleAllPromise(ctx, dataUrl);
+        }
+
+        module.exports = loadSampleSet;
+
+    }, { "audio-buffer-instrument": 2, "get-json-promise": 4, "tiny-sample-loader": 8 }], 8: [function (require, module, exports) {
+        function sampleLoader(context, url) {
+
+            var promise = new Promise((resolve, reject) => {
+                var request = new XMLHttpRequest();
+
+                request.open('get', url, true);
+                request.responseType = 'arraybuffer';
+                request.onload = function () {
+                    if (request.status === 200) {
+                        context.decodeAudioData(request.response, function (buffer) {
+                            resolve(buffer);
+                        });
+                    } else {
+                        reject('tiny-sample-loader request failed');
+                    }
+
+                };
+                request.send();
+            });
+
+            return promise;
         };
-        request.send();
-    });
-    
-    return promise;
-};
 
-module.exports = sampleLoader;
+        module.exports = sampleLoader;
 
-},{}],9:[function(require,module,exports){
-'use strict';
-module.exports = function (obj) {
-	return Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
-};
+    }, {}], 9: [function (require, module, exports) {
+        'use strict';
+        module.exports = function (obj) {
+            return Object.prototype.toString.call(obj).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
+        };
 
-},{}],10:[function(require,module,exports){
-function selectElement(appendToID, selectID, options, selected) {
+    }, {}], 10: [function (require, module, exports) {
+        function selectElement(appendToID, selectID, options, selected) {
 
-    this.appendToID = appendToID;
-    this.selectID = selectID;
-    this.options = options;
-    this.selected = selected;
+            this.appendToID = appendToID;
+            this.selectID = selectID;
+            this.options = options;
+            this.selected = selected;
 
-    this.selectList;
-    
-    this.create = function(cb) {
-        var appendToID = document.getElementById(this.appendToID);
-        this.selectList = document.createElement("select");
-        this.selectList.id = this.selectID;        
-        appendToID.appendChild(this.selectList);
-        this.update(selectID, this.options, this.selected);
-    };
+            this.selectList;
 
-    this.onChange = function (cb) {
-        this.selectList.addEventListener('change', function(){
-            cb(this.value)
-        });
-    }
+            this.create = function (cb) {
+                var appendToID = document.getElementById(this.appendToID);
+                this.selectList = document.createElement("select");
+                this.selectList.id = this.selectID;
+                appendToID.appendChild(this.selectList);
+                this.update(selectID, this.options, this.selected);
+            };
 
-    this.update = function (elem, options, selected) {
-        this.delete(elem);
-        var selectList = document.getElementById(elem);
-        for (var key in options) {
-            var option = document.createElement("option");
-            option.value = key;
-            option.text = options[key];
-            selectList.appendChild(option);
-
-            if (key === selected) {
-                option.setAttribute('selected', true);
+            this.onChange = function (cb) {
+                this.selectList.addEventListener('change', function () {
+                    cb(this.value)
+                });
             }
+
+            this.update = function (elem, options, selected) {
+                this.delete(elem);
+                var selectList = document.getElementById(elem);
+                for (var key in options) {
+                    var option = document.createElement("option");
+                    option.value = key;
+                    option.text = options[key];
+                    selectList.appendChild(option);
+
+                    if (key === selected) {
+                        option.setAttribute('selected', true);
+                    }
+                }
+            };
+
+            this.getSelected = function (elem) {
+                var selectList = document.getElementById(elem);
+                var opt;
+                for (var i = 0, len = selectList.options.length; i < len; i++) {
+                    opt = selectList.options[i];
+                    if (opt.selected === true) {
+                        return opt.value;
+                        break;
+                    }
+                }
+                return false;
+            };
+
+            this.delete = function (elem) {
+                var selectList = document.getElementById(elem);
+                for (var option in selectList) {
+                    selectList.remove(option);
+                }
+            };
+
+            this.getAsString = function () {
+                var element = document.getElementById(this.appendToID);
+                var elementHtml = element.outerHTML;
+                return elementHtml;
+            };
         }
-    };
-    
-    this.getSelected = function (elem) {
-        var selectList = document.getElementById(elem);
-        var opt;
-        for ( var i = 0, len = selectList.options.length; i < len; i++ ) {
-            opt = selectList.options[i];
-            if ( opt.selected === true ) {
-                return opt.value;
-                break;
+
+        module.exports = selectElement;
+    }, {}], 11: [function (require, module, exports) {
+        var WAAClock = require('./lib/WAAClock')
+
+        module.exports = WAAClock
+        if (typeof window !== 'undefined') window.WAAClock = WAAClock
+
+    }, { "./lib/WAAClock": 12 }], 12: [function (require, module, exports) {
+        (function (process) {
+            var isBrowser = (typeof window !== 'undefined')
+
+            var CLOCK_DEFAULTS = {
+                toleranceLate: 0.10,
+                toleranceEarly: 0.001
             }
-        }
-        return false;
-    };
-    
-    this.delete = function (elem) {
-        var selectList=document.getElementById(elem);
-        for (var option in selectList){
-            selectList.remove(option);
-        }
-    };
-    
-    this.getAsString = function () {
-        var element = document.getElementById(this.appendToID);
-        var elementHtml = element.outerHTML;
-        return elementHtml;
-    };
-}
-
-module.exports = selectElement;
-},{}],11:[function(require,module,exports){
-var WAAClock = require('./lib/WAAClock')
-
-module.exports = WAAClock
-if (typeof window !== 'undefined') window.WAAClock = WAAClock
-
-},{"./lib/WAAClock":12}],12:[function(require,module,exports){
-(function (process){
-var isBrowser = (typeof window !== 'undefined')
-
-var CLOCK_DEFAULTS = {
-  toleranceLate: 0.10,
-  toleranceEarly: 0.001
-}
-
-// ==================== Event ==================== //
-var Event = function(clock, deadline, func) {
-  this.clock = clock
-  this.func = func
-  this._cleared = false // Flag used to clear an event inside callback
-
-  this.toleranceLate = clock.toleranceLate
-  this.toleranceEarly = clock.toleranceEarly
-  this._latestTime = null
-  this._earliestTime = null
-  this.deadline = null
-  this.repeatTime = null
-
-  this.schedule(deadline)
-}
-
-// Unschedules the event
-Event.prototype.clear = function() {
-  this.clock._removeEvent(this)
-  this._cleared = true
-  return this
-}
-
-// Sets the event to repeat every `time` seconds.
-Event.prototype.repeat = function(time) {
-  if (time === 0)
-    throw new Error('delay cannot be 0')
-  this.repeatTime = time
-  if (!this.clock._hasEvent(this))
-    this.schedule(this.deadline + this.repeatTime)
-  return this
-}
-
-// Sets the time tolerance of the event.
-// The event will be executed in the interval `[deadline - early, deadline + late]`
-// If the clock fails to execute the event in time, the event will be dropped.
-Event.prototype.tolerance = function(values) {
-  if (typeof values.late === 'number')
-    this.toleranceLate = values.late
-  if (typeof values.early === 'number')
-    this.toleranceEarly = values.early
-  this._refreshEarlyLateDates()
-  if (this.clock._hasEvent(this)) {
-    this.clock._removeEvent(this)
-    this.clock._insertEvent(this)
-  }
-  return this
-}
-
-// Returns true if the event is repeated, false otherwise
-Event.prototype.isRepeated = function() { return this.repeatTime !== null }
-
-// Schedules the event to be ran before `deadline`.
-// If the time is within the event tolerance, we handle the event immediately.
-// If the event was already scheduled at a different time, it is rescheduled.
-Event.prototype.schedule = function(deadline) {
-  this._cleared = false
-  this.deadline = deadline
-  this._refreshEarlyLateDates()
-
-  if (this.clock.context.currentTime >= this._earliestTime) {
-    this._execute()
-  
-  } else if (this.clock._hasEvent(this)) {
-    this.clock._removeEvent(this)
-    this.clock._insertEvent(this)
-  
-  } else this.clock._insertEvent(this)
-}
-
-Event.prototype.timeStretch = function(tRef, ratio) {
-  if (this.isRepeated())
-    this.repeatTime = this.repeatTime * ratio
-
-  var deadline = tRef + ratio * (this.deadline - tRef)
-  // If the deadline is too close or past, and the event has a repeat,
-  // we calculate the next repeat possible in the stretched space.
-  if (this.isRepeated()) {
-    while (this.clock.context.currentTime >= deadline - this.toleranceEarly)
-      deadline += this.repeatTime
-  }
-  this.schedule(deadline)
-}
-
-// Executes the event
-Event.prototype._execute = function() {
-  if (this.clock._started === false) return
-  this.clock._removeEvent(this)
-
-  if (this.clock.context.currentTime < this._latestTime)
-    this.func(this)
-  else {
-    if (this.onexpired) this.onexpired(this)
-    console.warn('event expired')
-  }
-  // In the case `schedule` is called inside `func`, we need to avoid
-  // overrwriting with yet another `schedule`.
-  if (!this.clock._hasEvent(this) && this.isRepeated() && !this._cleared)
-    this.schedule(this.deadline + this.repeatTime) 
-}
-
-// Updates cached times
-Event.prototype._refreshEarlyLateDates = function() {
-  this._latestTime = this.deadline + this.toleranceLate
-  this._earliestTime = this.deadline - this.toleranceEarly
-}
-
-// ==================== WAAClock ==================== //
-var WAAClock = module.exports = function(context, opts) {
-  var self = this
-  opts = opts || {}
-  this.tickMethod = opts.tickMethod || 'ScriptProcessorNode'
-  this.toleranceEarly = opts.toleranceEarly || CLOCK_DEFAULTS.toleranceEarly
-  this.toleranceLate = opts.toleranceLate || CLOCK_DEFAULTS.toleranceLate
-  this.context = context
-  this._events = []
-  this._started = false
-}
-
-// ---------- Public API ---------- //
-// Schedules `func` to run after `delay` seconds.
-WAAClock.prototype.setTimeout = function(func, delay) {
-  return this._createEvent(func, this._absTime(delay))
-}
-
-// Schedules `func` to run before `deadline`.
-WAAClock.prototype.callbackAtTime = function(func, deadline) {
-  return this._createEvent(func, deadline)
-}
-
-// Stretches `deadline` and `repeat` of all scheduled `events` by `ratio`, keeping
-// their relative distance to `tRef`. In fact this is equivalent to changing the tempo.
-WAAClock.prototype.timeStretch = function(tRef, events, ratio) {
-  events.forEach(function(event) { event.timeStretch(tRef, ratio) })
-  return events
-}
-
-// Removes all scheduled events and starts the clock 
-WAAClock.prototype.start = function() {
-  if (this._started === false) {
-    var self = this
-    this._started = true
-    this._events = []
-
-    if (this.tickMethod === 'ScriptProcessorNode') {
-      var bufferSize = 256
-      // We have to keep a reference to the node to avoid garbage collection
-      this._clockNode = this.context.createScriptProcessor(bufferSize, 1, 1)
-      this._clockNode.connect(this.context.destination)
-      this._clockNode.onaudioprocess = function () {
-        process.nextTick(function() { self._tick() })
-      }
-    } else if (this.tickMethod === 'manual') null // _tick is called manually
-
-    else throw new Error('invalid tickMethod ' + this.tickMethod)
-  }
-}
-
-// Stops the clock
-WAAClock.prototype.stop = function() {
-  if (this._started === true) {
-    this._started = false
-    this._clockNode.disconnect()
-  }  
-}
-
-// ---------- Private ---------- //
-
-// This function is ran periodically, and at each tick it executes
-// events for which `currentTime` is included in their tolerance interval.
-WAAClock.prototype._tick = function() {
-  var event = this._events.shift()
-
-  while(event && event._earliestTime <= this.context.currentTime) {
-    event._execute()
-    event = this._events.shift()
-  }
-
-  // Put back the last event
-  if(event) this._events.unshift(event)
-}
-
-// Creates an event and insert it to the list
-WAAClock.prototype._createEvent = function(func, deadline) {
-  return new Event(this, deadline, func)
-}
-
-// Inserts an event to the list
-WAAClock.prototype._insertEvent = function(event) {
-  this._events.splice(this._indexByTime(event._earliestTime), 0, event)
-}
-
-// Removes an event from the list
-WAAClock.prototype._removeEvent = function(event) {
-  var ind = this._events.indexOf(event)
-  if (ind !== -1) this._events.splice(ind, 1)
-}
-
-// Returns true if `event` is in queue, false otherwise
-WAAClock.prototype._hasEvent = function(event) {
- return this._events.indexOf(event) !== -1
-}
-
-// Returns the index of the first event whose deadline is >= to `deadline`
-WAAClock.prototype._indexByTime = function(deadline) {
-  // performs a binary search
-  var low = 0
-    , high = this._events.length
-    , mid
-  while (low < high) {
-    mid = Math.floor((low + high) / 2)
-    if (this._events[mid]._earliestTime < deadline)
-      low = mid + 1
-    else high = mid
-  }
-  return low
-}
-
-// Converts from relative time to absolute time
-WAAClock.prototype._absTime = function(relTime) {
-  return relTime + this.context.currentTime
-}
-
-// Converts from absolute time to relative time 
-WAAClock.prototype._relTime = function(absTime) {
-  return absTime - this.context.currentTime
-}
-}).call(this,require('_process'))
-
-},{"_process":18}],13:[function(require,module,exports){
-const loadSampleSet = require('load-sample-set');
-const selectElement = require('select-element');
-const getSetFormValues = require('get-set-form-values');
-const adsrGainNode = require('adsr-gain-node');
-const simpleTracker = require('./simple-tracker');
-const FileSaver = require('file-saver');
-
-const getSetControls = require('./get-set-controls');
-const getSetAudioOptions = new getSetControls();
-
-const ctx = new AudioContext();
-const defaultTrack = require('./default-track');
-
-var buffers;
-var currentSampleData;
-var storage;
-
-function initializeSampleSet(ctx, dataUrl, track) {
-
-    var sampleSetPromise = loadSampleSet(ctx, dataUrl);
-    sampleSetPromise.then(function (data) {
-
-        buffers = data.buffers;
-        sampleData = data.data;
-
-        if (!track) {
-            track = storage.getTrack();
-        }
-
-        if (!track.settings.measureLength) {
-            track.settings.measureLength = 16;
-        }
-
-        currentSampleData = sampleData;
-        setupTrackerHtml(sampleData, track.settings.measureLength);
-        schedule.loadTrackerValues(track.beat);
-        schedule.setupEvents();
-    });
-   
-}
-
-window.onload = function () {
-
-    let formValues = new getSetFormValues();
-    let form = document.getElementById("trackerControls");
-
-    formValues.set(form, defaultTrack.settings);
-    getSetAudioOptions.setTrackerControls(defaultTrack.settings);
-
-    initializeSampleSet(ctx, defaultTrack.settings.sampleSet, defaultTrack); //carrega e inicializa tracks
-    setupBaseEvents();
-
-    storage = new tracksLocalStorage();
-    storage.setupStorage();
-};
-
-var instrumentData = {};
-function setupTrackerHtml(data, measureLength) {
-    instrumentData = data;
-    instrumentData.title = instrumentData.filename;
-    schedule.drawTracker(data.filename.length, measureLength, instrumentData);
-    return;
-}
-
-function disconnectNode(node, options) {
-    let totalLength =
-        options.attackTime + options.sustainTime + options.releaseTime;
-    setTimeout(() => {
-        node.disconnect();
-    }, totalLength * 1000);
-}
-
-function scheduleAudioBeat(beat, triggerTime) {
-
-    let instrumentName = instrumentData.filename[beat.rowId];
-    let instrument = buffers[instrumentName].get();
-    let options = getSetAudioOptions.getTrackerControls();
-
-    function play(source) {
-        let node = routeGain(source)
-        node = routeDelay(node);
-        node.connect(ctx.destination);
-        source.start(triggerTime);
-
-    }
-
-    function routeGain (source) {
-        let gain = new adsrGainNode(ctx);
-        gain.mode = 'linearRampToValueAtTime';
-        let options = getSetAudioOptions.getTrackerControls();
-
-        let gainNode;
-
-        gain.setOptions(options);
-        gainNode = gain.getGainNode(triggerTime);
-        source.connect(gainNode);
-
-        return gainNode;
-    }
-
-    // Note delay always uses above gain - even if not enabled
-    function routeDelay(node) {
-        if (!options.delayEnabled)
-            return node;
-    }
-    play(instrument);
-}
-
-var schedule = new simpleTracker(ctx, scheduleAudioBeat);
-
-    function playBateria() {
-        let storage = new tracksLocalStorage();
-        let track = storage.getTrack();
-
-        schedule.measureLength = track.settings.measureLength;
-        schedule.stop();
-
-        schedule.runSchedule(getSetAudioOptions.options.bpm);
-    }
-
-    function stopBateria() {
-        schedule.stop();
-        schedule = new simpleTracker(ctx, scheduleAudioBeat);
-    }
-
-    for (var i = 0, len = ritmosNomes.length; i < len; i++) {
-        if (ritmosNomes[i].includes('_') == false) {
-            let opt = document.createElement('option');
-            opt.value = ritmosNomes[i];
-            opt.textContent += ritmosNomes[i];
-            selecionarRitmoElem.appendChild(opt);
-        }
-    }
-
-    function selecionarRitmo(ritmo) {
-        if (_trocarRitmo) {
-            _trocarRitmo = false;
-
-            var numerosIndex = ritmosJson[ritmo];
-            var tabelaBateria = document.getElementById('tracker-table');
-            var tdsAtivados = document.getElementsByClassName('tracker-enabled');
-
-            Array.from(tdsAtivados).forEach((tdAtivado) => {
-                tdAtivado.classList.remove('tracker-enabled');
+
+            // ==================== Event ==================== //
+            var Event = function (clock, deadline, func) {
+                this.clock = clock
+                this.func = func
+                this._cleared = false // Flag used to clear an event inside callback
+
+                this.toleranceLate = clock.toleranceLate
+                this.toleranceEarly = clock.toleranceEarly
+                this._latestTime = null
+                this._earliestTime = null
+                this.deadline = null
+                this.repeatTime = null
+
+                this.schedule(deadline)
+            }
+
+            // Unschedules the event
+            Event.prototype.clear = function () {
+                this.clock._removeEvent(this)
+                this._cleared = true
+                return this
+            }
+
+            // Sets the event to repeat every `time` seconds.
+            Event.prototype.repeat = function (time) {
+                if (time === 0)
+                    throw new Error('delay cannot be 0')
+                this.repeatTime = time
+                if (!this.clock._hasEvent(this))
+                    this.schedule(this.deadline + this.repeatTime)
+                return this
+            }
+
+            // Sets the time tolerance of the event.
+            // The event will be executed in the interval `[deadline - early, deadline + late]`
+            // If the clock fails to execute the event in time, the event will be dropped.
+            Event.prototype.tolerance = function (values) {
+                if (typeof values.late === 'number')
+                    this.toleranceLate = values.late
+                if (typeof values.early === 'number')
+                    this.toleranceEarly = values.early
+                this._refreshEarlyLateDates()
+                if (this.clock._hasEvent(this)) {
+                    this.clock._removeEvent(this)
+                    this.clock._insertEvent(this)
+                }
+                return this
+            }
+
+            // Returns true if the event is repeated, false otherwise
+            Event.prototype.isRepeated = function () { return this.repeatTime !== null }
+
+            // Schedules the event to be ran before `deadline`.
+            // If the time is within the event tolerance, we handle the event immediately.
+            // If the event was already scheduled at a different time, it is rescheduled.
+            Event.prototype.schedule = function (deadline) {
+                this._cleared = false
+                this.deadline = deadline
+                this._refreshEarlyLateDates()
+
+                if (this.clock.context.currentTime >= this._earliestTime) {
+                    this._execute()
+
+                } else if (this.clock._hasEvent(this)) {
+                    this.clock._removeEvent(this)
+                    this.clock._insertEvent(this)
+
+                } else this.clock._insertEvent(this)
+            }
+
+            Event.prototype.timeStretch = function (tRef, ratio) {
+                if (this.isRepeated())
+                    this.repeatTime = this.repeatTime * ratio
+
+                var deadline = tRef + ratio * (this.deadline - tRef)
+                // If the deadline is too close or past, and the event has a repeat,
+                // we calculate the next repeat possible in the stretched space.
+                if (this.isRepeated()) {
+                    while (this.clock.context.currentTime >= deadline - this.toleranceEarly)
+                        deadline += this.repeatTime
+                }
+                this.schedule(deadline)
+            }
+
+            // Executes the event
+            Event.prototype._execute = function () {
+                if (this.clock._started === false) return
+                this.clock._removeEvent(this)
+
+                if (this.clock.context.currentTime < this._latestTime)
+                    this.func(this)
+                else {
+                    if (this.onexpired) this.onexpired(this)
+                    console.warn('event expired')
+                }
+                // In the case `schedule` is called inside `func`, we need to avoid
+                // overrwriting with yet another `schedule`.
+                if (!this.clock._hasEvent(this) && this.isRepeated() && !this._cleared)
+                    this.schedule(this.deadline + this.repeatTime)
+            }
+
+            // Updates cached times
+            Event.prototype._refreshEarlyLateDates = function () {
+                this._latestTime = this.deadline + this.toleranceLate
+                this._earliestTime = this.deadline - this.toleranceEarly
+            }
+
+            // ==================== WAAClock ==================== //
+            var WAAClock = module.exports = function (context, opts) {
+                var self = this
+                opts = opts || {}
+                this.tickMethod = opts.tickMethod || 'ScriptProcessorNode'
+                this.toleranceEarly = opts.toleranceEarly || CLOCK_DEFAULTS.toleranceEarly
+                this.toleranceLate = opts.toleranceLate || CLOCK_DEFAULTS.toleranceLate
+                this.context = context
+                this._events = []
+                this._started = false
+            }
+
+            // ---------- Public API ---------- //
+            // Schedules `func` to run after `delay` seconds.
+            WAAClock.prototype.setTimeout = function (func, delay) {
+                return this._createEvent(func, this._absTime(delay))
+            }
+
+            // Schedules `func` to run before `deadline`.
+            WAAClock.prototype.callbackAtTime = function (func, deadline) {
+                return this._createEvent(func, deadline)
+            }
+
+            // Stretches `deadline` and `repeat` of all scheduled `events` by `ratio`, keeping
+            // their relative distance to `tRef`. In fact this is equivalent to changing the tempo.
+            WAAClock.prototype.timeStretch = function (tRef, events, ratio) {
+                events.forEach(function (event) { event.timeStretch(tRef, ratio) })
+                return events
+            }
+
+            // Removes all scheduled events and starts the clock 
+            WAAClock.prototype.start = function () {
+                if (this._started === false) {
+                    var self = this
+                    this._started = true
+                    this._events = []
+
+                    if (this.tickMethod === 'ScriptProcessorNode') {
+                        var bufferSize = 256
+                        // We have to keep a reference to the node to avoid garbage collection
+                        this._clockNode = this.context.createScriptProcessor(bufferSize, 1, 1)
+                        this._clockNode.connect(this.context.destination)
+                        this._clockNode.onaudioprocess = function () {
+                            process.nextTick(function () { self._tick() })
+                        }
+                    } else if (this.tickMethod === 'manual') null // _tick is called manually
+
+                    else throw new Error('invalid tickMethod ' + this.tickMethod)
+                }
+            }
+
+            // Stops the clock
+            WAAClock.prototype.stop = function () {
+                if (this._started === true) {
+                    this._started = false
+                    this._clockNode.disconnect()
+                }
+            }
+
+            // ---------- Private ---------- //
+
+            // This function is ran periodically, and at each tick it executes
+            // events for which `currentTime` is included in their tolerance interval.
+            WAAClock.prototype._tick = function () {
+                var event = this._events.shift()
+
+                while (event && event._earliestTime <= this.context.currentTime) {
+                    event._execute()
+                    event = this._events.shift()
+                }
+
+                // Put back the last event
+                if (event) this._events.unshift(event)
+            }
+
+            // Creates an event and insert it to the list
+            WAAClock.prototype._createEvent = function (func, deadline) {
+                return new Event(this, deadline, func)
+            }
+
+            // Inserts an event to the list
+            WAAClock.prototype._insertEvent = function (event) {
+                this._events.splice(this._indexByTime(event._earliestTime), 0, event)
+            }
+
+            // Removes an event from the list
+            WAAClock.prototype._removeEvent = function (event) {
+                var ind = this._events.indexOf(event)
+                if (ind !== -1) this._events.splice(ind, 1)
+            }
+
+            // Returns true if `event` is in queue, false otherwise
+            WAAClock.prototype._hasEvent = function (event) {
+                return this._events.indexOf(event) !== -1
+            }
+
+            // Returns the index of the first event whose deadline is >= to `deadline`
+            WAAClock.prototype._indexByTime = function (deadline) {
+                // performs a binary search
+                var low = 0
+                    , high = this._events.length
+                    , mid
+                while (low < high) {
+                    mid = Math.floor((low + high) / 2)
+                    if (this._events[mid]._earliestTime < deadline)
+                        low = mid + 1
+                    else high = mid
+                }
+                return low
+            }
+
+            // Converts from relative time to absolute time
+            WAAClock.prototype._absTime = function (relTime) {
+                return relTime + this.context.currentTime
+            }
+
+            // Converts from absolute time to relative time 
+            WAAClock.prototype._relTime = function (absTime) {
+                return absTime - this.context.currentTime
+            }
+        }).call(this, require('_process'))
+
+    }, { "_process": 18 }], 13: [function (require, module, exports) {
+        const loadSampleSet = require('load-sample-set');
+        const selectElement = require('select-element');
+        const getSetFormValues = require('get-set-form-values');
+        const adsrGainNode = require('adsr-gain-node');
+        const simpleTracker = require('./simple-tracker');
+        const FileSaver = require('file-saver');
+
+        const getSetControls = require('./get-set-controls');
+        const getSetAudioOptions = new getSetControls();
+
+        const ctx = new AudioContext();
+        const defaultTrack = require('./default-track');
+
+        var buffers;
+        var currentSampleData;
+        var storage;
+
+        function initializeSampleSet(ctx, dataUrl, track) {
+
+            var sampleSetPromise = loadSampleSet(ctx, dataUrl);
+            sampleSetPromise.then(function (data) {
+
+                buffers = data.buffers;
+                sampleData = data.data;
+
+                if (!track) {
+                    track = storage.getTrack();
+                }
+
+                if (!track.settings.measureLength) {
+                    track.settings.measureLength = 16;
+                }
+
+                currentSampleData = sampleData;
+                setupTrackerHtml(sampleData, track.settings.measureLength);
+                schedule.loadTrackerValues(track.beat);
+                schedule.setupEvents();
             });
 
-            var tdsAtivar = tabelaBateria.getElementsByTagName('td');
-            numerosIndex.forEach((numeroIndex) => {
-                tdsAtivar[numeroIndex].classList.add('tracker-enabled');
-            });
         }
-    }
 
-    function mudarRitmo(ritmo) {
-        _trocarRitmo = true;
-        var selectRitmo = document.getElementById('selectRitmo');
+        window.onload = function () {
 
-        if (ritmo == '')
-            _ritmoSelecionado = selectRitmo.value;
-        else
-            _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
+            let formValues = new getSetFormValues();
+            let form = document.getElementById("trackerControls");
 
-        selecionarRitmo(_ritmoSelecionado);
-    }
+            formValues.set(form, defaultTrack.settings);
+            getSetAudioOptions.setTrackerControls(defaultTrack.settings);
 
-    function routeGain(source) {
-        let gain = new adsrGainNode(ctx);
-        gain.mode = 'linearRampToValueAtTime';
-        let options = getSetAudioOptions.getTrackerControls();
-        let gainNode;
+            initializeSampleSet(ctx, defaultTrack.settings.sampleSet, defaultTrack); //carrega e inicializa tracks
+            setupBaseEvents();
 
-        gain.setOptions(options);
-        gainNode = gain.getGainNode(0);
-        source.connect(gainNode);
-        return gainNode;
-    }
+            storage = new tracksLocalStorage();
+            storage.setupStorage();
+        };
 
-    function pressionarBotao(botao) {
-        if (document.getElementsByClassName('selecionadoDrum').length > 0) {
-            var botaoPressionado = document.getElementsByClassName('selecionadoDrum')[0];
-            botaoPressionado.classList.toggle('selecionadoDrum', false);
+        var instrumentData = {};
+        function setupTrackerHtml(data, measureLength) {
+            instrumentData = data;
+            instrumentData.title = instrumentData.filename;
+            schedule.drawTracker(data.filename.length, measureLength, instrumentData);
+            return;
+        }
 
-            if (botao == '') {
-                stopBateria();
+        function disconnectNode(node, options) {
+            let totalLength =
+                options.attackTime + options.sustainTime + options.releaseTime;
+            setTimeout(() => {
+                node.disconnect();
+            }, totalLength * 1000);
+        }
 
-                //if (botaoPressionado.id != 'brush') {
-                //    let pratoAtaque1 = buffers['pratoAtaque-01'].get();
-                //    let node = routeGain(pratoAtaque1);
-                //    node.connect(ctx.destination);
+        function scheduleAudioBeat(beat, triggerTime) {
 
-                //    let pratoAtaque2 = buffers['pratoAtaque-01'].get();
-                //    let node2 = routeGain(pratoAtaque2);
-                //    node2.connect(ctx.destination);
-                //    pratoAtaque1.start();
-                //    pratoAtaque2.start();
-                //}
+            let instrumentName = instrumentData.filename[beat.rowId];
+            let instrument = buffers[instrumentName].get();
+            let options = getSetAudioOptions.getTrackerControls();
+
+            function play(source) {
+                let node = routeGain(source)
+                node = routeDelay(node);
+                node.connect(ctx.destination);
+                source.start(triggerTime);
+
+            }
+
+            function routeGain(source) {
+                let gain = new adsrGainNode(ctx);
+                gain.mode = 'linearRampToValueAtTime';
+                let options = getSetAudioOptions.getTrackerControls();
+
+                let gainNode;
+
+                gain.setOptions(options);
+                gainNode = gain.getGainNode(triggerTime);
+                source.connect(gainNode);
+
+                return gainNode;
+            }
+
+            // Note delay always uses above gain - even if not enabled
+            function routeDelay(node) {
+                if (!options.delayEnabled)
+                    return node;
+            }
+            play(instrument);
+        }
+
+        var schedule = new simpleTracker(ctx, scheduleAudioBeat);
+
+        function playBateria() {
+            let storage = new tracksLocalStorage();
+            let track = storage.getTrack();
+
+            schedule.measureLength = track.settings.measureLength;
+            schedule.stop();
+
+            schedule.runSchedule(getSetAudioOptions.options.bpm);
+        }
+
+        function stopBateria() {
+            schedule.stop();
+            schedule = new simpleTracker(ctx, scheduleAudioBeat);
+        }
+
+        for (var i = 0, len = ritmosNomes.length; i < len; i++) {
+            if (ritmosNomes[i].includes('_') == false) {
+                let opt = document.createElement('option');
+                opt.value = ritmosNomes[i];
+                opt.textContent += ritmosNomes[i];
+                selecionarRitmoElem.appendChild(opt);
             }
         }
 
-        if (botao != '') {
-            if (!schedule.running)
-                playBateria();
-            botao.classList.toggle('selecionadoDrum', true);
+
+        function setBeats(numerosIndex) {
+            var measureLengthElement = document.getElementById('measureLength');
+            if (numerosIndex.includes(180))
+                measureLengthElement.value = 12;
+            else if (numerosIndex.includes(124))
+                measureLengthElement.value = 8;
+
+            var event = new Event('change');
+            measureLengthElement.dispatchEvent(event);
         }
-    }
+
+        function selecionarRitmo(ritmo) {
+            if (_trocarRitmo) {
+                _trocarRitmo = false;
+
+                var numerosIndex = ritmosJson[ritmo];
+                setBeats(numerosIndex);
+
+                var tabelaBateria = document.getElementById('tracker-table');
+                var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+
+                Array.from(tdsAtivados).forEach((tdAtivado) => {
+                    tdAtivado.classList.remove('tracker-enabled');
+                });
+
+                var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+                numerosIndex.forEach((numeroIndex) => {
+                    tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+                });
+            }
+        }
+
+        function mudarRitmo(ritmo) {
+            _trocarRitmo = true;
+            var selectRitmo = document.getElementById('selectRitmo');
+
+            if (ritmo == '')
+                _ritmoSelecionado = selectRitmo.value;
+            else
+                _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
+
+            selecionarRitmo(_ritmoSelecionado);
+        }
+
+        function routeGain(source) {
+            let gain = new adsrGainNode(ctx);
+            gain.mode = 'linearRampToValueAtTime';
+            let options = getSetAudioOptions.getTrackerControls();
+            let gainNode;
+
+            gain.setOptions(options);
+            gainNode = gain.getGainNode(0);
+            source.connect(gainNode);
+            return gainNode;
+        }
+
+        function pressionarBotao(botao) {
+            if (document.getElementsByClassName('selecionadoDrum').length > 0) {
+                var botaoPressionado = document.getElementsByClassName('selecionadoDrum')[0];
+                botaoPressionado.classList.toggle('selecionadoDrum', false);
+
+                if (botao == '') {
+                    stopBateria();
+
+                    //if (botaoPressionado.id != 'brush') {
+                    //    let pratoAtaque1 = buffers['pratoAtaque-01'].get();
+                    //    let node = routeGain(pratoAtaque1);
+                    //    node.connect(ctx.destination);
+
+                    //    let pratoAtaque2 = buffers['pratoAtaque-01'].get();
+                    //    let node2 = routeGain(pratoAtaque2);
+                    //    node2.connect(ctx.destination);
+                    //    pratoAtaque1.start();
+                    //    pratoAtaque2.start();
+                    //}
+                }
+            }
+
+            if (botao != '') {
+                if (!schedule.running)
+                    playBateria();
+                botao.classList.toggle('selecionadoDrum', true);
+            }
+        }
 
 function setupBaseEvents() {
     document.getElementById('selectRitmo').addEventListener('change', function (e) {
-        if (document.getElementsByClassName('selecionadoDrum').length > 0)
-            document.getElementsByClassName('selecionadoDrum')[0].classList.toggle('selecionadoDrum', false);
+        var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
+        
+        if (ritmoSelecionado.length > 0)
+            ritmoSelecionado[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
         selecionarRitmo(botao.value);
     });
@@ -1176,6 +1192,7 @@ function setupBaseEvents() {
 
     document.getElementById('measureLength').addEventListener('change', (e) => {
         let value = document.getElementById('measureLength').value;
+        console.log(value);
         let length = parseInt(value);
 
         if (length < 1) return;

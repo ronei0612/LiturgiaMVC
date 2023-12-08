@@ -120,14 +120,15 @@
 			</div>
 			<input id="bpmRange" type="range" max="240" min="40" step="1" value="90">
 
-			<div style="display:none">
+			<div>@* style="display:none">*@
 
-				<label for="measureLength">Compasso:</label>
-				<select name="measureLength" id="measureLength" aria-label="Compasso">
+				<label for="measureLengthSelect">Compasso:</label>
+				<select name="measureLengthSelect" id="measureLengthSelect" aria-label="Compasso">
 					<option value="6">3/4</option>
 					<option selected value="8">4/4</option>
 					<option value="12">6/8</option>
 				</select>
+				<input class="base" name="measureLength" id="measureLength" style="width: 60px;" value="8">
 			</div>
 
 			<br>
