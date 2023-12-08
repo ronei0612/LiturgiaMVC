@@ -76,7 +76,7 @@ function criarAcorde(acorde, grupoNotas) {
 	if (grupoNotas == null) {
 		grupoNotas = new Pizzicato.Group();
 		grupoNotas.addEffect(flanger);
-		//grupoNotas.volume = _volume;
+		grupoNotas.volume = _volume;
 	}
 
 	for (var i = 0, len = notas.length; i < len; i++) {
