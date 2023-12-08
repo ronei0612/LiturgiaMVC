@@ -5,7 +5,7 @@ var _acompanhamentoSolo = false;
 var _acompanhamentoFull = false;
 var _acompanhamentoMao = false;
 var _grupoNotas;
-var _volume = 0.8;
+var _volume = 0.9;
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
@@ -76,7 +76,7 @@ function criarAcorde(acorde, grupoNotas) {
 	if (grupoNotas == null) {
 		grupoNotas = new Pizzicato.Group();
 		grupoNotas.addEffect(flanger);
-		grupoNotas.volume = _volume;
+		//grupoNotas.volume = _volume;
 	}
 
 	for (var i = 0, len = notas.length; i < len; i++) {
@@ -185,7 +185,7 @@ function mudarTom(tomSelecionado) {
 }
 
 function mudarTomMenor(acordeIndex) {
-	document.getElementById('textoAcordeMenor').innerText = acordesTons[acordeIndex + 7];
+	document.getElementById('textoAcordeMenor').innerText = acordesTons[acordeIndex + 12];
 }
 
 function aumentarTom(aumentar) {
