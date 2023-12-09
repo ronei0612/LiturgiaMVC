@@ -273,3 +273,10 @@ input[type=range][orient=vertical] {
 	height: 400px;
 	margin: 1px;
 }
+
+:fullscreen, ::backdrop {
+	background-image: url('../orgao-background.webp');
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover; /* Resize the background image to cover the entire container */
+}

@@ -16,15 +16,6 @@
 		<div class="box">
 			<div class="d-flex align-items-center centralizado-no-container">
 				<div class="d-flex align-items-center">
-					<button type="button" class="input-group-text" onclick="fullscreen()">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-fullscreen" viewBox="0 0 16 16">
-							<path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707m-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707" />
-						</svg>
-					</button>
-					<button type="button" class="input-group-text">
-						<svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M576 677.632 576 928C576 945.664 590.336 960 608 960s32-14.336 32-32l0-180.672 203.456 203.52c11.968 11.968 31.36 11.968 43.392 0 11.968-12.032 11.968-31.424 0-43.392L683.328 704 864 704c17.664 0 32-14.336 32-32S881.664 640 864 640L613.632 640C590.272 640 576 652.032 576 677.632z" /><path d="M348.352 640 97.984 640c-17.664 0-32 14.336-32 32s14.336 32 32 32l180.672 0-203.52 203.456c-11.968 11.968-11.968 31.36 0 43.392 12.032 11.968 31.424 11.968 43.392 0l203.456-203.52L321.984 928c0 17.664 14.336 32 32 32s32-14.336 32-32l0-250.368C385.984 652.032 371.776 640 348.352 640z" /><path d="M613.632 448 864 448C881.664 448 896 433.664 896 416S881.664 384 864 384l-180.672 0 203.52-203.456c11.968-11.968 11.968-31.36 0-43.392-12.032-11.968-31.424-11.968-43.392 0L640 340.672 640 160C640 142.336 625.664 128 608 128S576 142.336 576 160l0 250.368C576 435.968 590.272 448 613.632 448z" /><path d="M385.984 410.368 385.984 160c0-17.664-14.336-32-32-32s-32 14.336-32 32l0 180.672-203.456-203.52c-11.968-11.968-31.36-11.968-43.392 0-11.968 12.032-11.968 31.424 0 43.392L278.656 384 97.984 384c-17.664 0-32 14.336-32 32S80.32 448 97.984 448l250.368 0C371.776 448 385.984 435.968 385.984 410.368z" />
-						</svg>
-					</button>
 					&nbsp;
 						
 					<div class="d-flex">
@@ -168,7 +159,10 @@
 		'orgao_si_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_si_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
 	};
 
-	function fullscreen() {
+	function mudarParaFullscreen() {
+		document.getElementById('exitfullscreen').style.display = 'flex';
+		document.getElementById('fullscreen').style.display = 'none';
+
 		var el = document.body;
 		var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
 			|| el.mozRequestFullScreen || el.msRequestFullScreen;
@@ -176,6 +170,32 @@
 		if (requestMethod) {
 			requestMethod.call(el);
 		}
+
+		var Util = {};
+		Util.base64 = function (mimeType, base64) {
+			return 'data:' + mimeType + ';base64,' + base64;
+		};
+
+		var video = document.createElement('video');
+		video.setAttribute('loop', '');
+
+		function addSourceToVideo(element, type, dataURI) {
+			var source = document.createElement('source');
+			source.src = dataURI;
+			source.type = 'video/' + type;
+			element.appendChild(source);
+		}
+
+		//addSourceToVideo(video, 'webm', Util.base64('video/webm', 'GkXfo0AgQoaBAUL3gQFC8oEEQvOBCEKCQAR3ZWJtQoeBAkKFgQIYU4BnQI0VSalmQCgq17FAAw9CQE2AQAZ3aGFtbXlXQUAGd2hhbW15RIlACECPQAAAAAAAFlSua0AxrkAu14EBY8WBAZyBACK1nEADdW5khkAFVl9WUDglhohAA1ZQOIOBAeBABrCBCLqBCB9DtnVAIueBAKNAHIEAAIAwAQCdASoIAAgAAUAmJaQAA3AA/vz0AAA='));
+		addSourceToVideo(video, 'mp4', Util.base64('video/mp4', 'AAAAHGZ0eXBpc29tAAACAGlzb21pc28ybXA0MQAAAAhmcmVlAAAAG21kYXQAAAGzABAHAAABthADAowdbb9/AAAC6W1vb3YAAABsbXZoZAAAAAB8JbCAfCWwgAAAA+gAAAAAAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAIVdHJhawAAAFx0a2hkAAAAD3wlsIB8JbCAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAIAAAACAAAAAABsW1kaWEAAAAgbWRoZAAAAAB8JbCAfCWwgAAAA+gAAAAAVcQAAAAAAC1oZGxyAAAAAAAAAAB2aWRlAAAAAAAAAAAAAAAAVmlkZW9IYW5kbGVyAAAAAVxtaW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAAEcc3RibAAAALhzdHNkAAAAAAAAAAEAAACobXA0dgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAIAAgASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABj//wAAAFJlc2RzAAAAAANEAAEABDwgEQAAAAADDUAAAAAABS0AAAGwAQAAAbWJEwAAAQAAAAEgAMSNiB9FAEQBFGMAAAGyTGF2YzUyLjg3LjQGAQIAAAAYc3R0cwAAAAAAAAABAAAAAQAAAAAAAAAcc3RzYwAAAAAAAAABAAAAAQAAAAEAAAABAAAAFHN0c3oAAAAAAAAAEwAAAAEAAAAUc3RjbwAAAAAAAAABAAAALAAAAGB1ZHRhAAAAWG1ldGEAAAAAAAAAIWhkbHIAAAAAAAAAAG1kaXJhcHBsAAAAAAAAAAAAAAAAK2lsc3QAAAAjqXRvbwAAABtkYXRhAAAAAQAAAABMYXZmNTIuNzguMw=='));
+
+		video.play();
+	}
+
+	function sairDeFullscreen() {
+		document.getElementById('exitfullscreen').style.display = 'none';
+		document.getElementById('fullscreen').style.display = 'flex';
+		document.exitFullscreen();
 	}
 
 	function esperarAudios(tempoMiliseg) {
