@@ -15,30 +15,29 @@
 </head>
 
 <body id="corpo" class="bg-light text-dark orgao-background">
+    <div style="position:absolute; top:10px; left:10px; z-index:9">
+        <button type="button" class="input-group-text" id="fullscreen" onclick="mudarParaFullscreen()" >
+            <svg width="17" height="17" fill="currentColor" class="bi bi-arrows-fullscreen" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707m-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707" />
+            </svg>
+        </button>
+
+        <button type="button" class="input-group-text" id="exitfullscreen" style="display:none" onclick="sairDeFullscreen()">
+            <svg class="svg-icon" width="17" height="17" viewBox="0 0 1024 1024" version="1.1">
+                <path d="M576 677.632 576 928C576 945.664 590.336 960 608 960s32-14.336 32-32l0-180.672 203.456 203.52c11.968 11.968 31.36 11.968 43.392 0 11.968-12.032 11.968-31.424 0-43.392L683.328 704 864 704c17.664 0 32-14.336 32-32S881.664 640 864 640L613.632 640C590.272 640 576 652.032 576 677.632z" />
+                <path d="M348.352 640 97.984 640c-17.664 0-32 14.336-32 32s14.336 32 32 32l180.672 0-203.52 203.456c-11.968 11.968-11.968 31.36 0 43.392 12.032 11.968 31.424 11.968 43.392 0l203.456-203.52L321.984 928c0 17.664 14.336 32 32 32s32-14.336 32-32l0-250.368C385.984 652.032 371.776 640 348.352 640z" />
+                <path d="M613.632 448 864 448C881.664 448 896 433.664 896 416S881.664 384 864 384l-180.672 0 203.52-203.456c11.968-11.968 11.968-31.36 0-43.392-12.032-11.968-31.424-11.968-43.392 0L640 340.672 640 160C640 142.336 625.664 128 608 128S576 142.336 576 160l0 250.368C576 435.968 590.272 448 613.632 448z" />
+                <path d="M385.984 410.368 385.984 160c0-17.664-14.336-32-32-32s-32 14.336-32 32l0 180.672-203.456-203.52c-11.968-11.968-31.36-11.968-43.392 0-11.968 12.032-11.968 31.424 0 43.392L278.656 384 97.984 384c-17.664 0-32 14.336-32 32S80.32 448 97.984 448l250.368 0C371.776 448 385.984 435.968 385.984 410.368z" />
+            </svg>
+        </button>
+    </div>
     <header>
         <nav id="navBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
             <div class="justify-content-sm-around container-sm">
-                <button type="button" class="input-group-text" id="fullscreen" onclick="mudarParaFullscreen()">
-                    <svg width="17" height="17" fill="currentColor" class="bi bi-arrows-fullscreen" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707m-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707" />
-                    </svg>
-                </button>
-                <button type="button" class="input-group-text" id="exitfullscreen" style="display:none" onclick="sairDeFullscreen()">
-                    <svg class="svg-icon" width="17" height="17" viewBox="0 0 1024 1024" version="1.1">
-                        <path d="M576 677.632 576 928C576 945.664 590.336 960 608 960s32-14.336 32-32l0-180.672 203.456 203.52c11.968 11.968 31.36 11.968 43.392 0 11.968-12.032 11.968-31.424 0-43.392L683.328 704 864 704c17.664 0 32-14.336 32-32S881.664 640 864 640L613.632 640C590.272 640 576 652.032 576 677.632z" />
-                        <path d="M348.352 640 97.984 640c-17.664 0-32 14.336-32 32s14.336 32 32 32l180.672 0-203.52 203.456c-11.968 11.968-11.968 31.36 0 43.392 12.032 11.968 31.424 11.968 43.392 0l203.456-203.52L321.984 928c0 17.664 14.336 32 32 32s32-14.336 32-32l0-250.368C385.984 652.032 371.776 640 348.352 640z" />
-                        <path d="M613.632 448 864 448C881.664 448 896 433.664 896 416S881.664 384 864 384l-180.672 0 203.52-203.456c11.968-11.968 11.968-31.36 0-43.392-12.032-11.968-31.424-11.968-43.392 0L640 340.672 640 160C640 142.336 625.664 128 608 128S576 142.336 576 160l0 250.368C576 435.968 590.272 448 613.632 448z" />
-                        <path d="M385.984 410.368 385.984 160c0-17.664-14.336-32-32-32s-32 14.336-32 32l0 180.672-203.456-203.52c-11.968-11.968-31.36-11.968-43.392 0-11.968 12.032-11.968 31.424 0 43.392L278.656 384 97.984 384c-17.664 0-32 14.336-32 32S80.32 448 97.984 448l250.368 0C371.776 448 385.984 435.968 385.984 410.368z" />
-                    </svg>
-                </button>
 
                 <button type="button" class="input-group-text" onclick="document.getElementById('id01').style.display='block'">
-                    @*<svg width="19" height="19" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
-                        <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
-                    </svg>*@
-
                     <svg width="19" height="19" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" enable-background="new 0 0 256 256" xml:space="preserve">
-                    <g><g><path fill="#000000" d="M234.2,116.2H21.8c-7.1,0-11.8,4.7-11.8,11.8s4.7,11.8,11.8,11.8h212.4c7.1,0,11.8-4.7,11.8-11.8S241.3,116.2,234.2,116.2L234.2,116.2z M234.2,210.6H21.8c-7.1,0-11.8,4.7-11.8,11.8s4.7,11.8,11.8,11.8h212.4c7.1,0,11.8-4.7,11.8-11.8S241.3,210.6,234.2,210.6L234.2,210.6z M21.8,45.4h212.4c7.1,0,11.8-4.7,11.8-11.8c0-7.1-4.7-11.8-11.8-11.8H21.8c-7.1,0-11.8,4.7-11.8,11.8C10,40.7,14.7,45.4,21.8,45.4L21.8,45.4z" /></g></g>
+                        <g><g><path fill="#000000" d="M234.2,116.2H21.8c-7.1,0-11.8,4.7-11.8,11.8s4.7,11.8,11.8,11.8h212.4c7.1,0,11.8-4.7,11.8-11.8S241.3,116.2,234.2,116.2L234.2,116.2z M234.2,210.6H21.8c-7.1,0-11.8,4.7-11.8,11.8s4.7,11.8,11.8,11.8h212.4c7.1,0,11.8-4.7,11.8-11.8S241.3,210.6,234.2,210.6L234.2,210.6z M21.8,45.4h212.4c7.1,0,11.8-4.7,11.8-11.8c0-7.1-4.7-11.8-11.8-11.8H21.8c-7.1,0-11.8,4.7-11.8,11.8C10,40.7,14.7,45.4,21.8,45.4L21.8,45.4z" /></g></g>
                     </svg>
                 </button>
 
@@ -56,7 +55,6 @@
                 <label for="theme" class="theme">
                     <span class="theme__toggle-wrap">
                         <input id="switchDark" class="theme__toggle" type="checkbox" role="switch" name="theme" value="dark" onclick="DarkMode()" />
-                        @*<span class="theme__fill"></span>*@
                         <span class="theme__icon">
                             <span class="theme__icon-part"></span>
                             <span class="theme__icon-part"></span>
@@ -70,22 +68,6 @@
                         </span>
                     </span>
                 </label>
-
-                @*<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Sugestões</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Sobre</a>
-                        </li>
-                    </ul>
-                </div>*@
             </div>
         </nav>
     </header>
