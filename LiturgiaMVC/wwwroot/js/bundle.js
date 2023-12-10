@@ -1181,7 +1181,7 @@ function setupBaseEvents() {
         }
     });
 
-    document.getElementById('bpmRange').addEventListener('change', function (e) {
+    document.getElementById('bpmRange').addEventListener('input', function (e) {
         document.getElementById('bpm').value = document.getElementById('bpmRange').value;
         getSetAudioOptions.setTrackerControls();
         if (schedule.running) {
