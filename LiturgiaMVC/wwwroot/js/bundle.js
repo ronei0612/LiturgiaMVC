@@ -1183,6 +1183,9 @@ function setupBaseEvents() {
 
     document.getElementById('bpmRange').addEventListener('input', function (e) {
         document.getElementById('bpm').value = document.getElementById('bpmRange').value;
+    });
+
+    document.getElementById('bpmRange').addEventListener('mouseup', function (e) {
         getSetAudioOptions.setTrackerControls();
         if (schedule.running) {
             schedule.stop();
@@ -1200,7 +1203,7 @@ function setupBaseEvents() {
         let track = schedule.getTrackerValues();
         setupTrackerHtml(currentSampleData, length);
         schedule.measureLength = length;
-        schedule.loadTrackerValues(track)
+        schedule.loadTrackerValues(track);
         schedule.setupEvents();
     });
 
