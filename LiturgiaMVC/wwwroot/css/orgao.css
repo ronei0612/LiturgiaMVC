@@ -163,7 +163,7 @@
 	transform: translateY(4px);
 }
 
-	.botao.dedo.selecionadoDrum {
+	.botao.amarelo.selecionadoDrum {
 		border-bottom: 2px solid #626567;
 		box-shadow: 0 0 10px 3px #ffeb3b;
 		transform: translateY(4px);
@@ -178,6 +178,12 @@
 	.botao.duasmaos.selecionadoDrum {
 		border-bottom: 2px solid #626567;
 		box-shadow: 0 0 10px 3px #ffeb3b;
+		transform: translateY(4px);
+	}
+
+	.botao.dedo.selecionadoDrum {
+		background-color: #B7950B;
+		box-shadow: 0px 2px 0px 0px #7D6608;
 		transform: translateY(4px);
 	}
 

@@ -1085,27 +1085,26 @@ var _trocarRitmo = false;
                 var botaoPressionado = document.getElementsByClassName('selecionadoDrum')[0];
                 botaoPressionado.classList.toggle('selecionadoDrum', false);
 
-                if (botao == '') {
+                if (botao == '')
                     stopBateria();
-
-                    //if (botaoPressionado.id != 'brush') {
-                    //    let pratoAtaque1 = buffers['pratoAtaque-01'].get();
-                    //    let node = routeGain(pratoAtaque1);
-                    //    node.connect(ctx.destination);
-
-                    //    let pratoAtaque2 = buffers['pratoAtaque-01'].get();
-                    //    let node2 = routeGain(pratoAtaque2);
-                    //    node2.connect(ctx.destination);
-                    //    pratoAtaque1.start();
-                    //    pratoAtaque2.start();
-                    //}
-                }
             }
 
             if (botao != '') {
-                if (!schedule.running)
+                if (botao.id == 'prato') {
+                    let pratoAtaque1 = buffers['pratoAtaque-01'].get();
+                    let node = routeGain(pratoAtaque1);
+                    node.connect(ctx.destination);
+
+                    let pratoAtaque2 = buffers['pratoAtaque-01'].get();
+                    let node2 = routeGain(pratoAtaque2);
+                    node2.connect(ctx.destination);
+                    pratoAtaque1.start();
+                    pratoAtaque2.start();
+                }
+                else if (!schedule.running) {
                     playBateria();
-                botao.classList.toggle('selecionadoDrum', true);
+                    botao.classList.toggle('selecionadoDrum', true);
+                }
             }
         }
 
@@ -1151,6 +1150,11 @@ function setupBaseEvents() {
 
     document.getElementById('play-pause_bateria').addEventListener('click', function (e) {
         pressionarBotao('');
+    });
+
+    document.getElementById('prato').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        pressionarBotao(botao);
     });
 
     // var initializedCtx;
