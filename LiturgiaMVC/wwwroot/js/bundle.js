@@ -1031,8 +1031,8 @@ var _trocarRitmo = false;
             else if (numerosIndex.includes(124))
                 measureLengthElement.value = 8;
 
-            var event = new Event('change');
-            measureLengthElement.dispatchEvent(event);
+            var novoEvento = new Event('change');
+            measureLengthElement.dispatchEvent(novoEvento);
         }
 
         function selecionarRitmo(ritmo) {

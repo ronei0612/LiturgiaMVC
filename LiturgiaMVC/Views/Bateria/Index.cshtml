@@ -117,19 +117,21 @@
 		<form class="pure-form" id="trackerControls">
 			<div class="d-flex align-items-center">
 				<label for="bpm">Tempo:</label>&nbsp;<input name="bpm" id="bpm" style="width: 60px" value="90" class="form-control">
+				&nbsp;
+				<button class="btn btn-primary" type="button" onclick="clicarUmBotaoTempo(60)">
+					60
+				</button>
+				&nbsp;
+				<button class="btn btn-primary" type="button" onclick="clicarUmBotaoTempo(90)">
+					90
+				</button>
+				&nbsp;
+				<button class="btn btn-primary" type="button" onclick="clicarUmBotaoTempo(160)">
+					160
+				</button>
 			</div>
-			<input id="bpmRange" type="range" max="240" min="40" step="1" value="90">
 
-			<div style="display:none">
-
-				<label for="measureLengthSelect">Compasso:</label>
-				<select name="measureLengthSelect" id="measureLengthSelect" aria-label="Compasso">
-					<option value="6">3/4</option>
-					<option selected value="8">4/4</option>
-					<option value="12">6/8</option>
-				</select>
-				<input class="base" name="measureLength" id="measureLength" style="width: 60px;" value="8">
-			</div>
+			<input id="bpmRange" type="range" max="240" min="40" step="1" value="90">			
 
 			<br>
 
@@ -157,8 +159,17 @@
 </div>
 
 <div id="app-message"></div>
-
 <div id="bateria" style="display:none">
+	<div>
+		<label for="measureLengthSelect">Compasso:</label>
+		<select name="measureLengthSelect" id="measureLengthSelect" aria-label="Compasso">
+			<option value="6">3/4</option>
+			<option selected value="8">4/4</option>
+			<option value="12">6/8</option>
+		</select>
+		<input class="base" name="measureLength" id="measureLength" style="width: 60px;" value="8">
+	</div>
+
 	<div id="tracker-parent">
 		<table id="tracker-table">
 		</table>
@@ -201,5 +212,15 @@
 			div.style.display = 'none';
 			document.getElementById('textoBateria').style.color = 'grey';
 		}
+	}
+
+	function clicarUmBotaoTempo(tempoValor) {
+		var bpmElement = document.getElementById('bpm');
+		document.getElementById('bpmRange').value = tempoValor;
+		bpmElement.value = tempoValor;
+
+		var novoEvento = new Event('change');
+		bpmElement.dispatchEvent(novoEvento);
+
 	}
 </script>
