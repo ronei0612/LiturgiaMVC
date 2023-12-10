@@ -154,12 +154,11 @@ function alterarVolume(volume, padrao) {
 		_grupoNotas.volume = _volume;
 
 	var numero = document.getElementById('volumeTexto');
-	numero.innerHTML = volume * 10;
 
 	if (volume == padrao)
-		numero.style.color = '#00008b';
+		numero.innerHTML = volume * 10;
 	else
-		numero.style.color = '#8b0000';
+		numero.innerHTML = (volume * 10) + '*';
 }
 
 
