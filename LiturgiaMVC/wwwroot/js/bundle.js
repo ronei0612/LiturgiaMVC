@@ -1819,6 +1819,7 @@ function trackerTable() {
     };
 
     this.getFirstCell = function (rowID, data) {
+        i++;
         var str = '';
         
         str += `<td class="tracker-first-cell" data-row-id="${rowID}">`;
@@ -1830,19 +1831,27 @@ function trackerTable() {
         return str;
     };
 
+    var i = 0;
+
     this.getCells = function (rowID, numRows, data) {
         var str = '';
+        var num = '';
 
         str += this.getFirstCell(rowID, data);
 
-        let cssClass = 'tracker-cell'
+        let cssClass = 'tracker-cell';
 
         if (rowID == 'header') {
-            cssClass = 'tracker-cell-header'
+            cssClass = 'tracker-cell-header';
         }
 
         for (let c = 0; c < numRows; c++) {
-            str += `<td class="${cssClass}" data-row-id="${rowID}" data-col-id="${c}">`;
+            if (cssClass == 'tracker-cell')
+                num = i;
+            else
+                num = '';
+            str += `<td class="${cssClass}" data-row-id="${rowID}" data-col-id="${c}">${num}`;
+            i++;
             if (data.header) {
                 str += c + 1;
             }
