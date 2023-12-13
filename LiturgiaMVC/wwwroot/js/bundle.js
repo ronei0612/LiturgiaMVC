@@ -1091,18 +1091,20 @@ var _trocarRitmo = false;
 
             if (botao != '') {
                 if (botao.id == 'prato') {
-                    let pratoAtaque1 = buffers['pratoAtaque-01'].get();
+                    stopBateria();
+                    let pratoAtaque1 = buffers['prato1'].get();
                     let node = routeGain(pratoAtaque1);
                     node.connect(ctx.destination);
 
-                    let pratoAtaque2 = buffers['pratoAtaque-01'].get();
+                    let pratoAtaque2 = buffers['prato2'].get();
                     let node2 = routeGain(pratoAtaque2);
                     node2.connect(ctx.destination);
                     pratoAtaque1.start();
                     pratoAtaque2.start();
                 }
-                else if (!schedule.running) {
-                    playBateria();
+                else if (botao != '') {
+                    if (!schedule.running)
+                        playBateria();
                     botao.classList.toggle('selecionadoDrum', true);
                 }
             }
