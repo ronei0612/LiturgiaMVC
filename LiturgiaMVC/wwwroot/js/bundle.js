@@ -1126,6 +1126,12 @@ function setupBaseEvents() {
         mudarRitmo('aro');
     });
 
+    document.getElementById('meiaLua').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        pressionarBotao(botao);
+        mudarRitmo('meiaLua');
+    });
+
     document.getElementById('caixa').addEventListener('click', function (e) {
         var botao = document.activeElement;
         pressionarBotao(botao);
