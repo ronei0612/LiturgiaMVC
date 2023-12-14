@@ -1030,6 +1030,8 @@ var _trocarRitmo = false;
                 measureLengthElement.value = 12;
             else if (numerosIndex.includes(124))
                 measureLengthElement.value = 8;
+            else if (numerosIndex.includes(170))
+                measureLengthElement.value = 16;
 
             var novoEvento = new Event('change');
             measureLengthElement.dispatchEvent(novoEvento);
