@@ -1,7 +1,46 @@
 const ritmosNomes = Object.keys(ritmosJson);
 var _ritmoSelecionado = 'aro';
-var selecionarRitmoElem = document.getElementById('selectRitmo');
+var _selecionarRitmoElem = document.getElementById('selectRitmo');
 var _trocarRitmo = false;
+var _viradaRitmo = '';
+
+
+function setBeats(numerosIndex) {
+    var measureLengthElement = document.getElementById('measureLength');
+    if (numerosIndex.includes(170))
+        measureLengthElement.value = 16;
+    else if (numerosIndex.includes(180))
+        measureLengthElement.value = 12;
+    else if (numerosIndex.includes(124))
+        measureLengthElement.value = 8;
+    else if (numerosIndex.includes(96) || numerosIndex.includes(110))
+        measureLengthElement.value = 6;
+
+    var novoEvento = new Event('change');
+    measureLengthElement.dispatchEvent(novoEvento);
+}
+
+function selecionarRitmo(ritmo, virada = false) {
+    if (_trocarRitmo) {
+        if (virada == false)
+            _trocarRitmo = false;
+
+        var numerosIndex = ritmosJson[ritmo];
+        setBeats(numerosIndex);
+
+        var tabelaBateria = document.getElementById('tracker-table');
+        var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+
+        Array.from(tdsAtivados).forEach((tdAtivado) => {
+            tdAtivado.classList.remove('tracker-enabled');
+        });
+
+        var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+        numerosIndex.forEach((numeroIndex) => {
+            tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+        });
+    }
+}
 
 (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s })({
     1: [function (require, module, exports) {
@@ -1019,44 +1058,10 @@ var _trocarRitmo = false;
                 let opt = document.createElement('option');
                 opt.value = ritmosNomes[i];
                 opt.textContent += ritmosNomes[i];
-                selecionarRitmoElem.appendChild(opt);
+                _selecionarRitmoElem.appendChild(opt);
             }
         }
 
-
-        function setBeats(numerosIndex) {
-            var measureLengthElement = document.getElementById('measureLength');
-            if (numerosIndex.includes(180))
-                measureLengthElement.value = 12;
-            else if (numerosIndex.includes(124))
-                measureLengthElement.value = 8;
-            else if (numerosIndex.includes(170))
-                measureLengthElement.value = 16;
-
-            var novoEvento = new Event('change');
-            measureLengthElement.dispatchEvent(novoEvento);
-        }
-
-        function selecionarRitmo(ritmo) {
-            if (_trocarRitmo) {
-                _trocarRitmo = false;
-
-                var numerosIndex = ritmosJson[ritmo];
-                setBeats(numerosIndex);
-
-                var tabelaBateria = document.getElementById('tracker-table');
-                var tdsAtivados = document.getElementsByClassName('tracker-enabled');
-
-                Array.from(tdsAtivados).forEach((tdAtivado) => {
-                    tdAtivado.classList.remove('tracker-enabled');
-                });
-
-                var tdsAtivar = tabelaBateria.getElementsByTagName('td');
-                numerosIndex.forEach((numeroIndex) => {
-                    tdsAtivar[numeroIndex].classList.add('tracker-enabled');
-                });
-            }
-        }
 
         function mudarRitmo(ritmo) {
             _trocarRitmo = true;
@@ -1082,10 +1087,19 @@ var _trocarRitmo = false;
             return gainNode;
         }
 
+        function fazerViradaBateria() {
+            _viradaRitmo = _ritmoSelecionado + '_fill';
+        }
+
         function pressionarBotao(botao) {
-            if (document.getElementsByClassName('selecionadoDrum').length > 0) {
-                var botaoPressionado = document.getElementsByClassName('selecionadoDrum')[0];
-                botaoPressionado.classList.toggle('selecionadoDrum', false);
+            var botaoPressionadoAntes = document.getElementsByClassName('selecionadoDrum');
+            if (botaoPressionadoAntes.length > 0) {
+                var botaoPressionado = botaoPressionadoAntes[0];
+
+                if (botao == botaoPressionado)
+                    fazerViradaBateria();
+                else
+                    botaoPressionado.classList.toggle('selecionadoDrum', false);
 
                 if (botao == '')
                     stopBateria();
@@ -1657,33 +1671,25 @@ function tracker(ctx, scheduleAudioBeat) {
         let beatColumn = this.getTrackerRowValues(this.current);
         let now = ctx.currentTime;
 
-        let selector = `[data-col-id="${this.current}"]`;
-
-        let event = this.clock.callbackAtTime(() => {
-            let elems = document.querySelectorAll(selector);
-            elems.forEach( (e) => {
-                e.classList.add('tracker-current')
-            })
-        }, now + this.scheduleForward);
-
-        this.clock.callbackAtTime(() => {
-            let elems = document.querySelectorAll(selector);
-            elems.forEach( (e) => {
-                e.classList.remove('tracker-current')
-            })
-        }, now + this.scheduleForward + this.milliPerBeat(this.bpm) / 1000);
-
-
         beatColumn.forEach((beat) => {
             this.scheduleBeat(beat, now);
         });
     };
 
-    this.scheduleBeat = function (beat, now) {
+    this.scheduleBeat = function (beat, now) {        
 
         let triggerTime = now + this.scheduleForward;
         this.scheduleMap[beat.colId] = triggerTime;
         if (beat.enabled) {
+            if (_viradaRitmo != '') {
+                _trocarRitmo = true;
+                selecionarRitmo(_viradaRitmo, true);
+            }
+            if (beat.colId == 0) {
+                //_trocarRitmo = true;
+                selecionarRitmo(_ritmoSelecionado);
+                _viradaRitmo = '';
+            }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
                 this.scheduleAudioBeat(beat, triggerTime);
             }, now);
