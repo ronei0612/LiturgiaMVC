@@ -20,8 +20,15 @@ function setBeats(numerosIndex) {
     measureLengthElement.dispatchEvent(novoEvento);
 }
 
+
+function fazerViradaBateria() {
+    _viradaRitmo = _ritmoSelecionado + '_fill';
+}
+
 function selecionarRitmo(ritmo, virada = false) {
     if (_trocarRitmo) {
+        fazerViradaBateria();
+
         if (virada == false)
             _trocarRitmo = false;
 
@@ -1085,10 +1092,6 @@ function selecionarRitmo(ritmo, virada = false) {
             gainNode = gain.getGainNode(0);
             source.connect(gainNode);
             return gainNode;
-        }
-
-        function fazerViradaBateria() {
-            _viradaRitmo = _ritmoSelecionado + '_fill';
         }
 
         function pressionarBotao(botao) {
