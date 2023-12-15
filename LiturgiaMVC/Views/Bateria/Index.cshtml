@@ -231,7 +231,10 @@
 			<br>
 		</div>
 	</div>
-		
+		<br />
+			<button onclick="escreverRitmo()">Get Ritmo</button>
+			<div id="textoRitmo"></div>
+
 	<div style="display:none">
 			<hr>
 			<form class="pure-form">
@@ -270,6 +273,17 @@
 
 		var novoEvento = new Event('change');
 		bpmElement.dispatchEvent(novoEvento);
+	}
 
+	function escreverRitmo() {
+		var tabelaElem = document.getElementById('tracker-table');
+		var elementos = document.getElementsByClassName('tracker-enabled');
+		var texto = '';
+
+		Array.from(elementos).forEach((elemento) => {
+			texto += elemento.innerText + ', ';
+		});
+
+		document.getElementById('textoRitmo').innerText = texto;
 	}
 </script>

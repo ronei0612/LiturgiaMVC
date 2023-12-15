@@ -1721,7 +1721,7 @@ function tracker(ctx, scheduleAudioBeat) {
 
     this.interval;
     this.runSchedule = function (bpm) {
-        bpm = bpm * 2;
+        bpm = bpm * 4;
         this.running = true;
         this.bpm = bpm;
         let interval = this.milliPerBeat(bpm);
