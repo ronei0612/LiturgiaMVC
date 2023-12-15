@@ -3,6 +3,8 @@ var _ritmoSelecionado = 'aro';
 var _selecionarRitmoElem = document.getElementById('selectRitmo');
 var _trocarRitmo = false;
 var _viradaRitmo = '';
+var _chimbalIsAberto = false;
+var _sourceChimbalAberto;
 
 
 function setBeats(numerosIndex) {//compasso
@@ -1017,6 +1019,13 @@ function selecionarRitmo(ritmo, virada = false) {
                 let node = routeGain(source)
                 node = routeDelay(node);
                 node.connect(ctx.destination);
+
+                if (instrumentName == 'chimbal' || instrumentName == 'chimbal2')
+                    if (_chimbalIsAberto) {
+                        _sourceChimbalAberto.stop(triggerTime);
+                        _chimbalIsAberto = false;
+                    }
+
                 source.start(triggerTime);
 
             }
@@ -1040,7 +1049,13 @@ function selecionarRitmo(ritmo, virada = false) {
                 if (!options.delayEnabled)
                     return node;
             }
+
             play(instrument);
+
+            if (instrumentName == 'aberto') {
+                _sourceChimbalAberto = instrument;
+                _chimbalIsAberto = true;
+            }
         }
 
         var schedule = new simpleTracker(ctx, scheduleAudioBeat);
@@ -1689,7 +1704,6 @@ function tracker(ctx, scheduleAudioBeat) {
                 selecionarRitmo(_viradaRitmo, true);
             }
             if (beat.colId == 0) {
-                //_trocarRitmo = true;
                 selecionarRitmo(_ritmoSelecionado);
                 _viradaRitmo = '';
             }
