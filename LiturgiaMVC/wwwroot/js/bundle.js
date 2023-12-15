@@ -5,14 +5,14 @@ var _trocarRitmo = false;
 var _viradaRitmo = '';
 
 
-function setBeats(numerosIndex) {
+function setBeats(numerosIndex) {//compasso
     var measureLengthElement = document.getElementById('measureLength');
-    if (numerosIndex.includes(170))
+    if (numerosIndex.includes(348))
+        measureLengthElement.value = 24;
+    else if (numerosIndex.includes(234))
         measureLengthElement.value = 16;
-    else if (numerosIndex.includes(180))
+    else if (numerosIndex.includes(178))
         measureLengthElement.value = 12;
-    else if (numerosIndex.includes(124))
-        measureLengthElement.value = 8;
     else if (numerosIndex.includes(96) || numerosIndex.includes(110))
         measureLengthElement.value = 6;
 
@@ -1518,7 +1518,7 @@ module.exports = {
   settings: {
     sampleSet:
       "./Sons/studio/samples.json",
-    measureLength: 8,
+    measureLength: 16,
     bpm: 90,
     detune: 0,
     gainEnabled: "gain",
