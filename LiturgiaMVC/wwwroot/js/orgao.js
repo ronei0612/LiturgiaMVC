@@ -35,6 +35,17 @@ function deixarAcompanhamentoSelecionado(funcao) {
 	escolherAcompanhamento(funcao, document.getElementById(funcao));
 }
 
+function ocultarBotaoRec(ocultar = true) {
+	if (ocultar) {
+		document.getElementById('gravar').style.display = 'none';
+		document.getElementById('play-pause').style.display = 'block';
+	}
+	else {
+		document.getElementById('gravar').style.display = 'block';
+		document.getElementById('play-pause').style.display = 'none';
+	}
+}
+
 function escolherAcorde(acorde, botao) {
 	if (_acordeAntesSelecionado == acorde)
 		_acordeSelecionado = '';
@@ -46,9 +57,13 @@ function escolherAcorde(acorde, botao) {
 	if (_acordeSelecionado == '') {
 		_acordeAntesSelecionado = _acordeSelecionado;
 		pararOsAcordes();
+
+		ocultarBotaoRec(false);
 	}
-	else
+	else {
 		tocarAcorde(acorde, botao);
+		ocultarBotaoRec();
+	}
 }
 
 function escolherAcompanhamento(funcao, botao) {
