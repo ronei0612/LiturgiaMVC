@@ -1602,26 +1602,6 @@ const hasClass = require('has-class');
  * @param {function} scheduleAudioBeat funtion when an audio is played
  */
 
-    //function selectionarRitmo() {
-    //    if (_trocarRitmo) {
-    //        _trocarRitmo = false;
-
-    //        var numerosIndex = ritmosJson[_ritmoSelecionado];
-    //        var tabelaBateria = document.getElementById('tracker-table');
-    //        var tdsAtivados = document.getElementsByClassName('tracker-enabled');
-
-    //        Array.from(tdsAtivados).forEach((tdAtivado) => {
-    //            tdAtivado.classList.remove('tracker-enabled');
-    //        });
-
-    //        var tdsAtivar = tabelaBateria.getElementsByTagName('td');
-    //        numerosIndex.forEach((numeroIndex) => {
-                
-    //            tdsAtivar[numeroIndex].classList.add('tracker-enabled');
-    //        });
-    //    }
-    //}
-
 function tracker(ctx, scheduleAudioBeat) {
 
     this.measureLength = 16;
