@@ -1009,7 +1009,7 @@ function selecionarRitmo(ritmo, virada = false) {
             }, totalLength * 1000);
         }
 
-        function scheduleAudioBeat(beat, triggerTime) {
+        function scheduleAudioBeat(beat, triggerTime) { //tocar os beats
 
             let instrumentName = instrumentData.filename[beat.rowId];
             let instrument = buffers[instrumentName].get();
@@ -1206,7 +1206,7 @@ function setupBaseEvents() {
 
         schedule.measureLength = track.settings.measureLength;
         schedule.stop();
-        
+
         schedule.runSchedule(getSetAudioOptions.options.bpm);
     });
 
@@ -1222,7 +1222,6 @@ function setupBaseEvents() {
     document.getElementById('bpm').addEventListener('change', function (e) {
         var bpmRange_valor = document.getElementById('bpmRange').value;
         bpmRange_valor = 60000 / bpmRange_valor;
-        console.log(bpmRange_valor);
         document.getElementById('light').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
 
         getSetAudioOptions.setTrackerControls();
@@ -1233,20 +1232,13 @@ function setupBaseEvents() {
     });
 
     document.getElementById('bpmRange').addEventListener('input', function (e) {
-        var bpmRange_valor = document.getElementById('bpmRange').value;
-        var miliSegundos = 60000 / bpmRange_valor;
-        document.getElementById('light').style.animation = 'blink ' + miliSegundos + 'ms infinite';
+        var bpmRangeElem = document.getElementById('bpmRange');
 
-        document.getElementById('bpm').value = bpmRange_valor;
-    });
+        var bpmElem = document.getElementById('bpm');
+        bpmElem.value = bpmRangeElem.value;
 
-    document.getElementById('bpmRange').addEventListener('mouseup', function (e) {
-
-        getSetAudioOptions.setTrackerControls();
-        if (schedule.running) {
-            schedule.stop();
-            schedule.runSchedule(getSetAudioOptions.options.bpm);
-        }
+        var novoEvento = new Event('change');
+        bpmElem.dispatchEvent(novoEvento);
     });
 
     document.getElementById('measureLength').addEventListener('change', (e) => {
@@ -1693,7 +1685,7 @@ function tracker(ctx, scheduleAudioBeat) {
     };
 
     /**
-     * Schedule a beat column
+     * Mudando as colunas beats
      */
     this.schedule = function () {
         let beatColumn = this.getTrackerRowValues(this.current);
@@ -1704,7 +1696,7 @@ function tracker(ctx, scheduleAudioBeat) {
         });
     };
 
-    this.scheduleBeat = function (beat, now) {        
+    this.scheduleBeat = function (beat, now) { //tocar os beats
 
         let triggerTime = now + this.scheduleForward;
         this.scheduleMap[beat.colId] = triggerTime;
