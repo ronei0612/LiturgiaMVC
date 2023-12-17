@@ -1220,6 +1220,11 @@ function setupBaseEvents() {
     });
 
     document.getElementById('bpm').addEventListener('change', function (e) {
+        var bpmRange_valor = document.getElementById('bpmRange').value;
+        bpmRange_valor = 60000 / bpmRange_valor;
+        console.log(bpmRange_valor);
+        document.getElementById('light').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
+
         getSetAudioOptions.setTrackerControls();
         if (schedule.running) {
             schedule.stop();
@@ -1228,10 +1233,15 @@ function setupBaseEvents() {
     });
 
     document.getElementById('bpmRange').addEventListener('input', function (e) {
-        document.getElementById('bpm').value = document.getElementById('bpmRange').value;
+        var bpmRange_valor = document.getElementById('bpmRange').value;
+        var miliSegundos = 60000 / bpmRange_valor;
+        document.getElementById('light').style.animation = 'blink ' + miliSegundos + 'ms infinite';
+
+        document.getElementById('bpm').value = bpmRange_valor;
     });
 
     document.getElementById('bpmRange').addEventListener('mouseup', function (e) {
+
         getSetAudioOptions.setTrackerControls();
         if (schedule.running) {
             schedule.stop();

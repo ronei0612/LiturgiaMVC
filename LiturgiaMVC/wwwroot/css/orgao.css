@@ -286,3 +286,20 @@ input[type=range][orient=vertical] {
 	background-repeat: no-repeat; /* Do not repeat the image */
 	background-size: cover; /* Resize the background image to cover the entire container */
 }
+
+.light {
+	width: 14px;
+	height: 14px;
+	background-color: #0d6efd;
+	border-radius: 50%;
+	position: absolute;
+	top: 45%;
+	left: 45%;
+	animation: blink 666.6666666666667ms infinite;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
+}
