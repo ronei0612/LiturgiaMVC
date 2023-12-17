@@ -29,7 +29,7 @@
         <nav id="navBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
             <div class="justify-content-sm-around container-sm">
 
-                <button type="button" class="input-group-text" onclick="document.getElementById('id01').style.display='block'">
+                <button type="button" class="input-group-text" onclick="mostrarModal('opcoes')">
                     <svg width="19" height="19" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" enable-background="new 0 0 256 256" xml:space="preserve">
                         <g><g><path fill="#000000" d="M234.2,116.2H21.8c-7.1,0-11.8,4.7-11.8,11.8s4.7,11.8,11.8,11.8h212.4c7.1,0,11.8-4.7,11.8-11.8S241.3,116.2,234.2,116.2L234.2,116.2z M234.2,210.6H21.8c-7.1,0-11.8,4.7-11.8,11.8s4.7,11.8,11.8,11.8h212.4c7.1,0,11.8-4.7,11.8-11.8S241.3,210.6,234.2,210.6L234.2,210.6z M21.8,45.4h212.4c7.1,0,11.8-4.7,11.8-11.8c0-7.1-4.7-11.8-11.8-11.8H21.8c-7.1,0-11.8,4.7-11.8,11.8C10,40.7,14.7,45.4,21.8,45.4L21.8,45.4z" /></g></g>
                     </svg>
@@ -40,11 +40,9 @@
                     </svg>
                 </button>
 
-                <div id="titulo">
-                    <button class="input-group-text">
-                    Órgão e Bateria ▼
-                    </button>
-                </div>
+                <button class="input-group-text" onclick="mostrarModal('instrumento')" id="titulo">
+                    Órgão ▼
+                </button>
 
                 <button type="button" class="input-group-text">
                     <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
@@ -73,11 +71,26 @@
         </nav>
     </header>
 
-    <div id="id01" class="w3-modal" onclick="document.getElementById('id01').style.display='none'">
+    <div id="id01" class="w3-modal">
         <div class="w3-modal-content">
             <div class="w3-container">
-                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-
+                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright"><b>&times;</b></span>
+                <div id="selectInstrumento">
+                    <br />
+                    Acompanhamento:
+                    <br />
+                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento()" id="instrumentoSelect">
+                        <option value="Órgão">Órgão</option>
+                        <option value="Strings">Strings</option>
+                    </select>
+                    <br />
+                    Bateria:
+                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento(true)" id="selectRitmo">
+                        <option selected value=""></option>
+                    </select>
+                    <br />
+                </div>
+                <div id="selectOpcoes">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Início</a>
@@ -89,6 +102,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Sobre</a>
                         </li>
                     </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -105,5 +119,40 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/orgao.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $(window).click(function (e) {
+            if (e.target.className == 'w3-modal')
+                document.getElementById('id01').style.display = 'none';
+        });
+
+        function mostrarModal(nome){
+            document.getElementById('id01').style.display = 'block';
+
+            if (nome == 'opcoes') {
+                document.getElementById('selectOpcoes').style.display = 'block';
+                document.getElementById('selectInstrumento').style.display = 'none';
+            }
+
+            else if (nome == 'instrumento') {
+                document.getElementById('selectOpcoes').style.display = 'none';
+                document.getElementById('selectInstrumento').style.display = 'block';
+            }
+        }
+
+        function selecionarInstrumento(bateria) {
+            var instrumentoSelecionado = document.getElementById('instrumentoSelect').value;
+            var bateriaSelecionado = document.getElementById('selectRitmo').value;
+
+            document.getElementById('titulo').innerText = instrumentoSelecionado + '+' + bateriaSelecionado + ' ▼';
+            document.getElementById('id01').style.display = 'none';
+
+            if (bateria)
+                if (bateriaSelecionado == '')
+                    document.getElementById('bateriaBotoes').style.display='none';
+                else
+                    document.getElementById('bateriaBotoes').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
