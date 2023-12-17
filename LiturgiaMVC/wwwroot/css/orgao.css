@@ -264,7 +264,7 @@ input[type="range"] {
 input[type=range][orient=vertical] {
 	appearance: slider-vertical;
 	width: 8px;
-	height: 175px;
+	height: 200px;
 	padding: 0 5px;
 }
 
@@ -285,6 +285,11 @@ input[type=range][orient=vertical] {
 	background-position: center; /* Center the image */
 	background-repeat: no-repeat; /* Do not repeat the image */
 	background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.textoVertical {
+	writing-mode: vertical-rl;
+	/*transform: rotate(180deg);*/
 }
 
 .light {
