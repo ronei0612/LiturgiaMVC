@@ -7,13 +7,15 @@ var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
 
 
-function setBeats(numerosIndex) {//compasso
+function setBeats(ritmoMatrix) {//compasso
+    var numerosIndex = ritmosJson[ritmoMatrix];
     var measureLengthElement = document.getElementById('measureLength');
-    if (numerosIndex.includes(348))
+
+    if (numerosIndex.includes(323))
         measureLengthElement.value = 24;
-    else if (numerosIndex.includes(234))
+    else if (numerosIndex.includes(219))
         measureLengthElement.value = 16;
-    else if (numerosIndex.includes(178))
+    else if (numerosIndex.includes(167))
         measureLengthElement.value = 12;
     else if (numerosIndex.includes(96) || numerosIndex.includes(110))
         measureLengthElement.value = 6;
@@ -34,8 +36,11 @@ function selecionarRitmo(ritmo, virada = false) {
         if (virada == false)
             _trocarRitmo = false;
 
-        var numerosIndex = ritmosJson[ritmo];
-        setBeats(numerosIndex);
+        var ritmoMatrix = ritmo;
+        if (ritmo.includes('_'))
+            ritmoMatrix = ritmo.split('_')[0];
+
+        setBeats(ritmoMatrix);
 
         var tabelaBateria = document.getElementById('tracker-table');
         var tdsAtivados = document.getElementsByClassName('tracker-enabled');
@@ -45,6 +50,8 @@ function selecionarRitmo(ritmo, virada = false) {
         });
 
         var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+        var numerosIndex = ritmosJson[ritmo];
+
         numerosIndex.forEach((numeroIndex) => {
             tdsAtivar[numeroIndex].classList.add('tracker-enabled');
         });
@@ -1115,7 +1122,7 @@ function selecionarRitmo(ritmo, virada = false) {
                 var botaoPressionado = botaoPressionadoAntes[0];
 
                 if (botao == botaoPressionado)
-                    fazerViradaBateria();
+                fazerViradaBateria();
                 else
                     botaoPressionado.classList.toggle('selecionadoDrum', false);
 
@@ -1688,7 +1695,7 @@ function tracker(ctx, scheduleAudioBeat) {
             if (beat.colId == 0) {
                 selecionarRitmo(_ritmoSelecionado);
                 _viradaRitmo = '';
-            }
+                }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
                 this.scheduleAudioBeat(beat, triggerTime);
             }, now);
