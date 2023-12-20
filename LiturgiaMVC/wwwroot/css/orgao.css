@@ -308,3 +308,52 @@ input[type=range][orient=vertical] {
 		opacity: 0;
 	}
 }
+
+/*
+	Novo blink, precisa ser implementado
+	<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blinking Light</title>
+    <style>
+        .light {
+            width: 14px;
+            height: 14px;
+            background-color: orange;
+            border-radius: 50%;
+            position: absolute;
+            top: 45%;
+			left: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="light" id="light"></div>
+
+    <script>
+    var beat = 1;
+      var beats = 8;
+      var lightElem = document.getElementById("light");
+
+      function blink() {
+        if (beat == beats) {
+          beat = 1;
+          lightElem.style.backgroundColor = "orange";
+        }
+        else {
+          if (beat % 2 == 0)
+              lightElem.style.backgroundColor = "#0d6efd";
+          else
+            lightElem.style.backgroundColor = "transparent";
+          beat++;
+        }
+      }
+
+      setInterval(blink, 500);
+    </script>
+</body>
+</html>
+
+*/
