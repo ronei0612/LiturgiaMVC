@@ -155,6 +155,14 @@
                     document.getElementById('bateriaBotoes').style.display='none';
                 else
                     document.getElementById('bateriaBotoes').style.display = 'block';
+
+            if (bateriaSelecionado == '6/8') {
+                var bpmElement = document.getElementById('bpm');
+                bpmElement.value = 70;
+                document.getElementById('bpmRange').value = 70;
+                document.getElementById('measureLength').value = 24;
+                bpmElement.dispatchEvent(new Event('change'));
+            }
         }
     </script>
 </body>

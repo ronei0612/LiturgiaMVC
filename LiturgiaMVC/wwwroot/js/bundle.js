@@ -1229,6 +1229,11 @@ function setupBaseEvents() {
     document.getElementById('bpm').addEventListener('change', function (e) {
         var bpmRange_valor = document.getElementById('bpmRange').value;
         bpmRange_valor = 60000 / bpmRange_valor;
+
+        var measureLength_valor = document.getElementById('measureLength').value;
+        if (measureLength_valor == 24)
+            bpmRange_valor = bpmRange_valor / 2;
+
         document.getElementById('light').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
 
         getSetAudioOptions.setTrackerControls();
