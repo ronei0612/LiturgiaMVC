@@ -5,6 +5,7 @@
         public static string pastaArquivos = "Arquivos";
         public static string pastaSons = "./Sons/";
         public static string pastaSonsOrgao = "./Sons/Orgao/";
+        public static string pastaSonsStrings = "./Sons/Strings/";
 
         static string links = "Links.txt";
         static string IPs = "IPs.csv";

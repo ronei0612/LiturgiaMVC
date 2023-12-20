@@ -23,3 +23,15 @@ orgao_sol#_baixo, ./Sons/Orgao/orgao sol_ baixo.ogg
 orgao_la_baixo, ./Sons/Orgao/orgao la baixo.ogg
 orgao_la#_baixo, ./Sons/Orgao/orgao la_ baixo.ogg
 orgao_si_baixo, ./Sons/Orgao/orgao si baixo.ogg
+strings_do, ./Sons/Strings/strings do.ogg
+strings_do#, ./Sons/Strings/strings do_.ogg
+strings_re, ./Sons/Strings/strings re.ogg
+strings_re#, ./Sons/Strings/strings re_.ogg
+strings_mi, ./Sons/Strings/strings mi.ogg
+strings_fa, ./Sons/Strings/strings fa.ogg
+strings_fa#, ./Sons/Strings/strings fa_.ogg
+strings_sol, ./Sons/Strings/strings sol.ogg
+strings_sol#, ./Sons/Strings/strings sol_.ogg
+strings_la, ./Sons/Strings/strings la.ogg
+strings_la#, ./Sons/Strings/strings la_.ogg
+strings_si, ./Sons/Strings/strings si.ogg

@@ -6,6 +6,7 @@ var _acompanhamentoFull = false;
 var _acompanhamentoMao = false;
 var _grupoNotas;
 var _volume = 0.9;
+var _instrumentoSelecionado = 'orgao';
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
@@ -88,12 +89,6 @@ function criarAcorde(acorde, grupoNotas) {
 
 	var notas = notasAcordesJson[acorde];
 
-	if (grupoNotas == null) {
-		grupoNotas = new Pizzicato.Group();
-		grupoNotas.addEffect(flanger);
-		grupoNotas.volume = _volume;
-	}
-
 	for (var i = 0, len = notas.length; i < len; i++) {
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo')
 			if (i != 1)
@@ -101,9 +96,17 @@ function criarAcorde(acorde, grupoNotas) {
 
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
 			grupoNotas.addSound(acordes['orgao_' + notas[i]]);
-	}
+	}	
 
-	
+	return grupoNotas;
+}
+
+function verificarGrupoNotasInstanciado(grupoNotas) {
+	if (grupoNotas == null) {
+		grupoNotas = new Pizzicato.Group();
+		grupoNotas.addEffect(flanger);
+		grupoNotas.volume = _volume;
+	}
 
 	return grupoNotas;
 }
@@ -113,7 +116,13 @@ function verificarAcompanhamentoEtocar(acorde) {
 
 	_acordeAntesSelecionado = acorde;
 
-	_grupoNotas = criarAcorde(acorde, _grupoNotas);
+	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+
+	if (_instrumentoSelecionado == 'orgao')
+		_grupoNotas = criarAcorde(acorde, _grupoNotas);
+	else
+		_grupoNotas.addSound(acordes['strings_' + acorde]);
+
 	_grupoNotas.play();
 }
 
@@ -221,6 +230,11 @@ function aumentarTom(aumentar) {
 
 	mudarTom(tomElement.value);
 }
+
+document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
+	var semacentos = document.getElementById('instrumentoSelect').value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+	_instrumentoSelecionado = semacentos.toLowerCase();
+});
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
 
