@@ -164,20 +164,21 @@
 	function mudarParaFullscreen() {
 		document.getElementById('exitfullscreen').style.display = 'flex';
 		document.getElementById('fullscreen').style.display = 'none';
+		document.getElementById('trackerControls').style.display = 'none';
 
 		var el = document.body;
 		var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
 			|| el.mozRequestFullScreen || el.msRequestFullScreen;
 
-		if (requestMethod) {
+		if (requestMethod)
 			requestMethod.call(el);
-		}
 
 		document.getElementById('navBar').style.display = 'none';
 	}
 
 	function sairDeFullscreen() {
 		document.getElementById('exitfullscreen').style.display = 'none';
+		document.getElementById('trackerControls').style.display = 'block';
 		document.getElementById('fullscreen').style.display = 'flex';
 		document.exitFullscreen();
 		document.getElementById('navBar').style.display = 'block';
