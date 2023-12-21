@@ -4,8 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" charset="utf-8">
 
-    <link rel="stylesheet" href="~/css/pure-min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="false" />
 
 </head>
 
@@ -19,7 +18,8 @@
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery/dist/jquery-3.4.1.slim.js"></script>
-    <script src="~/js/bundle.js" asp-append-version="true"></script>
+
+    <script src="~/js/bundle.min.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

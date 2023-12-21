@@ -6,10 +6,12 @@
 
     <title>@ViewData["Title"] - Liturgia</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/orgao.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LiturgiaMVC.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/w3.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LiturgiaMVC.styles.css" asp-append-version="false" />
+    <link rel="stylesheet" href="~/css/w3.css" asp-append-version="false" />
+
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="false" />
+    <link rel="stylesheet" href="~/css/orgao.min.css" asp-append-version="false" />
+
 
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
 </head>
@@ -119,8 +121,9 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/orgao.js" asp-append-version="true"></script>
+
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/js/orgao.min.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
