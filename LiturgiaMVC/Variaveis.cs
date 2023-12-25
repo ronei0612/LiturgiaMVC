@@ -54,13 +54,25 @@
 
         public static Dictionary<string, string> acidentesCorrespondentes = new()
         {
+            { "C", "C" },
+            { "C#", "C#" },
             { "Db", "C#" },
+            { "D", "D" },
+            { "D#", "D#" },
             { "Eb", "D#" },
-            { "Ab", "G#" },
-            { "Bb", "A#" },
-            { "E#", "F" },
-            { "B#", "C" },
+            { "E", "E" },
             { "Fb", "E" },
+            { "F", "F" },
+            { "E#", "F" },
+            { "F#", "F#" },
+            { "G", "G" },
+            { "G#", "G#" },
+            { "Ab", "G#" },            
+            { "A", "A" },
+            { "A#", "A#" },
+            { "Bb", "A#" },
+            { "B", "B" },
+            { "B#", "C" },
             { "Cb", "B" }
         };
 

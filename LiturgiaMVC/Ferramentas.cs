@@ -301,7 +301,7 @@ namespace LiturgiaMVC
         public static void LerArquivoNotasAcordes()
         {
             if (File.Exists(Variaveis.arquivonotasAcordes) == false)
-                File.WriteAllText(Variaveis.arquivonotasAcordes, ConvertToJson(Variaveis.notasAcordes));
+                File.WriteAllText(Variaveis.arquivonotasAcordes, ConvertToJson(Variaveis.notasAcordes, true));
 
             var texto = File.ReadAllText(Variaveis.arquivonotasAcordes).Replace(Environment.NewLine, "").Replace(@"\s+", "").Replace("],}", "]}");
 
@@ -316,7 +316,7 @@ namespace LiturgiaMVC
             var settings = new JsonSerializerSettings { Formatting = Formatting.Indented };
             var json = JsonConvert.SerializeObject(obj, settings);
 
-            if (indentado)
+            if (indentado == false)
                 json = json.Replace(Environment.NewLine, "").Replace(@"\s+", "").Replace("],}", "]}");
 
             return json;

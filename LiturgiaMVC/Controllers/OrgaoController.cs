@@ -1,6 +1,5 @@
 ﻿using LiturgiaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace LiturgiaMVC.Controllers
 {
@@ -18,14 +17,15 @@ namespace LiturgiaMVC.Controllers
 
             var linksModel = new LinksModel
             {
-                AcordesCampoHarmonico = Ferramentas.ConvertToJson(Variaveis.acordes, true),
+                AcordesCampoHarmonico = Ferramentas.ConvertToJson(Variaveis.acordes),
                 Acordes = Variaveis.acordes[tom],
                 LinksDict = Variaveis.notasLinks,
                 TomIndex = Array.IndexOf(Variaveis.tonsMaiores, tom),
                 TonsMaiores = Variaveis.tonsMaiores,
                 TonsMenores = Variaveis.tonsMenores,
                 RitmosBateria = Variaveis.textoRitmos,
-                NotasAcordes = Variaveis.textoNotasAcordes
+                NotasAcordes = Variaveis.textoNotasAcordes,
+                AcidentesCorrespondentes = Ferramentas.ConvertToJson(Variaveis.acidentesCorrespondentes)
             };
 
             return View(linksModel);

@@ -15,5 +15,6 @@
         public string[]? TonsMenores { get; set; }
         public string? RitmosBateria { get; set; }
         public string? NotasAcordes { get; set; }
+        public string? AcidentesCorrespondentes { get; set; }
     }
 }

@@ -120,8 +120,10 @@ function verificarAcompanhamentoEtocar(acorde) {
 
 	if (_instrumentoSelecionado == 'orgao')
 		_grupoNotas = criarAcorde(acorde, _grupoNotas);
-	else
-		_grupoNotas.addSound(acordes['strings_' + acorde]);
+	else {
+		acorde = acorde.replace('m', '').replace('7', '');
+		_grupoNotas.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
+	}
 
 	_grupoNotas.play();
 }

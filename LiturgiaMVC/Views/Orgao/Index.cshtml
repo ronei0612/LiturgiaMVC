@@ -125,10 +125,12 @@
 </div>
 
 <script src="~/js/Pizzicato.min.js" asp-append-version="true"></script>
+
 <script>
 	var esperar_audios = false;
 	const notasAcordesJson = JSON.parse('@Html.Raw(@Model.NotasAcordes)');
 	const acordesCampoHarmonicoJson = JSON.parse('@Html.Raw(@Model.AcordesCampoHarmonico)');
+	const acidentesCorrespondentesJson = JSON.parse('@Html.Raw(@Model.AcidentesCorrespondentes)');
 	const acordesTons = Object.keys(acordesCampoHarmonicoJson);
 
 	esperarAudios(3000);
