@@ -118,11 +118,14 @@ function verificarAcompanhamentoEtocar(acorde) {
 
 	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 
-	if (_instrumentoSelecionado == 'orgao')
+	if (_instrumentoSelecionado == 'orgao') {
 		_grupoNotas = criarAcorde(acorde, _grupoNotas);
+		_grupoNotas.effects[0].mix = 0.2;
+	}
 	else {
 		acorde = acorde.replace('m', '').replace('7', '');
 		_grupoNotas.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
+		_grupoNotas.effects[0].mix = 0;
 	}
 
 	_grupoNotas.play();
