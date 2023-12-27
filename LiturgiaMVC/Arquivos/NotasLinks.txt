@@ -35,3 +35,16 @@ strings_sol#, ./Sons/Strings/strings sol_.ogg
 strings_la, ./Sons/Strings/strings la.ogg
 strings_la#, ./Sons/Strings/strings la_.ogg
 strings_si, ./Sons/Strings/strings si.ogg
+
+strings_do_baixo, ./Sons/Strings/strings do baixo.ogg
+strings_do#_baixo, ./Sons/Strings/strings do_ baixo.ogg
+strings_re_baixo, ./Sons/Strings/strings re baixo.ogg
+strings_re#_baixo, ./Sons/Strings/strings re_ baixo.ogg
+strings_mi_baixo, ./Sons/Strings/strings mi baixo.ogg
+strings_fa_baixo, ./Sons/Strings/strings fa baixo.ogg
+strings_fa#_baixo, ./Sons/Strings/strings fa_ baixo.ogg
+strings_sol_baixo, ./Sons/Strings/strings sol baixo.ogg
+strings_sol#_baixo, ./Sons/Strings/strings sol_ baixo.ogg
+strings_la_baixo, ./Sons/Strings/strings la baixo.ogg
+strings_la#_baixo, ./Sons/Strings/strings la_ baixo.ogg
+strings_si_baixo, ./Sons/Strings/strings si baixo.ogg

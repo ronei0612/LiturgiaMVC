@@ -90,20 +90,33 @@ function setTom(acorde = 'C') {
 	document.getElementById('tomSelect').value = acorde;
 }
 
-function criarAcorde(acorde, grupoNotas) {
+function criarAcorde(acorde, grupoNotas, somenteTom = false) {
 	if (acorde.includes('_'))
 		acorde = acorde.split('_')[1];
 
-	var notas = notasAcordesJson[acorde];
+	if (somenteTom) {
+		acorde = acorde.replace('m', '').replace('7', '');
+		acorde = acidentesCorrespondentesJson[acorde];
 
-	for (var i = 0, len = notas.length; i < len; i++) {
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo')
-			if (i != 1)
-				grupoNotas.addSound(acordes['orgao_' + notas[i] + '_baixo']);
+			grupoNotas.addSound(acordes['strings_' + acorde + '_baixo']);
 
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
-			grupoNotas.addSound(acordes['orgao_' + notas[i]]);
-	}	
+			grupoNotas.addSound(acordes['strings_' + acorde]);
+	}
+
+	else {
+		var notas = notasAcordesJson[acorde];
+
+		for (var i = 0, len = notas.length; i < len; i++) {
+			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo')
+				if (i != 1)
+					grupoNotas.addSound(acordes['orgao_' + notas[i] + '_baixo']);
+
+			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
+				grupoNotas.addSound(acordes['orgao_' + notas[i]]);
+		}
+	}
 
 	return grupoNotas;
 }
@@ -136,18 +149,23 @@ function verificarAcompanhamentoEtocar(acorde) {
 		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 		_grupoNotas = criarAcorde(acorde, _grupoNotas);
 
-		acorde = acorde.replace('m', '').replace('7', '');
 		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
+		_grupoNotasStrings = criarAcorde(acorde, _grupoNotasStrings, true);
+
+		//acorde = acorde.replace('m', '').replace('7', '');		
+		//_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
 
 		_grupoNotasStrings.play();
 		_grupoNotas.play();
 	}		
 
 	else if (_instrumentoSelecionado == 'strings') {
-		acorde = acorde.replace('m', '').replace('7', '');
+		//acorde = acorde.replace('m', '').replace('7', '');
+		//_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
+		//_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
+
 		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
+		_grupoNotasStrings = criarAcorde(acorde, _grupoNotasStrings, true);
 
 		_grupoNotasStrings.play();
 		//_grupoNotas.effects[0].mix = 0;

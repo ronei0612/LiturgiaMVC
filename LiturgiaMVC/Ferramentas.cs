@@ -159,7 +159,20 @@ namespace LiturgiaMVC
                     "strings_sol#, " + Variaveis.pastaSonsStrings + "strings sol_.ogg" + Environment.NewLine +
                     "strings_la, " + Variaveis.pastaSonsStrings + "strings la.ogg" + Environment.NewLine +
                     "strings_la#, " + Variaveis.pastaSonsStrings + "strings la_.ogg" + Environment.NewLine +
-                    "strings_si, " + Variaveis.pastaSonsStrings + "strings si.ogg" + Environment.NewLine
+                    "strings_si, " + Variaveis.pastaSonsStrings + "strings si.ogg" + Environment.NewLine +
+                    Environment.NewLine +
+                    "strings_do_baixo, " + Variaveis.pastaSonsStrings + "strings do baixo.ogg" + Environment.NewLine +
+                    "strings_do#_baixo, " + Variaveis.pastaSonsStrings + "strings do_ baixo.ogg" + Environment.NewLine +
+                    "strings_re_baixo, " + Variaveis.pastaSonsStrings + "strings re baixo.ogg" + Environment.NewLine +
+                    "strings_re#_baixo, " + Variaveis.pastaSonsStrings + "strings re_ baixo.ogg" + Environment.NewLine +
+                    "strings_mi_baixo, " + Variaveis.pastaSonsStrings + "strings mi baixo.ogg" + Environment.NewLine +
+                    "strings_fa_baixo, " + Variaveis.pastaSonsStrings + "strings fa baixo.ogg" + Environment.NewLine +
+                    "strings_fa#_baixo, " + Variaveis.pastaSonsStrings + "strings fa_ baixo.ogg" + Environment.NewLine +
+                    "strings_sol_baixo, " + Variaveis.pastaSonsStrings + "strings sol baixo.ogg" + Environment.NewLine +
+                    "strings_sol#_baixo, " + Variaveis.pastaSonsStrings + "strings sol_ baixo.ogg" + Environment.NewLine +
+                    "strings_la_baixo, " + Variaveis.pastaSonsStrings + "strings la baixo.ogg" + Environment.NewLine +
+                    "strings_la#_baixo, " + Variaveis.pastaSonsStrings + "strings la_ baixo.ogg" + Environment.NewLine +
+                    "strings_si_baixo, " + Variaveis.pastaSonsStrings + "strings si baixo.ogg" + Environment.NewLine
                 );
             }
 
