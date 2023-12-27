@@ -5,6 +5,7 @@ var _acompanhamentoSolo = false;
 var _acompanhamentoFull = false;
 var _acompanhamentoMao = false;
 var _grupoNotas;
+var _grupoNotasStrings;
 var _volume = 0.9;
 var _instrumentoSelecionado = 'orgao';
 
@@ -29,6 +30,12 @@ var pingPongDelay = new Pizzicato.Effects.PingPongDelay({
 	time: 0.4,
 	mix: 0.5
 });
+
+//for (const [key] of Object.entries(acordes)) {
+//	var obj = `${key}`;
+//	if (obj.includes('orgao'))
+//		acordes[obj].addEffect();
+//}
 
 deixarAcompanhamentoSelecionado('full');
 
@@ -101,10 +108,13 @@ function criarAcorde(acorde, grupoNotas) {
 	return grupoNotas;
 }
 
-function verificarGrupoNotasInstanciado(grupoNotas) {
+function verificarGrupoNotasInstanciado(grupoNotas, adicionarEfeito = true) {
 	if (grupoNotas == null) {
 		grupoNotas = new Pizzicato.Group();
-		grupoNotas.addEffect(flanger);
+
+		if (adicionarEfeito)
+			grupoNotas.addEffect(flanger);
+
 		grupoNotas.volume = _volume;
 	}
 
@@ -116,19 +126,32 @@ function verificarAcompanhamentoEtocar(acorde) {
 
 	_acordeAntesSelecionado = acorde;
 
-	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-
 	if (_instrumentoSelecionado == 'orgao') {
+		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 		_grupoNotas = criarAcorde(acorde, _grupoNotas);
-		_grupoNotas.effects[0].mix = 0.2;
+		//_grupoNotas.effects[0].mix = 0.2;
+		_grupoNotas.play();
 	}
-	else {
-		acorde = acorde.replace('m', '').replace('7', '');
-		_grupoNotas.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
-		_grupoNotas.effects[0].mix = 0;
-	}
+	else if (_instrumentoSelecionado == 'orgaopad') {
+		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+		_grupoNotas = criarAcorde(acorde, _grupoNotas);
 
-	_grupoNotas.play();
+		acorde = acorde.replace('m', '').replace('7', '');
+		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
+		_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
+
+		_grupoNotasStrings.play();
+		_grupoNotas.play();
+	}		
+
+	else if (_instrumentoSelecionado == 'strings') {
+		acorde = acorde.replace('m', '').replace('7', '');
+		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
+		_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
+
+		_grupoNotasStrings.play();
+		//_grupoNotas.effects[0].mix = 0;
+	}
 }
 
 function pararOsAcordes(removerSons = false) {
@@ -139,6 +162,16 @@ function pararOsAcordes(removerSons = false) {
 			var sons = _grupoNotas.sounds.length;
 			for (let i = sons - 1; i > -1; i--)
 				_grupoNotas.removeSound(_grupoNotas.sounds[i]);
+		}
+	}
+
+	if (_grupoNotasStrings != null) {
+		_grupoNotasStrings.stop();
+
+		if (removerSons) {
+			var sons = _grupoNotasStrings.sounds.length;
+			for (let i = sons - 1; i > -1; i--)
+				_grupoNotasStrings.removeSound(_grupoNotasStrings.sounds[i]);
 		}
 	}
 }
@@ -181,6 +214,9 @@ function alterarVolume(volume, padrao) {
 
 	if (_grupoNotas != null)
 		_grupoNotas.volume = _volume;
+
+	if (_grupoNotasStrings != null)
+		_grupoNotasStrings.volume = _volume;
 
 	var numero = document.getElementById('volumeTexto');
 
