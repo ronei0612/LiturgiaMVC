@@ -270,21 +270,21 @@ function mudarTomMenor(acordeIndex) {
 	document.getElementById('textoAcordeMenor').innerText = acordesTons[acordeIndex + 12];
 }
 
-function aumentarTom(aumentar) {
+function aumentarTom(aumentar, quant) {
 	var tomElement = document.getElementById("tomSelect");
 	var tomSelecionadoIndex = tomElement.selectedIndex;
 
 	if (aumentar) {
-		if (tomSelecionadoIndex == tomElement.length - 1)
+		if (tomSelecionadoIndex == tomElement.length - quant)
 			tomElement.value = acordesTons[0];
 		else
-			tomElement.value = acordesTons[tomSelecionadoIndex + 1];
+			tomElement.value = acordesTons[tomSelecionadoIndex + quant];
 	}
 	else {
 		if (tomSelecionadoIndex == 0)
-			tomElement.value = acordesTons[tomElement.length - 1];
+			tomElement.value = acordesTons[tomElement.length - quant];
 		else
-			tomElement.value = acordesTons[tomSelecionadoIndex - 1];
+			tomElement.value = acordesTons[tomSelecionadoIndex - quant];
 	}
 
 	mudarTom(tomElement.value);
