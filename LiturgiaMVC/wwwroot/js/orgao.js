@@ -290,6 +290,10 @@ function aumentarTom(aumentar, quant) {
 	mudarTom(tomElement.value);
 }
 
+function mostrarTextoArquivoCarregado(texto) {
+	console.log(texto);
+}
+
 document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
 	var semacentos = document.getElementById('instrumentoSelect').value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
 	_instrumentoSelecionado = semacentos.toLowerCase();

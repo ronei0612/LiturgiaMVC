@@ -109,6 +109,7 @@
                         </li>
                     </ul>
                 </div>
+
                 <div id="modalGravar">
                     <h4>Gravação de Acordes</h4>
                     Selecionar gravação:
@@ -131,9 +132,14 @@
                         </svg>
                     </button>
                     <br /><br />
+
+                    <label for="formFile" class="form-label">Importar arquivo:</label>
+                    <input class="form-control" type="file" id="formFile" onchange="escolherArquivo(event)">
+                    <br />
+
                     <button class="btn btn-primary" type="button" onclick="escolherGravacao()">
                         Iniciar
-                    </button>                    
+                    </button>
                     <br /><br />
                 </div>
             </div>
@@ -141,7 +147,6 @@
     </div>
 
     <div>
-
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -233,6 +238,25 @@
             novaGravacao.add(option);
 
             novaGravacao.selectedIndex = novaGravacao.length - 1;
+        }
+
+        function escolherArquivo(event) {
+            const arquivos = event.target.files;
+
+            if (arquivos.length > 0) {
+                document.getElementById('modal01').style.display = 'none';
+                let reader = new FileReader();
+
+                reader.onload = (evt) => {
+                    var texto = evt.target.result;
+
+                    document.getElementById('orgaoBox').style.display = 'none';
+                    document.getElementById('gravacaoBox').style.display = 'block';
+                    mostrarTextoArquivoCarregado(texto);
+                };
+
+                reader.readAsText(arquivos[0]);
+            }
         }
     </script>
 </body>

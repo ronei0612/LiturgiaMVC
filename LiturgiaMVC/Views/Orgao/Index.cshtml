@@ -13,7 +13,7 @@
 
 <div id="tracker-container">
 	<div id="container" class="container d-sm-flex" style="display:none">
-		<div class="box">
+		<div class="box" id="orgaoBox">
 			<div class="d-flex align-items-center centralizado-no-container">
 				<div class="d-flex align-items-center">
 					&nbsp;
@@ -118,8 +118,13 @@
 				</tr>
 			</table>
 		</div>
-		<div class="box">
-		<partial name="~/Views/Bateria/Index.cshtml" />
+
+		<div class="box" id="gravacaoBox" style="display:none">
+			<partial name="~/Views/Orgao/Gravacao.cshtml" />
+		</div>
+
+		<div class="box" id="bateriaBox">
+			<partial name="~/Views/Bateria/Index.cshtml" />
 		</div>
 	</div>
 </div>
