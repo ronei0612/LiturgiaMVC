@@ -198,6 +198,8 @@
 		document.getElementById('exitfullscreen').style.display = 'flex';
 		document.getElementById('fullscreen').style.display = 'none';
 		document.getElementById('trackerControls').style.display = 'none';
+		document.getElementById('divBateriaSwitch').style.display = 'none';
+		document.getElementById('bateria').style.display = 'none';
 
 		var el = document.body;
 		var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
@@ -215,6 +217,7 @@
 		document.getElementById('fullscreen').style.display = 'flex';
 		document.exitFullscreen();
 		document.getElementById('navBar').style.display = 'block';
+		document.getElementById('divBateriaSwitch').style.display = 'block';
 	}
 
 	function esperarAudios(tempoMiliseg) {
