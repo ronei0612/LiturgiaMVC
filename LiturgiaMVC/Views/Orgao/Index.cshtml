@@ -241,4 +241,22 @@
 			document.getElementById('acorde_9').style.display = 'none';
 		}
 	}
+
+	var timer;
+	function aumentarTom_click(aumentar) {
+		if (timer)
+			clearTimeout(timer);
+		timer = setTimeout(function () {
+			aumentarTom(aumentar, 1);
+		}, 250);
+	}
+
+	function aumentarTom_clickDuplo(aumentar) {
+		clearTimeout(timer);
+		aumentarTom(aumentar, 2);
+	}
+
+	function gravar() {
+
+	}
 </script>
