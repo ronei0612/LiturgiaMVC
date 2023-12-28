@@ -73,11 +73,11 @@
         </nav>
     </header>
 
-    <div id="id01" class="w3-modal">
+    <div id="modal01" class="w3-modal">
         <div class="w3-modal-content">
             <div class="w3-container">
-                <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">
-                    <button class="btn btn-close" type="button" onclick="document.getElementById('id01').style.display='none'">
+                <span onclick="document.getElementById('modal01').style.display='none'" class="w3-button w3-display-topright">
+                    <button class="btn btn-close" type="button" onclick="document.getElementById('modal01').style.display='none'">
                     </button>
                 </span>
                 <div id="selectInstrumento">
@@ -109,6 +109,33 @@
                         </li>
                     </ul>
                 </div>
+                <div id="modalGravar">
+                    <h4>Gravação de Acordes</h4>
+                    Selecionar gravação:
+                    <br />
+                    <select class="form-control" tyle="height:3m" id="selectGravacao">
+                        <option selected value=""></option>
+                    </select>
+
+                    <button class="btn btn-success" type="button" onclick="novaGravacao()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                        </svg>
+                    </button>
+
+                    <button class="btn btn-danger" type="button" onclick="deletarGravacao()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                        </svg>
+                    </button>
+                    <br /><br />
+                    <button class="btn btn-primary" type="button" onclick="escolherGravacao()">
+                        Iniciar
+                    </button>                    
+                    <br /><br />
+                </div>
             </div>
         </div>
     </div>
@@ -131,20 +158,28 @@
     <script>
         $(window).click(function (e) {
             if (e.target.className == 'w3-modal')
-                document.getElementById('id01').style.display = 'none';
+                document.getElementById('modal01').style.display = 'none';
         });
 
         function mostrarModal(nome){
-            document.getElementById('id01').style.display = 'block';
+            document.getElementById('modal01').style.display = 'block';
 
             if (nome == 'opcoes') {
-                document.getElementById('selectOpcoes').style.display = 'block';
                 document.getElementById('selectInstrumento').style.display = 'none';
+                document.getElementById('modalGravar').style.display = 'none';
+                document.getElementById('selectOpcoes').style.display = 'block';
             }
 
             else if (nome == 'instrumento') {
                 document.getElementById('selectOpcoes').style.display = 'none';
+                document.getElementById('modalGravar').style.display = 'none';
                 document.getElementById('selectInstrumento').style.display = 'block';
+            }
+
+            else if (nome == 'gravar') {
+                document.getElementById('selectOpcoes').style.display = 'none';
+                document.getElementById('selectInstrumento').style.display = 'none';
+                document.getElementById('modalGravar').style.display = 'block';
             }
         }
 
@@ -153,7 +188,7 @@
             var bateriaSelecionado = document.getElementById('selectRitmo').value;
 
             document.getElementById('titulo').innerText = instrumentoSelecionado + '+' + bateriaSelecionado + ' ▼';
-            document.getElementById('id01').style.display = 'none';
+            document.getElementById('modal01').style.display = 'none';
 
             if (bateria)
                 if (bateriaSelecionado == '')
@@ -168,6 +203,36 @@
                 document.getElementById('measureLength').value = 24;
                 bpmElement.dispatchEvent(new Event('change'));
             }
+        }
+
+        function escolherGravacao() {
+            var gravacaoSelecionada = document.getElementById('selectGravacao').value;
+
+            if (gravacaoSelecionada != '')
+                alert(gravacaoSelecionada);
+
+            document.getElementById('modal01').style.display = 'none';
+        }
+
+        function deletarGravacao() {
+            var gravacaoSelecionada = document.getElementById('selectGravacao');
+
+            if (gravacaoSelecionada.value != '') {
+                if (confirm('Apagar gravação?\n' + gravacaoSelecionada.value))
+                    gravacaoSelecionada.remove(gravacaoSelecionada.selectedIndex);
+            }
+        }
+
+        function novaGravacao() {
+            var novaGravacao = document.getElementById("selectGravacao");
+            var option = document.createElement("option");
+
+            let nome = prompt('Nome da nova gravação');
+
+            option.text = nome;
+            novaGravacao.add(option);
+
+            novaGravacao.selectedIndex = novaGravacao.length - 1;
         }
     </script>
 </body>

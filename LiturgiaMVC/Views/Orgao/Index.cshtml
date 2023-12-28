@@ -58,7 +58,7 @@
 					<td></td>
 					<td></td>
 					<td>
-						<button id="gravar" data-playing="false" class="botao parar" onclick="escolherAcorde('', this)">
+						<button id="gravar" data-playing="false" class="botao parar" onclick="mostrarModal('gravar')">
 							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 18 18">
 								<circle cx="8" cy="8" r="8" />
 							</svg>
@@ -221,11 +221,11 @@
 		}, tempoMiliseg)
 	}
 
-	function deixarTomSelecionado(tom){
+	function deixarTomSelecionado(tom) {
 		document.getElementById('tomSelect').value = tom;
 	}
 
-	function selecionarTomMenor(selecionadoMenor){
+	function selecionarTomMenor(selecionadoMenor) {
 		if (selecionadoMenor) {
 			document.getElementById('textoAcordeMenor').style.color = 'black';
 			document.getElementById('tomSelect').style.color = 'grey';
