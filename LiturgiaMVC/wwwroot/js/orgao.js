@@ -291,7 +291,14 @@ function aumentarTom(aumentar, quant) {
 }
 
 function mostrarTextoArquivoCarregado(texto) {
-	document.getElementById('textoCifras').contentDocument.body.innerHTML = texto;
+	var frame = document.getElementById('textoCifras');
+	frame.contentDocument.body.innerHTML = texto;
+
+	//[].forEach.call(frame.contentDocument.getElementsByTagName("b"), function (el) {
+	//	el.addEventListener("click", function (e, idx) {
+	//		alert(e.target.textContent);
+	//	});
+	//});
 }
 
 document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
