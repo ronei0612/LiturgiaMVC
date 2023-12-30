@@ -291,7 +291,7 @@ function aumentarTom(aumentar, quant) {
 }
 
 function mostrarTextoArquivoCarregado(texto) {
-	console.log(texto);
+	document.getElementById('textoCifras').contentDocument.body.innerHTML = texto;
 }
 
 document.getElementById('instrumentoSelect').addEventListener('change', (e) => {

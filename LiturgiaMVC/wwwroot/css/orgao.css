@@ -212,6 +212,10 @@
 	font-weight: bold;
 }
 
+#textoCifras {
+	font-weight: normal;
+}
+
 .orgao-background {
 	background-image: url('../orgao-background.webp');
 	background-position: center; /* Center the image */

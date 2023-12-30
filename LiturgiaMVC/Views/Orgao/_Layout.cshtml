@@ -111,28 +111,50 @@
                 </div>
 
                 <div id="modalGravar">
-                    <h4>Gravação de Acordes</h4>
-                    Selecionar gravação:
+                    <h4>Leitura de Acordes</h4>
+                    <div id="botoesGravacao" style="display: none">
+                        Selecionar gravação:
+                        <br />
+                        <select class="form-control" tyle="height:3m" id="selectGravacao">
+                            <option selected value=""></option>
+                        </select>
+
+                        <button class="btn btn-success" type="button" onclick="novaGravacao()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                            </svg>
+                        </button>
+
+                        <button class="btn btn-danger" type="button" onclick="deletarGravacao()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                            </svg>
+                        </button>
+                        <br /><br />
+
+                    </div>
+                    <label for="musicaSearch">Pesquisar música:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon1" name="texto" id="musicaSearch">
+                        <span class="input-group-text" id="basic-addon1" onclick="pesquisarMusica()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                            </svg>
+                        </span>
+                    </div>
                     <br />
-                    <select class="form-control" tyle="height:3m" id="selectGravacao">
-                        <option selected value=""></option>
-                    </select>
-
-                    <button class="btn btn-success" type="button" onclick="novaGravacao()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
-                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                        </svg>
-                    </button>
-
-                    <button class="btn btn-danger" type="button" onclick="deletarGravacao()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                        </svg>
-                    </button>
-                    <br /><br />
-
+                    <div id="linksCifraClubList" style="display:block">
+                        <div class="list-group" id="lista">
+                            
+                        </div>
+                    </div>
+                    <div id="escreverCifraTextArea">
+                        <label for="musicaAcordesTextArea">Escrever cifra:</label>
+                        <textarea class="form-control" id="musicaAcordesTextArea" rows="9"></textarea>
+                    </div>
+                    <br />
                     <label for="formFile" class="form-label">Importar arquivo:</label>
                     <input class="form-control" type="file" id="formFile" onchange="escolherArquivo(event)">
                     <br />
@@ -211,10 +233,10 @@
         }
 
         function escolherGravacao() {
-            var gravacaoSelecionada = document.getElementById('selectGravacao').value;
+            //var gravacaoSelecionada = document.getElementById('selectGravacao').value;
 
-            if (gravacaoSelecionada != '')
-                alert(gravacaoSelecionada);
+            //if (gravacaoSelecionada != '')
+            //    alert(gravacaoSelecionada);
 
             document.getElementById('modal01').style.display = 'none';
         }
@@ -257,6 +279,53 @@
 
                 reader.readAsText(arquivos[0]);
             }
+        }
+
+        function pesquisarMusica() {
+            document.getElementById('lista').innerHTML = '';
+            var textoPesquisa = document.getElementById('musicaSearch').value;
+            
+            $.ajax({
+                url: "Orgao/Pesquisar?texto=" + textoPesquisa, type: "post", dataType: "json",
+                success: function (data) {
+                    if (data.success) {
+                        document.getElementById('escreverCifraTextArea').style.display = 'none';
+                        document.getElementById('linksCifraClubList').style.display = 'block';
+                        var titulosMusicas = data.lista;
+                        var linksMusicas = data.links;
+
+                        if (titulosMusicas.length > 0) {
+                            for (i = 0; i < titulosMusicas.length; i += 1)
+                                $('#lista').append('<div class="list-group-item list-group-item-action" onclick="escolherLink(\'' + linksMusicas[i] + '\')">' + titulosMusicas[i] + '</div>');
+                        }
+
+                        else
+                            alert('Não encontrado nenhuma cifra');
+                    }
+                    else
+                        alert(data.message);
+                }
+            });
+        }
+
+        function escolherLink(url) {
+            $.ajax({
+                url: "Orgao/DownloadSite?url=" + url, type: "post", dataType: "json",
+                success: function (data) {
+                    if (data.success) {
+                        document.getElementById('escreverCifraTextArea').style.display = 'block';
+                        document.getElementById('linksCifraClubList').style.display = 'none';
+                        var cifra = data.message;
+                        document.getElementById('musicaSearch').value = "";
+                        document.getElementById('orgaoBox').style.display = 'none';
+                        document.getElementById('gravacaoBox').style.display = 'block';
+                        document.getElementById('modal01').style.display = 'none';
+                        mostrarTextoArquivoCarregado(cifra);
+                    }
+                    else
+                        alert(data.message);
+                }
+            });
         }
     </script>
 </body>
