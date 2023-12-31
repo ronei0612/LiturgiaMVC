@@ -82,16 +82,28 @@
                 </span>
                 <div id="selectInstrumento">
                     <br />
-                    Acompanhamento:
+
+                    Instrumento:
                     <br />
-                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento()" id="instrumentoSelect">
+                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento('')" id="instrumentoSelect">
                         <option value="Órgão">Órgão</option>
                         <option value="ÓrgãoPad">ÓrgãoPad</option>
                         <option value="Strings">Strings</option>
                     </select>
                     <br />
+
+                    Cravo:
+                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento('cravo')" id="selectCravo">
+                        <option selected value=""></option>
+                        <option value="2/4">2/4</option>
+                        <option value="3/4">3/4</option>
+                        <option value="4/4">4/4</option>
+                        <option value="6/8">6/8</option>
+                    </select>
+                    <br />
+
                     Bateria:
-                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento(true)" id="selectRitmo">
+                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento('bateria')" id="selectRitmo">
                         <option selected value=""></option>
                     </select>
                     <br />
@@ -148,26 +160,43 @@
             }
         }
 
-        function selecionarInstrumento(bateria) {
+        function selecionarInstrumento(acompanhamento) {
             var instrumentoSelecionado = document.getElementById('instrumentoSelect').value;
-            var bateriaSelecionado = document.getElementById('selectRitmo').value;
+            var bateriaSelect = document.getElementById('selectRitmo');
+            var cravoSelect = document.getElementById('selectCravo');
 
-            document.getElementById('titulo').innerText = instrumentoSelecionado + '+' + bateriaSelecionado + ' ▼';
-            document.getElementById('id01').style.display = 'none';
+            if (acompanhamento == 'bateria')
+                cravoSelect.selectedIndex = 0;
+            else if (acompanhamento == 'cravo')
+                bateriaSelect.selectedIndex = 0;
 
-            if (bateria)
-                if (bateriaSelecionado == '')
-                    document.getElementById('bateriaBotoes').style.display='none';
-                else
-                    document.getElementById('bateriaBotoes').style.display = 'block';
-
-            if (bateriaSelecionado == '6/8') {
-                var bpmElement = document.getElementById('bpm');
-                bpmElement.value = 70;
-                document.getElementById('bpmRange').value = 70;
-                document.getElementById('measureLength').value = 24;
-                bpmElement.dispatchEvent(new Event('change'));
+            if (cravoSelect.value != '') {
+                document.getElementById('titulo').innerText = instrumentoSelecionado + '+' + cravoSelect.value + ' ▼';
+                document.getElementById('ritmoElementos').style.display = 'block';
+                document.getElementById('cravoBotoes').style.display = 'block';
+                document.getElementById('bateriaBotoes').style.display = 'none';
             }
+            else if (bateriaSelect.value != '') {
+                document.getElementById('titulo').innerText = instrumentoSelecionado + '+' + bateriaSelect.value + ' ▼';
+                document.getElementById('ritmoElementos').style.display = 'block';
+                document.getElementById('bateriaBotoes').style.display = 'block';
+                document.getElementById('cravoBotoes').style.display = 'none';
+
+                if (bateriaSelect.value == '6/8') {
+                    var bpmElement = document.getElementById('bpm');
+                    bpmElement.value = 70;
+                    document.getElementById('bpmRange').value = 70;
+                    document.getElementById('measureLength').value = 24;
+                    bpmElement.dispatchEvent(new Event('change'));
+                }
+            }
+            else {
+                document.getElementById('titulo').innerText = instrumentoSelecionado + ' ▼';
+                document.getElementById('cravoBotoes').style.display = 'none';
+                document.getElementById('bateriaBotoes').style.display = 'none';
+            }
+
+            document.getElementById('id01').style.display = 'none';            
         }
     </script>
 </body>
