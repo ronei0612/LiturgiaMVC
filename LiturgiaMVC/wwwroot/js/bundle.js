@@ -19,6 +19,8 @@ function setBeats(ritmoMatrix) {//compasso
         measureLengthElement.value = 12;
     else if (numerosIndex.includes(96) || numerosIndex.includes(110))
         measureLengthElement.value = 6;
+    else
+        measureLengthElement.value = 16;
 
     var novoEvento = new Event('change');
     measureLengthElement.dispatchEvent(novoEvento);
@@ -31,10 +33,12 @@ function fazerViradaBateria() {
 
 function selecionarRitmo(ritmo, virada = false) {
     if (_trocarRitmo) {
-        fazerViradaBateria();
+        if (ritmo.includes('cravo') == false) {
+            fazerViradaBateria();
 
-        if (virada == false)
-            _trocarRitmo = false;
+            if (virada == false)
+                _trocarRitmo = false;
+        }
 
         var ritmoMatrix = ritmo;
         if (ritmo.includes('_'))
@@ -1224,6 +1228,24 @@ function setupBaseEvents() {
         pressionarBotao(botao);
     });
 
+    document.getElementById('cravoRitmo1').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        pressionarBotao(botao);
+        mudarRitmo('cravoRitmo1');
+    });
+
+    document.getElementById('cravoRitmo2').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        pressionarBotao(botao);
+        mudarRitmo('cravoRitmo2');
+    });
+
+    document.getElementById('cravoRitmo3').addEventListener('click', function (e) {
+        var botao = document.activeElement;
+        pressionarBotao(botao);
+        mudarRitmo('cravoRitmo3');
+    });
+
     // var initializedCtx;
     document.getElementById('play').addEventListener('click', function (e) {
         let storage = new tracksLocalStorage();
@@ -1253,6 +1275,7 @@ function setupBaseEvents() {
             bpmRange_valor = bpmRange_valor / 2;
 
         document.getElementById('light').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
+        document.getElementById('lightCravo').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';        
 
         getSetAudioOptions.setTrackerControls();
         if (schedule.running) {
@@ -1433,134 +1456,7 @@ function tracksLocalStorage() {
 },{"./default-track":14,"./get-set-controls":15,"./simple-tracker":16,"adsr-gain-node":1,"file-saver":3,"get-set-form-values":5,"load-sample-set":7,"select-element":10}],14:[function(require,module,exports){
 module.exports = {
   beat: [
-        { rowId: "0", colId: "0", enabled: false },
-        { rowId: "0", colId: "1", enabled: false },
-        { rowId: "0", colId: "2", enabled: false },
-        { rowId: "0", colId: "3", enabled: false },
-        { rowId: "0", colId: "4", enabled: false },
-        { rowId: "0", colId: "5", enabled: false },
-        { rowId: "0", colId: "6", enabled: false },
-        { rowId: "0", colId: "7", enabled: false },
-        { rowId: "1", colId: "0", enabled: false },
-        { rowId: "1", colId: "1", enabled: false },
-        { rowId: "1", colId: "2", enabled: false },
-        { rowId: "1", colId: "3", enabled: false },
-        { rowId: "1", colId: "4", enabled: false },
-        { rowId: "1", colId: "5", enabled: false },
-        { rowId: "1", colId: "6", enabled: false },
-        { rowId: "1", colId: "7", enabled: false },
-        { rowId: "2", colId: "0", enabled: false },
-        { rowId: "2", colId: "1", enabled: false },
-        { rowId: "2", colId: "2", enabled: false },
-        { rowId: "2", colId: "3", enabled: false },
-        { rowId: "2", colId: "4", enabled: false },
-        { rowId: "2", colId: "5", enabled: false },
-        { rowId: "2", colId: "6", enabled: false },
-        { rowId: "2", colId: "7", enabled: false },
-        { rowId: "3", colId: "0", enabled: false },
-        { rowId: "3", colId: "1", enabled: false },
-        { rowId: "3", colId: "2", enabled: false },
-        { rowId: "3", colId: "3", enabled: false },
-        { rowId: "3", colId: "4", enabled: false },
-        { rowId: "3", colId: "5", enabled: false },
-        { rowId: "3", colId: "6", enabled: false },
-        { rowId: "3", colId: "7", enabled: false },
-        { rowId: "4", colId: "0", enabled: false },
-        { rowId: "4", colId: "1", enabled: false },
-        { rowId: "4", colId: "2", enabled: false },
-        { rowId: "4", colId: "3", enabled: false },
-        { rowId: "4", colId: "4", enabled: false },
-        { rowId: "4", colId: "5", enabled: false },
-        { rowId: "4", colId: "6", enabled: false },
-        { rowId: "4", colId: "7", enabled: false },
-        { rowId: "5", colId: "0", enabled: false },
-        { rowId: "5", colId: "1", enabled: false },
-        { rowId: "5", colId: "2", enabled: false },
-        { rowId: "5", colId: "3", enabled: false },
-        { rowId: "5", colId: "4", enabled: false },
-        { rowId: "5", colId: "5", enabled: false },
-        { rowId: "5", colId: "6", enabled: false },
-        { rowId: "5", colId: "7", enabled: false },
-        { rowId: "6", colId: "0", enabled: false },
-        { rowId: "6", colId: "1", enabled: false },
-        { rowId: "6", colId: "2", enabled: false },
-        { rowId: "6", colId: "3", enabled: false },
-        { rowId: "6", colId: "4", enabled: false },
-        { rowId: "6", colId: "5", enabled: false },
-        { rowId: "6", colId: "6", enabled: false },
-        { rowId: "6", colId: "7", enabled: false },
-        { rowId: "7", colId: "0", enabled: false },
-        { rowId: "7", colId: "1", enabled: false },
-        { rowId: "7", colId: "2", enabled: false },
-        { rowId: "7", colId: "3", enabled: false },
-        { rowId: "7", colId: "4", enabled: false },
-        { rowId: "7", colId: "5", enabled: false },
-        { rowId: "7", colId: "6", enabled: false },
-        { rowId: "7", colId: "7", enabled: false },
-        { rowId: "8", colId: "0", enabled: false },
-        { rowId: "8", colId: "1", enabled: false },
-        { rowId: "8", colId: "2", enabled: false },
-        { rowId: "8", colId: "3", enabled: false },
-        { rowId: "8", colId: "4", enabled: false },
-        { rowId: "8", colId: "5", enabled: false },
-        { rowId: "8", colId: "6", enabled: false },
-        { rowId: "8", colId: "7", enabled: false },
-        { rowId: "9", colId: "0", enabled: false },
-        { rowId: "9", colId: "1", enabled: false },
-        { rowId: "9", colId: "2", enabled: false },
-        { rowId: "9", colId: "3", enabled: false },
-        { rowId: "9", colId: "4", enabled: false },
-        { rowId: "9", colId: "5", enabled: false },
-        { rowId: "9", colId: "6", enabled: false },
-        { rowId: "9", colId: "7", enabled: false },
-        { rowId: "10", colId: "0", enabled: false },
-        { rowId: "10", colId: "1", enabled: false },
-        { rowId: "10", colId: "2", enabled: false },
-        { rowId: "10", colId: "3", enabled: false },
-        { rowId: "10", colId: "4", enabled: false },
-        { rowId: "10", colId: "5", enabled: false },
-        { rowId: "10", colId: "6", enabled: false },
-        { rowId: "10", colId: "7", enabled: false },
-        { rowId: "11", colId: "0", enabled: false },
-        { rowId: "11", colId: "1", enabled: false },
-        { rowId: "11", colId: "2", enabled: false },
-        { rowId: "11", colId: "3", enabled: false },
-        { rowId: "11", colId: "4", enabled: false },
-        { rowId: "11", colId: "5", enabled: false },
-        { rowId: "11", colId: "6", enabled: false },
-        { rowId: "11", colId: "7", enabled: false },
-        { rowId: "12", colId: "0", enabled: true },
-        { rowId: "12", colId: "1", enabled: true },
-        { rowId: "12", colId: "2", enabled: true },
-        { rowId: "12", colId: "3", enabled: true },
-        { rowId: "12", colId: "4", enabled: true },
-        { rowId: "12", colId: "5", enabled: true },
-        { rowId: "12", colId: "6", enabled: true },
-        { rowId: "12", colId: "7", enabled: true },
-        { rowId: "13", colId: "0", enabled: false },
-        { rowId: "13", colId: "1", enabled: false },
-        { rowId: "13", colId: "2", enabled: true },
-        { rowId: "13", colId: "3", enabled: false },
-        { rowId: "13", colId: "4", enabled: false },
-        { rowId: "13", colId: "5", enabled: false },
-        { rowId: "13", colId: "6", enabled: true },
-        { rowId: "13", colId: "7", enabled: false },
-        { rowId: "14", colId: "0", enabled: false },
-        { rowId: "14", colId: "1", enabled: false },
-        { rowId: "14", colId: "2", enabled: false },
-        { rowId: "14", colId: "3", enabled: false },
-        { rowId: "14", colId: "4", enabled: false },
-        { rowId: "14", colId: "5", enabled: false },
-        { rowId: "14", colId: "6", enabled: false },
-        { rowId: "14", colId: "7", enabled: false },
-        { rowId: "15", colId: "0", enabled: true },
-        { rowId: "15", colId: "1", enabled: false },
-        { rowId: "15", colId: "2", enabled: false },
-        { rowId: "15", colId: "3", enabled: false },
-        { rowId: "15", colId: "4", enabled: true },
-        { rowId: "15", colId: "5", enabled: false },
-        { rowId: "15", colId: "6", enabled: false },
-        { rowId: "15", colId: "7", enabled: false },
+        { rowId: "0", colId: "0", enabled: false }
   ],
   settings: {
     sampleSet:
