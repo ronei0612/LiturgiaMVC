@@ -1094,13 +1094,18 @@ function selecionarRitmo(ritmo, virada = false) {
 
         function mudarRitmo(ritmo) {
             _trocarRitmo = true;
-            var selectRitmo = document.getElementById('selectRitmo');
+
+            if (ritmo.includes('cravo'))
+                var selectRitmo = 'cravo_' + document.getElementById('selectCravo').value;
+            else
+                var selectRitmo = document.getElementById('selectRitmo').value;
 
             if (ritmo == '')
-                _ritmoSelecionado = selectRitmo.value;
+                _ritmoSelecionado = selectRitmo;
             else
-                _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
-
+                _ritmoSelecionado = selectRitmo + "_" + ritmo;
+            console.log(_ritmoSelecionado);
+            debugger;
             selecionarRitmo(_ritmoSelecionado);
         }
 
@@ -1151,8 +1156,21 @@ function selecionarRitmo(ritmo, virada = false) {
             }
         }
 
+        var jsonRitmoSelecionado = 'bateria';
 function setupBaseEvents() {
+    document.getElementById('selectCravo').addEventListener('change', function (e) {
+        if (jsonRitmoSelecionado == 'bateria') {
+            initializeSampleSet(ctx, './Sons/studio/samples_cravo.json', false);
+            jsonRitmoSelecionado = 'cravo';
+        }
+    });
+
     document.getElementById('selectRitmo').addEventListener('change', function (e) {
+        if (jsonRitmoSelecionado != 'bateria') {
+            initializeSampleSet(ctx, './Sons/studio/samples.json', false);
+            jsonRitmoSelecionado = 'bateria';
+        }
+
         var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
         
         if (ritmoSelecionado.length > 0)
