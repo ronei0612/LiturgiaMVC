@@ -6,58 +6,6 @@ var _viradaRitmo = '';
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
 
-
-function setBeats(ritmoMatrix) {//compasso
-    var numerosIndex = ritmosJson[ritmoMatrix];
-    var measureLengthElement = document.getElementById('measureLength');
-
-    if (numerosIndex.includes(323))
-        measureLengthElement.value = 24;
-    else if (numerosIndex.includes(219))
-        measureLengthElement.value = 16;
-    else if (numerosIndex.includes(167))
-        measureLengthElement.value = 12;
-    else if (numerosIndex.includes(96) || numerosIndex.includes(110))
-        measureLengthElement.value = 6;
-
-    var novoEvento = new Event('change');
-    measureLengthElement.dispatchEvent(novoEvento);
-}
-
-
-function fazerViradaBateria() {
-    _viradaRitmo = _ritmoSelecionado + '_fill';
-}
-
-function selecionarRitmo(ritmo, virada = false) {
-    if (_trocarRitmo) {
-        fazerViradaBateria();
-
-        if (virada == false)
-            _trocarRitmo = false;
-
-        var ritmoMatrix = ritmo;
-        if (ritmo.includes('_'))
-            ritmoMatrix = ritmo.split('_')[0];
-
-        setBeats(ritmoMatrix);
-
-        var tabelaBateria = document.getElementById('tracker-table');
-        var tdsAtivados = document.getElementsByClassName('tracker-enabled');
-
-        Array.from(tdsAtivados).forEach((tdAtivado) => {
-            tdAtivado.classList.remove('tracker-enabled');
-        });
-
-        var tdsAtivar = tabelaBateria.getElementsByTagName('td');
-        var numerosIndex = ritmosJson[ritmo];
-
-        numerosIndex.forEach((numeroIndex) => {
-            tdsAtivar[numeroIndex].classList.add('tracker-enabled');
-        });
-    }
-}
-
 (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s })({
     1: [function (require, module, exports) {
         function AdsrGainNode(ctx) {
@@ -1091,19 +1039,6 @@ function selecionarRitmo(ritmo, virada = false) {
             }
         }
 
-
-        function mudarRitmo(ritmo) {
-            _trocarRitmo = true;
-            var selectRitmo = document.getElementById('selectRitmo');
-
-            if (ritmo == '')
-                _ritmoSelecionado = selectRitmo.value;
-            else
-                _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
-
-            selecionarRitmo(_ritmoSelecionado);
-        }
-
         function routeGain(source) {
             let gain = new adsrGainNode(ctx);
             gain.mode = 'linearRampToValueAtTime';
@@ -1116,19 +1051,10 @@ function selecionarRitmo(ritmo, virada = false) {
             return gainNode;
         }
 
-        function pressionarBotao(botao) {
-            var botaoPressionadoAntes = document.getElementsByClassName('selecionadoDrum');
-            if (botaoPressionadoAntes.length > 0) {
-                var botaoPressionado = botaoPressionadoAntes[0];
-
-                if (botao == botaoPressionado)
-                fazerViradaBateria();
-                else
-                    botaoPressionado.classList.toggle('selecionadoDrum', false);
-
-                if (botao == '')
-                    stopBateria();
-            }
+        function runPressionarBotao(botao) {
+            var pararBateria = pressionarBotao(botao);
+            if (pararBateria)
+                stopBateria();
 
             if (botao != '') {
                 if (botao.id == 'prato') {
@@ -1153,120 +1079,33 @@ function selecionarRitmo(ritmo, virada = false) {
 
 function setupBaseEvents() {
     document.getElementById('selectRitmo').addEventListener('change', function (e) {
-        var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
-        
+        var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');        
         if (ritmoSelecionado.length > 0)
             ritmoSelecionado[0].classList.toggle('selecionadoDrum', false);
-        var botao = document.activeElement;
-        selecionarRitmo(botao.value);
+        _trocarRitmo = selecionarRitmo(document.activeElement.value, _trocarRitmo);
     });
 
-    document.getElementById('aro').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
-        mudarRitmo('aro');
-    });
-
-    document.getElementById('meiaLua').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
-        mudarRitmo('meiaLua');
-    });
-
-    document.getElementById('caixa').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
-        mudarRitmo('');
-    });
-
-    document.getElementById('brush').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
-        mudarRitmo('brush');
-    });
-
-    document.getElementById('ride').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
-        mudarRitmo('ride');
-    });
-
-    document.getElementById('chimbal').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
-        mudarRitmo('chimbal');
-    });
-
-    document.getElementById('play-pause_bateria').addEventListener('click', function (e) {
-        pressionarBotao('');
-    });
-
-    document.getElementById('prato').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
-    });
-
-    // var initializedCtx;
-    document.getElementById('play').addEventListener('click', function (e) {
-        let storage = new tracksLocalStorage();
-        let track = storage.getTrack();
-
-        schedule.measureLength = track.settings.measureLength;
-        schedule.stop();
-
-        schedule.runSchedule(getSetAudioOptions.options.bpm);
-    });
-
-    document.getElementById('pause').addEventListener('click', function (e) {
-        schedule.stop();
-    });
-
-    document.getElementById('stop').addEventListener('click', function (e) {
-        schedule.stop();
-        schedule = new simpleTracker(ctx, scheduleAudioBeat);
-    });
-
-    document.getElementById('bpm').addEventListener('change', function (e) {
-        var bpmRange_valor = document.getElementById('bpmRange').value;
-        bpmRange_valor = 60000 / bpmRange_valor;
-
-        var measureLength_valor = document.getElementById('measureLength').value;
-        if (measureLength_valor == 24)
-            bpmRange_valor = bpmRange_valor / 2;
-
-        document.getElementById('light').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
-
-        getSetAudioOptions.setTrackerControls();
-        if (schedule.running) {
-            schedule.stop();
-            schedule.runSchedule(getSetAudioOptions.options.bpm);
-        }
-    });
-
-    document.getElementById('bpmRange').addEventListener('input', function (e) {
-        var bpmRangeElem = document.getElementById('bpmRange');
-
-        var bpmElem = document.getElementById('bpm');
-        bpmElem.value = bpmRangeElem.value;
-
-        var novoEvento = new Event('change');
-        bpmElem.dispatchEvent(novoEvento);
-    });
-
+    document.getElementById('aro').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('aro', _trocarRitmo); });
+    document.getElementById('meiaLua').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('meiaLua', _trocarRitmo); });
+    document.getElementById('caixa').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('', _trocarRitmo); });
+    document.getElementById('brush').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('brush', _trocarRitmo); });
+    document.getElementById('ride').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('ride', _trocarRitmo); });
+    document.getElementById('chimbal').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('chimbal', _trocarRitmo); });
+    document.getElementById('play-pause_bateria').addEventListener('click', function (e) { runPressionarBotao(''); });
+    document.getElementById('prato').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); });
+    document.getElementById('bpm').addEventListener('change', function (e) { calcularBpm(); getSetAudioOptions.setTrackerControls(); if (schedule.running) { schedule.stop(); schedule.runSchedule(getSetAudioOptions.options.bpm); } });
+    document.getElementById('bpmRange').addEventListener('input', function (e) { alterarBpm(); });
     document.getElementById('measureLength').addEventListener('change', (e) => {
         let value = document.getElementById('measureLength').value;
         let length = parseInt(value);
-
         if (length < 1) return;
         schedule.measureLength = length;
-
         let track = schedule.getTrackerValues();
         setupTrackerHtml(currentSampleData, length);
         schedule.measureLength = length;
         schedule.loadTrackerValues(track);
         schedule.setupEvents();
     });
-
     $('.base').on('change', function () {
         getSetAudioOptions.setTrackerControls();
     });
@@ -1415,134 +1254,7 @@ function tracksLocalStorage() {
 },{"./default-track":14,"./get-set-controls":15,"./simple-tracker":16,"adsr-gain-node":1,"file-saver":3,"get-set-form-values":5,"load-sample-set":7,"select-element":10}],14:[function(require,module,exports){
 module.exports = {
   beat: [
-        { rowId: "0", colId: "0", enabled: false },
-        { rowId: "0", colId: "1", enabled: false },
-        { rowId: "0", colId: "2", enabled: false },
-        { rowId: "0", colId: "3", enabled: false },
-        { rowId: "0", colId: "4", enabled: false },
-        { rowId: "0", colId: "5", enabled: false },
-        { rowId: "0", colId: "6", enabled: false },
-        { rowId: "0", colId: "7", enabled: false },
-        { rowId: "1", colId: "0", enabled: false },
-        { rowId: "1", colId: "1", enabled: false },
-        { rowId: "1", colId: "2", enabled: false },
-        { rowId: "1", colId: "3", enabled: false },
-        { rowId: "1", colId: "4", enabled: false },
-        { rowId: "1", colId: "5", enabled: false },
-        { rowId: "1", colId: "6", enabled: false },
-        { rowId: "1", colId: "7", enabled: false },
-        { rowId: "2", colId: "0", enabled: false },
-        { rowId: "2", colId: "1", enabled: false },
-        { rowId: "2", colId: "2", enabled: false },
-        { rowId: "2", colId: "3", enabled: false },
-        { rowId: "2", colId: "4", enabled: false },
-        { rowId: "2", colId: "5", enabled: false },
-        { rowId: "2", colId: "6", enabled: false },
-        { rowId: "2", colId: "7", enabled: false },
-        { rowId: "3", colId: "0", enabled: false },
-        { rowId: "3", colId: "1", enabled: false },
-        { rowId: "3", colId: "2", enabled: false },
-        { rowId: "3", colId: "3", enabled: false },
-        { rowId: "3", colId: "4", enabled: false },
-        { rowId: "3", colId: "5", enabled: false },
-        { rowId: "3", colId: "6", enabled: false },
-        { rowId: "3", colId: "7", enabled: false },
-        { rowId: "4", colId: "0", enabled: false },
-        { rowId: "4", colId: "1", enabled: false },
-        { rowId: "4", colId: "2", enabled: false },
-        { rowId: "4", colId: "3", enabled: false },
-        { rowId: "4", colId: "4", enabled: false },
-        { rowId: "4", colId: "5", enabled: false },
-        { rowId: "4", colId: "6", enabled: false },
-        { rowId: "4", colId: "7", enabled: false },
-        { rowId: "5", colId: "0", enabled: false },
-        { rowId: "5", colId: "1", enabled: false },
-        { rowId: "5", colId: "2", enabled: false },
-        { rowId: "5", colId: "3", enabled: false },
-        { rowId: "5", colId: "4", enabled: false },
-        { rowId: "5", colId: "5", enabled: false },
-        { rowId: "5", colId: "6", enabled: false },
-        { rowId: "5", colId: "7", enabled: false },
-        { rowId: "6", colId: "0", enabled: false },
-        { rowId: "6", colId: "1", enabled: false },
-        { rowId: "6", colId: "2", enabled: false },
-        { rowId: "6", colId: "3", enabled: false },
-        { rowId: "6", colId: "4", enabled: false },
-        { rowId: "6", colId: "5", enabled: false },
-        { rowId: "6", colId: "6", enabled: false },
-        { rowId: "6", colId: "7", enabled: false },
-        { rowId: "7", colId: "0", enabled: false },
-        { rowId: "7", colId: "1", enabled: false },
-        { rowId: "7", colId: "2", enabled: false },
-        { rowId: "7", colId: "3", enabled: false },
-        { rowId: "7", colId: "4", enabled: false },
-        { rowId: "7", colId: "5", enabled: false },
-        { rowId: "7", colId: "6", enabled: false },
-        { rowId: "7", colId: "7", enabled: false },
-        { rowId: "8", colId: "0", enabled: false },
-        { rowId: "8", colId: "1", enabled: false },
-        { rowId: "8", colId: "2", enabled: false },
-        { rowId: "8", colId: "3", enabled: false },
-        { rowId: "8", colId: "4", enabled: false },
-        { rowId: "8", colId: "5", enabled: false },
-        { rowId: "8", colId: "6", enabled: false },
-        { rowId: "8", colId: "7", enabled: false },
-        { rowId: "9", colId: "0", enabled: false },
-        { rowId: "9", colId: "1", enabled: false },
-        { rowId: "9", colId: "2", enabled: false },
-        { rowId: "9", colId: "3", enabled: false },
-        { rowId: "9", colId: "4", enabled: false },
-        { rowId: "9", colId: "5", enabled: false },
-        { rowId: "9", colId: "6", enabled: false },
-        { rowId: "9", colId: "7", enabled: false },
-        { rowId: "10", colId: "0", enabled: false },
-        { rowId: "10", colId: "1", enabled: false },
-        { rowId: "10", colId: "2", enabled: false },
-        { rowId: "10", colId: "3", enabled: false },
-        { rowId: "10", colId: "4", enabled: false },
-        { rowId: "10", colId: "5", enabled: false },
-        { rowId: "10", colId: "6", enabled: false },
-        { rowId: "10", colId: "7", enabled: false },
-        { rowId: "11", colId: "0", enabled: false },
-        { rowId: "11", colId: "1", enabled: false },
-        { rowId: "11", colId: "2", enabled: false },
-        { rowId: "11", colId: "3", enabled: false },
-        { rowId: "11", colId: "4", enabled: false },
-        { rowId: "11", colId: "5", enabled: false },
-        { rowId: "11", colId: "6", enabled: false },
-        { rowId: "11", colId: "7", enabled: false },
-        { rowId: "12", colId: "0", enabled: true },
-        { rowId: "12", colId: "1", enabled: true },
-        { rowId: "12", colId: "2", enabled: true },
-        { rowId: "12", colId: "3", enabled: true },
-        { rowId: "12", colId: "4", enabled: true },
-        { rowId: "12", colId: "5", enabled: true },
-        { rowId: "12", colId: "6", enabled: true },
-        { rowId: "12", colId: "7", enabled: true },
-        { rowId: "13", colId: "0", enabled: false },
-        { rowId: "13", colId: "1", enabled: false },
-        { rowId: "13", colId: "2", enabled: true },
-        { rowId: "13", colId: "3", enabled: false },
-        { rowId: "13", colId: "4", enabled: false },
-        { rowId: "13", colId: "5", enabled: false },
-        { rowId: "13", colId: "6", enabled: true },
-        { rowId: "13", colId: "7", enabled: false },
-        { rowId: "14", colId: "0", enabled: false },
-        { rowId: "14", colId: "1", enabled: false },
-        { rowId: "14", colId: "2", enabled: false },
-        { rowId: "14", colId: "3", enabled: false },
-        { rowId: "14", colId: "4", enabled: false },
-        { rowId: "14", colId: "5", enabled: false },
-        { rowId: "14", colId: "6", enabled: false },
-        { rowId: "14", colId: "7", enabled: false },
-        { rowId: "15", colId: "0", enabled: true },
-        { rowId: "15", colId: "1", enabled: false },
-        { rowId: "15", colId: "2", enabled: false },
-        { rowId: "15", colId: "3", enabled: false },
-        { rowId: "15", colId: "4", enabled: true },
-        { rowId: "15", colId: "5", enabled: false },
-        { rowId: "15", colId: "6", enabled: false },
-        { rowId: "15", colId: "7", enabled: false },
+        { rowId: "0", colId: "0", enabled: false }
   ],
   settings: {
     sampleSet:
@@ -1695,10 +1407,10 @@ function tracker(ctx, scheduleAudioBeat) {
         if (beat.enabled) {
             if (_viradaRitmo != '') {
                 _trocarRitmo = true;
-                selecionarRitmo(_viradaRitmo, true);
+                _trocarRitmo = selecionarRitmo(_viradaRitmo, _trocarRitmo, true);
             }
             if (beat.colId == 0) {
-                selecionarRitmo(_ritmoSelecionado);
+                _trocarRitmo = selecionarRitmo(_ritmoSelecionado, _trocarRitmo);
                 _viradaRitmo = '';
                 }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
@@ -1729,6 +1441,7 @@ function tracker(ctx, scheduleAudioBeat) {
 
     this.interval;
     this.runSchedule = function (bpm) {
+        debugger;
         bpm = bpm * 4;
         this.running = true;
         this.bpm = bpm;
