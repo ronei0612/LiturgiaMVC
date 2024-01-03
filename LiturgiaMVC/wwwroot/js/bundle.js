@@ -1024,12 +1024,11 @@ var _sourceChimbalAberto;
 
             schedule.runSchedule(getSetAudioOptions.options.bpm);
         }
-
+        function runPressionarBotao(botao) {var pararBateria = pressionarBotao(botao); }
         function stopBateria() {
             schedule.stop();
             schedule = new simpleTracker(ctx, scheduleAudioBeat);
         }
-
         for (var i = 0, len = ritmosNomes.length; i < len; i++) {
             if (ritmosNomes[i].includes('_') == false) {
                 let opt = document.createElement('option');
@@ -1038,63 +1037,41 @@ var _sourceChimbalAberto;
                 _selecionarRitmoElem.appendChild(opt);
             }
         }
-
-        function routeGain(source) {
-            let gain = new adsrGainNode(ctx);
-            gain.mode = 'linearRampToValueAtTime';
-            let options = getSetAudioOptions.getTrackerControls();
-            let gainNode;
-
-            gain.setOptions(options);
-            gainNode = gain.getGainNode(0);
-            source.connect(gainNode);
-            return gainNode;
-        }
-
-        function runPressionarBotao(botao) {
-            var pararBateria = pressionarBotao(botao);
-            if (pararBateria)
-                stopBateria();
-
-            if (botao != '') {
-                if (botao.id == 'prato') {
-                    stopBateria();
-                    let pratoAtaque1 = buffers['prato1'].get();
-                    let node = routeGain(pratoAtaque1);
-                    node.connect(ctx.destination);
-
-                    let pratoAtaque2 = buffers['prato2'].get();
-                    let node2 = routeGain(pratoAtaque2);
-                    node2.connect(ctx.destination);
-                    pratoAtaque1.start();
-                    pratoAtaque2.start();
-                }
-                else if (botao != '') {
-                    if (!schedule.running)
-                        playBateria();
-                    botao.classList.toggle('selecionadoDrum', true);
-                }
-            }
-        }
-
 function setupBaseEvents() {
+
+    
+    
+
+    
+    
+        
     document.getElementById('selectRitmo').addEventListener('change', function (e) {
-        var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');        
+        var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
         if (ritmoSelecionado.length > 0)
             ritmoSelecionado[0].classList.toggle('selecionadoDrum', false);
         _trocarRitmo = selecionarRitmo(document.activeElement.value, _trocarRitmo);
     });
+        
+        
+    
 
-    document.getElementById('aro').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('aro', _trocarRitmo); });
-    document.getElementById('meiaLua').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('meiaLua', _trocarRitmo); });
-    document.getElementById('caixa').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('', _trocarRitmo); });
-    document.getElementById('brush').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('brush', _trocarRitmo); });
-    document.getElementById('ride').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('ride', _trocarRitmo); });
-    document.getElementById('chimbal').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('chimbal', _trocarRitmo); });
-    document.getElementById('play-pause_bateria').addEventListener('click', function (e) { runPressionarBotao(''); });
-    document.getElementById('prato').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); });
-    document.getElementById('bpm').addEventListener('change', function (e) { calcularBpm(); getSetAudioOptions.setTrackerControls(); if (schedule.running) { schedule.stop(); schedule.runSchedule(getSetAudioOptions.options.bpm); } });
-    document.getElementById('bpmRange').addEventListener('input', function (e) { alterarBpm(); });
+    
+    
+    
+
+    
+    
+    
+    
+
+    document.getElementById('bpm').addEventListener('change', function (e) {
+        calcularBpm(); 
+        getSetAudioOptions.setTrackerControls();
+        if (schedule.running) {
+            schedule.stop();
+            schedule.runSchedule(getSetAudioOptions.options.bpm);
+        }
+    });
     document.getElementById('measureLength').addEventListener('change', (e) => {
         let value = document.getElementById('measureLength').value;
         let length = parseInt(value);
@@ -1106,6 +1083,16 @@ function setupBaseEvents() {
         schedule.loadTrackerValues(track);
         schedule.setupEvents();
     });
+    document.getElementById('aro').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('aro', _trocarRitmo); });
+    document.getElementById('meiaLua').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('meiaLua', _trocarRitmo); });
+    document.getElementById('caixa').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('', _trocarRitmo); });
+    document.getElementById('brush').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('brush', _trocarRitmo); });
+    document.getElementById('ride').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('ride', _trocarRitmo); });
+    document.getElementById('chimbal').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); _trocarRitmo = mudarRitmo('chimbal', _trocarRitmo); });
+    document.getElementById('play-pause_bateria').addEventListener('click', function (e) { runPressionarBotao(''); });
+    document.getElementById('prato').addEventListener('click', function (e) { runPressionarBotao(document.activeElement); });
+    document.getElementById('bpm').addEventListener('change', function (e) { calcularBpm(); getSetAudioOptions.setTrackerControls(); if (schedule.running) { schedule.stop(); schedule.runSchedule(getSetAudioOptions.options.bpm); } });
+    document.getElementById('bpmRange').addEventListener('input', function (e) { alterarBpm(); });
     $('.base').on('change', function () {
         getSetAudioOptions.setTrackerControls();
     });
@@ -1255,10 +1242,489 @@ function tracksLocalStorage() {
 module.exports = {
   beat: [
         { rowId: "0", colId: "0", enabled: false }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   ],
   settings: {
     sampleSet:
-      "./Sons/studio/samples.json",
+          "./Sons/studio/samples.json",
     measureLength: 16,
     bpm: 90,
     detune: 0,
@@ -1295,6 +1761,10 @@ function getSetControls() {
                 continue;
             }
             
+            
+            
+            
+            
             if (key === 'sampleSet') { 
                 ret[key] = values[key];
                 continue;
@@ -1325,7 +1795,6 @@ const hasClass = require('has-class');
  * @param {audioContext} ctx 
  * @param {function} scheduleAudioBeat funtion when an audio is played
  */
-
 function tracker(ctx, scheduleAudioBeat) {
 
     this.measureLength = 16;
@@ -1395,6 +1864,14 @@ function tracker(ctx, scheduleAudioBeat) {
         let beatColumn = this.getTrackerRowValues(this.current);
         let now = ctx.currentTime;
 
+        
+
+        
+            
+            
+                
+            
+
         beatColumn.forEach((beat) => {
             this.scheduleBeat(beat, now);
         });
@@ -1412,7 +1889,7 @@ function tracker(ctx, scheduleAudioBeat) {
             if (beat.colId == 0) {
                 _trocarRitmo = selecionarRitmo(_ritmoSelecionado, _trocarRitmo);
                 _viradaRitmo = '';
-                }
+            }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
                 this.scheduleAudioBeat(beat, triggerTime);
             }, now);
@@ -1441,7 +1918,6 @@ function tracker(ctx, scheduleAudioBeat) {
 
     this.interval;
     this.runSchedule = function (bpm) {
-        debugger;
         bpm = bpm * 4;
         this.running = true;
         this.bpm = bpm;
@@ -1552,8 +2028,7 @@ function trackerTable() {
 
     this.getFirstCell = function (rowID, data) {
         i++;
-        var str = '';
-        
+        var str = '';        
         str += `<td class="tracker-first-cell" data-row-id="${rowID}">`;
         if (data.title) { 
             str += data.title[rowID];
@@ -1562,21 +2037,14 @@ function trackerTable() {
         str += `</td>`;
         return str;
     };
-
     var i = 0;
-
     this.getCells = function (rowID, numRows, data) {
         var str = '';
         var num = '';
-
         str += this.getFirstCell(rowID, data);
-
         let cssClass = 'tracker-cell';
-
-        if (rowID == 'header') {
+        if (rowID == 'header')
             cssClass = 'tracker-cell-header';
-        }
-
         for (let c = 0; c < numRows; c++) {
             if (cssClass == 'tracker-cell')
                 num = i;
