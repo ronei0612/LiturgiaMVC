@@ -325,12 +325,12 @@ function addEventCifras(frame) {
 
 			e.target.classList.add('cifraSelecionada');
 			e.target.scrollIntoView();
-			parent.tocarCifra(e.target);
+			parent.tocarCifraManualmente(e.target);
 		});
 	}
 }
 
-function tocarCifra(cifraElem) {
+function tocarCifraManualmente(cifraElem) {
 	escolherAcorde('orgao_' + cifraElem.innerHTML.trim(), null);
 }
 
