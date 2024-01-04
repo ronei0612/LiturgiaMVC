@@ -92,7 +92,7 @@ namespace LiturgiaMVC
             var tonsMenores = new List<string>();
 
             if (File.Exists(Variaveis.arquivoAcordesLista) == false)
-                File.WriteAllText(Variaveis.arquivoAcordesLista, "C, C#, D, Eb, E, F, F#, G, Ab, A, Bb, B");
+                File.WriteAllText(Variaveis.arquivoAcordesLista, Variaveis.tonsMaioresString);
 
             var linhas = File.ReadAllLines(Variaveis.arquivoAcordesLista);
 
@@ -118,9 +118,8 @@ namespace LiturgiaMVC
 
         public static void LerArquivoNotasLinks()
         {
-            var notasLinksDict = new Dictionary<string, string>();
-
-            if (File.Exists(Variaveis.arquivoNotasLinks) == false) {
+            if (File.Exists(Variaveis.arquivoNotasLinks) == false)
+            {
                 File.WriteAllText(Variaveis.arquivoNotasLinks,
                     "orgao_do, " + Variaveis.pastaSonsOrgao + "orgao do.ogg" + Environment.NewLine +
                     "orgao_do#, " + Variaveis.pastaSonsOrgao + "orgao do_.ogg" + Environment.NewLine +
@@ -177,6 +176,7 @@ namespace LiturgiaMVC
             }
 
             var linhas = File.ReadAllLines(Variaveis.arquivoNotasLinks);
+            var notasLinksDict = new Dictionary<string, string>();
 
             foreach (var linha in linhas)
                 if (string.IsNullOrEmpty(linha) == false)
@@ -338,11 +338,14 @@ namespace LiturgiaMVC
         public static JsonResult? CarregarVariaveis()
         {
             if (Variaveis.textoNotasAcordes == "")
-                try {
+                try
+                {
                     Ferramentas.LerArquivoNotasAcordes();
                 }
-                catch (Exception ex) {
-                    return new JsonResult("Error", new ErrorViewModel {                    
+                catch (Exception ex)
+                {
+                    return new JsonResult("Error", new ErrorViewModel
+                    {
                         Titulo = "Ler Arquivo das notas dos acordes",
                         Mensagem = ex.Message
                     });
@@ -360,11 +363,14 @@ namespace LiturgiaMVC
                 }
 
             if (Variaveis.tonsMaiores == null)
-                try {
+                try
+                {
                     Ferramentas.LerArquivoAcordesLista();
                 }
-                catch (Exception ex) {
-                    return new JsonResult("Error", new ErrorViewModel {                    
+                catch (Exception ex)
+                {
+                    return new JsonResult("Error", new ErrorViewModel
+                    {
                         Titulo = "Ler Arquivo da lista de acordes",
                         Mensagem = ex.Message
                     });

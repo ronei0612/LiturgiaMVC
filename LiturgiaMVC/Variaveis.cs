@@ -23,15 +23,17 @@
         public static string arquivoRitmosBateria = Path.Combine(pastaArquivos, ritmosBateriaJson);
         public static string arquivonotasAcordes = Path.Combine(pastaArquivos, notasAcordesJson);
 
-        public static string[] tonsMaiores, tonsMenores;
-
         public static readonly string[] acidentes = { "5+", "6", "7", "7+", "9", "11" };
+        public static string[] tonsMaiores, tonsMenores;
 
         public static string textoRitmos = "";
         public static string textoNotasAcordes = "";
 
         public static Dictionary<string, string> acordesLinks;
         public static Dictionary<string, string> notasLinks;
+
+        public static string tonsMaioresString = "C, C#, D, D#, E, F, F#, G, G#, A, A#, B";
+        public static string tonsMenoresString = "Am, A#m, Bm, Cm, C#m, Dm, D#m, Em, Fm, F#m, Gm, G#m";
 
         public static Dictionary<string, string> acordesMenoresRelativos = new()
         {
@@ -49,7 +51,7 @@
             { "A", "F#m" },
             { "Bb", "Gm" },
             { "A#", "Gm" },
-            { "B", "G#m" },
+            { "B", "G#m" }
         };
 
         public static Dictionary<string, string> acidentesCorrespondentes = new()
@@ -81,14 +83,14 @@
             { "C", new string[] { "C", "Dm", "Em", "F", "G", "Am", "Bb", "D", "Cm", "A", "E" } },
             { "C#", new string[] { "C#", "D#m", "E#m", "F#", "G#", "A#m", "B", "D#", "C#m", "A#", "E#" } },
             { "D", new string[] { "D", "Em", "F#m", "G", "A", "Bm", "C", "E", "Dm", "B", "F#" } },
-            { "Eb", new string[] { "Eb", "Fm", "Gm", "Ab", "Bb", "Cm", "Db", "F", "Ebm", "C", "G" } },
+            { "D#", new string[] { "D#", "Fm", "Gm", "G#", "A#", "Cm", "C#", "F", "D#m", "C", "G" } },
             { "E", new string[] { "E", "F#m", "G#m", "A", "B", "C#m", "D", "F#", "Em", "C#", "G#" } },
             { "F", new string[] { "F", "Gm", "Am", "Bb", "C", "Dm" , "Eb", "G", "Fm", "D", "A" } },
             { "F#", new string[] { "F#", "G#m", "A#m", "B", "C#", "D#m" , "E", "G#", "F#m", "D#", "A#" } },
             { "G", new string[] { "G", "Am", "Bm", "C", "D", "Em" , "F", "A", "Gm", "E", "B" } },
-            { "Ab", new string[] { "Ab", "Bbm", "Cm", "Db", "Eb", "Fm" , "Gb", "Bb", "Abm", "F", "C" } },
+            { "G#", new string[] { "G#", "Bbm", "Cm", "C#", "D#", "Fm" , "F#", "A#", "G#m", "F", "C" } },
             { "A", new string[] { "A", "Bm", "C#m", "D", "E", "F#m" , "G", "B", "Am", "F#", "C#" } },            
-            { "Bb", new string[] { "Bb", "Cm", "Dm", "Eb", "F", "Gm" , "Ab", "C", "Bbm", "G", "D" } },
+            { "A#", new string[] { "A#", "Cm", "Dm", "D#", "F", "Gm" , "G#", "C", "A#m", "G", "D" } },
             { "B", new string[] { "B", "C#m", "D#m", "E", "F#", "G#m" , "A", "C#", "Bm", "G#", "D#" } },
 
             { "Am", new string[] { "C", "Dm", "Em", "F", "G", "Am", "A", "E", "", "", "" } },

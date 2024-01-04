@@ -31,12 +31,6 @@ var pingPongDelay = new Pizzicato.Effects.PingPongDelay({
 	mix: 0.5
 });
 
-//for (const [key] of Object.entries(acordes)) {
-//	var obj = `${key}`;
-//	if (obj.includes('orgao'))
-//		acordes[obj].addEffect();
-//}
-
 deixarAcompanhamentoSelecionado('full');
 
 function deixarAcompanhamentoSelecionado(funcao) {
@@ -84,9 +78,13 @@ function escolherAcompanhamento(funcao, botao) {
 }
 
 function tocarAcorde(acorde, botao) {
-	if (_acordeAntesSelecionado != acorde) {		
+	if (_acordeAntesSelecionado != acorde) {
 		if (botao) {
-			verificarAcompanhamentoEtocar(botao.value);
+			if (botao.value != '')
+				verificarAcompanhamentoEtocar(botao.value);
+			else
+				verificarAcompanhamentoEtocar(acorde);
+
 			botao.classList.toggle('pressionado', true);
 		}
 		else
@@ -98,7 +96,7 @@ function setTom(acorde = 'C') {
 	document.getElementById('tomSelect').value = acorde;
 }
 
-function criarAcorde(acorde, grupoNotas, somenteTom = false) {
+function montarAcorde(acorde, grupoNotas, somenteTom = false) {
 	if (acorde.includes('_'))
 		acorde = acorde.split('_')[1];
 
@@ -149,34 +147,26 @@ function verificarAcompanhamentoEtocar(acorde) {
 
 	if (_instrumentoSelecionado == 'orgao') {
 		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		_grupoNotas = criarAcorde(acorde, _grupoNotas);
-		//_grupoNotas.effects[0].mix = 0.2;
+		_grupoNotas = montarAcorde(acorde, _grupoNotas);
+
 		_grupoNotas.play();
 	}
 	else if (_instrumentoSelecionado == 'orgaopad') {
 		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		_grupoNotas = criarAcorde(acorde, _grupoNotas);
+		_grupoNotas = montarAcorde(acorde, _grupoNotas);
 
 		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings = criarAcorde(acorde, _grupoNotasStrings, true);
-
-		//acorde = acorde.replace('m', '').replace('7', '');		
-		//_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
+		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, true);
 
 		_grupoNotasStrings.play();
 		_grupoNotas.play();
-	}		
+	}
 
 	else if (_instrumentoSelecionado == 'strings') {
-		//acorde = acorde.replace('m', '').replace('7', '');
-		//_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		//_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
-
 		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings = criarAcorde(acorde, _grupoNotasStrings, true);
+		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, true);
 
 		_grupoNotasStrings.play();
-		//_grupoNotas.effects[0].mix = 0;
 	}
 }
 
@@ -301,27 +291,18 @@ function aumentarTom(aumentar, quant) {
 function mostrarTextoArquivoCarregado(texto) {
 	var frame = document.getElementById('textoCifras');
 	frame.contentDocument.body.innerHTML = texto;
-
 	addEventCifras(frame);
-
-	//[].forEach.call(frame.contentDocument.getElementsByTagName("b"), function (el) {
-	//	el.addEventListener("click", function (e, idx) {
-	//		alert(e.target.textContent);
-	//	});
-	//});
 }
 
 function addEventCifras(frame) {
-	//var frame = document.getElementById('textoCifras');	
 	var elements = frame.contentDocument.getElementsByTagName("b");
 
 	for (var i = 0; i < elements.length; i++) {
-		/*elements[i].addEventListener('click', tocarCifra, false);*/
 		elements[i].addEventListener("click", function (e) {
-			var cifraSelecionada = document.getElementsByClassName('cifraSelecionada');
+			var cifraElements = document.getElementById('textoCifras').contentDocument.getElementsByClassName('cifraSelecionada');
 
-			if (cifraSelecionada.length > 0)
-				cifraSelecionada[0].classList.remove('cifraSelecionada');
+			if (cifraElements.length > 0)
+				cifraElements[0].classList.remove('cifraSelecionada');
 
 			e.target.classList.add('cifraSelecionada');
 			e.target.scrollIntoView();
@@ -331,7 +312,47 @@ function addEventCifras(frame) {
 }
 
 function tocarCifraManualmente(cifraElem) {
-	escolherAcorde('orgao_' + cifraElem.innerHTML.trim(), null);
+	cifraId = cifraElem.id.split('cifra')[1] - 1;
+}
+
+var cifraId = 0;
+
+function avancarCifra(avancar_retroceder, botao) {
+	if (avancar_retroceder == '')
+		escolherAcorde('', botao);
+
+	else {
+		var frame = document.getElementById('textoCifras');
+		var frameContent = frame.contentDocument;
+		var elements_b = frameContent.getElementsByTagName('b');
+		var frame = document.getElementById('textoCifras');
+		var cifraElems = frameContent.getElementsByClassName('cifraSelecionada');
+
+		if (cifraElems.length > 0)
+			cifraElems[0].classList.remove('cifraSelecionada');
+
+		if (avancar_retroceder == 'avancar') {
+			if (cifraId < elements_b.length) {
+				var cifraElem = elements_b[cifraId];
+				tocarAcorde(cifraElem.innerHTML.trim(), null);
+				botao.classList.toggle('pressionado', true);
+				cifraElem.classList.add('cifraSelecionada');
+				cifraElem.scrollIntoView();
+				cifraId++;
+			}
+		}
+
+		if (avancar_retroceder == 'retroceder') {
+			if (cifraId > 0) {
+				cifraId--;
+				var cifraElem = elements_b[cifraId - 1];
+				tocarAcorde(cifraElem.innerHTML.trim(), null);
+				botao.classList.toggle('pressionado', true);
+				cifraElem.classList.add('cifraSelecionada');
+				cifraElem.scrollIntoView();
+			}
+		}
+	}
 }
 
 document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
