@@ -287,13 +287,13 @@ function aumentarTom(aumentar, quant) {
 	var tomSelecionadoIndex = tomElement.selectedIndex;
 
 	if (aumentar) {
-		if (tomSelecionadoIndex == tomElement.length - quant)
-			tomElement.value = acordesTons[0];
+		if (tomSelecionadoIndex + quant >= tomElement.length)
+			tomElement.value = acordesTons[-1 + quant];
 		else
 			tomElement.value = acordesTons[tomSelecionadoIndex + quant];
 	}
 	else {
-		if (tomSelecionadoIndex == 0)
+		if (tomSelecionadoIndex - quant <= 0)
 			tomElement.value = acordesTons[tomElement.length - quant];
 		else
 			tomElement.value = acordesTons[tomSelecionadoIndex - quant];
