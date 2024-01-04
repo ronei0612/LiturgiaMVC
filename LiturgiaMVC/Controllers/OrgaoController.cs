@@ -124,6 +124,21 @@ namespace LiturgiaMVC.Controllers
             if (cifra.Contains("</pre>") == false)
                 cifra += "</pre>";
 
+            
+            var notas = cifra.Split("<b");
+                                             
+            var texto = new List<string>();
+            for (int i = 0; i < notas.Length; i++)
+                if (i == 0)
+                    texto.Add(notas[i]);
+                else
+                    texto.Add("<b id=\"cifra" + i + "\"" + notas[i]);
+            //texto.Add("<b id=\"cifra" + i + "\" class=\"cifra\"')\"" + notas[i]);
+            //texto.Add("<b id=\"cifra" + i + "\" class=\"cifra\" onclick=\"tocarCifra('cifra" + i + "')\"" + notas[i]);
+
+            //cifra = string.Join("", texto);
+            cifra = "<head><style>.cifraSelecionada{background-color:#ff0}</style></head>" + string.Join("", texto);
+
             return Json(new
             {
                 success = true,

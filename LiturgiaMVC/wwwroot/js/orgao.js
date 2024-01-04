@@ -60,17 +60,21 @@ function escolherAcorde(acorde, botao) {
 	else
 		_acordeSelecionado = acorde;
 
-	levantarBotoesAcordes();
+	if (botao)
+		levantarBotoesAcordes();
 
 	if (_acordeSelecionado == '') {
 		_acordeAntesSelecionado = _acordeSelecionado;
 		pararOsAcordes();
 
-		ocultarBotaoRec(false);
+		if (botao)
+			ocultarBotaoRec(false);
 	}
 	else {
 		tocarAcorde(acorde, botao);
-		ocultarBotaoRec();
+
+		if (botao)
+			ocultarBotaoRec();
 	}
 }
 
@@ -80,9 +84,13 @@ function escolherAcompanhamento(funcao, botao) {
 }
 
 function tocarAcorde(acorde, botao) {
-	if (_acordeAntesSelecionado != acorde) {
-		verificarAcompanhamentoEtocar(botao.value);
-		botao.classList.toggle('pressionado', true);
+	if (_acordeAntesSelecionado != acorde) {		
+		if (botao) {
+			verificarAcompanhamentoEtocar(botao.value);
+			botao.classList.toggle('pressionado', true);
+		}
+		else
+			verificarAcompanhamentoEtocar(acorde);
 	}
 }
 
@@ -294,11 +302,36 @@ function mostrarTextoArquivoCarregado(texto) {
 	var frame = document.getElementById('textoCifras');
 	frame.contentDocument.body.innerHTML = texto;
 
+	addEventCifras(frame);
+
 	//[].forEach.call(frame.contentDocument.getElementsByTagName("b"), function (el) {
 	//	el.addEventListener("click", function (e, idx) {
 	//		alert(e.target.textContent);
 	//	});
 	//});
+}
+
+function addEventCifras(frame) {
+	//var frame = document.getElementById('textoCifras');	
+	var elements = frame.contentDocument.getElementsByTagName("b");
+
+	for (var i = 0; i < elements.length; i++) {
+		/*elements[i].addEventListener('click', tocarCifra, false);*/
+		elements[i].addEventListener("click", function (e) {
+			var cifraSelecionada = document.getElementsByClassName('cifraSelecionada');
+
+			if (cifraSelecionada.length > 0)
+				cifraSelecionada.classList.remove('cifraSelecionada');
+
+			e.target.classList.add('cifraSelecionada');
+			e.target.scrollIntoView();
+			parent.tocarCifra(e.target);
+		});
+	}
+}
+
+function tocarCifra(cifraElem) {
+	escolherAcorde('orgao_' + cifraElem.innerHTML.trim(), null);
 }
 
 document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
