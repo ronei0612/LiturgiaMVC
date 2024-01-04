@@ -321,7 +321,7 @@ function addEventCifras(frame) {
 			var cifraSelecionada = document.getElementsByClassName('cifraSelecionada');
 
 			if (cifraSelecionada.length > 0)
-				cifraSelecionada.classList.remove('cifraSelecionada');
+				cifraSelecionada[0].classList.remove('cifraSelecionada');
 
 			e.target.classList.add('cifraSelecionada');
 			e.target.scrollIntoView();
