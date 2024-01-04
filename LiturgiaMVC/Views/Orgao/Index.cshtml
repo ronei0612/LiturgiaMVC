@@ -11,8 +11,8 @@
 	}
 </style>
 
-<div id="tracker-container">
-	<div id="container" class="container d-sm-flex" style="display:none">
+<div id="tracker-container" style="display:none">
+	<div id="container" class="container d-sm-flex">
 		<div class="box" id="orgaoBox">
 			<div class="d-flex align-items-center centralizado-no-container">
 				<div class="d-flex align-items-center">
@@ -132,13 +132,12 @@
 <script src="~/js/Pizzicato.min.js" asp-append-version="true"></script>
 
 <script>
-	var esperar_audios = false;
 	const notasAcordesJson = JSON.parse('@Html.Raw(@Model.NotasAcordes)');
 	const acordesCampoHarmonicoJson = JSON.parse('@Html.Raw(@Model.AcordesCampoHarmonico)');
 	const acidentesCorrespondentesJson = JSON.parse('@Html.Raw(@Model.AcidentesCorrespondentes)');
 	const acordesTons = Object.keys(acordesCampoHarmonicoJson);
 
-	esperarAudios(3000);
+	esperarAudios(1000, true);
 
 	var acordes = {
 		'orgao_do': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_do"])', loop: true, release: 0.5, attack: 0.2 } }),
@@ -220,12 +219,12 @@
 		document.getElementById('divBateriaSwitch').style.display = 'block';
 	}
 
-	function esperarAudios(tempoMiliseg) {
-		document.getElementById('container').style.display = 'none';
-		if (!esperar_audios)
-			document.getElementById('container').style.display = 'block';
-		setTimeout(function() {
-			document.getElementById('container').style.display = 'block';
+	function esperarAudios(tempoMiliseg, esperar_audios) {
+		if (esperar_audios == false)
+			document.getElementById('tracker-container').style.display = 'block';
+		else
+			setTimeout(function () {
+				document.getElementById('tracker-container').style.display = 'block';
 		}, tempoMiliseg)
 	}
 
