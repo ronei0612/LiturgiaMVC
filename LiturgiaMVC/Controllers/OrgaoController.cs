@@ -133,10 +133,7 @@ namespace LiturgiaMVC.Controllers
                     texto.Add(notas[i]);
                 else
                     texto.Add("<b id=\"cifra" + i + "\"" + notas[i]);
-            //texto.Add("<b id=\"cifra" + i + "\" class=\"cifra\"')\"" + notas[i]);
-            //texto.Add("<b id=\"cifra" + i + "\" class=\"cifra\" onclick=\"tocarCifra('cifra" + i + "')\"" + notas[i]);
 
-            //cifra = string.Join("", texto);
             cifra = "<head><style>.cifraSelecionada{background-color:#ff0}</style></head>" + string.Join("", texto);
 
             return Json(new
