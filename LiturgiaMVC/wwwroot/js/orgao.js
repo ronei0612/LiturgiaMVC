@@ -31,12 +31,6 @@ var pingPongDelay = new Pizzicato.Effects.PingPongDelay({
 	mix: 0.5
 });
 
-//for (const [key] of Object.entries(acordes)) {
-//	var obj = `${key}`;
-//	if (obj.includes('orgao'))
-//		acordes[obj].addEffect();
-//}
-
 deixarAcompanhamentoSelecionado('full');
 
 function deixarAcompanhamentoSelecionado(funcao) {
@@ -172,15 +166,10 @@ function verificarAcompanhamentoEtocar(acorde) {
 	}		
 
 	else if (_instrumentoSelecionado == 'strings') {
-		//acorde = acorde.replace('m', '').replace('7', '');
-		//_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		//_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
-
 		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
 		_grupoNotasStrings = criarAcorde(acorde, _grupoNotasStrings, true);
 
 		_grupoNotasStrings.play();
-		//_grupoNotas.effects[0].mix = 0;
 	}
 }
 
@@ -305,14 +294,7 @@ function aumentarTom(aumentar, quant) {
 function mostrarTextoArquivoCarregado(texto) {
 	var frame = document.getElementById('textoCifras');
 	frame.contentDocument.body.innerHTML = texto;
-
 	addEventCifras(frame);
-
-	//[].forEach.call(frame.contentDocument.getElementsByTagName("b"), function (el) {
-	//	el.addEventListener("click", function (e, idx) {
-	//		alert(e.target.textContent);
-	//	});
-	//});
 }
 
 function addEventCifras(frame) {
