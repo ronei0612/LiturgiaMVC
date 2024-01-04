@@ -86,7 +86,11 @@ function escolherAcompanhamento(funcao, botao) {
 function tocarAcorde(acorde, botao) {
 	if (_acordeAntesSelecionado != acorde) {		
 		if (botao) {
-			verificarAcompanhamentoEtocar(botao.value);
+			if (botao.value != '')
+				verificarAcompanhamentoEtocar(botao.value);
+			else
+				verificarAcompanhamentoEtocar(acorde);
+
 			botao.classList.toggle('pressionado', true);
 		}
 		else
@@ -312,16 +316,14 @@ function mostrarTextoArquivoCarregado(texto) {
 }
 
 function addEventCifras(frame) {
-	//var frame = document.getElementById('textoCifras');	
 	var elements = frame.contentDocument.getElementsByTagName("b");
 
 	for (var i = 0; i < elements.length; i++) {
-		/*elements[i].addEventListener('click', tocarCifra, false);*/
 		elements[i].addEventListener("click", function (e) {
-			var cifraSelecionada = document.getElementsByClassName('cifraSelecionada');
+			var cifraElements = document.getElementById('textoCifras').contentDocument.getElementsByClassName('cifraSelecionada');
 
-			if (cifraSelecionada.length > 0)
-				cifraSelecionada[0].classList.remove('cifraSelecionada');
+			if (cifraElements.length > 0)
+				cifraElements[0].classList.remove('cifraSelecionada');
 
 			e.target.classList.add('cifraSelecionada');
 			e.target.scrollIntoView();
@@ -331,7 +333,47 @@ function addEventCifras(frame) {
 }
 
 function tocarCifra(cifraElem) {
-	escolherAcorde('orgao_' + cifraElem.innerHTML.trim(), null);
+	cifraId = cifraElem.id.split('cifra')[1] - 1;
+}
+
+var cifraId = 0;
+
+function avancarCifra(avancar_retroceder, botao) {
+	if (avancar_retroceder == '')
+		escolherAcorde('', botao);
+
+	else {
+		var frame = document.getElementById('textoCifras');
+		var frameContent = frame.contentDocument;
+		var elements_b = frameContent.getElementsByTagName('b');
+		var frame = document.getElementById('textoCifras');
+		var cifraElems = frameContent.getElementsByClassName('cifraSelecionada');
+
+		if (cifraElems.length > 0)
+			cifraElems[0].classList.remove('cifraSelecionada');
+
+		if (avancar_retroceder == 'avancar') {
+			if (cifraId < elements_b.length) {
+				var cifraElem = elements_b[cifraId];
+				tocarAcorde(cifraElem.innerHTML.trim(), null);
+				botao.classList.toggle('pressionado', true);
+				cifraElem.classList.add('cifraSelecionada');
+				cifraElem.scrollIntoView();
+				cifraId++;
+			}
+		}
+
+		if (avancar_retroceder == 'retroceder') {
+			if (cifraId > 0) {
+				cifraId--;
+				var cifraElem = elements_b[cifraId - 1];
+				tocarAcorde(cifraElem.innerHTML.trim(), null);
+				botao.classList.toggle('pressionado', true);
+				cifraElem.classList.add('cifraSelecionada');
+				cifraElem.scrollIntoView();
+			}
+		}
+	}
 }
 
 document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
