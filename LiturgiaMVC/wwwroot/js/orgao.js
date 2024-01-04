@@ -78,7 +78,7 @@ function escolherAcompanhamento(funcao, botao) {
 }
 
 function tocarAcorde(acorde, botao) {
-	if (_acordeAntesSelecionado != acorde) {		
+	if (_acordeAntesSelecionado != acorde) {
 		if (botao) {
 			if (botao.value != '')
 				verificarAcompanhamentoEtocar(botao.value);
@@ -96,7 +96,7 @@ function setTom(acorde = 'C') {
 	document.getElementById('tomSelect').value = acorde;
 }
 
-function criarAcorde(acorde, grupoNotas, somenteTom = false) {
+function montarAcorde(acorde, grupoNotas, somenteTom = false) {
 	if (acorde.includes('_'))
 		acorde = acorde.split('_')[1];
 
@@ -147,27 +147,24 @@ function verificarAcompanhamentoEtocar(acorde) {
 
 	if (_instrumentoSelecionado == 'orgao') {
 		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		_grupoNotas = criarAcorde(acorde, _grupoNotas);
-		//_grupoNotas.effects[0].mix = 0.2;
+		_grupoNotas = montarAcorde(acorde, _grupoNotas);
+
 		_grupoNotas.play();
 	}
 	else if (_instrumentoSelecionado == 'orgaopad') {
 		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		_grupoNotas = criarAcorde(acorde, _grupoNotas);
+		_grupoNotas = montarAcorde(acorde, _grupoNotas);
 
 		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings = criarAcorde(acorde, _grupoNotasStrings, true);
-
-		//acorde = acorde.replace('m', '').replace('7', '');		
-		//_grupoNotasStrings.addSound(acordes['strings_' + acidentesCorrespondentesJson[acorde]]);
+		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, true);
 
 		_grupoNotasStrings.play();
 		_grupoNotas.play();
-	}		
+	}
 
 	else if (_instrumentoSelecionado == 'strings') {
 		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings = criarAcorde(acorde, _grupoNotasStrings, true);
+		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, true);
 
 		_grupoNotasStrings.play();
 	}
