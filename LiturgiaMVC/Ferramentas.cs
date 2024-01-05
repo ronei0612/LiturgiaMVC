@@ -113,7 +113,8 @@ namespace LiturgiaMVC
                 }
 
             Variaveis.tonsMaiores = tonsMaiores.ToArray();
-            Variaveis.tonsMenores = tonsMenores.ToArray();
+            Variaveis.tonsMaioresString = string.Join(",", tonsMaiores);
+            Variaveis.tonsMenoresString = string.Join(",", tonsMenores);
         }
 
         public static void LerArquivoNotasLinks()

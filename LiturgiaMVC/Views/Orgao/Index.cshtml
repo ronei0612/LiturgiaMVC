@@ -26,9 +26,12 @@
 						</button>
 							&nbsp;
 						<select class="form-control" id="tomSelect" onchange="mudarTom(this.value)" style="text-align-last:center">
-							@foreach (var tom in Model.TonsMaiores)
-							{
-								<option value="@tom">@tom</option>
+							@{
+								var tonsMaiores = Model.TonsMaiores.Split(',');
+								foreach (var tom in tonsMaiores)
+								{
+									<option value="@tom">@tom</option>
+								}
 							}
 						</select>
 						&nbsp;
@@ -44,7 +47,7 @@
 				<div class="form-check form-switch">
 					<input class="form-check-input" type="checkbox" role="switch" id="tomMenorSwitch" onchange="selecionarTomMenor(this.checked)">
 					<label for="tomMenorSwitch" class="form-check-label" id="textoAcordeMenor">
-						@Model.TonsMenores[(int)Model.TomIndex]
+						@Model.TonsMenores.Split(',')[0]
 					</label>
 				</div>
 				&nbsp;
@@ -136,6 +139,7 @@
 	const acidentesCorrespondentesJson = JSON.parse('@Html.Raw(@Model.AcidentesCorrespondentes)');
 	const acordesTons = Object.keys(acordesCampoHarmonicoJson);
 	debugger;
+	const tonsMaiores = '@Html.Raw(@Model.TonsMaiores)'.split(",");
 
 	esperarAudios(1000, true);
 

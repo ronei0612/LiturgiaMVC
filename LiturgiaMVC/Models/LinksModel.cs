@@ -11,10 +11,12 @@
         public string[]? RelatorioLines { get; set; }
         public string? Tom { get; set; }
         public int? TomIndex { get; set; }
-        public string[]? TonsMaiores { get; set; }
-        public string[]? TonsMenores { get; set; }
+        public string? TonsMaiores { get; set; }
+        public string? TonsMenores { get; set; }
         public string? RitmosBateria { get; set; }
         public string? NotasAcordes { get; set; }
         public string? AcidentesCorrespondentes { get; set; }
+        public string? NotasCorrespondentes { get; set; }
+        public string[]? NotasCromaticas { get; set; }
     }
 }

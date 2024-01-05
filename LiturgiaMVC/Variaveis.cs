@@ -110,41 +110,37 @@
         public static readonly Dictionary<string, string[]> notasAcordes = new()
         {
             { "C", new string[] { "do", "mi", "sol" } },
-            { "Cm", new string[] { "do", "re#", "sol" } },
-            { "C#", new string[] { "do#", "fa", "sol#" } },
-            { "C#m", new string[] { "do#", "mi", "sol#" } },
-            { "Db", new string[] { "do#", "fa", "sol#" } },
-            { "Dbm", new string[] { "do#", "mi", "sol#" } },
-            { "D", new string[] { "re", "fa#", "la", } },
-            { "Dm", new string[] { "re", "fa", "la", } },
-            { "D#", new string[] { "re#", "sol", "la#", } },
-            { "D#m", new string[] { "re#", "fa#", "la#", } },
-            { "Eb", new string[] { "re#", "sol", "la#", } },
-            { "Ebm", new string[] { "re#", "fa#", "la#", } },
-            { "E", new string[] { "mi", "sol#", "si" } },
-            { "Em", new string[] { "mi", "sol", "si" } },
-            { "E#", new string[] { "fa", "la", "do" } },
-            { "E#m", new string[] { "fa", "sol#", "do" } },
-            { "F", new string[] { "fa", "la", "do" } },
-            { "Fm", new string[] { "fa", "sol#", "do" } },
-            { "F#", new string[] { "fa#", "la#", "do#" } },
-            { "F#m", new string[] { "fa#", "la", "do#" } },
-            { "Gb", new string[] { "fa#", "la#", "do#" } },
-            { "Gbm", new string[] { "fa#", "la", "do#" } },
-            { "G", new string[] { "sol", "si", "re" } },
-            { "Gm", new string[] { "sol", "la#", "re" } },
-            { "G#", new string[] { "sol#", "do", "re#" } },
-            { "G#m", new string[] { "sol#", "si", "re#" } },
-            { "Ab", new string[] { "sol#", "do", "re#" } },
-            { "Abm", new string[] { "sol#", "si", "re#" } },
-            { "A", new string[] { "la", "do#", "mi" } },
+            { "C2", new string[] { "do", "re", "sol" } },
+            { "Cm", new string[] { "do", "mib", "sol" } },
+            { "Cm7", new string[] { "do", "mib", "sol", "sib" } },
+            { "C4", new string[] { "do", "fa", "sol" } },
+            { "C5+", new string[] { "do", "mi", "sol" } },
+            { "C7", new string[] { "do", "mi", "sol", "sib" } },
+            { "C7+", new string[] { "do", "mi", "sol", "si" } },
+            { "C9", new string[] { "do", "mi", "sol", "re" } },
+            { "C11", new string[] { "do", "mi", "sol", "sib" } },
+            { "Cº", new string[] { "do", "mib", "solb" } },
+            { "Cº7", new string[] { "do", "mib", "solb", "sib" } },
             { "Am", new string[] { "la", "do", "mi" } },
-            { "A#", new string[] { "la#", "re", "fa" } },
-            { "A#m", new string[] { "la#", "do#", "fa" } },
-            { "B", new string[] { "si", "re#", "fa#" } },
-            { "Bm", new string[] { "si", "re", "fa#" } },
-            { "Bb", new string[] { "la#", "re", "fa" } },
-            { "Bbm", new string[] { "la#", "do#", "fa" } },
+            { "Am", new string[] { "la", "do", "mi" } },
+        };
+
+        public static readonly string[] notasCromaticas = new string[]
+        {
+            "do", "do#", "re", "re#", "mi", "fa", "fa#", "sol", "sol#", "la", "la#", "si"
+		};
+
+        public static readonly Dictionary<string, string> notasCorrespondentes = new()
+        {
+            { "si#", "do" },
+            { "reb", "do#" },
+            { "mib", "re#" },
+            { "fab", "mi" },
+            { "mi#", "fa" },
+            { "solb", "fa#" },
+            { "lab", "sol#" },
+            { "sib", "la#" },
+            { "dob", "si" }
         };
     }
 }

@@ -24,11 +24,13 @@ namespace LiturgiaMVC.Controllers
                 Acordes = Variaveis.acordes[tom],
                 LinksDict = Variaveis.notasLinks,
                 TomIndex = Array.IndexOf(Variaveis.tonsMaiores, tom),
-                TonsMaiores = Variaveis.tonsMaiores,
-                TonsMenores = Variaveis.tonsMenores,
+                TonsMaiores = Variaveis.tonsMaioresString,
+                TonsMenores = Variaveis.tonsMenoresString,
                 RitmosBateria = Variaveis.textoRitmos,
                 NotasAcordes = Variaveis.textoNotasAcordes,
-                AcidentesCorrespondentes = Ferramentas.ConvertToJson(Variaveis.acidentesCorrespondentes)
+                AcidentesCorrespondentes = Ferramentas.ConvertToJson(Variaveis.acidentesCorrespondentes),
+                NotasCorrespondentes = Ferramentas.ConvertToJson(Variaveis.notasCorrespondentes),
+                NotasCromaticas = Variaveis.notasCromaticas
             };
 
             return View(linksModel);
