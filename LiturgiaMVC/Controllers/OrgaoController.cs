@@ -112,34 +112,53 @@ namespace LiturgiaMVC.Controllers
 
             foreach (var linha in linhas)
             {
-                if (!linha.Contains("[Intro]") && !linha.Contains("[Solo]") && !linha.Contains("[Final]"))
+                //if (!linha.Contains("[Solo]") && !linha.Contains("[Final]"))
                     list.Add(linha);
             }
 
-            var cifra = string.Join('\n', list);
+            var cifraTexto = string.Join('\n', list);
 
-            if (cifra.Contains("<pre>") == false)
-                cifra = "<pre>" + cifra;
+            if (cifraTexto.Contains("<pre>") == false)
+                cifraTexto = "<pre>" + cifraTexto;
 
-            if (cifra.Contains("</pre>") == false)
-                cifra += "</pre>";
-
+            if (cifraTexto.Contains("</pre>") == false)
+                cifraTexto += "</pre>";
             
-            var notas = cifra.Split("<b");
-                                             
+            var notas = cifraTexto.Split("<b");                                             
             var texto = new List<string>();
+
             for (int i = 0; i < notas.Length; i++)
+            {
                 if (i == 0)
                     texto.Add(notas[i]);
                 else
-                    texto.Add("<b id=\"cifra" + i + "\"" + notas[i]);
+                {
+                    var cifra = notas[i].Split('>')[1].Split('<')[0];
+                    var linhaRestante = "<" + notas[i].Split('<')[1];
+                    var cifraFormatada = cifra;
 
-            cifra = "<head><style>.cifraSelecionada{background-color:#ff0}</style></head>" + string.Join("", texto);
+                    if (cifra.Contains('('))
+                        cifraFormatada = cifra.Split('(')[0];
+                    if (cifra.Contains('/'))
+                        cifraFormatada = cifra.Split('/')[0];
+
+                    while (Variaveis.notasAcordes.ContainsKey(cifraFormatada) == false)
+                        cifraFormatada = cifraFormatada.Remove(cifraFormatada.Length - 1);
+
+                    if (string.IsNullOrEmpty(cifraFormatada) == false)
+                    {
+                        cifraFormatada = ">" + cifraFormatada + linhaRestante;
+                        texto.Add("<b id=\"cifra" + i + "\"" + cifraFormatada);
+                    }
+                }
+            }
+
+            cifraTexto = "<head><style>.cifraSelecionada{background-color:#ff0}</style></head>" + string.Join("", texto);
 
             return Json(new
             {
                 success = true,
-                message = cifra
+                message = cifraTexto
             });
         }
     }
