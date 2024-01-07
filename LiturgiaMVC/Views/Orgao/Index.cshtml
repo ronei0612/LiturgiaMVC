@@ -11,7 +11,7 @@
 	}
 </style>
 
-<div id="tracker-container">
+<div id="tracker-container" style="display:none">
 	<div id="container" class="container d-sm-flex" style="display:none">
 		<div class="box" id="orgaoBox">
 			<div class="d-flex align-items-center centralizado-no-container">
@@ -221,11 +221,14 @@
 	}
 
 	function esperarAudios(tempoMiliseg, esperar_audios) {
-		if (esperar_audios == false)
+		if (esperar_audios == false) {
 			document.getElementById('container').style.display = 'block';
+			document.getElementById('tracker-container').style.display = 'block';
+		}
 		else
 			setTimeout(function () {
 				document.getElementById('container').style.display = 'block';
+				document.getElementById('tracker-container').style.display = 'block';
 		}, tempoMiliseg)
 	}
 
