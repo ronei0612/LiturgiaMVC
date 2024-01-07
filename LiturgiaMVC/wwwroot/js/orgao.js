@@ -318,8 +318,31 @@ function aumentarTom(aumentar, quant, select) {
 		mudarTom(tomElement.value);
 }
 
+function adicionarTonsSelect(element, index, maior) {
+	var selectElem = document.getElementById(element);
+	selectElem.innerHTML = "";
+
+	var tons = tonsMaiores;
+	if (maior == false)
+		tons = tonsMenores;
+
+	for (var i = 0; i < tons.length; i++) {
+		let opt = document.createElement('option');
+		opt.value = tons[i];
+		opt.textContent += tons[i];
+		selectElem.appendChild(opt);
+	};
+
+	selectElem.selectedIndex = index;
+}
+
 function mostrarTextoArquivoCarregado(tom, texto) {
-	document.getElementById('tomSelectCifra').selectedIndex = acordesTons.indexOf(tom);
+	//document.getElementById('tomSelectCifra').selectedIndex = acordesTons.indexOf(tom);
+	
+	if (tom.includes('m'))
+		adicionarTonsSelect('tomSelectCifra', tonsMenores.indexOf(tom), false);
+	else
+		adicionarTonsSelect('tomSelectCifra', tonsMaiores.indexOf(tom), true);
 
 	var frame = document.getElementById('textoCifras');
 	frame.contentDocument.body.innerHTML = texto;

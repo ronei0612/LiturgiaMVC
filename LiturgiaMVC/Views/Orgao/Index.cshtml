@@ -136,6 +136,7 @@
 	const acidentesCorrespondentesJson = JSON.parse('@Html.Raw(@Model.AcidentesCorrespondentes)');
 	const acordesTons = Object.keys(acordesCampoHarmonicoJson);
 	const tonsMaiores = '@Html.Raw(@Model.TonsMaioresString)'.split(', ');
+	const tonsMenores = '@Html.Raw(@Model.TonsMenoresString)'.split(', ');
 	
 	esperarAudios(1000, true);
 

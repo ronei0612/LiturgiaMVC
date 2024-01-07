@@ -27,6 +27,7 @@ namespace LiturgiaMVC.Controllers
                 TomIndex = Array.IndexOf(Variaveis.tonsMaiores, tom),
                 TonsMaiores = Variaveis.tonsMaiores,
                 TonsMaioresString = Variaveis.tonsMaioresString,
+                TonsMenoresString = Variaveis.tonsMenoresString,
                 TonsMenores = Variaveis.tonsMenores,
                 RitmosBateria = Variaveis.textoRitmos,
                 NotasAcordes = Variaveis.textoNotasAcordes,
