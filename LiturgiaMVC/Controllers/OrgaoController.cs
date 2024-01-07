@@ -134,7 +134,7 @@ namespace LiturgiaMVC.Controllers
 
                 var textoFinal = Ferramentas.GetAcordes(cifraTexto);
 
-                cifraTexto = "<head><style>.cifraSelecionada{background-color:#ff0}</style></head>" + textoFinal;
+                cifraTexto = "<head><style>.cifraSelecionada{background-color:#ff0}pre{line-height:1.6;font-size:18px}</style></head>" + textoFinal;
 
                 return Json(new
                 {
