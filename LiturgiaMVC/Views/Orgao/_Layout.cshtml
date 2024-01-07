@@ -204,9 +204,20 @@
             }
 
             else if (nome == 'gravar') {
-                document.getElementById('selectOpcoes').style.display = 'none';
-                document.getElementById('selectInstrumento').style.display = 'none';
-                document.getElementById('modalGravar').style.display = 'block';
+                if (document.getElementById('textoCifras').contentDocument.body.innerHTML != '') {
+                    document.getElementById('escreverCifraTextArea').style.display = 'block';
+                    document.getElementById('linksCifraClubList').style.display = 'none';
+                    document.getElementById('musicaSearch').value = "";
+                    document.getElementById('orgaoBox').style.display = 'none';
+                    document.getElementById('gravacaoBox').style.display = 'block';
+                    document.getElementById('bateriaBox').style.display = "none";
+                    document.getElementById('modal01').style.display = 'none';
+                }
+                else {
+                    document.getElementById('selectOpcoes').style.display = 'none';
+                    document.getElementById('selectInstrumento').style.display = 'none';
+                    document.getElementById('modalGravar').style.display = 'block';
+                }
             }
         }
 
