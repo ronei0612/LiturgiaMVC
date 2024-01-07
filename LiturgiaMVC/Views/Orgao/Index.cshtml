@@ -200,6 +200,7 @@
 		document.getElementById('trackerControls').style.display = 'none';
 		document.getElementById('divBateriaSwitch').style.display = 'none';
 		document.getElementById('bateria').style.display = 'none';
+		document.getElementById('voltar').style.display = 'none';
 
 		var el = document.body;
 		var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
@@ -217,6 +218,7 @@
 		document.getElementById('fullscreen').style.display = 'flex';
 		document.exitFullscreen();
 		document.getElementById('navBar').style.display = 'block';
+		document.getElementById('voltar').style.display = 'block';
 		//document.getElementById('divBateriaSwitch').style.display = 'block';
 	}
 
