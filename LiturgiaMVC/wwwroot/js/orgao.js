@@ -273,14 +273,19 @@ function aumentarTom(aumentar, quant) {
 	var tomSelecionadoIndex = tomElement.selectedIndex;
 
 	if (aumentar) {
-		if (tomSelecionadoIndex + quant >= tomElement.length)
-			tomElement.value = acordesTons[-1 + quant];
+		if (tomSelecionadoIndex + quant == tomElement.length)
+			tomElement.value = tonsMaiores[0];
+		else if (tomSelecionadoIndex + quant > tomElement.length)
+			tomElement.value = tonsMaiores[-1 + quant];
 		else
-			tomElement.value = acordesTons[tomSelecionadoIndex + quant];
+			tomElement.value = tonsMaiores[tomSelecionadoIndex + quant];
 	}
 	else {
-		if (tomSelecionadoIndex - quant <= 0)
-			tomElement.value = acordesTons[tomElement.length - quant];
+		if (tomSelecionadoIndex - quant < 0)
+			if (tomSelecionadoIndex == 0)
+				tomElement.value = tonsMaiores[tomElement.length - quant];
+			else
+				tomElement.value = tonsMaiores[tomElement.length - 1];
 		else
 			tomElement.value = acordesTons[tomSelecionadoIndex - quant];
 	}
