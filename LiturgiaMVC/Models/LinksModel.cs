@@ -13,6 +13,7 @@
         public int? TomIndex { get; set; }
         public string[]? TonsMaiores { get; set; }
         public string[]? TonsMenores { get; set; }
+        public string? TonsMaioresString { get; set; }
         public string? RitmosBateria { get; set; }
         public string? NotasAcordes { get; set; }
         public string? AcidentesCorrespondentes { get; set; }

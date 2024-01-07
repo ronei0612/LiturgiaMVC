@@ -389,5 +389,74 @@ namespace LiturgiaMVC
 
             return null;
         }
+
+        public static string GetAcordes(string cifraTexto, int tom = 0)
+        {
+            var notas = cifraTexto.Split("<b");                                             
+            var texto = new List<string>();
+
+            for (int i = 0; i < notas.Length; i++)
+            {
+                if (i == 0)
+                    texto.Add(notas[i]);
+                else
+                {
+                    var cifra = notas[i].Split('>')[1].Split('<')[0];
+                    var linhaRestante = notas[i].Split('<')[1];
+                    var cifraFormatada = cifra;
+
+                    // Retira acordes compostos mais complexos como C7/E(9)
+                    if (cifra.Contains('('))
+                        cifraFormatada = cifra.Split('(')[0];
+                    if (cifra.Contains('/'))
+                        cifraFormatada = cifra.Split('/')[0];
+
+                    var cifraSomenteNota = cifraFormatada;
+                    var cifraAcordeAlteracoes = "";
+
+                    if (cifraSomenteNota.Length > 1)
+                    {
+                        if (cifraSomenteNota[1] == '#')
+                            cifraSomenteNota = cifraSomenteNota[0] + "#";
+                        else if (cifraSomenteNota[1] == 'b')
+                            cifraSomenteNota = cifraSomenteNota[0] + "b";
+                        else
+                            cifraSomenteNota = cifraSomenteNota[0].ToString();
+
+                        cifraSomenteNota = Variaveis.acidentesCorrespondentes[cifraSomenteNota];
+                        cifraAcordeAlteracoes = cifraFormatada.Split(cifraSomenteNota)[1];
+                        cifraFormatada = cifraSomenteNota + cifraAcordeAlteracoes;
+                    }
+
+                    // Vai removendo os últimos caracateres até chegar num que conheça como C#7sus encontra C#7
+                    while (Variaveis.notasAcordes.ContainsKey(cifraFormatada) == false)
+                        cifraFormatada = cifraFormatada.Remove(cifraFormatada.Length - 1);
+
+                    if (string.IsNullOrEmpty(cifraFormatada) == false)
+                    {
+                        if (tom != 0)
+                        {
+                            var acordeIndex = Array.IndexOf(Variaveis.tonsMaiores, cifraSomenteNota);
+                            acordeIndex = acordeIndex + tom;
+
+                            if (acordeIndex > 11)
+                                acordeIndex = acordeIndex - 12;
+                            else if (acordeIndex < 0)
+                                acordeIndex = acordeIndex + 12;
+
+                            cifraFormatada = Variaveis.tonsMaiores.ElementAt(acordeIndex);
+                            cifraFormatada = cifraFormatada + cifraAcordeAlteracoes;
+                        }
+
+                        cifraFormatada = ">" + cifraFormatada + "<" + linhaRestante;
+                        texto.Add("<b id=\"cifra" + i + "\"" + cifraFormatada);
+                    }
+                    else
+                        texto.Add("       " + linhaRestante);
+                }
+            }
+
+            return string.Join("", texto);
+        }
     }
 }

@@ -311,13 +311,12 @@
                     if (data.success) {
                         document.getElementById('escreverCifraTextArea').style.display = 'block';
                         document.getElementById('linksCifraClubList').style.display = 'none';
-                        var cifra = data.message;
                         document.getElementById('musicaSearch').value = "";
                         document.getElementById('orgaoBox').style.display = 'none';
                         document.getElementById('gravacaoBox').style.display = 'block';
                         document.getElementById('bateriaBox').style.display = "none";
                         document.getElementById('modal01').style.display = 'none';
-                        mostrarTextoArquivoCarregado(cifra);
+                        mostrarTextoArquivoCarregado(data.tom, data.message);
                     }
                     else
                         alert(data.message);

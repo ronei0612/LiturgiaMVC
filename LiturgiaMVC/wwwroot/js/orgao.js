@@ -242,7 +242,29 @@ function alterarVolume(volume, padrao) {
 		numero.innerHTML = (volume * 10) + '*';
 }
 
+function mudarTomCifra(aumentar, quant) {
+	var frame = document.getElementById('textoCifras');
+	var texto = frame.contentDocument.body.innerHTML;
 
+	$.ajax({
+		type: "post",
+		url: "Orgao/AlterarTom",
+		data: {
+			texto: texto,
+			aumentar: aumentar,
+			quant: quant
+		},
+		//url: "Orgao/AlterarTom?=" + texto + "&quant=" + quant, type: "post", dataType: "json",
+		success: function (data) {
+			if (data.success) {
+				var frame = document.getElementById('textoCifras');
+				frame.contentDocument.body.innerHTML = data.message;
+			}
+			else
+				alert(data.message);
+		}
+	});
+}
 
 function mudarTom(tomSelecionado) {
 	var acordesCampoHarmonico = acordesCampoHarmonicoJson[tomSelecionado];
@@ -268,8 +290,8 @@ function mudarTomMenor(acordeIndex) {
 	document.getElementById('textoAcordeMenor').innerText = acordesTons[acordeIndex + 12];
 }
 
-function aumentarTom(aumentar, quant) {
-	var tomElement = document.getElementById("tomSelect");
+function aumentarTom(aumentar, quant, select) {
+	var tomElement = document.getElementById(select);
 	var tomSelecionadoIndex = tomElement.selectedIndex;
 
 	if (aumentar) {
@@ -287,13 +309,18 @@ function aumentarTom(aumentar, quant) {
 			else
 				tomElement.value = tonsMaiores[tomElement.length - 1];
 		else
-			tomElement.value = acordesTons[tomSelecionadoIndex - quant];
+			tomElement.value = tonsMaiores[tomSelecionadoIndex - quant];
 	}
 
-	mudarTom(tomElement.value);
+	if (select == "tomSelectCifra")
+		mudarTomCifra(aumentar, quant);
+	else
+		mudarTom(tomElement.value);
 }
 
-function mostrarTextoArquivoCarregado(texto) {
+function mostrarTextoArquivoCarregado(tom, texto) {
+	document.getElementById('tomSelectCifra').selectedIndex = acordesTons.indexOf(tom);
+
 	var frame = document.getElementById('textoCifras');
 	frame.contentDocument.body.innerHTML = texto;
 	addEventCifras(frame);

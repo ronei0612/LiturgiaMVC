@@ -135,7 +135,8 @@
 	const acordesCampoHarmonicoJson = JSON.parse('@Html.Raw(@Model.AcordesCampoHarmonico)');
 	const acidentesCorrespondentesJson = JSON.parse('@Html.Raw(@Model.AcidentesCorrespondentes)');
 	const acordesTons = Object.keys(acordesCampoHarmonicoJson);
-
+	const tonsMaiores = '@Html.Raw(@Model.TonsMaioresString)'.split(', ');
+	
 	esperarAudios(1000, true);
 
 	var acordes = {
@@ -253,13 +254,13 @@
 		if (timer)
 			clearTimeout(timer);
 		timer = setTimeout(function () {
-			aumentarTom(aumentar, 1);
+			aumentarTom(aumentar, 1, "tomSelect");
 		}, 250);
 	}
 
 	function aumentarTom_clickDuplo(aumentar) {
 		clearTimeout(timer);
-		aumentarTom(aumentar, 2);
+		aumentarTom(aumentar, 2, "tomSelect");
 	}
 
 	function gravar() {

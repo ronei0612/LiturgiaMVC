@@ -3,6 +3,7 @@ using Google.Apis.Services;
 using LiturgiaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace LiturgiaMVC.Controllers
 {
@@ -25,6 +26,7 @@ namespace LiturgiaMVC.Controllers
                 LinksDict = Variaveis.notasLinks,
                 TomIndex = Array.IndexOf(Variaveis.tonsMaiores, tom),
                 TonsMaiores = Variaveis.tonsMaiores,
+                TonsMaioresString = Variaveis.tonsMaioresString,
                 TonsMenores = Variaveis.tonsMenores,
                 RitmosBateria = Variaveis.textoRitmos,
                 NotasAcordes = Variaveis.textoNotasAcordes,
@@ -97,69 +99,81 @@ namespace LiturgiaMVC.Controllers
         [HttpPost]
         public JsonResult DownloadSite(string url)
         {
-            var paginaHtml = string.Empty;
-
-            using (var webClient = new WebClient())
+            try
             {
-                paginaHtml = webClient.DownloadString(url);
-            }
+                var paginaHtml = string.Empty;
 
-            paginaHtml = paginaHtml.Split("<pre>")[1].Split("</pre>")[0];
-            paginaHtml = "<pre>" + paginaHtml + "</pre>";
-
-            var linhas = paginaHtml.Split('\n');
-            var list = new List<string>();
-
-            foreach (var linha in linhas)
-            {
-                //if (!linha.Contains("[Solo]") && !linha.Contains("[Final]"))
-                    list.Add(linha);
-            }
-
-            var cifraTexto = string.Join('\n', list);
-
-            if (cifraTexto.Contains("<pre>") == false)
-                cifraTexto = "<pre>" + cifraTexto;
-
-            if (cifraTexto.Contains("</pre>") == false)
-                cifraTexto += "</pre>";
-            
-            var notas = cifraTexto.Split("<b");                                             
-            var texto = new List<string>();
-
-            for (int i = 0; i < notas.Length; i++)
-            {
-                if (i == 0)
-                    texto.Add(notas[i]);
-                else
+                using (var webClient = new WebClient())
                 {
-                    var cifra = notas[i].Split('>')[1].Split('<')[0];
-                    var linhaRestante = "<" + notas[i].Split('<')[1];
-                    var cifraFormatada = cifra;
-
-                    if (cifra.Contains('('))
-                        cifraFormatada = cifra.Split('(')[0];
-                    if (cifra.Contains('/'))
-                        cifraFormatada = cifra.Split('/')[0];
-
-                    while (Variaveis.notasAcordes.ContainsKey(cifraFormatada) == false)
-                        cifraFormatada = cifraFormatada.Remove(cifraFormatada.Length - 1);
-
-                    if (string.IsNullOrEmpty(cifraFormatada) == false)
-                    {
-                        cifraFormatada = ">" + cifraFormatada + linhaRestante;
-                        texto.Add("<b id=\"cifra" + i + "\"" + cifraFormatada);
-                    }
+                    paginaHtml = webClient.DownloadString(url);
                 }
+
+                var tom = Regex.Split(paginaHtml, "title=\"alterar o tom.*da cifra\">")[1].Split('<')[0].Trim();
+
+                paginaHtml = paginaHtml.Split("<pre>")[1].Split("</pre>")[0];
+                paginaHtml = "<pre>" + paginaHtml + "</pre>";
+
+                //var linhas = paginaHtml.Split('\n');
+                //var list = new List<string>();
+
+                //foreach (var linha in linhas)
+                //{
+                //    if (!linha.Contains("[Solo]") && !linha.Contains("[Final]"))
+                //        list.Add(linha);
+                //}
+
+                //var cifraTexto = string.Join('\n', list);
+                var cifraTexto = paginaHtml;
+
+                if (cifraTexto.Contains("<pre>") == false)
+                    cifraTexto = "<pre>" + cifraTexto;
+
+                if (cifraTexto.Contains("</pre>") == false)
+                    cifraTexto += "</pre>";
+
+                var textoFinal = Ferramentas.GetAcordes(cifraTexto);
+
+                cifraTexto = "<head><style>.cifraSelecionada{background-color:#ff0}</style></head>" + textoFinal;
+
+                return Json(new
+                {
+                    success = true,
+                    message = cifraTexto,
+                    tom = tom
+                });
             }
-
-            cifraTexto = "<head><style>.cifraSelecionada{background-color:#ff0}</style></head>" + string.Join("", texto);
-
-            return Json(new
+            catch (Exception ex)
             {
-                success = true,
-                message = cifraTexto
-            });
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult AlterarTom(string texto, bool aumentar, int quant)
+        {
+            try {
+                if (aumentar == false)
+                    quant = -1 * quant;
+                var cifraTexto = Ferramentas.GetAcordes(texto, quant);
+
+                return Json(new
+                {
+                    success = true,
+                    message = cifraTexto
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
         }
     }
 }
