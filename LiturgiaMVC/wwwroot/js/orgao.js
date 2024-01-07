@@ -7,7 +7,7 @@ var _acompanhamentoMao = false;
 var _grupoNotas;
 var _grupoNotasStrings;
 var _volume = 0.9;
-var _instrumentoSelecionado = 'orgao';
+var _instrumentoSelecionado = 'orgaopad';
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
