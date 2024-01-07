@@ -20,7 +20,7 @@
 						</svg>
 					</button>
 					&nbsp;
-					<select class="form-control" id="tomSelectCifra" onchange="mudarTom(this.value)" style="text-align-last:center"></select>
+					<select class="form-control" id="tomSelectCifra" onchange="prepararMudarTomCifra(this.value)" onclick="pegarTomCifra(this.value)" style="text-align-last:center;font-weight: bold;"></select>
 					&nbsp;
 					<button class="btn btn-primary" type="button" ondblclick="aumentarTom_clickDuplo_cifra(true)" onclick="aumentarTom_click_cifra(true)">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -73,17 +73,19 @@
 	</div>
 </div>
 <script>
-	var timer;
+	var _timer;
+	var _tomIndex = '';
+
 	function aumentarTom_click_cifra(aumentar) {
-		if (timer)
-			clearTimeout(timer);
-		timer = setTimeout(function () {
+		if (_timer)
+			clearTimeout(_timer);
+		_timer = setTimeout(function () {
 			aumentarTom(aumentar, 1, "tomSelectCifra");
 		}, 250);
 	}
 
 	function aumentarTom_clickDuplo_cifra(aumentar) {
-		clearTimeout(timer);
+		clearTimeout(_timer);
 		aumentarTom(aumentar, 2, "tomSelectCifra");
 	}
 
@@ -91,5 +93,26 @@
 		document.getElementById('orgaoBox').style.display = 'block';
 		document.getElementById('gravacaoBox').style.display = 'none';
 		document.getElementById('bateriaBox').style.display = "block";
+	}
+
+	function prepararMudarTomCifra(tomSelecionado) {
+		if (tomSelecionado.includes('m'))
+			var index = tonsMenores.indexOf(tomSelecionado);
+		else
+			var index = tonsMaiores.indexOf(tomSelecionado);
+
+		index = index - _tomIndex;
+
+		if (index < 0)
+			mudarTomCifra(false, Math.abs(index));
+		else
+			mudarTomCifra(true, index);
+	}
+
+	function pegarTomCifra(tomSelecionado) {
+		if (tomSelecionado.includes('m'))
+			_tomIndex = tonsMenores.indexOf(tomSelecionado);
+		else
+			_tomIndex = tonsMaiores.indexOf(tomSelecionado);
 	}
 </script>
