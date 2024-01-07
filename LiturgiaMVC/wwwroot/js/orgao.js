@@ -369,10 +369,10 @@ function addEventCifras(frame) {
 }
 
 function tocarCifraManualmente(cifraElem) {
-	cifraId = cifraElem.id.split('cifra')[1] - 1;
+	_cifraId = cifraElem.id.split('cifra')[1] - 1;
 }
 
-var cifraId = 0;
+var _cifraId = 0;
 
 function avancarCifra(avancar_retroceder, botao) {
 
@@ -393,20 +393,20 @@ function avancarCifra(avancar_retroceder, botao) {
 			cifraElems[0].classList.remove('cifraSelecionada');
 
 		if (avancar_retroceder == 'avancar') {
-			if (cifraId < elements_b.length) {
-				var cifraElem = elements_b[cifraId];
+			if (_cifraId < elements_b.length) {
+				var cifraElem = elements_b[_cifraId];
 				tocarAcorde(cifraElem.innerHTML.trim(), null);
 				botao.classList.toggle('pressionado', true);
 				cifraElem.classList.add('cifraSelecionada');
 				cifraElem.scrollIntoView();
-				cifraId++;
+				_cifraId++;
 			}
 		}
 
 		if (avancar_retroceder == 'retroceder') {
-			if (cifraId > 0) {
-				cifraId--;
-				var cifraElem = elements_b[cifraId - 1];
+			if (_cifraId > 0) {
+				_cifraId--;
+				var cifraElem = elements_b[_cifraId - 1];
 				tocarAcorde(cifraElem.innerHTML.trim(), null);
 				botao.classList.toggle('pressionado', true);
 				cifraElem.classList.add('cifraSelecionada');
