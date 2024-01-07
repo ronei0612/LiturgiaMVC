@@ -234,12 +234,14 @@ function alterarVolume(volume, padrao) {
 	if (_grupoNotasStrings != null)
 		_grupoNotasStrings.volume = _volume;
 
-	var numero = document.getElementById('volumeTexto');
-
-	if (volume == padrao)
-		numero.innerHTML = volume * 10;
-	else
-		numero.innerHTML = (volume * 10) + '*';
+	if (volume == padrao) {
+		document.getElementById('volumeTexto').innerHTML = volume * 10;
+		document.getElementById('volumeTexto-cifra').innerHTML = volume * 10;
+	}
+	else {
+		document.getElementById('volumeTexto').innerHTML = (volume * 10) + '*';
+		document.getElementById('volumeTexto-cifra').innerHTML = (volume * 10) + '*';
+	}
 }
 
 function mudarTomCifra(aumentar, quant) {
