@@ -423,8 +423,8 @@ namespace LiturgiaMVC
                         else
                             cifraSomenteNota = cifraSomenteNota[0].ToString();
 
-                        cifraSomenteNota = Variaveis.acidentesCorrespondentes[cifraSomenteNota];
                         cifraAcordeAlteracoes = cifraFormatada.Split(cifraSomenteNota)[1];
+                        cifraSomenteNota = Variaveis.acidentesCorrespondentes[cifraSomenteNota];
                         cifraFormatada = cifraSomenteNota + cifraAcordeAlteracoes;
                     }
 
