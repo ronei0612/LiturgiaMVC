@@ -373,8 +373,12 @@ function tocarCifraManualmente(cifraElem) {
 var cifraId = 0;
 
 function avancarCifra(avancar_retroceder, botao) {
-	if (avancar_retroceder == '')
+
+	if (avancar_retroceder == '') {
 		escolherAcorde('', botao);
+		document.getElementById('gravar-cifra').style.display = 'block';
+		document.getElementById('play-pause-cifra').style.display = 'none';
+	}
 
 	else {
 		var frame = document.getElementById('textoCifras');
@@ -407,6 +411,9 @@ function avancarCifra(avancar_retroceder, botao) {
 				cifraElem.scrollIntoView();
 			}
 		}
+
+		document.getElementById('gravar-cifra').style.display = 'none';
+		document.getElementById('play-pause-cifra').style.display = 'block';
 	}
 }
 
