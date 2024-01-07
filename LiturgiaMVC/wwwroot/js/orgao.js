@@ -254,11 +254,11 @@ function mudarTomCifra(aumentar, quant) {
 			aumentar: aumentar,
 			quant: quant
 		},
-		//url: "Orgao/AlterarTom?=" + texto + "&quant=" + quant, type: "post", dataType: "json",
 		success: function (data) {
 			if (data.success) {
 				var frame = document.getElementById('textoCifras');
 				frame.contentDocument.body.innerHTML = data.message;
+				addEventCifras(frame);
 			}
 			else
 				alert(data.message);
