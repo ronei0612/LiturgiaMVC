@@ -11,6 +11,11 @@ namespace LiturgiaMVC.Controllers
     {
         public IActionResult Index(string tom = "C")
         {
+            var arquivo = @"C:\Users\ronei\Downloads\Entrada-Eis-que-veio-o-Senhor-dos-Senhores.pdf";
+            PdfDocument pdf = PdfDocument.FromFile(arquivo);
+            string html = pdf.ToHtmlString();
+            //site para converter pdf em html https://pdf.io/pt/pdf2html/            
+
             //verificar arquivo acordeslinks.txt
             //criar arquivo AcordesLinks.txt
             Ferramentas.EscreverInfoCliente(HttpContext);
@@ -35,6 +40,37 @@ namespace LiturgiaMVC.Controllers
             };
 
             return View(linksModel);
+        }
+
+        private IEnumerable<string> ExtractText(CObject cObject)
+        {
+            var textList = new List<string>();
+            if (cObject is COperator)
+            {
+                var cOperator = cObject as COperator;
+                if (cOperator.OpCode.Name == OpCodeName.Tj.ToString() ||
+                    cOperator.OpCode.Name == OpCodeName.TJ.ToString())
+                {
+                    foreach (var cOperand in cOperator.Operands)
+                    {
+                        textList.AddRange(ExtractText(cOperand));
+                    }
+                }
+            }
+            else if (cObject is CSequence)
+            {
+                var cSequence = cObject as CSequence;
+                foreach (var element in cSequence)
+                {
+                    textList.AddRange(ExtractText(element));
+                }
+            }
+            else if (cObject is CString)
+            {
+                var cString = cObject as CString;
+                textList.Add(cString.Value);
+            }
+            return textList;
         }
 
         public IActionResult Gravacao()

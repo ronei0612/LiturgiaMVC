@@ -17,7 +17,9 @@
 
   <ItemGroup>
     <PackageReference Include="Google.Apis.CustomSearchAPI.v1" Version="1.64.0.3106" />
+    <PackageReference Include="IronPdf" Version="2023.12.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PDFsharp" Version="6.0.0" />
   </ItemGroup>
 
 </Project>
