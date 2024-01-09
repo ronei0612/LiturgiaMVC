@@ -234,14 +234,10 @@ function alterarVolume(volume, padrao) {
 	if (_grupoNotasStrings != null)
 		_grupoNotasStrings.volume = _volume;
 
-	if (volume == padrao) {
-		document.getElementById('volumeTexto').innerHTML = volume * 10;
-		document.getElementById('volumeTexto-cifra').innerHTML = volume * 10;
-	}
-	else {
+	if (volume == padrao)
+		document.getElementById('volumeTexto').innerHTML = volume * 10;	
+	else
 		document.getElementById('volumeTexto').innerHTML = (volume * 10) + '*';
-		document.getElementById('volumeTexto-cifra').innerHTML = (volume * 10) + '*';
-	}
 }
 
 function mudarTomCifra(aumentar, quant) {
@@ -360,6 +356,7 @@ function mostrarTextoArquivoCarregado(tom, texto) {
 	document.getElementById('cifraRetroceder').style.display = 'block';
 	document.getElementById('volumeDiv').style.display = 'none';
 	document.getElementById('voltar').style.display = 'block';
+	document.getElementById('tomMenorSwitchDiv').style.display = 'none';
 
 	addEventCifras(frame);
 }
