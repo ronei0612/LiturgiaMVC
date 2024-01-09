@@ -101,7 +101,15 @@ function montarAcorde(acorde, grupoNotas, somenteTom = false) {
 		acorde = acorde.split('_')[1];
 
 	if (somenteTom) {
-		acorde = acorde.replace('m', '').replace('7', '');
+		if (acorde.length > 1) {
+			if (acorde[1] == '#' || acorde[1] == 'b')
+				acorde = acorde[0] + acorde[1];
+			else
+				acorde = acorde[0];
+		}
+		else
+			acorde = acorde[0];
+
 		acorde = acidentesCorrespondentesJson[acorde];
 
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo')
@@ -291,23 +299,28 @@ function mudarTomMenor(acordeIndex) {
 function aumentarTom(aumentar, quant, select) {
 	var tomElement = document.getElementById(select);
 	var tomSelecionadoIndex = tomElement.selectedIndex;
+	
+	if (tomElement.value.includes('m'))
+		var tonsArray = tonsMenores;
+	else
+		var tonsArray = tonsMaiores;
 
 	if (aumentar) {
 		if (tomSelecionadoIndex + quant == tomElement.length)
-			tomElement.value = tonsMaiores[0];
+			tomElement.value = tonsArray[0];
 		else if (tomSelecionadoIndex + quant > tomElement.length)
-			tomElement.value = tonsMaiores[-1 + quant];
+			tomElement.value = tonsArray[-1 + quant];
 		else
-			tomElement.value = tonsMaiores[tomSelecionadoIndex + quant];
+			tomElement.value = tonsArray[tomSelecionadoIndex + quant];
 	}
 	else {
 		if (tomSelecionadoIndex - quant < 0)
 			if (tomSelecionadoIndex == 0)
-				tomElement.value = tonsMaiores[tomElement.length - quant];
+				tomElement.value = tonsArray[tomElement.length - quant];
 			else
-				tomElement.value = tonsMaiores[tomElement.length - 1];
+				tomElement.value = tonsArray[tomElement.length - 1];
 		else
-			tomElement.value = tonsMaiores[tomSelecionadoIndex - quant];
+			tomElement.value = tonsArray[tomSelecionadoIndex - quant];
 	}
 
 	if (document.getElementById('textoCifrasFrame').style.display == "block")
