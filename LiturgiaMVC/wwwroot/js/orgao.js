@@ -116,7 +116,7 @@ function montarAcorde(acorde, grupoNotas, somenteTom = false) {
 
 		for (var i = 0, len = notas.length; i < len; i++) {
 			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo')
-				if (i != 1)
+				if (i != 1 && i != 3 && i != 4 && i != 5)
 					grupoNotas.addSound(acordes['orgao_' + notas[i] + '_baixo']);
 
 			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
