@@ -115,7 +115,8 @@ namespace LiturgiaMVC.Controllers
                 }
 
                 var tom = Regex.Split(paginaHtml, "title=\"alterar o tom.*da cifra\">")[1].Split('<')[0].Trim();
-                tom = Variaveis.acidentesCorrespondentes[tom];
+                var retorno = Ferramentas.GetAcorde(tom);
+                tom = retorno[0] + retorno[1];
 
                 paginaHtml = paginaHtml.Split("<pre>")[1].Split("</pre>")[0];
                 paginaHtml = "<pre>" + paginaHtml + "</pre>";
