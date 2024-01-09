@@ -314,7 +314,7 @@ function aumentarTom(aumentar, quant, select) {
 			tomElement.value = tonsMaiores[tomSelecionadoIndex - quant];
 	}
 
-	if (select == "tomSelectCifra")
+	if (document.getElementById('textoCifrasFrame').style.display == "block")
 		mudarTomCifra(aumentar, quant);
 	else
 		mudarTom(tomElement.value);
