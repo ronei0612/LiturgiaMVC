@@ -391,8 +391,8 @@ function avancarCifra(avancar_retroceder, botao) {
 
 	if (avancar_retroceder == '') {
 		escolherAcorde('', botao);
-		document.getElementById('gravar-cifra').style.display = 'block';
-		document.getElementById('play-pause-cifra').style.display = 'none';
+		document.getElementById('gravar').style.display = 'block';
+		document.getElementById('play-pause').style.display = 'none';
 	}
 
 	else {
@@ -427,8 +427,8 @@ function avancarCifra(avancar_retroceder, botao) {
 			}
 		}
 
-		document.getElementById('gravar-cifra').style.display = 'none';
-		document.getElementById('play-pause-cifra').style.display = 'block';
+		document.getElementById('gravar').style.display = 'none';
+		document.getElementById('play-pause').style.display = 'block';
 	}
 }
 
