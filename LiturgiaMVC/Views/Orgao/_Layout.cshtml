@@ -189,6 +189,7 @@
         });
 
         function mostrarModal(nome) {
+            debugger;
             document.getElementById('modal01').style.display = 'block';
 
             if (nome == 'opcoes') {
@@ -209,12 +210,12 @@
                     document.getElementById('linksCifraClubList').style.display = 'none';
                     document.getElementById('musicaSearch').value = "";
                     
-                    document.getElementById('orgaoBox').style.display = 'none';
-                    document.getElementById('gravacaoBox').style.display = 'block';
-                    document.getElementById('bateriaBox').style.display = "none";
-                    document.getElementById('modal01').style.display = 'none';
+                    //document.getElementById('orgaoBox').style.display = 'none';
+                    //document.getElementById('gravacaoBox').style.display = 'block';
+                    //document.getElementById('bateriaBox').style.display = "none";
+                    //document.getElementById('modal01').style.display = 'none';
 
-                    escolherAcompanhamento('full', document.getElementById('fullCifra'));
+                    //escolherAcompanhamento('full', document.getElementById('fullCifra'));
                 }
                 else {
                     document.getElementById('selectOpcoes').style.display = 'none';
@@ -281,12 +282,12 @@
                 reader.onload = (evt) => {
                     var texto = evt.target.result;
 
-                    document.getElementById('orgaoBox').style.display = 'none';
-                    document.getElementById('gravacaoBox').style.display = 'block';
-                    document.getElementById('bateriaBox').style.display = "none";
+                    //document.getElementById('orgaoBox').style.display = 'none';
+                    //document.getElementById('gravacaoBox').style.display = 'block';
+                    //document.getElementById('bateriaBox').style.display = "none";
 
                     mostrarTextoArquivoCarregado(texto);
-                    escolherAcompanhamento('full', document.getElementById('fullCifra'));
+                    //escolherAcompanhamento('full', document.getElementById('fullCifra'));
                 };
 
                 reader.readAsText(arquivos[0]);
@@ -329,12 +330,12 @@
                         document.getElementById('linksCifraClubList').style.display = 'none';
                         document.getElementById('musicaSearch').value = "";
                         
-                        document.getElementById('orgaoBox').style.display = 'none';
-                        document.getElementById('gravacaoBox').style.display = 'block';
-                        document.getElementById('bateriaBox').style.display = "none";
+                        //document.getElementById('orgaoBox').style.display = 'none';
+                        //document.getElementById('gravacaoBox').style.display = 'block';
+                        //document.getElementById('bateriaBox').style.display = "none";
                         document.getElementById('modal01').style.display = 'none';
 
-                        escolherAcompanhamento('full', document.getElementById('fullCifra'));
+                        //escolherAcompanhamento('full', document.getElementById('fullCifra'));
                         mostrarTextoArquivoCarregado(data.tom, data.message);
                     }
                     else

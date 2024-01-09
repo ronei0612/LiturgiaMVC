@@ -342,12 +342,25 @@ function mostrarTextoArquivoCarregado(tom, texto) {
 	//document.getElementById('tomSelectCifra').selectedIndex = acordesTons.indexOf(tom);
 	
 	if (tom.includes('m'))
-		adicionarTonsSelect('tomSelectCifra', tonsMenores.indexOf(tom), false);
+		adicionarTonsSelect('tomSelect', tonsMenores.indexOf(tom), false);
 	else
-		adicionarTonsSelect('tomSelectCifra', tonsMaiores.indexOf(tom), true);
+		adicionarTonsSelect('tomSelect', tonsMaiores.indexOf(tom), true);
 
 	var frame = document.getElementById('textoCifras');
 	frame.contentDocument.body.innerHTML = texto;
+	document.getElementById('textoCifrasFrame').style.display = 'block';
+
+	var elements = document.getElementsByClassName('orgaoBotoes');
+	for (var i = 0; i < elements.length; i++) {
+		elements[i].style.display = 'none';
+	};
+
+	document.getElementById('cifraAvancar').style.display = 'block';
+	document.getElementById('cifraRetroceder').style.display = 'block';
+	document.getElementById('volumeDiv').style.display = 'none';
+	document.getElementById('voltar').style.display = 'block';
+	document.getElementById('container').classList.remove('d-sm-flex');
+
 	addEventCifras(frame);
 }
 
