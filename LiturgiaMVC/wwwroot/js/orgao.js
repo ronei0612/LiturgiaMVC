@@ -355,11 +355,11 @@ function mostrarTextoArquivoCarregado(tom, texto) {
 		elements[i].style.display = 'none';
 	};
 
+	document.getElementById('container').classList.remove('d-sm-flex');
 	document.getElementById('cifraAvancar').style.display = 'block';
 	document.getElementById('cifraRetroceder').style.display = 'block';
 	document.getElementById('volumeDiv').style.display = 'none';
 	document.getElementById('voltar').style.display = 'block';
-	document.getElementById('container').classList.remove('d-sm-flex');
 
 	addEventCifras(frame);
 }
