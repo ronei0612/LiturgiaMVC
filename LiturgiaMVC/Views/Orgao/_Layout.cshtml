@@ -146,7 +146,7 @@
                     </div>
                     <br />
                     <div id="linksCifraClubList" style="display:block">
-                        <div class="list-group" id="lista">
+                        <div class="list-group" id="listaMusicasCifra">
                             
                         </div>
                     </div>
@@ -204,23 +204,23 @@
             }
 
             else if (nome == 'gravar') {
-                if (document.getElementById('textoCifras').contentDocument.body.innerHTML != '') {
-                    document.getElementById('escreverCifraTextArea').style.display = 'block';
-                    document.getElementById('linksCifraClubList').style.display = 'none';
-                    document.getElementById('musicaSearch').value = "";
+                //if (document.getElementById('textoCifras').contentDocument.body.innerHTML != '') {
+                //    document.getElementById('escreverCifraTextArea').style.display = 'block';
+                //    document.getElementById('linksCifraClubList').style.display = 'none';
+                //    document.getElementById('musicaSearch').value = "";
                     
-                    //document.getElementById('orgaoBox').style.display = 'none';
-                    //document.getElementById('gravacaoBox').style.display = 'block';
-                    //document.getElementById('bateriaBox').style.display = "none";
-                    //document.getElementById('modal01').style.display = 'none';
+                //    //document.getElementById('orgaoBox').style.display = 'none';
+                //    //document.getElementById('gravacaoBox').style.display = 'block';
+                //    //document.getElementById('bateriaBox').style.display = "none";
+                //    //document.getElementById('modal01').style.display = 'none';
 
-                    //escolherAcompanhamento('full', document.getElementById('fullCifra'));
-                }
-                else {
+                //    //escolherAcompanhamento('full', document.getElementById('fullCifra'));
+                //}
+                //else {
                     document.getElementById('selectOpcoes').style.display = 'none';
                     document.getElementById('selectInstrumento').style.display = 'none';
                     document.getElementById('modalGravar').style.display = 'block';
-                }
+                //}
             }
         }
 
@@ -294,7 +294,7 @@
         }
 
         function pesquisarMusica() {
-            document.getElementById('lista').innerHTML = '';
+            document.getElementById('listaMusicasCifra').innerHTML = '';
             var textoPesquisa = document.getElementById('musicaSearch').value;
             
             $.ajax({
@@ -308,7 +308,7 @@
 
                         if (titulosMusicas.length > 0) {
                             for (i = 0; i < titulosMusicas.length; i += 1)
-                                $('#lista').append('<div class="list-group-item list-group-item-action" onclick="escolherLink(\'' + linksMusicas[i] + '\')">' + titulosMusicas[i] + '</div>');
+                                $('#listaMusicasCifra').append('<div class="list-group-item list-group-item-action" onclick="escolherLink(\'' + linksMusicas[i] + '\')">' + titulosMusicas[i] + '</div>');
                         }
 
                         else
@@ -328,13 +328,7 @@
                         document.getElementById('escreverCifraTextArea').style.display = 'block';
                         document.getElementById('linksCifraClubList').style.display = 'none';
                         document.getElementById('musicaSearch').value = "";
-                        
-                        //document.getElementById('orgaoBox').style.display = 'none';
-                        //document.getElementById('gravacaoBox').style.display = 'block';
-                        //document.getElementById('bateriaBox').style.display = "none";
                         document.getElementById('modal01').style.display = 'none';
-
-                        //escolherAcompanhamento('full', document.getElementById('fullCifra'));
                         mostrarTextoArquivoCarregado(data.tom, data.message);
                     }
                     else
