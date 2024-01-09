@@ -19,7 +19,7 @@
 					&nbsp;
 						
 					<div class="d-flex">
-						<input class="btn btn-link" type="button" id="voltar" value="&laquo; Voltar" onclick="ocultarGravacao()" style="display:none">
+						<input class="btn btn-link" type="button" id="voltar" value="&laquo; Voltar" onclick="voltarParaOrgao()" style="display:none">
 						&nbsp;
 						<button class="btn btn-primary" type="button" ondblclick="aumentarTom_clickDuplo(false)" onclick="aumentarTom_click(false)">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
@@ -140,6 +140,22 @@
 		'strings_A#_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["strings_la#_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
 		'strings_B_baixo': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["strings_si_baixo"])', loop: true, release: 0.5, attack: 0.2 } }),
 	};
+
+	function voltarParaOrgao() {
+
+		var elements = document.getElementsByClassName('orgaoBotoes');
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].style.display = 'block';
+		};
+
+		document.getElementById('textoCifrasFrame').style.display = 'none';
+		document.getElementById('cifraAvancar').style.display = 'none';
+		document.getElementById('cifraRetroceder').style.display = 'none';
+		document.getElementById('volumeDiv').style.display = 'block';
+		document.getElementById('voltar').style.display = 'none';
+
+		document.getElementById('container').classList.add('d-sm-flex');
+	}
 
 	function mudarParaFullscreen() {
 		document.getElementById('exitfullscreen').style.display = 'flex';
