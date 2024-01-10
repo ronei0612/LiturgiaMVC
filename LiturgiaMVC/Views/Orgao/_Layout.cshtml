@@ -263,7 +263,7 @@
                 document.getElementById('modalGravar').style.display = 'none';
                 document.getElementById('salvarDiv').style.display = 'block';
 
-                carregarSalvamentos();
+                carregarSalvamentosList();
             }
         }
 
@@ -337,7 +337,7 @@
             localStorage.setItem(nomeStorage, opcoesArray);
         }
 
-        function carregarSalvamentos() {
+        function carregarSalvamentosList() {
             var selectSalvamento = document.getElementById('selectSalvamento');
             var salvamentosStorage = localStorage.getItem('salvamentos');
 
