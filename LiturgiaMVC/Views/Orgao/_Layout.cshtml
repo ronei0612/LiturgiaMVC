@@ -112,7 +112,48 @@
                 </div>
 
                 <div id="salvarDiv">
+                    <h4>Salvar</h4>
+                    Selecionar salvamento:
+                    <br />
+                    <select class="form-control" tyle="height:3m" id="selectSalvamento">
+                        @*<option selected value=""></option>*@
+                    </select>
+                    <br />
 
+                    <button class="btn btn-success" type="button" onclick="novoSalvamento()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                            <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                        </svg>
+                    </button>
+
+                    <button class="btn btn-danger" type="button" onclick="deletarSalvamento()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                        </svg>
+                    </button>
+
+                    <button class="btn btn-primary" type="button" onclick="salvarSalvamento()">
+                        @*<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+                            <path d="M11 2H9v3h2z" />
+                            <path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+                        </svg>*@
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z" />
+                        </svg>
+                        Salvar
+                    </button>
+
+                    <button class="btn btn-primary" type="button" onclick="carregar_Salvamento()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+                        </svg>
+                        Carregar
+                    </button>
+                    <br /><br />
                 </div>
 
                 <div id="modalGravar">
@@ -151,8 +192,7 @@
                     </div>
                     <br />
                     <div id="linksCifraClubList" style="display:block">
-                        <div class="list-group" id="listaMusicasCifra">
-                            
+                        <div class="list-group" id="listaMusicasCifra">                            
                         </div>
                     </div>
                     <div id="escreverCifraTextArea">
@@ -222,6 +262,8 @@
                 document.getElementById('selectInstrumento').style.display = 'none';
                 document.getElementById('modalGravar').style.display = 'none';
                 document.getElementById('salvarDiv').style.display = 'block';
+
+                carregarSalvamentos();
             }
         }
 
@@ -251,25 +293,129 @@
             document.getElementById('modal01').style.display = 'none';
         }
 
-        function deletarGravacao() {
-            var gravacaoSelecionada = document.getElementById('selectGravacao');
+        function deletarSalvamento() {
+            var gravacaoSelecionada = document.getElementById('selectSalvamento');
 
             if (gravacaoSelecionada.value != '') {
-                if (confirm('Apagar gravação?\n' + gravacaoSelecionada.value))
+                if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
                     gravacaoSelecionada.remove(gravacaoSelecionada.selectedIndex);
+                    localStorage.removeItem(gravacaoSelecionada.value);
+                }
             }
         }
 
-        function novaGravacao() {
-            var novaGravacao = document.getElementById("selectGravacao");
-            var option = document.createElement("option");
+        function novoSalvamento() {
+            var novoSalvamento = document.getElementById('selectSalvamento');
+            let nome = prompt('Nome da novo salvamento');
 
-            let nome = prompt('Nome da nova gravação');
+            if (nome != '') {
+                var opcoesSelect = novoSalvamento.options;
+                var opcoesArray = [...opcoesSelect].map(el => el.value);
 
-            option.text = nome;
-            novaGravacao.add(option);
+                if (opcoesArray.includes(nome))
+                    alert('Salvamento ' + nome + ' já existe!');
 
-            novaGravacao.selectedIndex = novaGravacao.length - 1;
+                else {
+                    var option = document.createElement("option");
+
+                    option.text = nome;
+                    novoSalvamento.add(option);
+                    novoSalvamento.selectedIndex = novoSalvamento.length - 1;
+
+                    localStorage.setItem('salvamentos', opcoesArray);
+                }
+            }
+        }
+
+        function carregarSalvamentos() {
+            var selectSalvamento = document.getElementById('selectSalvamento');
+            var salvamentosStorage = localStorage.getItem('salvamentos');
+
+            if (salvamentosStorage != null) {
+                if (salvamentosStorage.length > 0) {
+                    var salvamentos = salvamentos.split(',');
+                    selectSalvamento.innerHTML = "";
+
+                    for (var i = 0; i < salvamentos.length; i++) {
+                        var option = document.createElement("option");
+                        option.text = salvamentos[i];
+                        selectSalvamento.add(option);
+                    }
+                }
+            }
+        }
+
+        function salvarSalvamento() {
+            var salvamentoSelecionado = document.getElementById('selectSalvamento').value;
+
+            if (salvamentoSelecionado != '') {
+                var instrumentoSelectIndex = 'instrumentoSelect,' + document.getElementById('instrumentoSelect').selectedIndex;
+                var selectRitmoIndex = 'selectRitmo,' + document.getElementById('selectRitmo').selectedIndex;
+                var tomSelectIndex = 'tomSelect,' + document.getElementById('tomSelect').selectedIndex;
+                var bpmValue = 'bpm,' + document.getElementById('bpm').value;
+
+                var salvar = instrumentoSelectIndex + '\n' + selectRitmoIndex + '\n' + tomSelectIndex + '\n' + bpmValue;
+
+                if (document.getElementById('tomMenorSwitchDiv').style.display != 'none')
+                    salvar += '\n' + 'tomMenorSwitch,' + document.getElementById('tomMenorSwitch').checked;
+
+                localStorage.setItem(salvamentoSelecionado, salvar);
+
+                if (document.getElementById('textoCifrasFrame').style.display != 'none')
+                    localStorage.setItem(salvamentoSelecionado + '_frameCifra', document.getElementById('textoCifras').contentDocument.innerHTML);
+
+                document.getElementById('modal01').style.display = 'none';
+            }
+
+            
+            
+        }
+
+        function carregar_Salvamento() {
+            var salvamentoSelecionado = document.getElementById('selectSalvamento').value;
+            var storage = localStorage.getItem(salvamentoSelecionado);
+            if (storage != null) {
+                if (storage.includes('\n')) {
+                    debugger;
+                    var itens = storage.split('\n');
+                    var novoEvento = new Event('change');
+
+                    var instrumentoSelect = document.getElementById('instrumentoSelect');
+                    instrumentoSelect.selectedIndex = itens[0].split(',')[1];                    
+                    instrumentoSelect.dispatchEvent(novoEvento);
+
+                    var selectRitmo = document.getElementById('selectRitmo');
+                    selectRitmo.selectedIndex = itens[1].split(',')[1];
+                    selectRitmo.dispatchEvent(novoEvento);
+
+                    var tomSelect = document.getElementById('tomSelect');
+                    tomSelect.selectedIndex = itens[2].split(',')[1];
+                    tomSelect.dispatchEvent(novoEvento);
+
+                    var bpm = document.getElementById('bpm');
+                    bpm.value = itens[3].split(',')[1];
+                    tomSelect.dispatchEvent(novoEvento);
+
+                    if (itens[4] != null) {
+                        var tomMenorSwitch = document.getElementById('tomMenorSwitch');
+                        tomMenorSwitch.checked = itens[4].split(',')[1];
+                        tomMenorSwitch.dispatchEvent(novoEvento);
+                    }
+                }
+            }
+
+            if (localStorage.getItem(salvamentoSelecionado + '_frameCifra') != null)
+                document.getElementById('tomMenorSwitch').checked = itens[5].split(',')[1];
+
+            if (document.getElementById('textoCifrasFrame').style.display != 'none') {
+                storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
+
+                if (storage != null) {
+                    document.getElementById('textoCifras').contentDocument.innerHTML = storage;
+                }
+            }
+
+            document.getElementById('modal01').style.display = 'none';
         }
 
         function escolherArquivo(event) {
@@ -282,12 +428,7 @@
                 reader.onload = (evt) => {
                     var texto = evt.target.result;
 
-                    //document.getElementById('orgaoBox').style.display = 'none';
-                    //document.getElementById('gravacaoBox').style.display = 'block';
-                    //document.getElementById('bateriaBox').style.display = "none";
-
                     mostrarTextoArquivoCarregado(texto);
-                    //escolherAcompanhamento('full', document.getElementById('fullCifra'));
                 };
 
                 reader.readAsText(arquivos[0]);
