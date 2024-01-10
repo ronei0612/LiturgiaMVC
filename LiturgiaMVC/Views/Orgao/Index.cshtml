@@ -27,7 +27,7 @@
 							</svg>
 						</button>
 							&nbsp;
-						<select class="form-control" id="tomSelect" onchange="mudarTom(this.value)" style="text-align-last:center">
+						<select class="form-control" id="tomSelect" onchange="prepararMudarTomCifra(this.value)" onclick="pegarTomCifra(this.value)" style="text-align-last:center">
 							@foreach (var tom in Model.TonsMaiores)
 							{
 								<option value="@tom">@tom</option>
@@ -235,5 +235,31 @@
 
 	function gravar() {
 
+	}
+
+	function prepararMudarTomCifra(tomSelecionado) {
+		if (document.getElementById('textoCifrasFrame').style.display == "none")
+			mudarTom(tomSelecionado);
+
+		else {
+			if (tomSelecionado.includes('m'))
+				var index = tonsMenores.indexOf(tomSelecionado);
+			else
+				var index = tonsMaiores.indexOf(tomSelecionado);
+
+			index = index - _tomIndex;
+
+			if (index < 0)
+				mudarTomCifra(false, Math.abs(index));
+			else
+				mudarTomCifra(true, index);
+		}
+	}
+
+	function pegarTomCifra(tomSelecionado) {
+		if (tomSelecionado.includes('m'))
+			_tomIndex = tonsMenores.indexOf(tomSelecionado);
+		else
+			_tomIndex = tonsMaiores.indexOf(tomSelecionado);
 	}
 </script>
