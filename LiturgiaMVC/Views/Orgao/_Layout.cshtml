@@ -112,7 +112,7 @@
                 </div>
 
                 <div id="salvarDiv">
-                    <h4>Salvar</h4>
+                    <h4>Salvamentos</h4>
                     Selecionar salvamento:
                     <br />
                     <select class="form-control" tyle="height:3m" id="selectSalvamento">
@@ -298,8 +298,11 @@
 
             if (gravacaoSelecionada.value != '') {
                 if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
-                    gravacaoSelecionada.remove(gravacaoSelecionada.selectedIndex);
                     localStorage.removeItem(gravacaoSelecionada.value);
+                    localStorage.removeItem(gravacaoSelecionada.value + '_frameCifra');
+
+                    gravacaoSelecionada.remove(gravacaoSelecionada.selectedIndex);
+                    salvarOptionsNoStorage('salvamentos');
                 }
             }
         }
@@ -322,11 +325,16 @@
                     novoSalvamento.add(option);
                     novoSalvamento.selectedIndex = novoSalvamento.length - 1;
 
-                    opcoesSelect = novoSalvamento.options;
-                    opcoesArray = [...opcoesSelect].map(el => el.value);
-                    localStorage.setItem('salvamentos', opcoesArray);
+                    salvarOptionsNoStorage('salvamentos');
                 }
             }
+        }
+
+        function salvarOptionsNoStorage(nomeStorage) {
+            var selectElem = document.getElementById('selectSalvamento');
+            opcoesSelect = selectElem.options;
+            opcoesArray = [...opcoesSelect].map(el => el.value);
+            localStorage.setItem(nomeStorage, opcoesArray);
         }
 
         function carregarSalvamentos() {
