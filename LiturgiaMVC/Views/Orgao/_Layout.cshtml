@@ -359,7 +359,7 @@
             var salvamentoSelecionado = document.getElementById('selectSalvamento').value;
 
             if (salvamentoSelecionado != '') {
-                if (confirm('Deseja salvar?\n' + gravacaoSelecionada.value)) {
+                if (confirm('Deseja salvar?\n' + salvamentoSelecionado)) {
                     var instrumentoSelectIndex = 'instrumentoSelect,' + document.getElementById('instrumentoSelect').selectedIndex;
                     var selectRitmoIndex = 'selectRitmo,' + document.getElementById('selectRitmo').selectedIndex;
                     var tomSelectIndex = 'tomSelect,' + document.getElementById('tomSelect').selectedIndex;
