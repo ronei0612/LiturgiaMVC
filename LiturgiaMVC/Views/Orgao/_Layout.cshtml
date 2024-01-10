@@ -417,15 +417,31 @@
 
             if (storage != null) {
                 document.getElementById('escreverCifraTextArea').style.display = 'block';
-                document.getElementById('linksCifraClubList').style.display = 'none';
-                document.getElementById('musicaSearch').value = "";
-                document.getElementById('modal01').style.display = 'none';
 
                 var tom = document.getElementById('tomSelect').value;
                 mostrarTextoArquivoCarregado(tom, storage);
             }
+            else
+                voltarParaOrgao();
 
             document.getElementById('modal01').style.display = 'none';
+        }
+
+        function voltarParaOrgao() {
+            document.getElementById('voltar').style.display = 'none';
+
+            document.getElementById('textoCifrasFrame').style.display = 'none';
+            document.getElementById('cifraAvancar').style.display = 'none';
+            document.getElementById('cifraRetroceder').style.display = 'none';
+            document.getElementById('tomMenorSwitchDiv').style.display = '';
+
+            var elements = document.getElementsByClassName('orgaoBotoes');
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].style.display = '';
+            };
+
+            document.getElementById('volumeDiv').style.display = 'flex';
+            document.getElementById('container').classList.add('d-sm-flex');
         }
 
         function escolherArquivo(event) {
