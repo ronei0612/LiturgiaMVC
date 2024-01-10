@@ -322,6 +322,8 @@
                     novoSalvamento.add(option);
                     novoSalvamento.selectedIndex = novoSalvamento.length - 1;
 
+                    opcoesSelect = novoSalvamento.options;
+                    opcoesArray = [...opcoesSelect].map(el => el.value);
                     localStorage.setItem('salvamentos', opcoesArray);
                 }
             }
@@ -376,7 +378,6 @@
             var storage = localStorage.getItem(salvamentoSelecionado);
             if (storage != null) {
                 if (storage.includes('\n')) {
-                    debugger;
                     var itens = storage.split('\n');
                     var novoEvento = new Event('change');
 
