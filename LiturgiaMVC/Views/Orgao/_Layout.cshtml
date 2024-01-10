@@ -116,7 +116,7 @@
                     Selecionar salvamento:
                     <br />
                     <select class="form-control" tyle="height:3m" id="selectSalvamento">
-                        @*<option selected value=""></option>*@
+                        <option selected value=""></option>
                     </select>
                     <br />
 
@@ -335,9 +335,9 @@
 
             if (salvamentosStorage != null) {
                 if (salvamentosStorage.length > 0) {
-                    var salvamentos = salvamentos.split(',');
                     selectSalvamento.innerHTML = "";
 
+                    var salvamentos = salvamentosStorage.split(',');
                     for (var i = 0; i < salvamentos.length; i++) {
                         var option = document.createElement("option");
                         option.text = salvamentos[i];
