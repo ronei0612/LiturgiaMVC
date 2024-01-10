@@ -368,17 +368,16 @@
 
                 if (document.getElementById('tomMenorSwitchDiv').style.display != 'none')
                     salvar += '\n' + 'tomMenorSwitch,' + document.getElementById('tomMenorSwitch').checked;
+                else
+                    salvar += '\n,';
 
                 localStorage.setItem(salvamentoSelecionado, salvar);
 
                 if (document.getElementById('textoCifrasFrame').style.display != 'none')
-                    localStorage.setItem(salvamentoSelecionado + '_frameCifra', document.getElementById('textoCifras').contentDocument.innerHTML);
+                    localStorage.setItem(salvamentoSelecionado + '_frameCifra', document.getElementById('textoCifras').contentDocument.body.innerHTML);
 
                 document.getElementById('modal01').style.display = 'none';
             }
-
-            
-            
         }
 
         function carregar_Salvamento() {
@@ -413,15 +412,17 @@
                 }
             }
 
-            if (localStorage.getItem(salvamentoSelecionado + '_frameCifra') != null)
-                document.getElementById('tomMenorSwitch').checked = itens[5].split(',')[1];
 
-            if (document.getElementById('textoCifrasFrame').style.display != 'none') {
-                storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
+            storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
 
-                if (storage != null) {
-                    document.getElementById('textoCifras').contentDocument.innerHTML = storage;
-                }
+            if (storage != null) {
+                document.getElementById('escreverCifraTextArea').style.display = 'block';
+                document.getElementById('linksCifraClubList').style.display = 'none';
+                document.getElementById('musicaSearch').value = "";
+                document.getElementById('modal01').style.display = 'none';
+
+                var tom = document.getElementById('tomSelect').value;
+                mostrarTextoArquivoCarregado(tom, storage);
             }
 
             document.getElementById('modal01').style.display = 'none';
