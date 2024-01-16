@@ -37,11 +37,6 @@ namespace LiturgiaMVC.Controllers
             return View(linksModel);
         }
 
-        public IActionResult Botoes()
-        {
-            return View();
-        }
-
         [HttpPost]
         public JsonResult Pesquisar(string texto)
         {
