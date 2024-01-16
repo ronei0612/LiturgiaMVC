@@ -37,11 +37,6 @@ namespace LiturgiaMVC.Controllers
             return View(linksModel);
         }
 
-        public IActionResult Gravacao()
-        {
-            return View();
-        }
-
         public IActionResult Botoes()
         {
             return View();

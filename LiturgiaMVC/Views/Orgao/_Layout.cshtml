@@ -90,11 +90,6 @@
                         <option value="Strings">Strings</option>
                     </select>
                     <br />
-                    Bateria:
-                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento(true)" id="selectRitmo">
-                        <option selected value=""></option>
-                    </select>
-                    <br />
                 </div>
 
                 <div id="selectOpcoes">
@@ -271,10 +266,7 @@
         }
 
         function selecionarInstrumento(bateria) {
-            var instrumentoSelecionado = document.getElementById('instrumentoSelect').value;
             var bateriaSelecionado = document.getElementById('selectRitmo').value;
-
-            document.getElementById('titulo').innerText = instrumentoSelecionado + '+' + bateriaSelecionado + ' ▼';
             document.getElementById('modal01').style.display = 'none';
 
             if (bateria)
