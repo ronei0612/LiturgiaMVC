@@ -462,6 +462,9 @@
         }
 
         function pesquisarMusica() {
+            var loading = document.getElementById('modal-loading');
+            loading.style.display = 'block';
+
             document.getElementById('listaMusicasCifra').innerHTML = '';
             var textoPesquisa = document.getElementById('musicaSearch').value;
             
@@ -484,11 +487,15 @@
                     }
                     else
                         alert(data.message);
+
+                    loading.style.display = 'none';
                 }
             });
         }
 
         function escolherLink(url) {
+            var loading = document.getElementById('modal-loading');
+            loading.style.display = 'block';
             $.ajax({
                 url: "Orgao/DownloadSite?url=" + url, type: "post", dataType: "json",
                 success: function (data) {
@@ -502,6 +509,8 @@
                     }
                     else
                         alert(data.message);
+
+                    loading.style.display = 'none';
                 }
             });
         }
