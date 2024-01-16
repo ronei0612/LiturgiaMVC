@@ -266,7 +266,10 @@
         }
 
         function selecionarInstrumento(bateria) {
+            var instrumentoSelecionado = document.getElementById('instrumentoSelect').value;
             var bateriaSelecionado = document.getElementById('selectRitmo').value;
+
+            document.getElementById('titulo').innerText = instrumentoSelecionado + ' ▼';
             document.getElementById('modal01').style.display = 'none';
 
             if (bateria)
