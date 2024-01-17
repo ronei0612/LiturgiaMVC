@@ -201,7 +201,7 @@
                     <input class="form-control" type="file" id="formFile" onchange="escolherArquivo(event)">
                     <br />*@
 
-                    <button class="btn btn-primary" type="button" onclick="escolherGravacao()">
+                    <button id="iniciar" class="btn btn-primary" type="button" onclick="escolherGravacao()">
                         Iniciar
                     </button>
                     <br /><br />
@@ -489,6 +489,8 @@
                     if (data.success) {
                         document.getElementById('escreverCifraTextArea').style.display = 'none';
                         document.getElementById('linksCifraClubList').style.display = 'block';
+                        document.getElementById('iniciar').style.display = 'none';
+                        
                         var titulosMusicas = data.lista;
                         var linksMusicas = data.links;
 
@@ -517,6 +519,7 @@
                     if (data.success) {
                         document.getElementById('escreverCifraTextArea').style.display = 'block';
                         document.getElementById('linksCifraClubList').style.display = 'none';
+                        document.getElementById('iniciar').style.display = '';
                         document.getElementById('musicaSearch').value = "";
                         document.getElementById('modal01').style.display = 'none';
 
