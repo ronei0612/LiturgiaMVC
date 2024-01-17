@@ -268,7 +268,7 @@ input[type="range"] {
 input[type=range][orient=vertical] {
 	appearance: slider-vertical;
 	width: 8px;
-	height: 200px;
+	height: 230px;
 	padding: 0 5px;
 }
 
