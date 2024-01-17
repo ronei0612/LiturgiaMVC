@@ -3,11 +3,17 @@
 		document.body.classList = "bg-light text-dark orgao-background";
 		document.getElementById("navBar").classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3";
 		document.getElementsByClassName("w3-modal-content")[0].style.cssText = 'background-color: #fff!important';
+
+		if (document.getElementById('textoCifrasFrame').style.display != 'none')
+			document.getElementById('textoCifras').contentWindow.document.querySelector('pre').style.color = '#000';
     }
     else {
 		document.body.classList = "bg-dark text-light orgao-background-dark";
 		document.getElementById("navBar").classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black box-shadow mb-3";
 		document.getElementsByClassName("w3-modal-content")[0].style.cssText = 'background-color: #505050!important';
+
+		if (document.getElementById('textoCifrasFrame').style.display != 'none')
+			document.getElementById('textoCifras').contentWindow.document.querySelector('pre').style.color = '#fff';
     }
 }
 

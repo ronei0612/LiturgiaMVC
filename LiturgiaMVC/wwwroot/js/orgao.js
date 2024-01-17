@@ -348,8 +348,6 @@ function adicionarTonsSelect(element, index, maior) {
 }
 
 function mostrarTextoArquivoCarregado(tom = null, texto = null) {
-	//document.getElementById('tomSelectCifra').selectedIndex = acordesTons.indexOf(tom);
-
 	if (tom) {
 		if (tom.includes('m'))
 			adicionarTonsSelect('tomSelect', tonsMenores.indexOf(tom), false);
@@ -363,6 +361,11 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 		frame.contentDocument.body.innerHTML = texto;
 
 	document.getElementById('textoCifrasFrame').style.display = 'block';
+
+	if (document.body.classList.contains("bg-dark"))
+		frame.contentWindow.document.querySelector('pre').style.color = '#fff';
+	else
+		frame.contentWindow.document.querySelector('pre').style.color = '#000';
 
 	var elements = document.getElementsByClassName('orgaoBotoes');
 	for (var i = 0; i < elements.length; i++) {
