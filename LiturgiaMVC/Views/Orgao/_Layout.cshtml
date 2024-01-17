@@ -249,10 +249,20 @@
             }
 
             else if (nome == 'gravar') {
-                document.getElementById('selectOpcoes').style.display = 'none';
-                document.getElementById('selectInstrumento').style.display = 'none';
-                document.getElementById('modalGravar').style.display = 'block';
-                document.getElementById('salvarDiv').style.display = 'none';
+                if (document.getElementById('textoCifras').contentDocument.body.innerHTML != '') {
+                    document.getElementById('escreverCifraTextArea').style.display = 'block';
+                    document.getElementById('linksCifraClubList').style.display = 'none';
+                    document.getElementById('musicaSearch').value = "";
+                    document.getElementById('modal01').style.display = 'none';
+
+                    mostrarTextoArquivoCarregado();
+                }
+                else {
+                    document.getElementById('selectOpcoes').style.display = 'none';
+                    document.getElementById('selectInstrumento').style.display = 'none';
+                    document.getElementById('modalGravar').style.display = 'block';
+                    document.getElementById('salvarDiv').style.display = 'none';
+                }
             }
 
             else if (nome == 'salvar') {
@@ -429,6 +439,8 @@
 
         function voltarParaOrgao() {
             document.getElementById('voltar').style.display = 'none';
+            document.getElementById('botaoFont').style.display = 'none';
+            document.getElementById('selectFont').style.display = "none";
 
             document.getElementById('textoCifrasFrame').style.display = 'none';
             document.getElementById('cifraAvancar').style.display = 'none';

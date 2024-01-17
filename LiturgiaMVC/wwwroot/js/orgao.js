@@ -347,16 +347,21 @@ function adicionarTonsSelect(element, index, maior) {
 	selectElem.selectedIndex = index;
 }
 
-function mostrarTextoArquivoCarregado(tom, texto) {
+function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	//document.getElementById('tomSelectCifra').selectedIndex = acordesTons.indexOf(tom);
-	
-	if (tom.includes('m'))
-		adicionarTonsSelect('tomSelect', tonsMenores.indexOf(tom), false);
-	else
-		adicionarTonsSelect('tomSelect', tonsMaiores.indexOf(tom), true);
+
+	if (tom) {
+		if (tom.includes('m'))
+			adicionarTonsSelect('tomSelect', tonsMenores.indexOf(tom), false);
+		else
+			adicionarTonsSelect('tomSelect', tonsMaiores.indexOf(tom), true);
+	}
 
 	var frame = document.getElementById('textoCifras');
-	frame.contentDocument.body.innerHTML = texto;
+
+	if (texto)
+		frame.contentDocument.body.innerHTML = texto;
+
 	document.getElementById('textoCifrasFrame').style.display = 'block';
 
 	var elements = document.getElementsByClassName('orgaoBotoes');
@@ -369,6 +374,8 @@ function mostrarTextoArquivoCarregado(tom, texto) {
 	document.getElementById('cifraRetroceder').style.display = 'block';
 	document.getElementById('volumeDiv').style.display = 'none';
 	document.getElementById('voltar').style.display = 'block';
+	document.getElementById('botaoFont').style.display = 'block';
+	document.getElementById('selectFont').style.display = "none";
 	document.getElementById('tomMenorSwitchDiv').style.display = 'none';
 
 	addEventCifras(frame);
