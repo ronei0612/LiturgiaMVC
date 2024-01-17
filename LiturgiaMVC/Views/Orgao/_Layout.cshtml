@@ -249,7 +249,7 @@
             }
 
             else if (nome == 'gravar') {
-                if (document.getElementById('textoCifras').contentDocument.body.innerHTML != '') {
+                if (document.getElementById('textoCifrasFrame').style.display == 'none' && document.getElementById('textoCifras').contentDocument.body.innerHTML != '') {
                     document.getElementById('escreverCifraTextArea').style.display = 'block';
                     document.getElementById('linksCifraClubList').style.display = 'none';
                     document.getElementById('musicaSearch').value = "";
@@ -257,6 +257,7 @@
 
                     mostrarTextoArquivoCarregado();
                 }
+
                 else {
                     document.getElementById('selectOpcoes').style.display = 'none';
                     document.getElementById('selectInstrumento').style.display = 'none';
