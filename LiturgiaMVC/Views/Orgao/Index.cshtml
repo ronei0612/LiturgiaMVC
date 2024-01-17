@@ -14,7 +14,7 @@
 <div id="tracker-container" style="display:none">
 	<div id="container" class="container d-sm-flex" style="display:none">
 		<div class="box" id="orgaoBox">
-			<div class="d-flex align-items-center centralizado-no-container">
+			<div id="linhaSelectTom" class="d-flex align-items-center centralizado-no-container">
 				<div class="d-flex align-items-center">
 					&nbsp;
 						
@@ -184,9 +184,12 @@
 		document.getElementById('trackerControls').style.display = 'none';
 		document.getElementById('divBateriaSwitch').style.display = 'none';
 		document.getElementById('bateria').style.display = 'none';
-		document.getElementById('voltar').style.display = 'none';
-		document.getElementById('botaoFonte').style.display = 'none';
-		document.getElementById('selectFonte').style.display = "none";
+
+		if (document.getElementById('textoCifrasFrame').style.display != 'none') {
+			var linhaSelectTom = document.getElementById('linhaSelectTom');
+			linhaSelectTom.style.display = 'none';
+			linhaSelectTom.classList.remove('d-flex');
+		}
 
 		var el = document.body;
 		var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
@@ -204,10 +207,9 @@
 		document.getElementById('fullscreen').style.display = 'flex';
 		document.exitFullscreen();
 		document.getElementById('navBar').style.display = 'block';
-		document.getElementById('voltar').style.display = 'block';
-		document.getElementById('botaoFonte').style.display = 'block';
-		document.getElementById('selectFonte').style.display = "none";
-		//document.getElementById('divBateriaSwitch').style.display = 'block';
+
+		linhaSelectTom.classList.add('d-flex');
+		document.getElementById('linhaSelectTom').style.display = 'flex';
 	}
 
 	function esperarAudios(tempoMiliseg, esperar_audios) {
