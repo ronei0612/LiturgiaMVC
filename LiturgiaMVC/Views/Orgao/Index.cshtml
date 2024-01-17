@@ -180,7 +180,7 @@
 
 	function mudarParaFullscreen() {
 		document.getElementById('exitfullscreen').style.display = 'flex';
-		document.getElementById('fullscreen').style.display = 'none';
+		document.getElementById('botaoFullscreen').style.display = 'none';
 		document.getElementById('trackerControls').style.display = 'none';
 		document.getElementById('divBateriaSwitch').style.display = 'none';
 		document.getElementById('bateria').style.display = 'none';
@@ -189,6 +189,13 @@
 			var linhaSelectTom = document.getElementById('linhaSelectTom');
 			linhaSelectTom.style.display = 'none';
 			linhaSelectTom.classList.remove('d-flex');
+
+			var left = $(window).width() - $('#exitfullscreenDiv').width();
+			$("#exitfullscreenDiv").css({
+				left: 100
+			}).animate({
+				left: left
+			}, "slow");
 		}
 
 		var el = document.body;
@@ -204,12 +211,14 @@
 	function sairDeFullscreen() {
 		document.getElementById('exitfullscreen').style.display = 'none';
 		document.getElementById('trackerControls').style.display = 'block';
-		document.getElementById('fullscreen').style.display = 'flex';
+		document.getElementById('botaoFullscreen').style.display = 'flex';
 		document.exitFullscreen();
 		document.getElementById('navBar').style.display = 'block';
 
 		linhaSelectTom.classList.add('d-flex');
 		document.getElementById('linhaSelectTom').style.display = 'flex';
+
+		document.getElementById('exitfullscreenDiv').style.left = '10px';
 	}
 
 	function esperarAudios(tempoMiliseg, esperar_audios) {
