@@ -382,8 +382,9 @@
                     var selectRitmoIndex = 'selectRitmo,' + document.getElementById('selectRitmo').selectedIndex;
                     var tomSelectIndex = 'tomSelect,' + document.getElementById('tomSelect').selectedIndex;
                     var bpmValue = 'bpm,' + document.getElementById('bpm').value;
+                    var selectFonte = 'selectFonte,' + document.getElementById('selectFonte').value;
 
-                    var salvar = instrumentoSelectIndex + '\n' + selectRitmoIndex + '\n' + tomSelectIndex + '\n' + bpmValue;
+                    var salvar = instrumentoSelectIndex + '\n' + selectRitmoIndex + '\n' + tomSelectIndex + '\n' + bpmValue + '\n' + selectFonte;
 
                     if (document.getElementById('tomMenorSwitchDiv').style.display != 'none')
                         salvar += '\n' + 'tomMenorSwitch,' + document.getElementById('tomMenorSwitch').checked;
@@ -408,30 +409,22 @@
                     var itens = storage.split('\n');
                     var novoEvento = new Event('change');
 
-                    var instrumentoSelect = document.getElementById('instrumentoSelect');
-                    instrumentoSelect.selectedIndex = itens[0].split(',')[1];                    
-                    instrumentoSelect.dispatchEvent(novoEvento);
+                    for (var i = 0; i < itens.length; i++) {
+                        if (itens[i].split(',')[0] != '') {
+                            var element = document.getElementById(itens[i].split(',')[0]);
 
-                    var selectRitmo = document.getElementById('selectRitmo');
-                    selectRitmo.selectedIndex = itens[1].split(',')[1];
-                    selectRitmo.dispatchEvent(novoEvento);
+                            if (itens[i].split(',')[0] == 'bpm')
+                                element.value = itens[i].split(',')[1];
+                            else if (itens[i].split(',')[0] == 'tomMenorSwitch')
+                                element.checked = itens[0].split(',')[1];
+                            else
+                                element.selectedIndex = itens[0].split(',')[1];
 
-                    var tomSelect = document.getElementById('tomSelect');
-                    tomSelect.selectedIndex = itens[2].split(',')[1];
-                    tomSelect.dispatchEvent(novoEvento);
-
-                    var bpm = document.getElementById('bpm');
-                    bpm.value = itens[3].split(',')[1];
-                    tomSelect.dispatchEvent(novoEvento);
-
-                    if (itens[4] != null) {
-                        var tomMenorSwitch = document.getElementById('tomMenorSwitch');
-                        tomMenorSwitch.checked = itens[4].split(',')[1];
-                        tomMenorSwitch.dispatchEvent(novoEvento);
+                            element.dispatchEvent(novoEvento);
+                        }
                     }
                 }
             }
-
 
             storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
 
