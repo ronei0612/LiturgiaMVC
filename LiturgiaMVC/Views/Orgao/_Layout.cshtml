@@ -298,13 +298,13 @@
                 else
                     document.getElementById('bateriaBotoes').style.display = 'block';
 
-            if (bateriaSelecionado == '6/8') {
-                var bpmElement = document.getElementById('bpm');
-                bpmElement.value = 70;
-                document.getElementById('bpmRange').value = 70;
-                document.getElementById('measureLength').value = 24;
-                bpmElement.dispatchEvent(new Event('change'));
-            }
+            var bpmRange_valor = document.getElementById('bpmRange').value;
+            bpmRange_valor = 60000 / bpmRange_valor;
+
+            if (bateriaSelecionado == '6/8')
+                bpmRange_valor = bpmRange_valor / 2;
+            
+            document.getElementById('lightCompasso').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
         }
 
         function escolherGravacao() {

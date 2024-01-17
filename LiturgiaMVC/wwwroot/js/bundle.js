@@ -1234,7 +1234,7 @@ function setupBaseEvents() {
         if (measureLength_valor == 24)
             bpmRange_valor = bpmRange_valor / 2;
 
-        document.getElementById('light').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
+        document.getElementById('lightCompasso').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
 
         getSetAudioOptions.setTrackerControls();
         if (schedule.running) {

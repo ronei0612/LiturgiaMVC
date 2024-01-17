@@ -354,12 +354,12 @@ input[type=range][orient=vertical] {
     </style>
 </head>
 <body>
-    <div class="light" id="light"></div>
+    <div class="light" id="lightCompasso"></div>
 
     <script>
     var beat = 1;
       var beats = 8;
-      var lightElem = document.getElementById("light");
+      var lightElem = document.getElementById("lightCompasso");
 
       function blink() {
         if (beat == beats) {
