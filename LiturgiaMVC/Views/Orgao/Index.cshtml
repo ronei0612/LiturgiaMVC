@@ -21,7 +21,7 @@
 					<div class="d-flex">
 						<input class="btn btn-link" type="button" id="voltar" value="&laquo; Voltar" onclick="voltarParaOrgao()" style="display:none">
 						&nbsp;
-						<button class="btn btn-light border" type="button" id="botaoFont" style="display:none" onclick="showSelectFont(true)">
+						<button class="btn btn-light border" type="button" id="botaoFonte" style="display:none" onclick="showselectFonte(true)">
 							<svg width="24" height="24" viewBox="0 0 24 24" version="1.1">
 								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 									<g id="ic_fluent_text_font_size_24_filled" fill="#212121" fill-rule="nonzero">
@@ -31,13 +31,13 @@
 								</g>
 							</svg>
 						</button>
-						<select class="form-control" id="selectFont" onchange="showSelectFont(false)" style="display:none">
+						<select class="form-control" id="selectFonte" onchange="showselectFonte(false)" style="display:none">
 							<option value="11">11</option>
 							<option value="12">12</option>
 							<option value="13">13</option>
 							<option value="14" selected>14</option>
 							<option value="15">15</option>
-							<option value="16" selected>16</option>
+							<option value="16">16</option>
 							<option value="17">17</option>
 							<option value="18">18</option>
 						</select>
@@ -161,8 +161,8 @@
 
 	function voltarParaOrgao() {
 		document.getElementById('voltar').style.display = 'none';
-		document.getElementById('botaoFont').style.display = 'none';
-		document.getElementById('selectFont').style.display = "none";
+		document.getElementById('botaoFonte').style.display = 'none';
+		document.getElementById('selectFonte').style.display = "none";
 
 		document.getElementById('textoCifrasFrame').style.display = 'none';
 		document.getElementById('cifraAvancar').style.display = 'none';
@@ -185,8 +185,8 @@
 		document.getElementById('divBateriaSwitch').style.display = 'none';
 		document.getElementById('bateria').style.display = 'none';
 		document.getElementById('voltar').style.display = 'none';
-		document.getElementById('botaoFont').style.display = 'none';
-		document.getElementById('selectFont').style.display = "none";
+		document.getElementById('botaoFonte').style.display = 'none';
+		document.getElementById('selectFonte').style.display = "none";
 
 		var el = document.body;
 		var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
@@ -205,8 +205,8 @@
 		document.exitFullscreen();
 		document.getElementById('navBar').style.display = 'block';
 		document.getElementById('voltar').style.display = 'block';
-		document.getElementById('botaoFont').style.display = 'block';
-		document.getElementById('selectFont').style.display = "none";
+		document.getElementById('botaoFonte').style.display = 'block';
+		document.getElementById('selectFonte').style.display = "none";
 		//document.getElementById('divBateriaSwitch').style.display = 'block';
 	}
 
@@ -259,15 +259,15 @@
 		aumentarTom(aumentar, 2, "tomSelect");
 	}
 
-	function showSelectFont(mostrar) {
+	function showselectFonte(mostrar) {
 		if (mostrar) {
-			document.getElementById('botaoFont').style.display = "none";
-			document.getElementById('selectFont').style.display = "";
+			document.getElementById('botaoFonte').style.display = "none";
+			document.getElementById('selectFonte').style.display = "";
 		}
 		else {
-			var selectFont = document.getElementById('selectFont');
+			var selectFonte = document.getElementById('selectFonte');
 			var frameCifra = document.getElementById('textoCifras');
-			frameCifra.contentWindow.document.querySelector('pre').style.fontSize = selectFont.value + 'px';
+			frameCifra.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
 		}
 	}
 

@@ -374,8 +374,8 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	document.getElementById('cifraRetroceder').style.display = 'block';
 	document.getElementById('volumeDiv').style.display = 'none';
 	document.getElementById('voltar').style.display = 'block';
-	document.getElementById('botaoFont').style.display = 'block';
-	document.getElementById('selectFont').style.display = "none";
+	document.getElementById('botaoFonte').style.display = 'block';
+	document.getElementById('selectFonte').style.display = "none";
 	document.getElementById('tomMenorSwitchDiv').style.display = 'none';
 
 	addEventCifras(frame);
