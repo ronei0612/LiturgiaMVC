@@ -408,10 +408,13 @@ function addEventCifras(frame) {
 
 function tocarCifraManualmente(cifraElem) {
 	_cifraId = cifraElem.id.split('cifra')[1] - 1;
+
+	if (_cifraParado == false)
+		avancarCifra('avancar', document.getElementById('cifraAvancar'));
 }
 
 var _cifraId = 0;
-var _cifraParado = false;
+var _cifraParado = true;
 
 function avancarCifra(avancar_retroceder, botao) {
 	if (avancar_retroceder == '') {
@@ -432,7 +435,10 @@ function avancarCifra(avancar_retroceder, botao) {
 
 		if (avancar_retroceder == 'avancar') {
 			if (_cifraId < elements_b.length) {
+				_cifraParado = false;
+
 				var cifraElem = elements_b[_cifraId];
+
 				tocarAcorde(cifraElem.innerHTML.trim(), null);
 				botao.classList.toggle('pressionado', true);
 				cifraElem.classList.add('cifraSelecionada');
