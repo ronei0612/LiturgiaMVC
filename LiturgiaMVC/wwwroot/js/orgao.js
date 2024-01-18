@@ -385,6 +385,7 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	document.getElementById('botaoFonte').style.display = 'block';
 	document.getElementById('selectFonte').style.display = "none";
 	document.getElementById('tomMenorSwitchDiv').style.display = 'none';
+	$('#orgaoTable').prependTo('#bateriaBox');
 
 	addEventCifras(frame);
 }

@@ -525,21 +525,24 @@
             $.ajax({
                 url: "Orgao/DownloadSite?url=" + url, type: "post", dataType: "json",
                 success: function (data) {
-                    if (data.success) {
-                        document.getElementById('escreverCifraTextArea').style.display = 'block';
-                        document.getElementById('linksCifraClubList').style.display = 'none';
-                        document.getElementById('botaoIniciar').style.display = '';
-                        document.getElementById('musicaSearch').value = "";
-                        document.getElementById('modal01').style.display = 'none';
-
-                        mostrarTextoArquivoCarregado(data.tom, data.message);
-                    }
+                    if (data.success)
+                        mudarParaTelaCifras();
                     else
                         alert(data.message);
 
                     loading.style.display = 'none';
                 }
             });
+        }
+
+        function mudarParaTelaCifras() {
+            document.getElementById('escreverCifraTextArea').style.display = 'block';
+            document.getElementById('linksCifraClubList').style.display = 'none';
+            document.getElementById('botaoIniciar').style.display = '';
+            document.getElementById('musicaSearch').value = "";
+            document.getElementById('modal01').style.display = 'none';
+
+            mostrarTextoArquivoCarregado(data.tom, data.message);
         }
     </script>
 </body>

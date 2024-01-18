@@ -77,17 +77,17 @@
 			</div>
 
 			<div id="textoCifrasFrame" style="display:none">
-				<iframe id="textoCifras" style="width:100%"></iframe>
+				<iframe id="textoCifras" style="width:100%; height: 200px;"></iframe>
 			</div>
 
-			<table>
+			<table id="orgaoTable">
 				<partial name="~/Views/Orgao/Controles.cshtml" />
 				<partial name="~/Views/Orgao/Botoes.cshtml" />
 				<partial name="~/Views/Orgao/Loading.cshtml" />
 			</table>
 		</div>
 
-		<div class="box" id="bateriaBox">
+		<div class="box d-sm-flex" id="bateriaBox">
 			<partial name="~/Views/Bateria/Index.cshtml" />
 		</div>
 	</div>
