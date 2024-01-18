@@ -430,32 +430,45 @@ function avancarCifra(avancar_retroceder, botao) {
 		var frame = document.getElementById('textoCifras');
 		var cifraElems = frameContent.getElementsByClassName('cifraSelecionada');
 
-		if (cifraElems.length > 0)
-			cifraElems[0].classList.remove('cifraSelecionada');
-
 		if (avancar_retroceder == 'avancar') {
 			if (_cifraId < elements_b.length) {
+				if (cifraElems.length > 0)
+					cifraElems[0].classList.remove('cifraSelecionada');
+
 				_cifraParado = false;
 
 				var cifraElem = elements_b[_cifraId];
+				var cifraRetroceder = document.getElementById('cifraRetroceder');
 
 				tocarAcorde(cifraElem.innerHTML.trim(), null);
+
+				if (cifraRetroceder.classList.contains('pressionado'))
+					cifraRetroceder.classList.remove('pressionado');
+
 				botao.classList.toggle('pressionado', true);
 				cifraElem.classList.add('cifraSelecionada');
 				cifraElem.scrollIntoView();
+
 				_cifraId++;
 			}
 		}
 
 		if (avancar_retroceder == 'retroceder') {
-			if (_cifraId > 0) {
-				if (_cifraParado == false) {
+			if (_cifraId - 1 > 0) {
+				if (cifraElems.length > 0)
+					cifraElems[0].classList.remove('cifraSelecionada');
+
+				if (_cifraParado == false)
 					_cifraId--;
-					_cifraParado = false;
-				}
-				//_cifraId--;
+
 				var cifraElem = elements_b[_cifraId - 1];
+				var cifraAvancar = document.getElementById('cifraAvancar');
+
 				tocarAcorde(cifraElem.innerHTML.trim(), null);
+
+				if (cifraAvancar.classList.contains('pressionado'))
+					cifraAvancar.classList.remove('pressionado');
+
 				botao.classList.toggle('pressionado', true);
 				cifraElem.classList.add('cifraSelecionada');
 				cifraElem.scrollIntoView();
