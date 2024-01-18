@@ -49,6 +49,11 @@ function ocultarBotaoRec(ocultar = true) {
 }
 
 function escolherAcorde(acorde, botao) {
+	if (_cifraId > 0) {
+		_cifraParado = true;
+		_cifraId--;
+	}
+
 	if (_acordeAntesSelecionado == acorde)
 		_acordeSelecionado = '';
 	else
@@ -406,9 +411,9 @@ function tocarCifraManualmente(cifraElem) {
 }
 
 var _cifraId = 0;
+var _cifraParado = false;
 
 function avancarCifra(avancar_retroceder, botao) {
-
 	if (avancar_retroceder == '') {
 		escolherAcorde('', botao);
 		document.getElementById('gravar').style.display = 'block';
@@ -438,7 +443,11 @@ function avancarCifra(avancar_retroceder, botao) {
 
 		if (avancar_retroceder == 'retroceder') {
 			if (_cifraId > 0) {
-				_cifraId--;
+				if (_cifraParado == false) {
+					_cifraId--;
+					_cifraParado = false;
+				}
+				//_cifraId--;
 				var cifraElem = elements_b[_cifraId - 1];
 				tocarAcorde(cifraElem.innerHTML.trim(), null);
 				botao.classList.toggle('pressionado', true);
