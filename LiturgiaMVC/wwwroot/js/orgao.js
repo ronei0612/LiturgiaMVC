@@ -484,9 +484,9 @@ function avancarCifra(avancar_retroceder, botao) {
 function mudarTamanhoFrameCifras(aumentar) {
 	if (document.getElementById('textoCifrasFrame').style.display != 'none') {
 		if (aumentar)
-			document.getElementById('textoCifras').style.height = '200px';
+			document.getElementById('textoCifras').style.height = '250px';
 		else
-			document.getElementById('textoCifras').style.height = '100px';
+			document.getElementById('textoCifras').style.height = '150px';
 	}
 }
 
