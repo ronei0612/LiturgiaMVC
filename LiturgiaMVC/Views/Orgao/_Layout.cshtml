@@ -378,23 +378,26 @@
 
             if (salvamentoSelecionado != '') {
                 if (confirm('Deseja salvar?\n' + salvamentoSelecionado)) {
-                    var instrumentoSelectIndex = 'instrumentoSelect,' + document.getElementById('instrumentoSelect').selectedIndex;
-                    var selectRitmoIndex = 'selectRitmo,' + document.getElementById('selectRitmo').selectedIndex;
-                    var tomSelectIndex = 'tomSelect,' + document.getElementById('tomSelect').selectedIndex;
-                    var bpmValue = 'bpm,' + document.getElementById('bpm').value;
-                    var selectFonte = 'selectFonte,' + document.getElementById('selectFonte').value;
-
-                    var salvar = instrumentoSelectIndex + '\n' + selectRitmoIndex + '\n' + tomSelectIndex + '\n' + bpmValue + '\n' + selectFonte;
+                    var salvar = 'instrumentoSelect,' + document.getElementById('instrumentoSelect').selectedIndex;
+                    salvar += '\n' + 'selectRitmo,' + document.getElementById('selectRitmo').selectedIndex;
+                    salvar += '\n' + 'tomSelect,' + document.getElementById('tomSelect').selectedIndex;
+                    salvar += '\n' + 'bpm,' + document.getElementById('bpm').value;
 
                     if (document.getElementById('tomMenorSwitchDiv').style.display != 'none')
                         salvar += '\n' + 'tomMenorSwitch,' + document.getElementById('tomMenorSwitch').checked;
-                    else
-                        salvar += '\n,';
+
+                    var textoCifrasFrame = document.getElementById('textoCifrasFrame');
+
+                    if (textoCifrasFrame.style.display != 'none') {
+                        localStorage.setItem(salvamentoSelecionado + '_frameCifra', document.getElementById('textoCifras').contentDocument.body.innerHTML);
+                        var selectFonte = document.getElementById('selectFonte');
+                        selectFonte.style.display = '';
+                        salvar += '\n' + 'selectFonte,' + selectFonte.selectedIndex;
+                        selectFonte.style.display = 'none';
+                        document.getElementById('botaoFonte').style.display = '';
+                    }
 
                     localStorage.setItem(salvamentoSelecionado, salvar);
-
-                    if (document.getElementById('textoCifrasFrame').style.display != 'none')
-                        localStorage.setItem(salvamentoSelecionado + '_frameCifra', document.getElementById('textoCifras').contentDocument.body.innerHTML);
 
                     document.getElementById('modal01').style.display = 'none';
                 }
@@ -418,8 +421,8 @@
                             else if (itens[i].split(',')[0] == 'tomMenorSwitch')
                                 element.checked = itens[0].split(',')[1];
                             else
-                                element.selectedIndex = itens[0].split(',')[1];
-
+                                element.selectedIndex = itens[i].split(',')[1];
+                            
                             element.dispatchEvent(novoEvento);
                         }
                     }
@@ -433,6 +436,12 @@
 
                 var tom = document.getElementById('tomSelect').value;
                 mostrarTextoArquivoCarregado(tom, storage);
+                
+                var selectFonte = document.getElementById('selectFonte');
+                var frameCifra = document.getElementById('textoCifras');
+                //selectFonte.style.display = '';
+                frameCifra.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
+                //selectFonte.style.display = 'none';
             }
             else
                 voltarParaOrgao();
