@@ -481,9 +481,27 @@ function avancarCifra(avancar_retroceder, botao) {
 	}
 }
 
+function mudarTamanhoFrameCifras(aumentar) {
+	if (document.getElementById('textoCifrasFrame').style.display != 'none') {
+		if (aumentar)
+			document.getElementById('textoCifras').style.height = '200px';
+		else
+			document.getElementById('textoCifras').style.height = '100px';
+	}
+}
+
 document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
 	var semacentos = document.getElementById('instrumentoSelect').value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
 	_instrumentoSelecionado = semacentos.toLowerCase();
+});
+
+window.addEventListener("orientationchange", (event) => {
+	var orientacao = event.target.screen.orientation.angle;
+
+	if (orientacao == 0)
+		mudarTamanhoFrameCifras(true);
+	else
+		mudarTamanhoFrameCifras(false);
 });
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
