@@ -7,7 +7,8 @@ var _acompanhamentoMao = false;
 var _grupoNotas;
 var _grupoNotasStrings;
 var _volume = 0.9;
-var _instrumentoSelecionado = 'orgaopad';
+var _instrumentoSelecionado = 'orgao';
+var _stringsSelecionado = false;
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
@@ -167,22 +168,24 @@ function verificarAcompanhamentoEtocar(acorde) {
 		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 		_grupoNotas = montarAcorde(acorde, _grupoNotas);
 
+		if (_stringsSelecionado) {
+			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
+			_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
+			_grupoNotasStrings.play();
+		}
+
 		_grupoNotas.play();
 	}
 	if (_instrumentoSelecionado == 'epiano') {
 		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 		_grupoNotas = montarAcorde(acorde, _grupoNotas, 'epiano');
 
-		_grupoNotas.play();
-	}
-	else if (_instrumentoSelecionado == 'orgaopad') {
-		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		_grupoNotas = montarAcorde(acorde, _grupoNotas);
+		if (_stringsSelecionado) {
+			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
+			_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
+			_grupoNotasStrings.play();
+		}
 
-		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
-
-		_grupoNotasStrings.play();
 		_grupoNotas.play();
 	}
 
@@ -498,6 +501,29 @@ function mudarTamanhoFrameCifras(aumentar) {
 			document.getElementById('textoCifras').style.height = '250px';
 		else
 			document.getElementById('textoCifras').style.height = '150px';
+	}
+}
+
+function selecionarStrings(stringsCheck) {
+	if (stringsCheck) {
+		_stringsSelecionado = true;
+
+		if (_grupoNotas != null) {
+			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotas);
+			_grupoNotasStrings = montarAcorde(_acordeAntesSelecionado, _grupoNotasStrings, 'strings');
+			_grupoNotasStrings.play();
+		}
+	}
+	else {
+		_stringsSelecionado = false;
+
+		if (_grupoNotas != null) {
+			_grupoNotasStrings.stop();
+
+			var sons = _grupoNotasStrings.sounds.length;
+			for (let i = sons - 1; i > -1; i--)
+				_grupoNotasStrings.removeSound(_grupoNotasStrings.sounds[i]);
+		}
 	}
 }
 
