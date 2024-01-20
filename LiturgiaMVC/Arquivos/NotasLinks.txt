@@ -37,6 +37,45 @@ orgao_la_grave, ./Sons/Orgao/orgao la grave.ogg
 orgao_la#_grave, ./Sons/Orgao/orgao la_ grave.ogg
 orgao_si_grave, ./Sons/Orgao/orgao si grave.ogg
 
+epiano_do, ./Sons/Epiano/epiano do.ogg
+epiano_do#, ./Sons/Epiano/epiano do_.ogg
+epiano_re, ./Sons/Epiano/epiano re.ogg
+epiano_re#, ./Sons/Epiano/epiano re_.ogg
+epiano_mi, ./Sons/Epiano/epiano mi.ogg
+epiano_fa, ./Sons/Epiano/epiano fa.ogg
+epiano_fa#, ./Sons/Epiano/epiano fa_.ogg
+epiano_sol, ./Sons/Epiano/epiano sol.ogg
+epiano_sol#, ./Sons/Epiano/epiano sol_.ogg
+epiano_la, ./Sons/Epiano/epiano la.ogg
+epiano_la#, ./Sons/Epiano/epiano la_.ogg
+epiano_si, ./Sons/Epiano/epiano si.ogg
+
+epiano_do_baixo, ./Sons/Epiano/epiano do baixo.ogg
+epiano_do#_baixo, ./Sons/Epiano/epiano do_ baixo.ogg
+epiano_re_baixo, ./Sons/Epiano/epiano re baixo.ogg
+epiano_re#_baixo, ./Sons/Epiano/epiano re_ baixo.ogg
+epiano_mi_baixo, ./Sons/Epiano/epiano mi baixo.ogg
+epiano_fa_baixo, ./Sons/Epiano/epiano fa baixo.ogg
+epiano_fa#_baixo, ./Sons/Epiano/epiano fa_ baixo.ogg
+epiano_sol_baixo, ./Sons/Epiano/epiano sol baixo.ogg
+epiano_sol#_baixo, ./Sons/Epiano/epiano sol_ baixo.ogg
+epiano_la_baixo, ./Sons/Epiano/epiano la baixo.ogg
+epiano_la#_baixo, ./Sons/Epiano/epiano la_ baixo.ogg
+epiano_si_baixo, ./Sons/Epiano/epiano si baixo.ogg
+
+epiano_do_grave, ./Sons/Epiano/epiano do grave.ogg
+epiano_do#_grave, ./Sons/Epiano/epiano do_ grave.ogg
+epiano_re_grave, ./Sons/Epiano/epiano re grave.ogg
+epiano_re#_grave, ./Sons/Epiano/epiano re_ grave.ogg
+epiano_mi_grave, ./Sons/Epiano/epiano mi grave.ogg
+epiano_fa_grave, ./Sons/Epiano/epiano fa grave.ogg
+epiano_fa#_grave, ./Sons/Epiano/epiano fa_ grave.ogg
+epiano_sol_grave, ./Sons/Epiano/epiano sol grave.ogg
+epiano_sol#_grave, ./Sons/Epiano/epiano sol_ grave.ogg
+epiano_la_grave, ./Sons/Epiano/epiano la grave.ogg
+epiano_la#_grave, ./Sons/Epiano/epiano la_ grave.ogg
+epiano_si_grave, ./Sons/Epiano/epiano si grave.ogg
+
 strings_do, ./Sons/Strings/strings do.ogg
 strings_do#, ./Sons/Strings/strings do_.ogg
 strings_re, ./Sons/Strings/strings re.ogg

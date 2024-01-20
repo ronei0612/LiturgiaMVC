@@ -101,11 +101,11 @@ function setTom(acorde = 'C') {
 	document.getElementById('tomSelect').value = acorde;
 }
 
-function montarAcorde(acorde, grupoNotas, somenteTom = false) {
+function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	if (acorde.includes('_'))
 		acorde = acorde.split('_')[1];
 
-	if (somenteTom) {
+	if (instrumento == 'strings') {
 		if (acorde.length > 1) {
 			if (acorde[1] == '#' || acorde[1] == 'b')
 				acorde = acorde[0] + acorde[1];
@@ -132,13 +132,13 @@ function montarAcorde(acorde, grupoNotas, somenteTom = false) {
 		for (var i = 0, len = notas.length; i < len; i++) {
 			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
 				if (i != 1 && i != 3 && i != 4 && i != 5)
-					grupoNotas.addSound(acordes['orgao_' + notas[i] + '_baixo']);
+					grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
 				if (i == 0)
-					grupoNotas.addSound(acordes['orgao_' + notas[i] + '_grave']);
+					grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
 			}
 
 			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
-				grupoNotas.addSound(acordes['orgao_' + notas[i]]);
+				grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
 		}
 	}
 
@@ -169,12 +169,18 @@ function verificarAcompanhamentoEtocar(acorde) {
 
 		_grupoNotas.play();
 	}
+	if (_instrumentoSelecionado == 'epiano') {
+		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+		_grupoNotas = montarAcorde(acorde, _grupoNotas, 'epiano');
+
+		_grupoNotas.play();
+	}
 	else if (_instrumentoSelecionado == 'orgaopad') {
 		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 		_grupoNotas = montarAcorde(acorde, _grupoNotas);
 
 		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, true);
+		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
 
 		_grupoNotasStrings.play();
 		_grupoNotas.play();
@@ -182,7 +188,7 @@ function verificarAcompanhamentoEtocar(acorde) {
 
 	else if (_instrumentoSelecionado == 'strings') {
 		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, true);
+		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
 
 		_grupoNotasStrings.play();
 	}
