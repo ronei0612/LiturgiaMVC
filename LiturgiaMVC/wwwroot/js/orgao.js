@@ -117,8 +117,10 @@ function montarAcorde(acorde, grupoNotas, somenteTom = false) {
 
 		acorde = acidentesCorrespondentesJson[acorde];
 
-		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo')
+		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
 			grupoNotas.addSound(acordes['strings_' + acorde + '_baixo']);
+			grupoNotas.addSound(acordes['strings_' + acorde + '_grave']);
+		}
 
 		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
 			grupoNotas.addSound(acordes['strings_' + acorde]);
@@ -128,9 +130,12 @@ function montarAcorde(acorde, grupoNotas, somenteTom = false) {
 		var notas = notasAcordesJson[acorde];
 
 		for (var i = 0, len = notas.length; i < len; i++) {
-			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo')
+			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
 				if (i != 1 && i != 3 && i != 4 && i != 5)
 					grupoNotas.addSound(acordes['orgao_' + notas[i] + '_baixo']);
+				if (i == 0)
+					grupoNotas.addSound(acordes['orgao_' + notas[i] + '_grave']);
+			}
 
 			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
 				grupoNotas.addSound(acordes['orgao_' + notas[i]]);
@@ -144,8 +149,8 @@ function verificarGrupoNotasInstanciado(grupoNotas, adicionarEfeito = true) {
 	if (grupoNotas == null) {
 		grupoNotas = new Pizzicato.Group();
 
-		if (adicionarEfeito)
-			grupoNotas.addEffect(flanger);
+		//if (adicionarEfeito)
+		//	grupoNotas.addEffect(flanger);
 
 		grupoNotas.volume = _volume;
 	}

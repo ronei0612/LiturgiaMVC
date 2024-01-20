@@ -23,6 +23,20 @@ orgao_sol#_baixo, ./Sons/Orgao/orgao sol_ baixo.ogg
 orgao_la_baixo, ./Sons/Orgao/orgao la baixo.ogg
 orgao_la#_baixo, ./Sons/Orgao/orgao la_ baixo.ogg
 orgao_si_baixo, ./Sons/Orgao/orgao si baixo.ogg
+
+orgao_do_grave, ./Sons/Orgao/orgao do grave.ogg
+orgao_do#_grave, ./Sons/Orgao/orgao do_ grave.ogg
+orgao_re_grave, ./Sons/Orgao/orgao re grave.ogg
+orgao_re#_grave, ./Sons/Orgao/orgao re_ grave.ogg
+orgao_mi_grave, ./Sons/Orgao/orgao mi grave.ogg
+orgao_fa_grave, ./Sons/Orgao/orgao fa grave.ogg
+orgao_fa#_grave, ./Sons/Orgao/orgao fa_ grave.ogg
+orgao_sol_grave, ./Sons/Orgao/orgao sol grave.ogg
+orgao_sol#_grave, ./Sons/Orgao/orgao sol_ grave.ogg
+orgao_la_grave, ./Sons/Orgao/orgao la grave.ogg
+orgao_la#_grave, ./Sons/Orgao/orgao la_ grave.ogg
+orgao_si_grave, ./Sons/Orgao/orgao si grave.ogg
+
 strings_do, ./Sons/Strings/strings do.ogg
 strings_do#, ./Sons/Strings/strings do_.ogg
 strings_re, ./Sons/Strings/strings re.ogg
@@ -48,3 +62,16 @@ strings_sol#_baixo, ./Sons/Strings/strings sol_ baixo.ogg
 strings_la_baixo, ./Sons/Strings/strings la baixo.ogg
 strings_la#_baixo, ./Sons/Strings/strings la_ baixo.ogg
 strings_si_baixo, ./Sons/Strings/strings si baixo.ogg
+
+strings_do_grave, ./Sons/Strings/strings do grave.ogg
+strings_do#_grave, ./Sons/Strings/strings do_ grave.ogg
+strings_re_grave, ./Sons/Strings/strings re grave.ogg
+strings_re#_grave, ./Sons/Strings/strings re_ grave.ogg
+strings_mi_grave, ./Sons/Strings/strings mi grave.ogg
+strings_fa_grave, ./Sons/Strings/strings fa grave.ogg
+strings_fa#_grave, ./Sons/Strings/strings fa_ grave.ogg
+strings_sol_grave, ./Sons/Strings/strings sol grave.ogg
+strings_sol#_grave, ./Sons/Strings/strings sol_ grave.ogg
+strings_la_grave, ./Sons/Strings/strings la grave.ogg
+strings_la#_grave, ./Sons/Strings/strings la_ grave.ogg
+strings_si_grave, ./Sons/Strings/strings si grave.ogg
