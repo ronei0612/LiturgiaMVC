@@ -466,6 +466,14 @@
                 elements[i].style.display = '';
             };
 
+            var tdVolume = document.getElementById('tdVolume');
+            tdVolume.setAttribute('rowspan', 5);
+            tdVolume.setAttribute('colspan', '');
+            document.getElementById('volumeDiv').style.display = 'flex';
+            document.getElementById('textoVolume').classList.add('textoVertical');
+            document.getElementById('volumeInput').setAttribute('orient', 'vertical');
+            $('#tdVolume').appendTo('#orgaoControle');
+
             document.getElementById('volumeDiv').style.display = 'flex';
             document.getElementById('container').classList.add('d-sm-flex');
 
