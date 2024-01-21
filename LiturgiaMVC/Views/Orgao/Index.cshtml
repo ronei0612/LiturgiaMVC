@@ -103,7 +103,7 @@
 	const tonsMaiores = '@Html.Raw(@Model.TonsMaioresString)'.split(', ');
 	const tonsMenores = '@Html.Raw(@Model.TonsMenoresString)'.split(', ');
 	
-	esperarAudios(1000, true);
+	esperarAudios(2000, true);
 
 	var acordes = {
 		'orgao_do': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_do"])', loop: true, release: 0.5, attack: 0.2 } }),
