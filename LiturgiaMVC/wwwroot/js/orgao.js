@@ -392,13 +392,12 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	};
 
 	document.getElementById('container').classList.remove('d-sm-flex');
-	document.getElementById('cifraAvancar').style.display = 'block';
-	document.getElementById('cifraRetroceder').style.display = 'block';
 	document.getElementById('volumeDiv').style.display = 'none';
 	document.getElementById('voltar').style.display = 'block';
 	document.getElementById('botaoFonte').style.display = 'block';
 	document.getElementById('selectFonte').style.display = "none";
 	document.getElementById('tomMenorSwitchDiv').style.display = 'none';
+	document.getElementById('orgaoCifrasBotoes').style.display = '';
 
 	var tdVolume = document.getElementById('tdVolume');
 	tdVolume.setAttribute('rowspan', '');

@@ -17,6 +17,33 @@
 	<td><input id="acorde_7" style="display:none" id="acorde_7" type="button" class="botao rosaClaro acorde" value="@Model.Acordes[7]" onmouseup="escolherAcorde('orgao_' + 'D', this)"></td>
 	<td><input id="acorde_10" style="display:none" id="acorde_10" type="button" class="botao marromClaro acorde" value="@Model.Acordes[10]" onmouseup="escolherAcorde('orgao_' + 'E', this)"></td>
 </tr>
+
+<tr id="orgaoCifrasBotoes" style="display:none">
+	<td></td>
+	<td>
+		<button class="botao vermelho acorde" onclick="avancarCifra('retroceder', this)" id="cifraRetroceder">
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-skip-backward-fill" viewBox="0 0 16 16">
+				<path d="M.5 3.5A.5.5 0 0 0 0 4v8a.5.5 0 0 0 1 0V8.753l6.267 3.636c.54.313 1.233-.066 1.233-.697v-2.94l6.267 3.636c.54.314 1.233-.065 1.233-.696V4.308c0-.63-.693-1.01-1.233-.696L8.5 7.248v-2.94c0-.63-.692-1.01-1.233-.696L1 7.248V4a.5.5 0 0 0-.5-.5" />
+			</svg>
+		</button>
+	</td>
+	<td>
+		<button class="botao marrom acorde" onclick="avancarCifra('repetir', this)" id="cifraRepetir">
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+				<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+			</svg>
+		</button>
+	</td>
+	<td>
+		<button class="botao azul acorde" onclick="avancarCifra('avancar', this)" id="cifraAvancar">
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+				<path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />
+			</svg>
+		</button>
+	</td>
+</tr>
+
 <tr>
 	<td></td>
 	<td>
