@@ -445,6 +445,10 @@ function avancarCifra(avancar_retroceder, botao) {
 		document.getElementById('gravar').style.display = 'block';
 		document.getElementById('play-pause').style.display = 'none';
 	}
+	
+	else if (avancar_retroceder == 'repetir') {
+		verificarAcompanhamentoEtocar(_acordeAntesSelecionado);
+	}
 
 	else {
 		var frame = document.getElementById('textoCifras');
