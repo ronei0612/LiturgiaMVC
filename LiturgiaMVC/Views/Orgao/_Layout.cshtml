@@ -523,14 +523,19 @@
             });
         }
 
-        function escolherLink(url) {
+        function escolherLink(urlLink) {
             var loading = document.getElementById('modal-loading');
             loading.style.display = 'block';
             $.ajax({
-                url: "Orgao/DownloadSite?url=" + url, type: "post", dataType: "json",
+                type: "post",
+                dataType: "json",
+                url: "Orgao/DownloadSite",
+                data: {
+                    url: urlLink,
+                },
                 success: function (data) {
                     if (data.success)
-                        mudarParaTelaCifras();
+                        mudarParaTelaCifras(data);
                     else
                         alert(data.message);
 
@@ -539,7 +544,7 @@
             });
         }
 
-        function mudarParaTelaCifras() {
+        function mudarParaTelaCifras(data) {
             document.getElementById('escreverCifraTextArea').style.display = 'block';
             document.getElementById('linksCifraClubList').style.display = 'none';
             document.getElementById('botaoIniciar').style.display = '';
