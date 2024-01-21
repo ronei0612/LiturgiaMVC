@@ -106,40 +106,31 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	if (acorde.includes('_'))
 		acorde = acorde.split('_')[1];
 
-	if (instrumento == 'strings') {
-		if (acorde.length > 1) {
-			if (acorde[1] == '#' || acorde[1] == 'b')
-				acorde = acorde[0] + acorde[1];
-			else
-				acorde = acorde[0];
-		}
-		else
-			acorde = acorde[0];
-
-		acorde = acidentesCorrespondentesJson[acorde];
-
-		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
-			grupoNotas.addSound(acordes['strings_' + acorde + '_baixo']);
-			grupoNotas.addSound(acordes['strings_' + acorde + '_grave']);
-		}
-
-		if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
-			grupoNotas.addSound(acordes['strings_' + acorde]);
-	}
-
 	else {
 		var notas = notasAcordesJson[acorde];
 
 		for (var i = 0, len = notas.length; i < len; i++) {
 			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
-				if (i != 1 && i != 3 && i != 4 && i != 5)
-					grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
-				if (i == 0)
-					grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
+				if (instrumento == 'stringsSolo') {
+					grupoNotas.addSound(acordes['strings_' + notas[0] + '_baixo']);
+					grupoNotas.addSound(acordes['strings_' + notas[0] + '_grave']);
+				}
+				else {
+					if (i != 1 && i != 3 && i != 4 && i != 5)
+						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
+					if (i == 0)
+						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
+					//if (instrumento == 'strings')
+					//	if (i == 0)
+					//		grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_gravissimo']);
+				}
 			}
 
 			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
-				grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
+				if (instrumento == 'stringsSolo')
+					grupoNotas.addSound(acordes['strings_' + notas[0]]);
+				else
+					grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
 		}
 	}
 
@@ -149,9 +140,6 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 function verificarGrupoNotasInstanciado(grupoNotas, adicionarEfeito = true) {
 	if (grupoNotas == null) {
 		grupoNotas = new Pizzicato.Group();
-
-		//if (adicionarEfeito)
-		//	grupoNotas.addEffect(flanger);
 
 		grupoNotas.volume = _volume;
 	}
@@ -192,7 +180,7 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 
 		else if (_instrumentoSelecionado == 'strings') {
 			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-			_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
+			_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'stringsSolo');
 
 			_grupoNotasStrings.play();
 		}
