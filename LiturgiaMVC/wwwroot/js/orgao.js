@@ -156,7 +156,7 @@ function verificarGrupoNotasInstanciado(grupoNotas, adicionarEfeito = true) {
 function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 	if (_acordeAntesSelecionado == acorde) {
 		pararOsAcordes(true, true);
-		esperar = 100;
+		esperar = 50;
 	}
 	else
 		pararOsAcordes(true);
@@ -440,7 +440,7 @@ function avancarCifra(avancar_retroceder, botao) {
 	}
 	
 	else if (avancar_retroceder == 'repetir') {
-		verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 100);
+		verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 50);
 	}
 
 	else {
