@@ -265,6 +265,18 @@ input[type="range"] {
 	margin-top: 10px;
 }
 
+.rangeVerde::-webkit-slider-thumb {
+	background: #198754;
+}
+
+.rangeVerde::-moz-range-thumb {
+	background: #198754;
+}
+
+.rangeVerde::-ms-thumb {
+	background: #198754;
+}
+
 input[type=range][orient=vertical] {
 	appearance: slider-vertical;
 	width: 8px;
@@ -299,7 +311,8 @@ input[type=range][orient=vertical] {
 .light {
 	width: 14px;
 	height: 14px;
-	background-color: #0d6efd;
+	/*background-color: #0d6efd;*/
+	background-color: #198754;
 	border-radius: 50%;
 	position: absolute;
 	top: 45%;
