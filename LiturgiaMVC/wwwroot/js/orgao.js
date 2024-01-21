@@ -236,7 +236,8 @@ function levantarBotoesAcompanhamento() {
 function pressionarBotaoAcompanhamento(botao) {
 	if (botaoAcompPressionado(botao) == false) {
 		if (_acordeAntesSelecionado != '')
-			verificarAcompanhamentoEtocar(_acordeAntesSelecionado);
+			if (_instrumentoSelecionado != 'epiano')
+				verificarAcompanhamentoEtocar(_acordeAntesSelecionado);
 
 		levantarBotoesAcompanhamento();
 		pressionarBotaoAcomp(botao);
