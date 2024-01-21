@@ -159,42 +159,44 @@ function verificarGrupoNotasInstanciado(grupoNotas, adicionarEfeito = true) {
 	return grupoNotas;
 }
 
-function verificarAcompanhamentoEtocar(acorde) {
+function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 	pararOsAcordes(true);
 
-	_acordeAntesSelecionado = acorde;
+	setTimeout(function () { 
+		_acordeAntesSelecionado = acorde;
 
-	if (_instrumentoSelecionado == 'orgao') {
-		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		_grupoNotas = montarAcorde(acorde, _grupoNotas);
+		if (_instrumentoSelecionado == 'orgao') {
+			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+			_grupoNotas = montarAcorde(acorde, _grupoNotas);
 
-		if (_stringsSelecionado) {
-			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-			_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
-			_grupoNotasStrings.play();
+			if (_stringsSelecionado) {
+				_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
+				_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
+				_grupoNotasStrings.play();
+			}
+
+			_grupoNotas.play();
+		}
+		if (_instrumentoSelecionado == 'epiano') {
+			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+			_grupoNotas = montarAcorde(acorde, _grupoNotas, 'epiano');
+
+			if (_stringsSelecionado) {
+				_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
+				_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
+				_grupoNotasStrings.play();
+			}
+
+			_grupoNotas.play();
 		}
 
-		_grupoNotas.play();
-	}
-	if (_instrumentoSelecionado == 'epiano') {
-		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		_grupoNotas = montarAcorde(acorde, _grupoNotas, 'epiano');
-
-		if (_stringsSelecionado) {
+		else if (_instrumentoSelecionado == 'strings') {
 			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
 			_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
+
 			_grupoNotasStrings.play();
 		}
-
-		_grupoNotas.play();
-	}
-
-	else if (_instrumentoSelecionado == 'strings') {
-		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
-		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
-
-		_grupoNotasStrings.play();
-	}
+	}, esperar);
 }
 
 function pararOsAcordes(removerSons = false) {
@@ -447,7 +449,7 @@ function avancarCifra(avancar_retroceder, botao) {
 	}
 	
 	else if (avancar_retroceder == 'repetir') {
-		verificarAcompanhamentoEtocar(_acordeAntesSelecionado);
+		verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 100);
 	}
 
 	else {
