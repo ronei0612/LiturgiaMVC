@@ -147,6 +147,58 @@ namespace LiturgiaMVC
                     "orgao_la#_baixo, " + Variaveis.pastaSonsOrgao + "orgao la_ baixo.ogg" + Environment.NewLine +
                     "orgao_si_baixo, " + Variaveis.pastaSonsOrgao + "orgao si baixo.ogg" +
                     Environment.NewLine +
+                    "orgao_do_grave, " + Variaveis.pastaSonsOrgao + "orgao do grave.ogg" + Environment.NewLine +
+                    "orgao_do#_grave, " + Variaveis.pastaSonsOrgao + "orgao do_ grave.ogg" + Environment.NewLine +
+                    "orgao_re_grave, " + Variaveis.pastaSonsOrgao + "orgao re grave.ogg" + Environment.NewLine +
+                    "orgao_re#_grave, " + Variaveis.pastaSonsOrgao + "orgao re_ grave.ogg" + Environment.NewLine +
+                    "orgao_mi_grave, " + Variaveis.pastaSonsOrgao + "orgao mi grave.ogg" + Environment.NewLine +
+                    "orgao_fa_grave, " + Variaveis.pastaSonsOrgao + "orgao fa grave.ogg" + Environment.NewLine +
+                    "orgao_fa#_grave, " + Variaveis.pastaSonsOrgao + "orgao fa_ grave.ogg" + Environment.NewLine +
+                    "orgao_sol_grave, " + Variaveis.pastaSonsOrgao + "orgao sol grave.ogg" + Environment.NewLine +
+                    "orgao_sol#_grave, " + Variaveis.pastaSonsOrgao + "orgao sol_ grave.ogg" + Environment.NewLine +
+                    "orgao_la_grave, " + Variaveis.pastaSonsOrgao + "orgao la grave.ogg" + Environment.NewLine +
+                    "orgao_la#_grave, " + Variaveis.pastaSonsOrgao + "orgao la_ grave.ogg" + Environment.NewLine +
+                    "orgao_si_grave, " + Variaveis.pastaSonsOrgao + "orgao si grave.ogg" +
+                    Environment.NewLine +
+                    "epiano_do, " + Variaveis.pastaSonsOrgao + "epiano do.ogg" + Environment.NewLine +
+                    "epiano_do#, " + Variaveis.pastaSonsOrgao + "epiano do_.ogg" + Environment.NewLine +
+                    "epiano_re, " + Variaveis.pastaSonsOrgao + "epiano re.ogg" + Environment.NewLine +
+                    "epiano_re#, " + Variaveis.pastaSonsOrgao + "epiano re_.ogg" + Environment.NewLine +
+                    "epiano_mi, " + Variaveis.pastaSonsOrgao + "epiano mi.ogg" + Environment.NewLine +
+                    "epiano_fa, " + Variaveis.pastaSonsOrgao + "epiano fa.ogg" + Environment.NewLine +
+                    "epiano_fa#, " + Variaveis.pastaSonsOrgao + "epiano fa_.ogg" + Environment.NewLine +
+                    "epiano_sol, " + Variaveis.pastaSonsOrgao + "epiano sol.ogg" + Environment.NewLine +
+                    "epiano_sol#, " + Variaveis.pastaSonsOrgao + "epiano sol_.ogg" + Environment.NewLine +
+                    "epiano_la, " + Variaveis.pastaSonsOrgao + "epiano la.ogg" + Environment.NewLine +
+                    "epiano_la#, " + Variaveis.pastaSonsOrgao + "epiano la_.ogg" + Environment.NewLine +
+                    "epiano_si, " + Variaveis.pastaSonsOrgao + "epiano si.ogg" + Environment.NewLine +
+                    Environment.NewLine +
+                    "epiano_do_baixo, " + Variaveis.pastaSonsOrgao + "epiano do baixo.ogg" + Environment.NewLine +
+                    "epiano_do#_baixo, " + Variaveis.pastaSonsOrgao + "epiano do_ baixo.ogg" + Environment.NewLine +
+                    "epiano_re_baixo, " + Variaveis.pastaSonsOrgao + "epiano re baixo.ogg" + Environment.NewLine +
+                    "epiano_re#_baixo, " + Variaveis.pastaSonsOrgao + "epiano re_ baixo.ogg" + Environment.NewLine +
+                    "epiano_mi_baixo, " + Variaveis.pastaSonsOrgao + "epiano mi baixo.ogg" + Environment.NewLine +
+                    "epiano_fa_baixo, " + Variaveis.pastaSonsOrgao + "epiano fa baixo.ogg" + Environment.NewLine +
+                    "epiano_fa#_baixo, " + Variaveis.pastaSonsOrgao + "epiano fa_ baixo.ogg" + Environment.NewLine +
+                    "epiano_sol_baixo, " + Variaveis.pastaSonsOrgao + "epiano sol baixo.ogg" + Environment.NewLine +
+                    "epiano_sol#_baixo, " + Variaveis.pastaSonsOrgao + "epiano sol_ baixo.ogg" + Environment.NewLine +
+                    "epiano_la_baixo, " + Variaveis.pastaSonsOrgao + "epiano la baixo.ogg" + Environment.NewLine +
+                    "epiano_la#_baixo, " + Variaveis.pastaSonsOrgao + "epiano la_ baixo.ogg" + Environment.NewLine +
+                    "epiano_si_baixo, " + Variaveis.pastaSonsOrgao + "epiano si baixo.ogg" +
+                    Environment.NewLine +
+                    "epiano_do_grave, " + Variaveis.pastaSonsOrgao + "epiano do grave.ogg" + Environment.NewLine +
+                    "epiano_do#_grave, " + Variaveis.pastaSonsOrgao + "epiano do_ grave.ogg" + Environment.NewLine +
+                    "epiano_re_grave, " + Variaveis.pastaSonsOrgao + "epiano re grave.ogg" + Environment.NewLine +
+                    "epiano_re#_grave, " + Variaveis.pastaSonsOrgao + "epiano re_ grave.ogg" + Environment.NewLine +
+                    "epiano_mi_grave, " + Variaveis.pastaSonsOrgao + "epiano mi grave.ogg" + Environment.NewLine +
+                    "epiano_fa_grave, " + Variaveis.pastaSonsOrgao + "epiano fa grave.ogg" + Environment.NewLine +
+                    "epiano_fa#_grave, " + Variaveis.pastaSonsOrgao + "epiano fa_ grave.ogg" + Environment.NewLine +
+                    "epiano_sol_grave, " + Variaveis.pastaSonsOrgao + "epiano sol grave.ogg" + Environment.NewLine +
+                    "epiano_sol#_grave, " + Variaveis.pastaSonsOrgao + "epiano sol_ grave.ogg" + Environment.NewLine +
+                    "epiano_la_grave, " + Variaveis.pastaSonsOrgao + "epiano la grave.ogg" + Environment.NewLine +
+                    "epiano_la#_grave, " + Variaveis.pastaSonsOrgao + "epiano la_ grave.ogg" + Environment.NewLine +
+                    "epiano_si_grave, " + Variaveis.pastaSonsOrgao + "epiano si grave.ogg" +
+                    Environment.NewLine +
                     "strings_do, " + Variaveis.pastaSonsStrings + "strings do.ogg" + Environment.NewLine +
                     "strings_do#, " + Variaveis.pastaSonsStrings + "strings do_.ogg" + Environment.NewLine +
                     "strings_re, " + Variaveis.pastaSonsStrings + "strings re.ogg" + Environment.NewLine +
