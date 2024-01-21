@@ -399,6 +399,15 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	document.getElementById('botaoFonte').style.display = 'block';
 	document.getElementById('selectFonte').style.display = "none";
 	document.getElementById('tomMenorSwitchDiv').style.display = 'none';
+
+	var tdVolume = document.getElementById('tdVolume');
+	tdVolume.setAttribute('rowspan', '');
+	tdVolume.setAttribute('colspan', 5);
+	document.getElementById('volumeDiv').style.display = 'block';
+	document.getElementById('textoVolume').classList.remove('textoVertical');
+	document.getElementById('volumeInput').setAttribute('orient', '');
+	$('#tdVolume').appendTo('#orgaoTable');
+
 	$('#orgaoTable').prependTo('#bateriaBox');
 
 	addEventCifras(frame);
