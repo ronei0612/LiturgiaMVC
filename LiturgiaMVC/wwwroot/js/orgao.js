@@ -149,6 +149,19 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	return grupoNotas;
 }
 
+document.getElementById('bpm').addEventListener('change', function (e) {
+	if (_grupoNotas.effects.length > 0) {
+		var bpmRange_valor = document.getElementById('bpmRange').value;
+		var bateriaSelecionado = document.getElementById('selectRitmo').value;
+		bpmRange_valor = 60 / bpmRange_valor;
+
+		if (bateriaSelecionado == '6/8')
+			bpmRange_valor = bpmRange_valor / 2;
+
+		_grupoNotas.effects[0].time = bpmRange_valor;
+	}
+});
+
 function verificarGrupoNotasInstanciado(grupoNotas, efeito = null) {
 	if (grupoNotas == null) {
 		grupoNotas = new Pizzicato.Group();
@@ -159,15 +172,6 @@ function verificarGrupoNotasInstanciado(grupoNotas, efeito = null) {
 	if (efeito) {
 		if (grupoNotas.effects.length == 0)
 			grupoNotas.addEffect(efeito);
-
-		var bpmRange_valor = document.getElementById('bpmRange').value;
-		var bateriaSelecionado = document.getElementById('selectRitmo').value;
-		bpmRange_valor = 60 / bpmRange_valor;
-
-		if (bateriaSelecionado == '6/8')
-			bpmRange_valor = bpmRange_valor / 2;
-
-		grupoNotas.effects[0].time = bpmRange_valor;
 	}
 	else if (grupoNotas.effects.length > 0)
 		grupoNotas.removeEffect(grupoNotas.effects[0]);
