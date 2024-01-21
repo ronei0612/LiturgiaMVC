@@ -33,6 +33,12 @@ var pingPongDelay = new Pizzicato.Effects.PingPongDelay({
 	mix: 0.5
 });
 
+var delay = new Pizzicato.Effects.Delay({
+	feedback: 0.4,
+	time: 0.66,
+	mix: 0.1
+});
+
 deixarAcompanhamentoSelecionado('full');
 
 function deixarAcompanhamentoSelecionado(funcao) {
@@ -143,12 +149,28 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	return grupoNotas;
 }
 
-function verificarGrupoNotasInstanciado(grupoNotas, adicionarEfeito = true) {
+function verificarGrupoNotasInstanciado(grupoNotas, efeito = null) {
 	if (grupoNotas == null) {
 		grupoNotas = new Pizzicato.Group();
 
 		grupoNotas.volume = _volume;
 	}
+
+	if (efeito) {
+		if (grupoNotas.effects.length == 0)
+			grupoNotas.addEffect(efeito);
+
+		var bpmRange_valor = document.getElementById('bpmRange').value;
+		var bateriaSelecionado = document.getElementById('selectRitmo').value;
+		bpmRange_valor = 60 / bpmRange_valor;
+
+		if (bateriaSelecionado == '6/8')
+			bpmRange_valor = bpmRange_valor / 2;
+
+		grupoNotas.effects[0].time = bpmRange_valor;
+	}
+	else if (grupoNotas.effects.length > 0)
+		grupoNotas.removeEffect(grupoNotas.effects[0]);
 
 	return grupoNotas;
 }
@@ -165,20 +187,24 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 		_acordeAntesSelecionado = acorde;
 
 		if (_instrumentoSelecionado == 'strings') {
-			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
+			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
 			_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'stringsSolo');
 			_grupoNotasStrings.play();
 		}
 
 		else {
-			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+			if (_instrumentoSelecionado == 'epiano')
+				_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas, delay);
+			else
+				_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+
 			_grupoNotas = montarAcorde(acorde, _grupoNotas, _instrumentoSelecionado);
 			_grupoNotas.play();
 
 			if (_stringsSelecionado) {
 				if (_stringsParado) {
 					_stringsParado = false;
-					_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings, false);
+					_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
 					_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
 					_grupoNotasStrings.play();
 				}
