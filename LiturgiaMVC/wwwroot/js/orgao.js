@@ -154,7 +154,12 @@ function verificarGrupoNotasInstanciado(grupoNotas, adicionarEfeito = true) {
 }
 
 function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
-	pararOsAcordes(true);
+	if (_acordeAntesSelecionado == acorde) {
+		pararOsAcordes(true, true);
+		esperar = 100;
+	}
+	else
+		pararOsAcordes(true);
 
 	setTimeout(function () { 
 		_acordeAntesSelecionado = acorde;
@@ -182,7 +187,7 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 	}, esperar);
 }
 
-function pararOsAcordes(removerSons = false) {
+function pararOsAcordes(removerSons = false, continuarStrings = false) {
 	if (_grupoNotas != null) {
 		_grupoNotas.stop();
 
@@ -193,16 +198,17 @@ function pararOsAcordes(removerSons = false) {
 		}
 	}
 
-	if (_grupoNotasStrings != null) {
-		_stringsParado = true;
-		_grupoNotasStrings.stop();
+	if (continuarStrings == false)
+		if (_grupoNotasStrings != null) {
+			_stringsParado = true;
+			_grupoNotasStrings.stop();
 
-		if (removerSons) {
-			var sons = _grupoNotasStrings.sounds.length;
-			for (let i = sons - 1; i > -1; i--)
-				_grupoNotasStrings.removeSound(_grupoNotasStrings.sounds[i]);
+			if (removerSons) {
+				var sons = _grupoNotasStrings.sounds.length;
+				for (let i = sons - 1; i > -1; i--)
+					_grupoNotasStrings.removeSound(_grupoNotasStrings.sounds[i]);
+			}
 		}
-	}
 }
 
 function levantarBotoesAcordes() {
