@@ -39,6 +39,33 @@ var delay = new Pizzicato.Effects.Delay({
 	mix: 0.1
 });
 
+document.getElementById('bpm').addEventListener('change', function (e) {
+	if (_grupoNotas.effects.length > 0) {
+		var bpmRange_valor = document.getElementById('bpmRange').value;
+		//var bateriaSelecionado = document.getElementById('selectRitmo').value;
+		bpmRange_valor = 30 / bpmRange_valor;
+
+		//if (bateriaSelecionado == '6/8')
+		//	bpmRange_valor = bpmRange_valor / 2;
+
+		_grupoNotas.effects[0].time = bpmRange_valor;
+	}
+});
+
+document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
+	var semacentos = document.getElementById('instrumentoSelect').value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+	_instrumentoSelecionado = semacentos.toLowerCase();
+});
+
+window.addEventListener("orientationchange", (event) => {
+	var orientacao = event.target.screen.orientation.angle;
+
+	if (orientacao == 0)
+		mudarTamanhoFrameCifras(true);
+	else
+		mudarTamanhoFrameCifras(false);
+});
+
 deixarAcompanhamentoSelecionado('full');
 
 function deixarAcompanhamentoSelecionado(funcao) {
@@ -151,19 +178,6 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 
 	return grupoNotas;
 }
-
-document.getElementById('bpm').addEventListener('change', function (e) {
-	if (_grupoNotas.effects.length > 0) {
-		var bpmRange_valor = document.getElementById('bpmRange').value;
-		var bateriaSelecionado = document.getElementById('selectRitmo').value;
-		bpmRange_valor = 30 / bpmRange_valor;
-
-		//if (bateriaSelecionado == '6/8')
-		//	bpmRange_valor = bpmRange_valor / 2;
-
-		_grupoNotas.effects[0].time = bpmRange_valor;
-	}
-});
 
 function verificarGrupoNotasInstanciado(grupoNotas, efeito = null) {
 	if (grupoNotas == null) {
@@ -567,20 +581,6 @@ function selecionarStrings(stringsCheck) {
 		}
 	}
 }
-
-document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
-	var semacentos = document.getElementById('instrumentoSelect').value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-	_instrumentoSelecionado = semacentos.toLowerCase();
-});
-
-window.addEventListener("orientationchange", (event) => {
-	var orientacao = event.target.screen.orientation.angle;
-
-	if (orientacao == 0)
-		mudarTamanhoFrameCifras(true);
-	else
-		mudarTamanhoFrameCifras(false);
-});
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
 
