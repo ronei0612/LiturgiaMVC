@@ -153,19 +153,23 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	if (grupoNotas != null) {
 		var notas = notasAcordesJson[acorde];
 
-		for (var i = 0, len = notas.length; i < len; i++) {
-			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
 				if (instrumento == 'stringsSolo') {
 					grupoNotas.addSound(acordes['strings_' + notas[0] + '_baixo']);
 					grupoNotas.addSound(acordes['strings_' + notas[0] + '_grave']);
 				}
-				else {
-					if (i != 1 && i != 3 && i != 4 && i != 5)
-						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
 
+		else {
+			for (var i = 0, len = notas.length; i < len; i++) {
+				if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
 					if (i == 0)
 						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
-				}
+
+					//if (_acompanhamentoSelecionado == 'baixo')
+						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
+					//else {
+					//	if (i == 0 || i == 2)
+					//		grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
+					//}
 			}
 
 			if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
@@ -174,6 +178,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 				else
 					grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
 		}
+	}
 	}
 
 	return grupoNotas;
