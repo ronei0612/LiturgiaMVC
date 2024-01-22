@@ -116,7 +116,12 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	if (acorde.includes('_'))
 		acorde = acorde.split('_')[1];
 
-	acorde = acidentesCorrespondentesJson[acorde];
+	if (acorde.length > 1) {
+		if (acorde[1] == 'b') {
+			var soNota = acorde[0] + acorde[1];
+			acorde = acorde.replace(soNota, acidentesCorrespondentesJson[acorde[0] + acorde[1]]);
+		}
+	}
 
 	if (grupoNotas != null) {
 		var notas = notasAcordesJson[acorde];
