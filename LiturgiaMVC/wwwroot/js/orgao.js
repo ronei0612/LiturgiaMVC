@@ -576,14 +576,14 @@ function selecionarStrings(stringsCheck) {
 	else {
 		_stringsSelecionado = false;
 
-		if (_stringsParado == false) {
-			_grupoNotasStrings.stop();
-			_stringsParado = true;
+		//if (_stringsParado == false) {
+		//	_grupoNotasStrings.stop();
+		//	_stringsParado = true;
 
-			var sons = _grupoNotasStrings.sounds.length;
-			for (let i = sons - 1; i > -1; i--)
-				_grupoNotasStrings.removeSound(_grupoNotasStrings.sounds[i]);
-		}
+		//	var sons = _grupoNotasStrings.sounds.length;
+		//	for (let i = sons - 1; i > -1; i--)
+		//		_grupoNotasStrings.removeSound(_grupoNotasStrings.sounds[i]);
+		//}
 	}
 }
 
