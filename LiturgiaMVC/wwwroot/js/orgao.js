@@ -34,8 +34,8 @@ var pingPongDelay = new Pizzicato.Effects.PingPongDelay({
 });
 
 var delay = new Pizzicato.Effects.Delay({
-	feedback: 0.4,
-	time: 0.66,
+	feedback: 0.5,
+	time: 0.33,
 	mix: 0.1
 });
 
@@ -156,10 +156,10 @@ document.getElementById('bpm').addEventListener('change', function (e) {
 	if (_grupoNotas.effects.length > 0) {
 		var bpmRange_valor = document.getElementById('bpmRange').value;
 		var bateriaSelecionado = document.getElementById('selectRitmo').value;
-		bpmRange_valor = 60 / bpmRange_valor;
+		bpmRange_valor = 30 / bpmRange_valor;
 
-		if (bateriaSelecionado == '6/8')
-			bpmRange_valor = bpmRange_valor / 2;
+		//if (bateriaSelecionado == '6/8')
+		//	bpmRange_valor = bpmRange_valor / 2;
 
 		_grupoNotas.effects[0].time = bpmRange_valor;
 	}
