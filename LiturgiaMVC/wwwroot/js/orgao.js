@@ -39,14 +39,19 @@ var delay = new Pizzicato.Effects.Delay({
 	mix: 0.1
 });
 
+document.getElementById('selectRitmo').addEventListener('change', function (e) {
+	if (_grupoNotas.effects.length > 0) {
+		var bpmRange_valor = document.getElementById('bpmRange').value;
+		bpmRange_valor = 30 / bpmRange_valor;
+
+		_grupoNotas.effects[0].time = bpmRange_valor;
+	}
+});
+
 document.getElementById('bpm').addEventListener('change', function (e) {
 	if (_grupoNotas.effects.length > 0) {
 		var bpmRange_valor = document.getElementById('bpmRange').value;
-		//var bateriaSelecionado = document.getElementById('selectRitmo').value;
 		bpmRange_valor = 30 / bpmRange_valor;
-
-		//if (bateriaSelecionado == '6/8')
-		//	bpmRange_valor = bpmRange_valor / 2;
 
 		_grupoNotas.effects[0].time = bpmRange_valor;
 	}
@@ -573,18 +578,8 @@ function selecionarStrings(stringsCheck) {
 				_grupoNotasStrings.play();
 			}
 	}
-	else {
+	else
 		_stringsSelecionado = false;
-
-		//if (_stringsParado == false) {
-		//	_grupoNotasStrings.stop();
-		//	_stringsParado = true;
-
-		//	var sons = _grupoNotasStrings.sounds.length;
-		//	for (let i = sons - 1; i > -1; i--)
-		//		_grupoNotasStrings.removeSound(_grupoNotasStrings.sounds[i]);
-		//}
-	}
 }
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
