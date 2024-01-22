@@ -130,11 +130,9 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 				else {
 					if (i != 1 && i != 3 && i != 4 && i != 5)
 						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
+
 					if (i == 0)
 						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
-					//if (instrumento == 'strings')
-					//	if (i == 0)
-					//		grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_gravissimo']);
 				}
 			}
 
