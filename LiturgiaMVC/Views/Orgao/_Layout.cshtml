@@ -421,13 +421,15 @@
 
                             if (itens[i].split(',')[0] == 'bpm')
                                 element.value = itens[i].split(',')[1];
-                            else if (itens[i].split(',')[0] == 'tomMenorSwitch' || itens[i].split(',')[0] == 'autoCheck')
+                            else if (itens[i].split(',')[0] == 'tomMenorSwitch' || itens[i].split(',')[0] == 'autoCheck') {
                                 if (itens[i].split(',')[1] == 'true')
                                     element.checked = itens[i].split(',')[1];
+                            }
                             else
                                 element.selectedIndex = itens[i].split(',')[1];
                             
-                            element.dispatchEvent(eventoChange);
+                            if (element.id != 'tomSelect')
+                                element.dispatchEvent(eventoChange);
                         }
                     }
                 }
