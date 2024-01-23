@@ -225,7 +225,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 							grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
 						else {
 							if (i != 0 && i != 1)
-								grupoNotas.addSound(acordes[instrumento + '_' + notas[i]);
+								grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
 						}
 					}
 			}
