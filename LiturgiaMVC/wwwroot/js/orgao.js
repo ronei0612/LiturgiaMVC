@@ -43,6 +43,8 @@ var delay = new Pizzicato.Effects.Delay({
 deixarAcompanhamentoSelecionado('full');
 
 document.getElementById('selectRitmo').addEventListener('change', function (e) {
+	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+
 	if (_grupoNotas.effects.length > 0) {
 		var bpmRange_valor = document.getElementById('bpmRange').value;
 		bpmRange_valor = 30 / bpmRange_valor;
@@ -52,6 +54,8 @@ document.getElementById('selectRitmo').addEventListener('change', function (e) {
 });
 
 document.getElementById('bpm').addEventListener('change', function (e) {
+	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+
 	if (_grupoNotas.effects.length > 0) {
 		var bpmRange_valor = document.getElementById('bpmRange').value;
 		bpmRange_valor = 30 / bpmRange_valor;
