@@ -384,6 +384,7 @@
                     salvar += '\n' + 'selectRitmo,' + document.getElementById('selectRitmo').selectedIndex;
                     salvar += '\n' + 'tomSelect,' + document.getElementById('tomSelect').selectedIndex;
                     salvar += '\n' + 'bpm,' + document.getElementById('bpm').value;
+                    salvar += '\n' + 'autoCheck,' + document.getElementById('autoCheck').checked;
 
                     if (document.getElementById('tomMenorSwitchDiv').style.display != 'none')
                         salvar += '\n' + 'tomMenorSwitch,' + document.getElementById('tomMenorSwitch').checked;
@@ -412,7 +413,7 @@
             if (storage != null) {
                 if (storage.includes('\n')) {
                     var itens = storage.split('\n');
-                    var novoEvento = new Event('change');
+                    var eventoChange = new Event('change');
 
                     for (var i = 0; i < itens.length; i++) {
                         if (itens[i].split(',')[0] != '') {
@@ -420,12 +421,13 @@
 
                             if (itens[i].split(',')[0] == 'bpm')
                                 element.value = itens[i].split(',')[1];
-                            else if (itens[i].split(',')[0] == 'tomMenorSwitch')
-                                element.checked = itens[0].split(',')[1];
+                            else if (itens[i].split(',')[0] == 'tomMenorSwitch' || itens[i].split(',')[0] == 'autoCheck')
+                                if (itens[i].split(',')[1] == 'true')
+                                    element.checked = itens[i].split(',')[1];
                             else
                                 element.selectedIndex = itens[i].split(',')[1];
                             
-                            element.dispatchEvent(novoEvento);
+                            element.dispatchEvent(eventoChange);
                         }
                     }
                 }
