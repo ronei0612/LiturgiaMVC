@@ -11,6 +11,8 @@ var _instrumentoSelecionado = 'orgao';
 var _stringsSelecionado = false;
 var _stringsParado = true;
 var _autoMudarRitmo = false;
+var _cifraId = 0;
+var _cifraParado = true;
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
@@ -182,58 +184,49 @@ function setTom(acorde = 'C') {
 }
 
 function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
-	if (instrumento == 'stringsSolo' && _stringsSelecionado)
+	if (instrumento === 'stringsSolo' && _stringsSelecionado) {
 		instrumento = 'strings';
-
-	if (acorde.includes('_'))
-		acorde = acorde.split('_')[1];
-
-	if (acorde.length > 1) {
-		if (acorde[1] == 'b') {
-			var soNota = acorde[0] + acorde[1];
-			acorde = acorde.replace(soNota, acidentesCorrespondentesJson[acorde[0] + acorde[1]]);
-		}
 	}
 
-	if (grupoNotas != null) {
+	if (acorde.includes('_')) {
+		acorde = acorde.split('_')[1];
+	}
+
+	if (acorde.length > 1 && acorde[1] === 'b') {
+		var soNota = acorde[0] + acorde[1];
+		acorde = acorde.replace(soNota, acidentesCorrespondentesJson[acorde[0] + acorde[1]]);
+	}
+
+	if (grupoNotas !== null) {
 		var notas = notasAcordesJson[acorde];
 
-		if (instrumento == 'stringsSolo') {
+		if (instrumento === 'stringsSolo') {
 			grupoNotas.addSound(acordes['strings_' + notas[0] + '_baixo']);
 			grupoNotas.addSound(acordes['strings_' + notas[0] + '_grave']);
-		}
-
-		else {
+		} else {
 			for (var i = 0, len = notas.length; i < len; i++) {
-				if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
-					if (i == 0)
-						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
-
-					if (instrumento != 'strings')
-						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
-					else {
-						if (i == 1)
-							grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
-					}
+				if ((_acompanhamentoSelecionado === 'full' || _acompanhamentoSelecionado === 'baixo') && i === 0) {
+					grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
 				}
 
-				if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
-					if (instrumento == 'stringsSolo')
+				if ((_acompanhamentoSelecionado === 'full' || _acompanhamentoSelecionado === 'baixo') && instrumento !== 'strings') {
+					grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
+				}
+
+				if ((_acompanhamentoSelecionado === 'full' || _acompanhamentoSelecionado === 'mao')) {
+					if (instrumento === 'stringsSolo') {
 						grupoNotas.addSound(acordes['strings_' + notas[0]]);
-					else {
-						if (instrumento != 'strings')
-							grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
-						else {
-							if (i != 0 && i != 1)
-								grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
-						}
+					} else {
+						grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
 					}
+				}
 			}
 		}
 	}
 
 	return grupoNotas;
 }
+
 
 function verificarGrupoNotasInstanciado(grupoNotas, efeito = null) {
 	if (grupoNotas == null) {
@@ -396,10 +389,9 @@ function mudarTom(tomSelecionado) {
 		acordesElement.value = acordesCampoHarmonico[acordeIndex];
 	});
 
-	var botoesSelecionados = document.getElementsByClassName('pressionado');
+	var botaoSelecionado = document.querySelector('.pressionado');
 
-	if (botoesSelecionados.length > 0) {
-		var botaoSelecionado = botoesSelecionados[0];
+	if (botaoSelecionado) {
 		var acordeSelecionado = botaoSelecionado.value;
 		escolherAcorde('orgao_' + acordeSelecionado, botaoSelecionado);
 	}
@@ -414,102 +406,103 @@ function mudarTomMenor(acordeIndex) {
 function aumentarTom(aumentar, quant, select) {
 	var tomElement = document.getElementById(select);
 	var tomSelecionadoIndex = tomElement.selectedIndex;
-	
-	if (tomElement.value.includes('m'))
-		var tonsArray = tonsMenores;
-	else
-		var tonsArray = tonsMaiores;
+
+	var tonsArray = tomElement.value.includes('m') ? tonsMenores : tonsMaiores;
+	var newIndex;
 
 	if (aumentar) {
-		if (tomSelecionadoIndex + quant == tomElement.length)
-			tomElement.value = tonsArray[0];
-		else if (tomSelecionadoIndex + quant > tomElement.length)
-			tomElement.value = tonsArray[-1 + quant];
-		else
-			tomElement.value = tonsArray[tomSelecionadoIndex + quant];
-	}
-	else {
-		if (tomSelecionadoIndex - quant < 0)
-			if (tomSelecionadoIndex == 0)
-				tomElement.value = tonsArray[tomElement.length - quant];
-			else
-				tomElement.value = tonsArray[tomElement.length - 1];
-		else
-			tomElement.value = tonsArray[tomSelecionadoIndex - quant];
+		newIndex = (tomSelecionadoIndex + quant) % tomElement.length;
+	} else {
+		newIndex = (tomSelecionadoIndex - quant + tomElement.length) % tomElement.length;
 	}
 
-	if (document.getElementById('textoCifrasFrame').style.display == "block")
+	tomElement.value = tonsArray[newIndex];
+
+	if (document.getElementById('textoCifrasFrame').style.display === "block") {
 		mudarTomCifra(aumentar, quant);
-	else
+	} else {
 		mudarTom(tomElement.value);
+	}
 }
 
 function adicionarTonsSelect(element, index, maior) {
 	var selectElem = document.getElementById(element);
 	selectElem.innerHTML = "";
 
-	var tons = tonsMaiores;
-	if (maior == false)
-		tons = tonsMenores;
+	var tons = maior ? tonsMaiores : tonsMenores;
 
-	for (var i = 0; i < tons.length; i++) {
-		let opt = document.createElement('option');
-		opt.value = tons[i];
-		opt.textContent += tons[i];
-		selectElem.appendChild(opt);
-	};
+	tons.forEach((ton) => {
+		let opt = new Option(ton, ton);
+		selectElem.add(opt);
+	});
 
 	selectElem.selectedIndex = index;
 }
 
 function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	if (tom) {
-		if (tom.includes('m'))
-			adicionarTonsSelect('tomSelect', tonsMenores.indexOf(tom), false);
-		else
-			adicionarTonsSelect('tomSelect', tonsMaiores.indexOf(tom), true);
+		var index = tom.includes('m') ? tonsMenores.indexOf(tom) : tonsMaiores.indexOf(tom);
+		adicionarTonsSelect('tomSelect', index, !tom.includes('m'));
 	}
 
 	var frame = document.getElementById('textoCifras');
 	var textoCifrasFrame = document.getElementById('textoCifrasFrame');
 
-	if (texto)
+	if (texto) {
 		frame.contentDocument.body.innerHTML = texto;
+	}
 
-	if (document.body.classList.contains("bg-dark"))
-		frame.contentWindow.document.querySelector('pre').style.color = '#fff';
-	else
-		frame.contentWindow.document.querySelector('pre').style.color = '#000';
+	var preElement = frame.contentWindow.document.querySelector('pre');
+	preElement.style.color = document.body.classList.contains("bg-dark") ? '#fff' : '#000';
 
-	if (textoCifrasFrame.style.display == 'none') {
+	if (textoCifrasFrame.style.display === 'none') {
 		textoCifrasFrame.style.display = 'block';
 
 		var elements = document.getElementsByClassName('orgaoBotoes');
-		for (var i = 0; i < elements.length; i++) {
-			elements[i].style.display = 'none';
-		}
+		Array.from(elements).forEach((element) => {
+			element.style.display = 'none';
+		});
 
-		document.getElementById('container').classList.remove('d-sm-flex');
-		document.getElementById('volumeDiv').style.display = 'none';
-		document.getElementById('voltar').style.display = 'block';
-		document.getElementById('botaoFonte').style.display = 'block';
-		document.getElementById('selectFonte').style.display = "none";
-		document.getElementById('tomMenorSwitchDiv').style.display = 'none';
-		document.getElementById('orgaoCifrasBotoes').style.display = '';
+		var container = document.getElementById('container');
+		container.classList.remove('d-sm-flex');
+
+		var volumeDiv = document.getElementById('volumeDiv');
+		volumeDiv.style.display = 'none';
+
+		var voltarButton = document.getElementById('voltar');
+		voltarButton.style.display = 'block';
+
+		var botaoFonte = document.getElementById('botaoFonte');
+		botaoFonte.style.display = 'block';
+
+		var selectFonte = document.getElementById('selectFonte');
+		selectFonte.style.display = 'none';
+
+		var tomMenorSwitchDiv = document.getElementById('tomMenorSwitchDiv');
+		tomMenorSwitchDiv.style.display = 'none';
+
+		var orgaoCifrasBotoes = document.getElementById('orgaoCifrasBotoes');
+		orgaoCifrasBotoes.style.display = '';
 
 		var tdVolume = document.getElementById('tdVolume');
 		tdVolume.setAttribute('rowspan', '');
 		tdVolume.setAttribute('colspan', 5);
-		document.getElementById('volumeDiv').style.display = 'block';
-		document.getElementById('textoVolume').classList.remove('textoVertical');
-		document.getElementById('volumeInput').setAttribute('orient', '');
-		$('#tdVolume').appendTo('#orgaoTable');
 
+		volumeDiv.style.display = 'block';
+
+		var textoVolume = document.getElementById('textoVolume');
+		textoVolume.classList.remove('textoVertical');
+
+		var volumeInput = document.getElementById('volumeInput');
+		volumeInput.setAttribute('orient', '');
+
+		$('#tdVolume').appendTo('#orgaoTable');
 		$('#orgaoTable').prependTo('#bateriaBox');
 	}
 
 	addEventCifras(frame);
 }
+
 
 function addEventCifras(frame) {
 	var elements = frame.contentDocument.getElementsByTagName("b");
@@ -535,76 +528,58 @@ function tocarCifraManualmente(cifraElem) {
 		avancarCifra('avancar', document.getElementById('cifraAvancar'));
 }
 
-var _cifraId = 0;
-var _cifraParado = true;
-
 function avancarCifra(avancar_retroceder, botao) {
-	if (avancar_retroceder == '') {
-		escolherAcorde('', botao);
-		document.getElementById('gravar').style.display = 'block';
-		document.getElementById('play-pause').style.display = 'none';
-	}
-	
-	else if (avancar_retroceder == 'repetir') {
-		if (_cifraParado == false)
-			verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 50);
-	}
+	var gravarElement = document.getElementById('gravar');
+	var playPauseElement = document.getElementById('play-pause');
+	var cifraRetrocederElement = document.getElementById('cifraRetroceder');
+	var cifraAvancarElement = document.getElementById('cifraAvancar');
 
-	else {
+	if (avancar_retroceder === '') {
+		escolherAcorde('', botao);
+		gravarElement.style.display = 'block';
+		playPauseElement.style.display = 'none';
+	} else if (avancar_retroceder === 'repetir' && !_cifraParado) {
+		verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 50);
+	} else {
 		var frame = document.getElementById('textoCifras');
 		var frameContent = frame.contentDocument;
 		var elements_b = frameContent.getElementsByTagName('b');
-		var frame = document.getElementById('textoCifras');
 		var cifraElems = frameContent.getElementsByClassName('cifraSelecionada');
 
-		if (avancar_retroceder == 'avancar') {
-			if (_cifraId < elements_b.length) {
-				if (cifraElems.length > 0)
-					cifraElems[0].classList.remove('cifraSelecionada');
-
-				_cifraParado = false;
-
-				var cifraElem = elements_b[_cifraId];
-				var cifraRetroceder = document.getElementById('cifraRetroceder');
-
-				tocarAcorde(cifraElem.innerHTML.trim(), null);
-
-				if (cifraRetroceder.classList.contains('pressionado'))
-					cifraRetroceder.classList.remove('pressionado');
-
-				botao.classList.toggle('pressionado', true);
-				cifraElem.classList.add('cifraSelecionada');
-				cifraElem.scrollIntoView();
-
-				_cifraId++;
-			}
+		if (avancar_retroceder === 'avancar' && _cifraId < elements_b.length) {
+			processarCifraAvancarRetroceder(cifraElems, cifraRetrocederElement, botao, elements_b);
 		}
 
-		if (avancar_retroceder == 'retroceder') {
-			if (_cifraId - 1 > 0) {
-				if (cifraElems.length > 0)
-					cifraElems[0].classList.remove('cifraSelecionada');
-
-				if (_cifraParado == false)
-					_cifraId--;
-
-				var cifraElem = elements_b[_cifraId - 1];
-				var cifraAvancar = document.getElementById('cifraAvancar');
-
-				tocarAcorde(cifraElem.innerHTML.trim(), null);
-
-				if (cifraAvancar.classList.contains('pressionado'))
-					cifraAvancar.classList.remove('pressionado');
-
-				botao.classList.toggle('pressionado', true);
-				cifraElem.classList.add('cifraSelecionada');
-				cifraElem.scrollIntoView();
-			}
+		if (avancar_retroceder === 'retroceder' && _cifraId - 1 > 0) {
+			processarCifraAvancarRetroceder(cifraElems, cifraAvancarElement, botao, elements_b, true);
 		}
 
-		document.getElementById('gravar').style.display = 'none';
-		document.getElementById('play-pause').style.display = 'block';
+		gravarElement.style.display = 'none';
+		playPauseElement.style.display = 'block';
 	}
+}
+
+function processarCifraAvancarRetroceder(cifraElems, cifraToggleButton, botao, elements_b, retroceder = false) {
+	if (cifraElems.length > 0) {
+		cifraElems[0].classList.remove('cifraSelecionada');
+	}
+
+	_cifraParado = retroceder ? _cifraParado : false;
+
+	var cifraElem = elements_b[retroceder ? (_cifraId - 1) : _cifraId];
+	var cifraToggleOther = retroceder ? document.getElementById('cifraAvancar') : document.getElementById('cifraRetroceder');
+
+	tocarAcorde(cifraElem.innerHTML.trim(), null);
+
+	if (cifraToggleOther.classList.contains('pressionado')) {
+		cifraToggleOther.classList.remove('pressionado');
+	}
+
+	botao.classList.toggle('pressionado', true);
+	cifraElem.classList.add('cifraSelecionada');
+	cifraElem.scrollIntoView();
+
+	_cifraId += retroceder ? -1 : 1;
 }
 
 function mudarTamanhoFrameCifras(aumentar) {
