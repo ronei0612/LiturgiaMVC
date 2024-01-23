@@ -165,18 +165,16 @@ function escolherAcompanhamento(funcao, botao) {
 }
 
 function tocarAcorde(acorde, botao) {
-	if (_acordeAntesSelecionado != acorde) {
-		if (botao) {
-			if (botao.value != '')
-				verificarAcompanhamentoEtocar(botao.value);
-			else
-				verificarAcompanhamentoEtocar(acorde);
-
-			botao.classList.toggle('pressionado', true);
-		}
+	if (botao) {
+		if (botao.value != '')
+			verificarAcompanhamentoEtocar(botao.value);
 		else
 			verificarAcompanhamentoEtocar(acorde);
+
+		botao.classList.toggle('pressionado', true);
 	}
+	else
+		verificarAcompanhamentoEtocar(acorde);
 }
 
 function setTom(acorde = 'C') {
