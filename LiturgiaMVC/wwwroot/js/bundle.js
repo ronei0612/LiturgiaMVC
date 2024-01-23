@@ -1116,11 +1116,13 @@ function selecionarRitmo(ritmo, virada = false) {
             return gainNode;
         }
 
-        function tocarBateria(botao) {
+        function tocarBateria(botao = null) {
             if (botao) {
                 if (!schedule.running)
                     playBateria();
             }
+            else
+                stopBateria();
         }
 
 function setupBaseEvents() {
@@ -1164,14 +1166,13 @@ function setupBaseEvents() {
     });
 
     document.getElementById('play-pause_bateria').addEventListener('click', function (e) {
-        stopBateria();
+        tocarBateria();
     });
 
     document.getElementById('prato').addEventListener('click', function (e) {
         let pratoAtaque1 = buffers['prato1'].get();
         let node = routeGain(pratoAtaque1);
         node.connect(ctx.destination);
-
         pratoAtaque1.start();
     });
 
