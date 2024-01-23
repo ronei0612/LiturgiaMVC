@@ -6,6 +6,8 @@
 
 		if (document.getElementById('textoCifrasFrame').style.display != 'none')
 			document.getElementById('textoCifras').contentWindow.document.querySelector('pre').style.color = '#000';
+
+		document.getElementById('violinoDesenho').setAttribute('fill', '#000');
     }
     else {
 		document.body.classList = "bg-dark text-light orgao-background-dark";
@@ -14,6 +16,8 @@
 
 		if (document.getElementById('textoCifrasFrame').style.display != 'none')
 			document.getElementById('textoCifras').contentWindow.document.querySelector('pre').style.color = '#fff';
+
+		document.getElementById('violinoDesenho').setAttribute('fill', '#fff');
     }
 }
 
