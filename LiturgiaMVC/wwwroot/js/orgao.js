@@ -275,7 +275,7 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 			_grupoNotas.play();
 
 			if (_stringsSelecionado) {
-				if (_stringsParado) {
+				if (_stringsParado || _grupoNotas.sounds.length < 10) {
 					_stringsParado = false;
 					_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
 					_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
@@ -542,7 +542,8 @@ function avancarCifra(avancar_retroceder, botao) {
 	}
 	
 	else if (avancar_retroceder == 'repetir') {
-		verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 50);
+		if (_cifraParado == false)
+			verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 50);
 	}
 
 	else {
