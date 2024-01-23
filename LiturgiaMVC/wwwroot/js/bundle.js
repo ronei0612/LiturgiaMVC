@@ -1116,35 +1116,10 @@ function selecionarRitmo(ritmo, virada = false) {
             return gainNode;
         }
 
-        function pressionarBotao(botao, levantarBotoes = true) {
-            if (levantarBotoes) {
-                var botaoPressionadoAntes = document.getElementsByClassName('selecionadoDrum');
-                if (botaoPressionadoAntes.length > 0) {
-                    var botaoPressionado = botaoPressionadoAntes[0];
-
-                    if (botao == botaoPressionado)
-                        fazerViradaBateria();
-                    else
-                        botaoPressionado.classList.toggle('selecionadoDrum', false);
-
-                    if (botao == '')
-                        stopBateria();
-                }
-            }
-
-            if (botao != '') {
-                if (botao.id == 'prato') {
-                    let pratoAtaque1 = buffers['prato1'].get();
-                    let node = routeGain(pratoAtaque1);
-                    node.connect(ctx.destination);
-
-                    pratoAtaque1.start();
-                }
-                else if (botao != '') {
-                    if (!schedule.running)
-                        playBateria();
-                    botao.classList.toggle('selecionadoDrum', true);
-                }
+        function tocarBateria(botao) {
+            if (botao) {
+                if (!schedule.running)
+                    playBateria();
             }
         }
 
@@ -1159,48 +1134,45 @@ function setupBaseEvents() {
     });
 
     document.getElementById('aro').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
+        tocarBateria(document.activeElement);
         mudarRitmo('aro');
     });
 
     document.getElementById('meiaLua').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
+        tocarBateria(document.activeElement);
         mudarRitmo('meiaLua');
     });
 
     document.getElementById('caixa').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
+        tocarBateria(document.activeElement);
         mudarRitmo('');
     });
 
     document.getElementById('brush').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
+        tocarBateria(document.activeElement);
         mudarRitmo('brush');
     });
 
     document.getElementById('ride').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
+        tocarBateria(document.activeElement);
         mudarRitmo('ride');
     });
 
     document.getElementById('chimbal').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao);
+        tocarBateria(document.activeElement);
         mudarRitmo('chimbal');
     });
 
     document.getElementById('play-pause_bateria').addEventListener('click', function (e) {
-        pressionarBotao('');
+        stopBateria();
     });
 
     document.getElementById('prato').addEventListener('click', function (e) {
-        var botao = document.activeElement;
-        pressionarBotao(botao, false);
+        let pratoAtaque1 = buffers['prato1'].get();
+        let node = routeGain(pratoAtaque1);
+        node.connect(ctx.destination);
+
+        pratoAtaque1.start();
     });
 
     // var initializedCtx;

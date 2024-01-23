@@ -10,6 +10,7 @@ var _volume = 0.9;
 var _instrumentoSelecionado = 'orgao';
 var _stringsSelecionado = false;
 var _stringsParado = true;
+var _autoMudarRitmo = false;
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
@@ -39,6 +40,8 @@ var delay = new Pizzicato.Effects.Delay({
 	mix: 0.1
 });
 
+deixarAcompanhamentoSelecionado('full');
+
 document.getElementById('selectRitmo').addEventListener('change', function (e) {
 	if (_grupoNotas.effects.length > 0) {
 		var bpmRange_valor = document.getElementById('bpmRange').value;
@@ -57,6 +60,10 @@ document.getElementById('bpm').addEventListener('change', function (e) {
 	}
 });
 
+document.getElementById('autoCheck').addEventListener('change', function (e) {
+	_autoMudarRitmo = this.checked;
+});
+
 document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
 	var semacentos = document.getElementById('instrumentoSelect').value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
 	_instrumentoSelecionado = semacentos.toLowerCase();
@@ -70,8 +77,6 @@ window.addEventListener("orientationchange", (event) => {
 	else
 		mudarTamanhoFrameCifras(false);
 });
-
-deixarAcompanhamentoSelecionado('full');
 
 function deixarAcompanhamentoSelecionado(funcao) {
 	escolherAcompanhamento(funcao, document.getElementById(funcao));
@@ -117,9 +122,42 @@ function escolherAcorde(acorde, botao) {
 	}
 }
 
+function autoMudarRitmo(elementBotao = null) {
+	var pararBateriaBotao = document.getElementById('pararBateriaBotao');
+
+	if (pararBateriaBotao.style.display !== 'none' && _autoMudarRitmo) {
+		var eventoClick = new Event('click');
+		var selecionadoElement = elementBotao || document.querySelector('.selecionado');
+
+		if (_stringsSelecionado) {
+			if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
+				document.getElementById('chimbal').dispatchEvent(eventoClick);
+			} else if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
+				document.getElementById('brush').dispatchEvent(eventoClick);
+			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
+				document.getElementById('meiaLua').dispatchEvent(eventoClick);
+			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
+				document.getElementById('aro').dispatchEvent(eventoClick);
+			}
+		} else {
+			if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
+				document.getElementById('aro').dispatchEvent(eventoClick);
+			} else if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
+				document.getElementById('brush').dispatchEvent(eventoClick);
+			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
+				document.getElementById('caixa').dispatchEvent(eventoClick);
+			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
+				document.getElementById('aro').dispatchEvent(eventoClick);
+			}
+		}
+	}
+}
+
 function escolherAcompanhamento(funcao, botao) {
 	_acompanhamentoSelecionado = funcao;
 	pressionarBotaoAcompanhamento(botao);
+
+	autoMudarRitmo(botao);
 }
 
 function tocarAcorde(acorde, botao) {
@@ -580,6 +618,8 @@ function selecionarStrings(stringsCheck) {
 	}
 	else
 		_stringsSelecionado = false;
+
+	autoMudarRitmo();
 }
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
