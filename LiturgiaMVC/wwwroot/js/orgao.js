@@ -467,39 +467,42 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	}
 
 	var frame = document.getElementById('textoCifras');
+	var textoCifrasFrame = document.getElementById('textoCifrasFrame');
 
 	if (texto)
 		frame.contentDocument.body.innerHTML = texto;
-
-	document.getElementById('textoCifrasFrame').style.display = 'block';
 
 	if (document.body.classList.contains("bg-dark"))
 		frame.contentWindow.document.querySelector('pre').style.color = '#fff';
 	else
 		frame.contentWindow.document.querySelector('pre').style.color = '#000';
 
-	var elements = document.getElementsByClassName('orgaoBotoes');
-	for (var i = 0; i < elements.length; i++) {
-		elements[i].style.display = 'none';
-	};
+	if (textoCifrasFrame.style.display == 'none') {
+		textoCifrasFrame.style.display = 'block';
 
-	document.getElementById('container').classList.remove('d-sm-flex');
-	document.getElementById('volumeDiv').style.display = 'none';
-	document.getElementById('voltar').style.display = 'block';
-	document.getElementById('botaoFonte').style.display = 'block';
-	document.getElementById('selectFonte').style.display = "none";
-	document.getElementById('tomMenorSwitchDiv').style.display = 'none';
-	document.getElementById('orgaoCifrasBotoes').style.display = '';
+		var elements = document.getElementsByClassName('orgaoBotoes');
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].style.display = 'none';
+		}
 
-	var tdVolume = document.getElementById('tdVolume');
-	tdVolume.setAttribute('rowspan', '');
-	tdVolume.setAttribute('colspan', 5);
-	document.getElementById('volumeDiv').style.display = 'block';
-	document.getElementById('textoVolume').classList.remove('textoVertical');
-	document.getElementById('volumeInput').setAttribute('orient', '');
-	$('#tdVolume').appendTo('#orgaoTable');
+		document.getElementById('container').classList.remove('d-sm-flex');
+		document.getElementById('volumeDiv').style.display = 'none';
+		document.getElementById('voltar').style.display = 'block';
+		document.getElementById('botaoFonte').style.display = 'block';
+		document.getElementById('selectFonte').style.display = "none";
+		document.getElementById('tomMenorSwitchDiv').style.display = 'none';
+		document.getElementById('orgaoCifrasBotoes').style.display = '';
 
-	$('#orgaoTable').prependTo('#bateriaBox');
+		var tdVolume = document.getElementById('tdVolume');
+		tdVolume.setAttribute('rowspan', '');
+		tdVolume.setAttribute('colspan', 5);
+		document.getElementById('volumeDiv').style.display = 'block';
+		document.getElementById('textoVolume').classList.remove('textoVertical');
+		document.getElementById('volumeInput').setAttribute('orient', '');
+		$('#tdVolume').appendTo('#orgaoTable');
+
+		$('#orgaoTable').prependTo('#bateriaBox');
+	}
 
 	addEventCifras(frame);
 }
