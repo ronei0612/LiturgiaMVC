@@ -209,19 +209,25 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 					if (i == 0)
 						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
 
-					//if (_acompanhamentoSelecionado == 'baixo')
+					if (instrumento != 'strings')
 						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
-					//else {
-					//	if (i == 0 || i == 2)
-					//		grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
-					//}
+					else {
+						if (i == 1)
+							grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
+					}
 				}
 
 				if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
 					if (instrumento == 'stringsSolo')
 						grupoNotas.addSound(acordes['strings_' + notas[0]]);
-					else
-						grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
+					else {
+						if (instrumento != 'strings')
+							grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
+						else {
+							if (i != 0 && i != 1)
+								grupoNotas.addSound(acordes[instrumento + '_' + notas[i]);
+						}
+					}
 			}
 		}
 	}
