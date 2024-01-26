@@ -253,7 +253,9 @@
 	}
 
 	function mudarParaFullscreen() {
+		debugger;
 		document.getElementById('exitfullscreen').style.display = 'flex';
+		document.getElementById('exitfullscreenDiv').style.display = '';
 		document.getElementById('botaoFullscreen').style.display = 'none';
 		//document.getElementById('trackerControls').style.display = 'none';
 		document.getElementById('divBateriaSwitch').style.display = 'none';
@@ -279,11 +281,12 @@
 		if (requestMethod)
 			requestMethod.call(el);
 
-		document.getElementById('navBar').style.display = 'none';
+		//document.getElementById('navBar').style.display = 'none';
 	}
 
 	function sairDeFullscreen() {
 		document.getElementById('exitfullscreen').style.display = 'none';
+		document.getElementById('exitfullscreenDiv').style.display = 'none';
 		//document.getElementById('trackerControls').style.display = 'block';
 		document.getElementById('botaoFullscreen').style.display = 'flex';
 		document.exitFullscreen();
