@@ -604,6 +604,8 @@ function avancarCifra(avancar_retroceder, botao) {
         }
 
         if (avancar_retroceder === 'retroceder' && _cifraId - 1 > 0) {
+            if (_cifraParado == false)
+                _cifraId--;
             processarCifraAvancarRetroceder(cifraElems, cifraAvancarElement, botao, elements_b, true);
         }
 
@@ -632,7 +634,7 @@ function processarCifraAvancarRetroceder(cifraElems, cifraToggleButton, botao, e
 	cifraElem.classList.add('cifraSelecionada');
 	cifraElem.scrollIntoView();
 
-	_cifraId += retroceder ? -1 : 1;
+    _cifraId += retroceder ? -1 : 1;
 }
 
 function mudarTamanhoFrameCifras(aumentar) {

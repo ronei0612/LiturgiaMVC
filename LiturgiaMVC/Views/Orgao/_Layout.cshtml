@@ -229,18 +229,24 @@
 
     <script>
         $(window).click(function (e) {
-            if (e.target.className == 'w3-modal')
+            if (e.target.classList.contains('w3-modal')) {
                 ocultarModal();
+            }
         });
 
         document.getElementById('selectRitmo').selectedIndex = 2;
         selecionarInstrumento(true);
 
         function ocultarModal() {
-            document.getElementById('modal01').style.display = 'none';
-            document.getElementById('linksCifraClubList').style.display = 'none';
-            document.getElementById('botaoIniciar').style.display = '';
-            document.getElementById('escreverCifraTextArea').style.display = '';
+            var ocultarElementos = ['modal01', 'linksCifraClubList'];
+            ocultarElementos.forEach(function (elemento) {
+                document.getElementById(elemento).style.display = 'none';
+            });
+
+            var elementos = ['botaoIniciar', 'escreverCifraTextArea'];
+            elementos.forEach(function (elemento) {
+                document.getElementById(elemento).style.display = '';
+            });
         }
 
         function mostrarModal(nome) {
@@ -291,33 +297,33 @@
         function selecionarInstrumento(bateria) {
             var instrumentoSelecionado = document.getElementById('instrumentoSelect').value;
             var bateriaSelecionado = document.getElementById('selectRitmo').value;
+            var bateriaBotoes = document.getElementById('bateriaBotoes');
 
             document.getElementById('titulo').innerText = instrumentoSelecionado + ' ▼';
             document.getElementById('modal01').style.display = 'none';
 
-            if (bateria)
-                if (bateriaSelecionado == '')
-                    document.getElementById('bateriaBotoes').style.display = 'none';
-                else
-                    document.getElementById('bateriaBotoes').style.display = 'block';
+            if (bateria) {
+                bateriaBotoes.style.display = bateriaSelecionado ? 'block' : 'none';
+            }
 
             var bpmRange_valor = document.getElementById('bpmRange').value;
             bpmRange_valor = 60000 / bpmRange_valor;
 
-            if (bateriaSelecionado == '6/8')
-                bpmRange_valor = bpmRange_valor / 2;
-            
+            if (bateriaSelecionado == '6/8') {
+                bpmRange_valor /= 2;
+            }
+
             document.getElementById('lightCompasso').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
         }
 
         function escolherGravacao() {
-            document.getElementById('modal01').style.display = 'none';
+            ocultarModal();
         }
 
         function deletarSalvamento() {
             var gravacaoSelecionada = document.getElementById('selectSalvamento');
 
-            if (gravacaoSelecionada.value != '') {
+            if (gravacaoSelecionada.value) {
                 if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
                     localStorage.removeItem(gravacaoSelecionada.value);
                     localStorage.removeItem(gravacaoSelecionada.value + '_frameCifra');
@@ -332,14 +338,13 @@
             var novoSalvamento = document.getElementById('selectSalvamento');
             let nome = prompt('Nome da novo salvamento');
 
-            if (nome != '' && nome != null) {
+            if (nome && nome !== null) {
                 var opcoesSelect = novoSalvamento.options;
                 var opcoesArray = [...opcoesSelect].map(el => el.value);
 
-                if (opcoesArray.includes(nome))
+                if (opcoesArray.includes(nome)) {
                     alert('Salvamento ' + nome + ' já existe!');
-
-                else {
+                } else {
                     var option = document.createElement("option");
 
                     option.text = nome;
@@ -353,8 +358,8 @@
 
         function salvarOptionsNoStorage(nomeStorage) {
             var selectElem = document.getElementById('selectSalvamento');
-            opcoesSelect = selectElem.options;
-            opcoesArray = [...opcoesSelect].map(el => el.value);
+            var opcoesSelect = selectElem.options;
+            var opcoesArray = [...opcoesSelect].map(el => el.value);
             localStorage.setItem(nomeStorage, opcoesArray);
         }
 
@@ -362,17 +367,15 @@
             var selectSalvamento = document.getElementById('selectSalvamento');
             var salvamentosStorage = localStorage.getItem('salvamentos');
 
-            if (salvamentosStorage != null) {
-                if (salvamentosStorage.length > 0) {
-                    selectSalvamento.innerHTML = "";
+            if (salvamentosStorage && salvamentosStorage.length > 0) {
+                selectSalvamento.innerHTML = "";
+                var salvamentos = salvamentosStorage.split(',');
 
-                    var salvamentos = salvamentosStorage.split(',');
-                    for (var i = 0; i < salvamentos.length; i++) {
-                        var option = document.createElement("option");
-                        option.text = salvamentos[i];
-                        selectSalvamento.add(option);
-                    }
-                }
+                salvamentos.forEach(function (salvamento) {
+                    var option = document.createElement("option");
+                    option.text = salvamento;
+                    selectSalvamento.add(option);
+                });
             }
         }
 
@@ -410,75 +413,74 @@
 
         function carregar_Salvamento() {
             var salvamentoSelecionado = document.getElementById('selectSalvamento').value;
-            var storage = localStorage.getItem(salvamentoSelecionado);
-            if (storage != null) {
-                if (storage.includes('\n')) {
-                    var itens = storage.split('\n');
-                    var eventoChange = new Event('change');
 
-                    for (var i = 0; i < itens.length; i++) {
-                        if (itens[i].split(',')[0] != '') {
-                            var element = document.getElementById(itens[i].split(',')[0]);
+            if (salvamentoSelecionado) {
+                var storage = localStorage.getItem(salvamentoSelecionado);
+                if (storage != null) {
+                    if (storage.includes('\n')) {
+                        var itens = storage.split('\n');
+                        var eventoChange = new Event('change');
 
-                            if (itens[i].split(',')[0] == 'bpm')
-                                element.value = itens[i].split(',')[1];
-                            else if (itens[i].split(',')[0] == 'tomMenorSwitch' || itens[i].split(',')[0] == 'autoCheck') {
-                                if (itens[i].split(',')[1] == 'true')
-                                    element.checked = itens[i].split(',')[1];
+                        for (var i = 0; i < itens.length; i++) {
+                            if (itens[i].split(',')[0] != '') {
+                                var element = document.getElementById(itens[i].split(',')[0]);
+
+                                if (itens[i].split(',')[0] == 'bpm')
+                                    element.value = itens[i].split(',')[1];
+                                else if (itens[i].split(',')[0] == 'tomMenorSwitch' || itens[i].split(',')[0] == 'autoCheck') {
+                                    if (itens[i].split(',')[1] == 'true')
+                                        element.checked = itens[i].split(',')[1];
+                                }
+                                else
+                                    element.selectedIndex = itens[i].split(',')[1];
+
+                                if (element.id != 'tomSelect')
+                                    element.dispatchEvent(eventoChange);
                             }
-                            else
-                                element.selectedIndex = itens[i].split(',')[1];
-                            
-                            if (element.id != 'tomSelect')
-                                element.dispatchEvent(eventoChange);
                         }
                     }
                 }
+
+                storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
+
+                if (storage != null) {
+                    document.getElementById('escreverCifraTextArea').style.display = 'block';
+
+                    var tom = document.getElementById('tomSelect').value;
+                    mostrarTextoArquivoCarregado(tom, storage);
+
+                    var selectFonte = document.getElementById('selectFonte');
+                    var frameCifra = document.getElementById('textoCifras');
+                    //selectFonte.style.display = '';
+                    frameCifra.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
+                    //selectFonte.style.display = 'none';
+                }
+                else
+                    voltarParaOrgao();
+
+                document.getElementById('modal01').style.display = 'none';
             }
-
-            storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
-
-            if (storage != null) {
-                document.getElementById('escreverCifraTextArea').style.display = 'block';
-
-                var tom = document.getElementById('tomSelect').value;
-                mostrarTextoArquivoCarregado(tom, storage);
-                
-                var selectFonte = document.getElementById('selectFonte');
-                var frameCifra = document.getElementById('textoCifras');
-                //selectFonte.style.display = '';
-                frameCifra.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
-                //selectFonte.style.display = 'none';
-            }
-            else
-                voltarParaOrgao();
-
-            document.getElementById('modal01').style.display = 'none';
         }
 
         function voltarParaOrgao() {
-            document.getElementById('voltar').style.display = 'none';
-            document.getElementById('botaoFonte').style.display = 'none';
-            document.getElementById('selectFonte').style.display = "none";
-            document.getElementById('orgaoCifrasBotoes').style.display = 'none';
+            var elementos = ['voltar', 'botaoFonte', 'selectFonte', 'orgaoCifrasBotoes', 'textoCifrasFrame'];
+            elementos.forEach(function (elemento) {
+                document.getElementById(elemento).style.display = 'none';
+            });
 
-            document.getElementById('textoCifrasFrame').style.display = 'none';
-            document.getElementById('tomMenorSwitchDiv').style.display = '';
-
-            var elements = document.getElementsByClassName('orgaoBotoes');
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].style.display = '';
-            };
+            var orgaoBotoes = document.getElementsByClassName('orgaoBotoes');
+            for (var i = 0; i < orgaoBotoes.length; i++) {
+                orgaoBotoes[i].style.display = '';
+            }
 
             var tdVolume = document.getElementById('tdVolume');
             tdVolume.setAttribute('rowspan', 5);
-            tdVolume.setAttribute('colspan', '');
+            tdVolume.removeAttribute('colspan');
             document.getElementById('volumeDiv').style.display = 'flex';
             document.getElementById('textoVolume').classList.add('textoVertical');
             document.getElementById('volumeInput').setAttribute('orient', 'vertical');
             $('#tdVolume').appendTo('#orgaoControle');
 
-            document.getElementById('volumeDiv').style.display = 'flex';
             document.getElementById('container').classList.add('d-sm-flex');
 
             $('#orgaoTable').appendTo('#orgaoBox');
@@ -507,7 +509,7 @@
 
             document.getElementById('listaMusicasCifra').innerHTML = '';
             var textoPesquisa = document.getElementById('musicaSearch').value;
-            
+
             $.ajax({
                 url: "Orgao/Pesquisar?texto=" + textoPesquisa, type: "post", dataType: "json",
                 success: function (data) {
@@ -515,7 +517,7 @@
                         document.getElementById('escreverCifraTextArea').style.display = 'none';
                         document.getElementById('linksCifraClubList').style.display = 'block';
                         document.getElementById('botaoIniciar').style.display = 'none';
-                        
+
                         var titulosMusicas = data.lista;
                         var linksMusicas = data.links;
 
@@ -557,14 +559,17 @@
         }
 
         function mudarParaTelaCifras(data) {
-            document.getElementById('escreverCifraTextArea').style.display = 'block';
-            document.getElementById('linksCifraClubList').style.display = 'none';
-            document.getElementById('botaoIniciar').style.display = '';
-            document.getElementById('musicaSearch').value = "";
-            document.getElementById('modal01').style.display = 'none';
+            ocultarModal();
 
+            var elementos = ['escreverCifraTextArea', 'linksCifraClubList', 'botaoIniciar'];
+            elementos.forEach(function (elemento) {
+                document.getElementById(elemento).style.display = 'block';
+            });
+
+            document.getElementById('musicaSearch').value = "";
             mostrarTextoArquivoCarregado(data.tom, data.message);
         }
+
     </script>
 </body>
 </html>
