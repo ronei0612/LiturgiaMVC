@@ -194,8 +194,8 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 
 	if (acorde.length > 1) {
 		if (acorde[1] == 'b') {
-			var soNota = acorde[0] + acorde[1];
-			acorde = acorde.replace(soNota, acidentesCorrespondentesJson[acorde[0] + acorde[1]]);
+			var soNota = acorde.slice(0, 2);
+			acorde = acorde.replace(soNota, acidentesCorrespondentesJson[soNota]);
 		}
 	}
 
