@@ -12,64 +12,70 @@ var _stringsSelecionado = false;
 var _stringsParado = true;
 var _autoMudarRitmo = false;
 
+var delay = new Pizzicato.Effects.Delay({ feedback: 0.5, time: 0.33, mix: 0.1 });
+
 const notasAcordes = Object.keys(notasAcordesJson);
-
-var tremolo = new Pizzicato.Effects.Tremolo({
-	speed: 1,
-	depth: 0.6,
-	mix: 0.8
-});
-
-var flanger = new Pizzicato.Effects.Flanger({
-	time: 0.45,
-	speed: 0.2,
-	depth: 0.1,
-	feedback: 0.1,
-	mix: 0.2
-});
-
-var pingPongDelay = new Pizzicato.Effects.PingPongDelay({
-	feedback: 0.6,
-	time: 0.4,
-	mix: 0.5
-});
-
-var delay = new Pizzicato.Effects.Delay({
-	feedback: 0.5,
-	time: 0.33,
-	mix: 0.1
-});
+const instrumentoSelect = document.getElementById('instrumentoSelect');
+const autoCheck = document.getElementById('autoCheck');
+const bpm = document.getElementById('bpm');
+const selectRitmo = document.getElementById('selectRitmo');
+const botaobotaoGravar = document.getElementById('botaoGravar');
+const play_pause = document.getElementById('play-pause');
+const bpmRange = document.getElementById('bpmRange');
+const pararBateriaBotao = document.getElementById('pararBateriaBotao');
+const chimbal = document.getElementById('chimbal');
+const brush = document.getElementById('brush');
+const meiaLua = document.getElementById('meiaLua');
+const aro = document.getElementById('aro');
+const caixa = document.getElementById('caixa');
+const tomSelect = document.getElementById('tomSelect');
+const volumeTexto = document.getElementById('volumeTexto');
+const textoCifras = document.getElementById('textoCifras');
+const textoAcordeMenor = document.getElementById('textoAcordeMenor');
+const textoCifrasFrame = document.getElementById('textoCifrasFrame');
+const container = document.getElementById('container');
+const voltar  = document.getElementById('voltar');
+const botaoFonte  = document.getElementById('botaoFonte');
+const selectFonte  = document.getElementById('selectFonte');
+const tomMenorSwitchDiv  = document.getElementById('tomMenorSwitchDiv');
+const orgaoCifrasBotoes  = document.getElementById('orgaoCifrasBotoes');
+const tdVolume = document.getElementById('tdVolume');
+const volumeDiv = document.getElementById('volumeDiv');
+const textoVolume = document.getElementById('textoVolume');
+const volumeInput = document.getElementById('volumeInput');
+const cifraAvancar = document.getElementById('cifraAvancar');
+const cifraRetroceder = document.getElementById('cifraRetroceder');
 
 deixarAcompanhamentoSelecionado('full');
 
-document.getElementById('selectRitmo').addEventListener('change', function (e) {
+selectRitmo.addEventListener('change', function (e) {
 	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 
 	if (_grupoNotas.effects.length > 0) {
-		var bpmRange_valor = document.getElementById('bpmRange').value;
+		var bpmRange_valor = bpmRange.value;
 		bpmRange_valor = 30 / bpmRange_valor;
 
 		_grupoNotas.effects[0].time = bpmRange_valor;
 	}
 });
 
-document.getElementById('bpm').addEventListener('change', function (e) {
+bpm.addEventListener('change', function (e) {
 	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 
 	if (_grupoNotas.effects.length > 0) {
-		var bpmRange_valor = document.getElementById('bpmRange').value;
+		var bpmRange_valor = bpmRange.value;
 		bpmRange_valor = 30 / bpmRange_valor;
 
 		_grupoNotas.effects[0].time = bpmRange_valor;
 	}
 });
 
-document.getElementById('autoCheck').addEventListener('change', function (e) {
+autoCheck.addEventListener('change', function (e) {
 	_autoMudarRitmo = this.checked;
 });
 
-document.getElementById('instrumentoSelect').addEventListener('change', (e) => {
-	var semacentos = document.getElementById('instrumentoSelect').value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+instrumentoSelect.addEventListener('change', (e) => {
+	var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
 	_instrumentoSelecionado = semacentos.toLowerCase();
 });
 
@@ -88,12 +94,12 @@ function deixarAcompanhamentoSelecionado(funcao) {
 
 function ocultarBotaoRec(ocultar = true) {
 	if (ocultar) {
-		document.getElementById('gravar').style.display = 'none';
-		document.getElementById('play-pause').style.display = 'block';
+		botaoGravar.style.display = 'none';
+		play_pause.style.display = 'block';
 	}
 	else {
-		document.getElementById('gravar').style.display = 'block';
-		document.getElementById('play-pause').style.display = 'none';
+		botaoGravar.style.display = 'block';
+		play_pause.style.display = 'none';
 	}
 }
 
@@ -127,31 +133,29 @@ function escolherAcorde(acorde, botao) {
 }
 
 function autoMudarRitmo(elementBotao = null) {
-	var pararBateriaBotao = document.getElementById('pararBateriaBotao');
-
 	if (pararBateriaBotao.style.display !== 'none' && _autoMudarRitmo) {
 		var eventoClick = new Event('click');
 		var selecionadoElement = elementBotao || document.querySelector('.selecionado');
 
 		if (_stringsSelecionado) {
 			if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				document.getElementById('chimbal').dispatchEvent(eventoClick);
+				chimbal.dispatchEvent(eventoClick);
 			} else if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-				document.getElementById('brush').dispatchEvent(eventoClick);
+				brush.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-				document.getElementById('meiaLua').dispatchEvent(eventoClick);
+				meiaLua.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-				document.getElementById('aro').dispatchEvent(eventoClick);
+				aro.dispatchEvent(eventoClick);
 			}
 		} else {
 			if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				document.getElementById('aro').dispatchEvent(eventoClick);
+				aro.dispatchEvent(eventoClick);
 			} else if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-				document.getElementById('brush').dispatchEvent(eventoClick);
+				brush.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-				document.getElementById('caixa').dispatchEvent(eventoClick);
+				caixa.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-				document.getElementById('aro').dispatchEvent(eventoClick);
+				aro.dispatchEvent(eventoClick);
 			}
 		}
 	}
@@ -178,7 +182,7 @@ function tocarAcorde(acorde, botao) {
 }
 
 function setTom(acorde = 'C') {
-	document.getElementById('tomSelect').value = acorde;
+	tomSelect.value = acorde;
 }
 
 function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
@@ -358,14 +362,13 @@ function alterarVolume(volume, padrao) {
 		_grupoNotasStrings.volume = _volume;
 
 	if (volume == padrao)
-		document.getElementById('volumeTexto').innerHTML = volume * 10;	
+		volumeTexto.innerHTML = volume * 10;	
 	else
-		document.getElementById('volumeTexto').innerHTML = (volume * 10) + '*';
+		volumeTexto.innerHTML = (volume * 10) + '*';
 }
 
 function mudarTomCifra(aumentar, quant) {
-	var frame = document.getElementById('textoCifras');
-	var texto = frame.contentDocument.body.innerHTML;
+	var texto = textoCifras.contentDocument.body.innerHTML;
 
 	$.ajax({
 		type: "post",
@@ -377,9 +380,8 @@ function mudarTomCifra(aumentar, quant) {
 		},
 		success: function (data) {
 			if (data.success) {
-				var frame = document.getElementById('textoCifras');
-				frame.contentDocument.body.innerHTML = data.message;
-				addEventCifras(frame);
+				textoCifras.contentDocument.body.innerHTML = data.message;
+				addEventCifras(textoCifras);
 			}
 			else
 				alert(data.message);
@@ -404,11 +406,11 @@ function mudarTom(tomSelecionado) {
 		escolherAcorde('orgao_' + acordeSelecionado, botaoSelecionado);
 	}
 
-	mudarTomMenor(document.getElementById("tomSelect").selectedIndex);
+	mudarTomMenor(tomSelect.selectedIndex);
 }
 
 function mudarTomMenor(acordeIndex) {
-	document.getElementById('textoAcordeMenor').innerText = acordesTons[acordeIndex + 12];
+	textoAcordeMenor.innerText = acordesTons[acordeIndex + 12];
 }
 
 function aumentarTom(aumentar, quant, select) {
@@ -437,8 +439,8 @@ function aumentarTom(aumentar, quant, select) {
 		else
 			tomElement.value = tonsArray[tomSelecionadoIndex - quant];
 	}
-
-	if (document.getElementById('textoCifrasFrame').style.display == "block")
+	
+	if (textoCifrasFrame.style.display == "block")
 		mudarTomCifra(aumentar, quant);
 	else
 		mudarTom(tomElement.value);
@@ -470,16 +472,13 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 			adicionarTonsSelect('tomSelect', tonsMaiores.indexOf(tom), true);
 	}
 
-	var frame = document.getElementById('textoCifras');
-	var textoCifrasFrame = document.getElementById('textoCifrasFrame');
-
 	if (texto)
-		frame.contentDocument.body.innerHTML = texto;
+		textoCifras.contentDocument.body.innerHTML = texto;
 
 	if (document.body.classList.contains("bg-dark"))
-		frame.contentWindow.document.querySelector('pre').style.color = '#fff';
+		textoCifras.contentWindow.document.querySelector('pre').style.color = '#fff';
 	else
-		frame.contentWindow.document.querySelector('pre').style.color = '#000';
+		textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
 
 	if (textoCifrasFrame.style.display == 'none') {
 		textoCifrasFrame.style.display = 'block';
@@ -489,26 +488,25 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 			elements[i].style.display = 'none';
 		}
 
-		document.getElementById('container').classList.remove('d-sm-flex');
-		document.getElementById('volumeDiv').style.display = 'none';
-		document.getElementById('voltar').style.display = 'block';
-		document.getElementById('botaoFonte').style.display = 'block';
-		document.getElementById('selectFonte').style.display = "none";
-		document.getElementById('tomMenorSwitchDiv').style.display = 'none';
-		document.getElementById('orgaoCifrasBotoes').style.display = '';
+		container.classList.remove('d-sm-flex');
+		volumeDiv.style.display = 'none';
+		voltar.style.display = 'block';
+		botaoFonte.style.display = 'block';
+		selectFonte.style.display = "none";
+		tomMenorSwitchDiv.style.display = 'none';
+		orgaoCifrasBotoes.style.display = '';
 
-		var tdVolume = document.getElementById('tdVolume');
 		tdVolume.setAttribute('rowspan', '');
 		tdVolume.setAttribute('colspan', 5);
-		document.getElementById('volumeDiv').style.display = 'block';
-		document.getElementById('textoVolume').classList.remove('textoVertical');
-		document.getElementById('volumeInput').setAttribute('orient', '');
-		$('#tdVolume').appendTo('#orgaoTable');
+		volumeDiv.style.display = 'block';
+		textoVolume.classList.remove('textoVertical');
+		volumeInput.setAttribute('orient', '');
 
+		$('#tdVolume').appendTo('#orgaoTable');
 		$('#orgaoTable').prependTo('#bateriaBox');
 	}
 
-	addEventCifras(frame);
+	addEventCifras(textoCifras);
 }
 
 function addEventCifras(frame) {
@@ -516,7 +514,7 @@ function addEventCifras(frame) {
 
 	for (var i = 0; i < elements.length; i++) {
 		elements[i].addEventListener("click", function (e) {
-			var cifraElements = document.getElementById('textoCifras').contentDocument.getElementsByClassName('cifraSelecionada');
+			var cifraElements = textoCifras.contentDocument.getElementsByClassName('cifraSelecionada');
 
 			if (cifraElements.length > 0)
 				cifraElements[0].classList.remove('cifraSelecionada');
@@ -532,7 +530,7 @@ function tocarCifraManualmente(cifraElem) {
 	_cifraId = cifraElem.id.split('cifra')[1] - 1;
 
 	if (_cifraParado == false)
-		avancarCifra('avancar', document.getElementById('cifraAvancar'));
+		avancarCifra('avancar', cifraAvancar);
 }
 
 var _cifraId = 0;
@@ -541,8 +539,8 @@ var _cifraParado = true;
 function avancarCifra(avancar_retroceder, botao) {
 	if (avancar_retroceder == '') {
 		escolherAcorde('', botao);
-		document.getElementById('gravar').style.display = 'block';
-		document.getElementById('play-pause').style.display = 'none';
+		botaoGravar.style.display = 'block';
+		play_pause.style.display = 'none';
 	}
 	
 	else if (avancar_retroceder == 'repetir') {
@@ -551,10 +549,8 @@ function avancarCifra(avancar_retroceder, botao) {
 	}
 
 	else {
-		var frame = document.getElementById('textoCifras');
-		var frameContent = frame.contentDocument;
+		var frameContent = textoCifras.contentDocument;
 		var elements_b = frameContent.getElementsByTagName('b');
-		var frame = document.getElementById('textoCifras');
 		var cifraElems = frameContent.getElementsByClassName('cifraSelecionada');
 
 		if (avancar_retroceder == 'avancar') {
@@ -565,7 +561,6 @@ function avancarCifra(avancar_retroceder, botao) {
 				_cifraParado = false;
 
 				var cifraElem = elements_b[_cifraId];
-				var cifraRetroceder = document.getElementById('cifraRetroceder');
 
 				tocarAcorde(cifraElem.innerHTML.trim(), null);
 
@@ -589,7 +584,6 @@ function avancarCifra(avancar_retroceder, botao) {
 					_cifraId--;
 
 				var cifraElem = elements_b[_cifraId - 1];
-				var cifraAvancar = document.getElementById('cifraAvancar');
 
 				tocarAcorde(cifraElem.innerHTML.trim(), null);
 
@@ -602,17 +596,17 @@ function avancarCifra(avancar_retroceder, botao) {
 			}
 		}
 
-		document.getElementById('gravar').style.display = 'none';
-		document.getElementById('play-pause').style.display = 'block';
+		botaoGravar.style.display = 'none';
+		play_pause.style.display = 'block';
 	}
 }
 
 function mudarTamanhoFrameCifras(aumentar) {
-	if (document.getElementById('textoCifrasFrame').style.display != 'none') {
+	if (textoCifrasFrame.style.display != 'none') {
 		if (aumentar)
-			document.getElementById('textoCifras').style.height = '250px';
+			textoCifras.style.height = '250px';
 		else
-			document.getElementById('textoCifras').style.height = '150px';
+			textoCifras.style.height = '150px';
 	}
 }
 
