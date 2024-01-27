@@ -58,6 +58,7 @@ const tracker_container = document.getElementById('tracker-container');
 const acorde_10 = document.getElementById('acorde_10');
 const acorde_7 = document.getElementById('acorde_7');
 const acorde_9 = document.getElementById('acorde_9');
+const muteDiv = document.getElementById('muteDiv');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();

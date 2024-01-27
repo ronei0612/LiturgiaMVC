@@ -258,11 +258,14 @@
 		
 		divBateriaSwitch.style.display = 'none';
 		bateria.style.display = 'none';
+		switchDarkDiv.style.display = 'none';
+		muteDiv.style.display = '';
 
 		if (textoCifrasFrame.style.display != 'none' && _orientacaoCelularPe == false) {
 			$('#exitfullscreenDiv').prependTo('#linhaSelectTom');
 			$('#botaoOpcoes').prependTo('#linhaSelectTom');
 			$('#botaoSalvar').appendTo('#linhaSelectTom');
+			$('#muteDiv').appendTo('#linhaSelectTom');
 
 			navBar.style.display = 'none';
 		}
@@ -280,10 +283,13 @@
 		$('#botaoOpcoes').prependTo('#linhaNavBar');
 		$('#botaoSalvar').appendTo('#linhaNavBar');
 		$('#switchDarkDiv').appendTo('#linhaNavBar');
+		$('#muteDiv').appendTo('#linhaNavBar');
 
 		exitfullscreen.style.display = 'none';
 		exitfullscreenDiv.style.display = 'none';
 		botaoFullscreen.style.display = 'flex';
+		switchDarkDiv.style.display = '';
+		muteDiv.style.display = 'none';
 		document.exitFullscreen();
 		navBar.style.display = 'block';
 

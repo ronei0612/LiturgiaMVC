@@ -32,8 +32,7 @@
                         <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344 0a.5.5 0 0 1 .707 0l4.096 4.096V11.5a.5.5 0 1 1 1 0v3.975a.5.5 0 0 1-.5.5H11.5a.5.5 0 0 1 0-1h2.768l-4.096-4.096a.5.5 0 0 1 0-.707zm0-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707m-4.344 0a.5.5 0 0 1-.707 0L1.025 1.732V4.5a.5.5 0 0 1-1 0V.525a.5.5 0 0 1 .5-.5H4.5a.5.5 0 0 1 0 1H1.732l4.096 4.096a.5.5 0 0 1 0 .707" />
                     </svg>
                 </button>
-                <div id="exitfullscreenDiv" style="display:none"> @* style="position:absolute; top:10px; left:10px; z-index:9">
-                    *@
+                <div id="exitfullscreenDiv" style="display:none">
                     <button type="button" class="input-group-text" id="exitfullscreen" style="display:none" onclick="sairDeFullscreen()">
                         <svg class="svg-icon" width="17" height="17" viewBox="0 0 1024 1024" version="1.1">
                             <path d="M576 677.632 576 928C576 945.664 590.336 960 608 960s32-14.336 32-32l0-180.672 203.456 203.52c11.968 11.968 31.36 11.968 43.392 0 11.968-12.032 11.968-31.424 0-43.392L683.328 704 864 704c17.664 0 32-14.336 32-32S881.664 640 864 640L613.632 640C590.272 640 576 652.032 576 677.632z" />
@@ -72,6 +71,13 @@
                             </span>
                         </span>
                     </label>
+                </div>
+                <div id="muteDiv" style="display:none">
+                    <button type="button" class="input-group-text" onclick="mostrarModal('salvar')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-volume-mute-fill" viewBox="0 0 16 16">
+                            <path d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06m7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </nav>
