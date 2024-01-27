@@ -11,6 +11,7 @@ var _instrumentoSelecionado = 'orgao';
 var _stringsSelecionado = false;
 var _stringsParado = true;
 var _autoMudarRitmo = false;
+var _orientacaoCelular = true;
 
 var delay = new Pizzicato.Effects.Delay({ feedback: 0.5, time: 0.33, mix: 0.1 });
 
@@ -92,12 +93,12 @@ instrumentoSelect.addEventListener('change', (e) => {
 });
 
 window.addEventListener("orientationchange", (event) => {
-	var orientacao = event.target.screen.orientation.angle;
-
-	if (orientacao == 0)
-		mudarTamanhoFrameCifras(true);
+	if (event.target.screen.orientation.angle == 0)
+		_orientacaoCelular = true;
 	else
-		mudarTamanhoFrameCifras(false);
+		_orientacaoCelular = false;
+
+	mudarTamanhoFrameCifras(_orientacaoCelular);
 });
 
 function deixarAcompanhamentoSelecionado(funcao) {
@@ -519,6 +520,7 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	}
 
 	addEventCifras(textoCifras);
+	mudarTamanhoFrameCifras(_orientacaoCelular);
 }
 
 function addEventCifras(frame) {
