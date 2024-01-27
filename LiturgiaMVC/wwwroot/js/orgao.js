@@ -114,6 +114,10 @@ bpm.addEventListener('change', function (e) {
 
 autoCheck.addEventListener('change', function (e) {
 	_autoMudarRitmo = this.checked;
+	if (_autoMudarRitmo)
+		ocultarBotoesRitmo();
+	else
+		ocultarBotoesRitmo(false);
 });
 
 instrumentoSelect.addEventListener('change', (e) => {
@@ -129,6 +133,19 @@ window.addEventListener("orientationchange", (event) => {
 
 	mudarTamanhoFrameCifras(_orientacaoCelularPe);
 });
+
+function ocultarBotoesRitmo(ocultar = true) {
+	var bateriaBotoes = document.getElementsByClassName('trBateriaBotoes');
+
+	if (ocultar) {
+		for (let i = 0; i < bateriaBotoes.length; i++)
+			bateriaBotoes[i].style.display = 'none';
+	}
+	else {
+		for (let i = 0; i < bateriaBotoes.length; i++)
+			bateriaBotoes[i].style.display = '';
+	}
+}
 
 function deixarAcompanhamentoSelecionado(funcao) {
 	escolherAcompanhamento(funcao, document.getElementById(funcao));
