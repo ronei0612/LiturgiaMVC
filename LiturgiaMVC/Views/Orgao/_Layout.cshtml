@@ -249,8 +249,14 @@
         document.getElementById('selectRitmo').selectedIndex = 2;
         selecionarInstrumento(true);
 
-        function mutarVolume() {
-            if (iconVolumeMute.style.display == 'none') {
+        function mutarVolume(mute = true) {
+            if (mute == false) {
+                volumeInput.value = 0.9;
+                volumeInput.dispatchEvent(eventoClick);
+                iconVolume.style.display = '';
+                iconVolumeMute.style.display = 'none';
+            }
+            else if (iconVolumeMute.style.display == 'none') {
                 volumeInput.value = 0;
                 volumeInput.dispatchEvent(eventoClick);
                 iconVolume.style.display = 'none';
