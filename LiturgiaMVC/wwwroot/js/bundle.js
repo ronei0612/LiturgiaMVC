@@ -30,33 +30,33 @@ function fazerViradaBateria() {
 }
 
 function selecionarRitmo(ritmo, virada = false) {
-    if (_trocarRitmo) {
-        fazerViradaBateria();
+        if (_trocarRitmo) {
+            fazerViradaBateria();
 
-        if (virada == false)
-            _trocarRitmo = false;
+            if (virada == false)
+                _trocarRitmo = false;
 
-        var ritmoMatrix = ritmo;
-        if (ritmo.includes('_'))
-            ritmoMatrix = ritmo.split('_')[0];
+            var ritmoMatrix = ritmo;
+            if (ritmo.includes('_'))
+                ritmoMatrix = ritmo.split('_')[0];
 
-        setBeats(ritmoMatrix);
+            setBeats(ritmoMatrix);
 
-        var tabelaBateria = document.getElementById('tracker-table');
-        var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+            var tabelaBateria = document.getElementById('tracker-table');
+            var tdsAtivados = document.getElementsByClassName('tracker-enabled');
 
-        Array.from(tdsAtivados).forEach((tdAtivado) => {
-            tdAtivado.classList.remove('tracker-enabled');
-        });
+            Array.from(tdsAtivados).forEach((tdAtivado) => {
+                tdAtivado.classList.remove('tracker-enabled');
+            });
 
-        var tdsAtivar = tabelaBateria.getElementsByTagName('td');
-        var numerosIndex = ritmosJson[ritmo];
+            var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+            var numerosIndex = ritmosJson[ritmo];
 
-        numerosIndex.forEach((numeroIndex) => {
-            tdsAtivar[numeroIndex].classList.add('tracker-enabled');
-        });
+            numerosIndex.forEach((numeroIndex) => {
+                tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+            });
+        }
     }
-}
 
 (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s })({
     1: [function (require, module, exports) {
@@ -1136,33 +1136,45 @@ function setupBaseEvents() {
     });
 
     document.getElementById('aro').addEventListener('click', function (e) {
-        tocarBateria(document.activeElement);
-        mudarRitmo('aro');
+        if (iconVolumeMute.style.display == 'none') {
+            tocarBateria(document.activeElement);
+            mudarRitmo('aro');
+        }
     });
 
     document.getElementById('meiaLua').addEventListener('click', function (e) {
-        tocarBateria(document.activeElement);
-        mudarRitmo('meiaLua');
+        if (iconVolumeMute.style.display == 'none') {
+            tocarBateria(document.activeElement);
+            mudarRitmo('meiaLua');
+        }
     });
 
     document.getElementById('caixa').addEventListener('click', function (e) {
-        tocarBateria(document.activeElement);
-        mudarRitmo('');
+        if (iconVolumeMute.style.display == 'none') {
+            tocarBateria(document.activeElement);
+            mudarRitmo('');
+        }
     });
 
     document.getElementById('brush').addEventListener('click', function (e) {
-        tocarBateria(document.activeElement);
-        mudarRitmo('brush');
+        if (iconVolumeMute.style.display == 'none') {
+            tocarBateria(document.activeElement);
+            mudarRitmo('brush');
+        }
     });
 
     document.getElementById('ride').addEventListener('click', function (e) {
-        tocarBateria(document.activeElement);
-        mudarRitmo('ride');
+        if (iconVolumeMute.style.display == 'none') {
+            tocarBateria(document.activeElement);
+            mudarRitmo('ride');
+        }
     });
 
     document.getElementById('chimbal').addEventListener('click', function (e) {
-        tocarBateria(document.activeElement);
-        mudarRitmo('chimbal');
+        if (iconVolumeMute.style.display == 'none') {
+            tocarBateria(document.activeElement);
+            mudarRitmo('chimbal');
+        }
     });
 
     document.getElementById('play-pause_bateria').addEventListener('click', function (e) {
@@ -1170,10 +1182,12 @@ function setupBaseEvents() {
     });
 
     document.getElementById('prato').addEventListener('click', function (e) {
-        let pratoAtaque1 = buffers['prato1'].get();
-        let node = routeGain(pratoAtaque1);
-        node.connect(ctx.destination);
-        pratoAtaque1.start();
+        if (iconVolumeMute.style.display == 'none') {
+            let pratoAtaque1 = buffers['prato1'].get();
+            let node = routeGain(pratoAtaque1);
+            node.connect(ctx.destination);
+            pratoAtaque1.start();
+        }
     });
 
     // var initializedCtx;
