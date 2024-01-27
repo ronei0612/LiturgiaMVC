@@ -45,6 +45,18 @@ const textoVolume = document.getElementById('textoVolume');
 const volumeInput = document.getElementById('volumeInput');
 const cifraAvancar = document.getElementById('cifraAvancar');
 const cifraRetroceder = document.getElementById('cifraRetroceder');
+const exitfullscreen = document.getElementById('exitfullscreen');
+const exitfullscreenDiv = document.getElementById('exitfullscreenDiv');
+const botaoFullscreen = document.getElementById('botaoFullscreen');
+const trackerControls = document.getElementById('trackerControls');
+const divBateriaSwitch = document.getElementById('divBateriaSwitch');
+const bateria = document.getElementById('bateria');
+const linhaSelectTom = document.getElementById('linhaSelectTom');
+const navBar = document.getElementById('navBar');
+const tracker_container = document.getElementById('tracker-container');
+const acorde_10 = document.getElementById('acorde_10');
+const acorde_7 = document.getElementById('acorde_7');
+const acorde_9 = document.getElementById('acorde_9');
 
 deixarAcompanhamentoSelecionado('full');
 
