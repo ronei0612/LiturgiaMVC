@@ -246,7 +246,7 @@
                 ocultarModal();
         });
 
-        document.getElementById('selectRitmo').selectedIndex = 2;
+        selectRitmo.selectedIndex = 2;
         selecionarInstrumento(true);
 
         function mutarVolume(mute = true) {
@@ -271,85 +271,85 @@
         }
 
         function ocultarModal() {
-            document.getElementById('modal01').style.display = 'none';
-            document.getElementById('linksCifraClubList').style.display = 'none';
-            document.getElementById('botaoIniciar').style.display = '';
-            document.getElementById('escreverCifraTextArea').style.display = '';
+            modal01.style.display = 'none';
+            linksCifraClubList.style.display = 'none';
+            botaoIniciar.style.display = '';
+            escreverCifraTextArea.style.display = '';
         }
 
         function mostrarModal(nome) {
-            document.getElementById('modal01').style.display = 'block';
+            modal01.style.display = 'block';
 
             if (nome == 'opcoes') {
-                document.getElementById('selectInstrumento').style.display = 'none';
-                document.getElementById('modalGravar').style.display = 'none';
-                document.getElementById('selectOpcoes').style.display = 'block';
-                document.getElementById('salvarDiv').style.display = 'none';
+                selectInstrumento.style.display = 'none';
+                modalGravar.style.display = 'none';
+                selectOpcoes.style.display = 'block';
+                salvarDiv.style.display = 'none';
             }
 
             else if (nome == 'instrumento') {
-                document.getElementById('selectOpcoes').style.display = 'none';
-                document.getElementById('modalGravar').style.display = 'none';
-                document.getElementById('selectInstrumento').style.display = 'block';
-                document.getElementById('salvarDiv').style.display = 'none';
+                selectOpcoes.style.display = 'none';
+                modalGravar.style.display = 'none';
+                selectInstrumento.style.display = 'block';
+                salvarDiv.style.display = 'none';
             }
 
             else if (nome == 'gravar') {
-                if (document.getElementById('textoCifrasFrame').style.display == 'none' && document.getElementById('textoCifras').contentDocument.body.innerHTML != '') {
-                    document.getElementById('escreverCifraTextArea').style.display = 'block';
-                    document.getElementById('linksCifraClubList').style.display = 'none';
-                    document.getElementById('musicaSearch').value = "";
-                    document.getElementById('modal01').style.display = 'none';
+                if (textoCifrasFrame.style.display == 'none' && textoCifras.contentDocument.body.innerHTML != '') {
+                    escreverCifraTextArea.style.display = 'block';
+                    linksCifraClubList.style.display = 'none';
+                    musicaSearch.value = "";
+                    modal01.style.display = 'none';
 
                     mostrarTextoArquivoCarregado();
                 }
 
                 else {
-                    document.getElementById('selectOpcoes').style.display = 'none';
-                    document.getElementById('selectInstrumento').style.display = 'none';
-                    document.getElementById('modalGravar').style.display = 'block';
-                    document.getElementById('salvarDiv').style.display = 'none';
+                    selectOpcoes.style.display = 'none';
+                    selectInstrumento.style.display = 'none';
+                    modalGravar.style.display = 'block';
+                    salvarDiv.style.display = 'none';
                 }
             }
 
             else if (nome == 'salvar') {
-                document.getElementById('selectOpcoes').style.display = 'none';
-                document.getElementById('selectInstrumento').style.display = 'none';
-                document.getElementById('modalGravar').style.display = 'none';
-                document.getElementById('salvarDiv').style.display = 'block';
+                selectOpcoes.style.display = 'none';
+                selectInstrumento.style.display = 'none';
+                modalGravar.style.display = 'none';
+                salvarDiv.style.display = 'block';
 
                 carregarSalvamentosList();
             }
         }
 
         function selecionarInstrumento(bateria) {
-            var instrumentoSelecionado = document.getElementById('instrumentoSelect').value;
-            var bateriaSelecionado = document.getElementById('selectRitmo').value;
+            var instrumentoSelecionado = instrumentoSelect.value;
+            var bateriaSelecionado = selectRitmo.value;
 
-            document.getElementById('titulo').innerText = instrumentoSelecionado + ' ▼';
-            document.getElementById('modal01').style.display = 'none';
+            titulo.innerText = instrumentoSelecionado + ' ▼';
+            modal01.style.display = 'none';
 
             if (bateria)
                 if (bateriaSelecionado == '')
-                    document.getElementById('bateriaBotoes').style.display = 'none';
+                    bateriaBotoes.style.display = 'none';
                 else
-                    document.getElementById('bateriaBotoes').style.display = 'block';
+                    bateriaBotoes.style.display = 'block';
 
-            var bpmRange_valor = document.getElementById('bpmRange').value;
+            var bpmRange_valor = bpmRange.value;
             bpmRange_valor = 60000 / bpmRange_valor;
 
             if (bateriaSelecionado == '6/8')
                 bpmRange_valor = bpmRange_valor / 2;
             
-            document.getElementById('lightCompasso').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
+            lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
         }
 
         function escolherGravacao() {
-            document.getElementById('modal01').style.display = 'none';
+            modal01.style.display = 'none';
         }
 
         function deletarSalvamento() {
-            var gravacaoSelecionada = document.getElementById('selectSalvamento');
+            var gravacaoSelecionada = selectSalvamento;
 
             if (gravacaoSelecionada.value != '') {
                 if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
@@ -363,7 +363,7 @@
         }
 
         function novoSalvamento() {
-            var novoSalvamento = document.getElementById('selectSalvamento');
+            var novoSalvamento = selectSalvamento;
             let nome = prompt('Nome da novo salvamento');
 
             if (nome != '' && nome != null) {
@@ -386,14 +386,12 @@
         }
 
         function salvarOptionsNoStorage(nomeStorage) {
-            var selectElem = document.getElementById('selectSalvamento');
-            opcoesSelect = selectElem.options;
+            opcoesSelect = selectSalvamento.options;
             opcoesArray = [...opcoesSelect].map(el => el.value);
             localStorage.setItem(nomeStorage, opcoesArray);
         }
 
         function carregarSalvamentosList() {
-            var selectSalvamento = document.getElementById('selectSalvamento');
             var salvamentosStorage = localStorage.getItem('salvamentos');
 
             if (salvamentosStorage != null) {
@@ -411,39 +409,36 @@
         }
 
         function salvarSalvamento() {
-            var salvamentoSelecionado = document.getElementById('selectSalvamento').value;
+            var salvamentoSelecionado = selectSalvamento.value;
 
             if (salvamentoSelecionado != '') {
                 if (confirm('Deseja salvar?\n' + salvamentoSelecionado)) {
-                    var salvar = 'instrumentoSelect,' + document.getElementById('instrumentoSelect').selectedIndex;
-                    salvar += '\n' + 'selectRitmo,' + document.getElementById('selectRitmo').selectedIndex;
-                    salvar += '\n' + 'tomSelect,' + document.getElementById('tomSelect').selectedIndex;
-                    salvar += '\n' + 'bpm,' + document.getElementById('bpm').value;
-                    salvar += '\n' + 'autoCheck,' + document.getElementById('autoCheck').checked;
+                    var salvar = 'instrumentoSelect,' + instrumentoSelect.selectedIndex;
+                    salvar += '\n' + 'selectRitmo,' + selectRitmo.selectedIndex;
+                    salvar += '\n' + 'tomSelect,' + tomSelect.selectedIndex;
+                    salvar += '\n' + 'bpm,' + bpm.value;
+                    salvar += '\n' + 'autoCheck,' + autoCheck.checked;
 
-                    if (document.getElementById('tomMenorSwitchDiv').style.display != 'none')
-                        salvar += '\n' + 'tomMenorSwitch,' + document.getElementById('tomMenorSwitch').checked;
-
-                    var textoCifrasFrame = document.getElementById('textoCifrasFrame');
+                    if (tomMenorSwitchDiv.style.display != 'none')
+                        salvar += '\n' + 'tomMenorSwitch,' + tomMenorSwitch.checked;
 
                     if (textoCifrasFrame.style.display != 'none') {
-                        localStorage.setItem(salvamentoSelecionado + '_frameCifra', document.getElementById('textoCifras').contentDocument.body.innerHTML);
-                        var selectFonte = document.getElementById('selectFonte');
+                        localStorage.setItem(salvamentoSelecionado + '_frameCifra', textoCifras.contentDocument.body.innerHTML);
                         selectFonte.style.display = '';
                         salvar += '\n' + 'selectFonte,' + selectFonte.selectedIndex;
                         selectFonte.style.display = 'none';
-                        document.getElementById('botaoFonte').style.display = '';
+                        botaoFonte.style.display = '';
                     }
 
                     localStorage.setItem(salvamentoSelecionado, salvar);
 
-                    document.getElementById('modal01').style.display = 'none';
+                    modal01.style.display = 'none';
                 }
             }
         }
 
         function carregar_Salvamento() {
-            var salvamentoSelecionado = document.getElementById('selectSalvamento').value;
+            var salvamentoSelecionado = selectSalvamento.value;
             var storage = localStorage.getItem(salvamentoSelecionado);
             if (storage != null) {
                 if (storage.includes('\n')) {
@@ -473,47 +468,44 @@
             storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
 
             if (storage != null) {
-                document.getElementById('escreverCifraTextArea').style.display = 'block';
+                escreverCifraTextArea.style.display = 'block';
 
-                var tom = document.getElementById('tomSelect').value;
+                var tom = tomSelect.value;
                 mostrarTextoArquivoCarregado(tom, storage);
                 
-                var selectFonte = document.getElementById('selectFonte');
-                var frameCifra = document.getElementById('textoCifras');
                 //selectFonte.style.display = '';
-                frameCifra.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
+                textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
                 //selectFonte.style.display = 'none';
             }
             else
                 voltarParaOrgao();
 
-            document.getElementById('modal01').style.display = 'none';
+            modal01.style.display = 'none';
         }
 
         function voltarParaOrgao() {
-            document.getElementById('voltar').style.display = 'none';
-            document.getElementById('botaoFonte').style.display = 'none';
-            document.getElementById('selectFonte').style.display = "none";
-            document.getElementById('orgaoCifrasBotoes').style.display = 'none';
+            voltar.style.display = 'none';
+            botaoFonte.style.display = 'none';
+            selectFonte.style.display = "none";
+            orgaoCifrasBotoes.style.display = 'none';
 
-            document.getElementById('textoCifrasFrame').style.display = 'none';
-            document.getElementById('tomMenorSwitchDiv').style.display = '';
+            textoCifrasFrame.style.display = 'none';
+            tomMenorSwitchDiv.style.display = '';
 
             var elements = document.getElementsByClassName('orgaoBotoes');
             for (var i = 0; i < elements.length; i++) {
                 elements[i].style.display = '';
             };
 
-            var tdVolume = document.getElementById('tdVolume');
             tdVolume.setAttribute('rowspan', 5);
             tdVolume.setAttribute('colspan', '');
-            document.getElementById('volumeDiv').style.display = 'flex';
-            document.getElementById('textoVolume').classList.add('textoVertical');
-            document.getElementById('volumeInput').setAttribute('orient', 'vertical');
+            volumeDiv.style.display = 'flex';
+            textoVolume.classList.add('textoVertical');
+            volumeInput.setAttribute('orient', 'vertical');
             $('#tdVolume').appendTo('#orgaoControle');
 
-            document.getElementById('volumeDiv').style.display = 'flex';
-            document.getElementById('container').classList.add('d-sm-flex');
+            volumeDiv.style.display = 'flex';
+            container.classList.add('d-sm-flex');
 
             $('#orgaoTable').appendTo('#orgaoBox');
         }
@@ -536,8 +528,7 @@
         }
 
         function pesquisarMusica() {
-            var loading = document.getElementById('modal-loading');
-            loading.style.display = 'block';
+            modal_loading.style.display = 'block';
 
             document.getElementById('listaMusicasCifra').innerHTML = '';
             var textoPesquisa = document.getElementById('musicaSearch').value;
@@ -564,14 +555,13 @@
                     else
                         alert(data.message);
 
-                    loading.style.display = 'none';
+                    modal_loading.style.display = 'none';
                 }
             });
         }
 
         function escolherLink(urlLink) {
-            var loading = document.getElementById('modal-loading');
-            loading.style.display = 'block';
+            modal_loading.style.display = 'block';
             $.ajax({
                 type: "post",
                 dataType: "json",
@@ -585,17 +575,17 @@
                     else
                         alert(data.message);
 
-                    loading.style.display = 'none';
+                    modal_loading.style.display = 'none';
                 }
             });
         }
 
         function mudarParaTelaCifras(data) {
-            document.getElementById('escreverCifraTextArea').style.display = 'block';
-            document.getElementById('linksCifraClubList').style.display = 'none';
-            document.getElementById('botaoIniciar').style.display = '';
-            document.getElementById('musicaSearch').value = "";
-            document.getElementById('modal01').style.display = 'none';
+            escreverCifraTextArea.style.display = 'block';
+            linksCifraClubList.style.display = 'none';
+            botaoIniciar.style.display = '';
+            musicaSearch.value = "";
+            modal01.style.display = 'none';
 
             mostrarTextoArquivoCarregado(data.tom, data.message);
         }
