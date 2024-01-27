@@ -11,7 +11,7 @@ var _instrumentoSelecionado = 'orgao';
 var _stringsSelecionado = false;
 var _stringsParado = true;
 var _autoMudarRitmo = false;
-var _orientacaoCelular = true;
+var _orientacaoCelularPe = true;
 
 var delay = new Pizzicato.Effects.Delay({ feedback: 0.5, time: 0.33, mix: 0.1 });
 
@@ -60,6 +60,17 @@ const acorde_7 = document.getElementById('acorde_7');
 const acorde_9 = document.getElementById('acorde_9');
 
 deixarAcompanhamentoSelecionado('full');
+verificarOrientacaoCelular();
+
+function verificarOrientacaoCelular() {
+	if (window.matchMedia("(orientation: portrait)").matches) {
+		_orientacaoCelularPe = true;
+	}
+
+	if (window.matchMedia("(orientation: landscape)").matches) {
+		_orientacaoCelularPe = false;
+	}
+}
 
 selectRitmo.addEventListener('change', function (e) {
 	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
@@ -94,11 +105,11 @@ instrumentoSelect.addEventListener('change', (e) => {
 
 window.addEventListener("orientationchange", (event) => {
 	if (event.target.screen.orientation.angle == 0)
-		_orientacaoCelular = true;
+		_orientacaoCelularPe = true;
 	else
-		_orientacaoCelular = false;
+		_orientacaoCelularPe = false;
 
-	mudarTamanhoFrameCifras(_orientacaoCelular);
+	mudarTamanhoFrameCifras(_orientacaoCelularPe);
 });
 
 function deixarAcompanhamentoSelecionado(funcao) {
@@ -520,7 +531,7 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	}
 
 	addEventCifras(textoCifras);
-	mudarTamanhoFrameCifras(_orientacaoCelular);
+	mudarTamanhoFrameCifras(_orientacaoCelularPe);
 }
 
 function addEventCifras(frame) {

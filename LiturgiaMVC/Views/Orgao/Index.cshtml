@@ -255,20 +255,16 @@
 		exitfullscreen.style.display = 'flex';
 		exitfullscreenDiv.style.display = '';
 		botaoFullscreen.style.display = 'none';
-		//trackerControls.style.display = 'none';
+		
 		divBateriaSwitch.style.display = 'none';
 		bateria.style.display = 'none';
 
-		if (textoCifrasFrame.style.display != 'none') {
-			linhaSelectTom.style.display = 'none';
-			linhaSelectTom.classList.remove('d-flex');
+		if (textoCifrasFrame.style.display != 'none' && _orientacaoCelularPe == false) {
+			$('#exitfullscreenDiv').prependTo('#linhaSelectTom');
+			$('#botaoOpcoes').prependTo('#linhaSelectTom');
+			$('#botaoSalvar').appendTo('#linhaSelectTom');
 
-			var left = $(window).width() - $('#exitfullscreenDiv').width();
-			$("#exitfullscreenDiv").css({
-				left: 100
-			}).animate({
-				left: left
-			}, "slow");
+			navBar.style.display = 'none';
 		}
 
 		var el = document.body;
@@ -280,6 +276,11 @@
 	}
 
 	function sairDeFullscreen() {
+		$('#exitfullscreenDiv').prependTo('#linhaNavBar');
+		$('#botaoOpcoes').prependTo('#linhaNavBar');
+		$('#botaoSalvar').appendTo('#linhaNavBar');
+		$('#switchDarkDiv').appendTo('#linhaNavBar');
+
 		exitfullscreen.style.display = 'none';
 		exitfullscreenDiv.style.display = 'none';
 		botaoFullscreen.style.display = 'flex';
