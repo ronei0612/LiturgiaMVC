@@ -15,6 +15,7 @@ var _orientacaoCelularPe = true;
 
 var delay = new Pizzicato.Effects.Delay({ feedback: 0.5, time: 0.33, mix: 0.1 });
 
+const eventoClick = new Event('click');
 const notasAcordes = Object.keys(notasAcordesJson);
 const instrumentoSelect = document.getElementById('instrumentoSelect');
 const autoCheck = document.getElementById('autoCheck');
@@ -59,6 +60,8 @@ const acorde_10 = document.getElementById('acorde_10');
 const acorde_7 = document.getElementById('acorde_7');
 const acorde_9 = document.getElementById('acorde_9');
 const muteDiv = document.getElementById('muteDiv');
+const iconVolumeMute = document.getElementById('iconVolumeMute');
+const iconVolume = document.getElementById('iconVolume');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
@@ -159,7 +162,6 @@ function escolherAcorde(acorde, botao) {
 
 function autoMudarRitmo(elementBotao = null) {
 	if (pararBateriaBotao.style.display !== 'none' && _autoMudarRitmo) {
-		var eventoClick = new Event('click');
 		var selecionadoElement = elementBotao || document.querySelector('.selecionado');
 
 		if (_stringsSelecionado) {
