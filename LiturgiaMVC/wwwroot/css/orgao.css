@@ -320,6 +320,12 @@ input[type=range][orient=vertical] {
 	animation: blink 666.6666666666667ms infinite;
 }
 
+.naoSelecionarTexto {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
 @keyframes blink {
 	50% {
 		opacity: 0;

@@ -1,9 +1,9 @@
 ﻿<tr class="orgaoControles" id="orgaoControle">
 	<td></td>
 	<td>
-		<div class="form-check" id="autoCheckDiv">
+		<div class="form-check naoSelecionarTexto" id="autoCheckDiv">
 			<input class="form-check-input" type="checkbox" value="" id="autoCheck" style="width:1.5em;margin-left:-0.5em">
-			Auto<br />ritmo
+			&nbsp;Auto<br />ritmo
 		</div>
 	</td>
 	<td>
@@ -88,7 +88,7 @@
 	</td>
 
 	<td id="tdVolume" rowspan="5" colspan="">
-		<div style="display: flex; align-items: center" id="volumeDiv">
+		<div class="naoSelecionarTexto" style="display: flex; align-items: center" id="volumeDiv">
 			<input type="range" id="volumeInput" orient="vertical" min="0" max="1" value="0.9" step="0.1" oninput="alterarVolume(this.value, 0.9)">
 			<div id="textoVolume" class="textoVertical">Volume <span id="volumeTexto">9</span></div>
 		</div>
