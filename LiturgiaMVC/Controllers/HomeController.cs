@@ -26,7 +26,7 @@ namespace LiturgiaMVC.Controllers
             return View(linksModel);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Sobre()
         {
             return View();
         }
