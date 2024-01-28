@@ -272,35 +272,27 @@
 			texto += elemento.innerText + ', ';
 		});
 
-		document.getElementById('textoRitmo').innerText = texto;
+		textoRitmo.innerText = texto;
 	}
 
 	function playBotaoBateria(botao, tocar = true, levantarBotoes = true) {
-		pressionarBotao(botao, levantarBotoes);
-
-		//var prepararBateriaBotao = document.getElementById('prepararBateriaBotao');
-		//var pararBateriaBotao = document.getElementById('pararBateriaBotao');
-
-		//if (prepararBateriaBotao.style.display == 'none' || tocar == false) {
-		//	prepararBateriaBotao.style.display = '';
-		//	pararBateriaBotao.style.display = 'none';
-		//}
-		//else {
-		//	prepararBateriaBotao.style.display = 'none';
-		//	pararBateriaBotao.style.display = '';
-		//}
+			pressionarBotao(botao, levantarBotoes);
 	}
 
 	function pressionarBotao(botao, levantarBotoes = true) {
-		var prepararBateriaBotao = document.getElementById('prepararBateriaBotao');
-		var pararBateriaBotao = document.getElementById('pararBateriaBotao');
-		var playPauseBateria = document.getElementById('play-pause_bateria');
-
 		var botaoPressionadoAntes = document.getElementsByClassName('selecionadoDrum');
 		var botaoPressionado = botaoPressionadoAntes.length > 0 ? botaoPressionadoAntes[0] : null;
 
 		if (botao.id !== 'prato') {
-			if (prepararBateriaBotao.style.display !== 'none') {
+			if (botao === playPauseBateria) {
+				if (prepararBateriaBotao.style.display !== 'none') {
+					prepararBateriaBotao.style.display = 'none';
+					pararBateriaBotao.style.display = '';
+				} else {
+					prepararBateriaBotao.style.display = '';
+					pararBateriaBotao.style.display = 'none';
+				}
+			} else {
 				prepararBateriaBotao.style.display = 'none';
 				pararBateriaBotao.style.display = '';
 			}
@@ -314,10 +306,7 @@
 			}
 		}
 
-		if (botao === playPauseBateria) {
-			prepararBateriaBotao.style.display = '';
-			pararBateriaBotao.style.display = 'none';
-		} else if (botao.id !== 'prato') {
+		if (botao.id !== 'prato') {
 			botao.classList.add('selecionadoDrum');
 		}
 	}

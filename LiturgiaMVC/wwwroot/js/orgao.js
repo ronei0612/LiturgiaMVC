@@ -24,7 +24,6 @@ const selectRitmo = document.getElementById('selectRitmo');
 const botaobotaoGravar = document.getElementById('botaoGravar');
 const play_pause = document.getElementById('play-pause');
 const bpmRange = document.getElementById('bpmRange');
-const pararBateriaBotao = document.getElementById('pararBateriaBotao');
 const chimbal = document.getElementById('chimbal');
 const brush = document.getElementById('brush');
 const meiaLua = document.getElementById('meiaLua');
@@ -76,6 +75,10 @@ const bateriaBotoes = document.getElementById('bateriaBotoes');
 const selectSalvamento = document.getElementById('selectSalvamento');
 const lightCompasso = document.getElementById('lightCompasso');
 const modal_loading = document.getElementById('modal-loading');
+const prepararBateriaBotao = document.getElementById('prepararBateriaBotao');
+const pararBateriaBotao = document.getElementById('pararBateriaBotao');
+const playPauseBateria = document.getElementById('play-pause_bateria');
+const textoRitmo = document.getElementById('textoRitmo');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
@@ -322,7 +325,7 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 	else
 		pararOsAcordes(true);
 
-	setTimeout(function () { 
+	//setTimeout(function () { 
 		_acordeAntesSelecionado = acorde;
 
 		if (_instrumentoSelecionado == 'strings') {
@@ -349,7 +352,7 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 				}
 			}
 		}
-	}, esperar);
+	//}, esperar);
 }
 
 function pararOsAcordes(removerSons = false, continuarStrings = false) {
