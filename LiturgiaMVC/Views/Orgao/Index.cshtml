@@ -302,12 +302,12 @@
 	function esperarAudios(tempoMiliseg, esperar_audios) {
 		if (esperar_audios == false) {
 			container.style.display = 'block';
-			tracker_container.style.display = 'block';
+			document.getElementById('tracker-container').style.display = 'block';
 		}
 		else
 			setTimeout(function () {
 				container.style.display = 'block';
-				tracker_container.style.display = 'block';
+				document.getElementById('tracker-container').style.display = 'block';
 		}, tempoMiliseg)
 	}
 
