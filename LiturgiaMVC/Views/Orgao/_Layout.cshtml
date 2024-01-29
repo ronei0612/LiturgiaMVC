@@ -95,6 +95,11 @@
                     <button class="btn btn-close" type="button" onclick="ocultarModal()">
                     </button>
                 </span>
+
+                <div id="oracoesEucaristicasDiv" style="display:none">
+                    <partial name="~/Views/Liturgia/OracaoEucaristicaII.cshtml" />
+                </div>
+
                 <div id="selectInstrumento">
                     <br />
                     <h4>Instrumento</h4>
@@ -116,7 +121,7 @@
                             <a href="#" class="nav-link" onclick="mostrarLiturgiaDiaria()">Liturgia Diária</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Liturgia" asp-action="OracoesEucaristicas">Orações Eucarísticas</a>
+                            <a href="#" class="nav-link" onclick="mostrarModal('oracoesEucaristicas')">Orações Eucarísticas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Orgao" asp-action="Index">Órgão</a>
@@ -334,6 +339,11 @@
                 salvarDiv.style.display = 'block';
 
                 carregarSalvamentosList();
+            }
+
+            else if (nome == 'oracoesEucaristicas') {
+                oracoesEucaristicasDiv.style.display = '';
+                selectOpcoes.style.display = 'none';
             }
         }
 

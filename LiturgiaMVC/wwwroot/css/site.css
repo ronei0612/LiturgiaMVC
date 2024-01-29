@@ -243,3 +243,11 @@ table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
     bottom: .5em;
 }
+
+.TextoMissal {
+    color: #9C7B3E; font-size: 90%;
+}
+
+.RespostaAssembleia {
+    padding-left: 5%;
+}
