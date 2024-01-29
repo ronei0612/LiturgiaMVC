@@ -79,6 +79,7 @@ const prepararBateriaBotao = document.getElementById('prepararBateriaBotao');
 const pararBateriaBotao = document.getElementById('pararBateriaBotao');
 const playPauseBateria = document.getElementById('play-pause_bateria');
 const textoRitmo = document.getElementById('textoRitmo');
+const listaMusicasCifra = document.getElementById('listaMusicasCifra');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
@@ -542,33 +543,37 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 		textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
 
 	if (textoCifrasFrame.style.display == 'none') {
-		textoCifrasFrame.style.display = 'block';
-
-		var elements = document.getElementsByClassName('orgaoBotoes');
-		for (var i = 0; i < elements.length; i++) {
-			elements[i].style.display = 'none';
-		}
-
-		container.classList.remove('d-sm-flex');
-		volumeDiv.style.display = 'none';
-		voltar.style.display = 'block';
-		botaoFonte.style.display = 'block';
-		selectFonte.style.display = "none";
-		tomMenorSwitchDiv.style.display = 'none';
-		orgaoCifrasBotoes.style.display = '';
-
-		tdVolume.setAttribute('rowspan', '');
-		tdVolume.setAttribute('colspan', 5);
-		volumeDiv.style.display = 'block';
-		textoVolume.classList.remove('textoVertical');
-		volumeInput.setAttribute('orient', '');
-
-		$('#tdVolume').appendTo('#orgaoTable');
-		$('#orgaoTable').prependTo('#bateriaBox');
+		mudarParaTelaFrame();
 	}
 
 	addEventCifras(textoCifras);
 	mudarTamanhoFrameCifras(_orientacaoCelularPe);
+}
+
+function mudarParaTelaFrame() {
+	textoCifrasFrame.style.display = 'block';
+
+	var elements = document.getElementsByClassName('orgaoBotoes');
+	for (var i = 0; i < elements.length; i++) {
+		elements[i].style.display = 'none';
+	}
+
+	container.classList.remove('d-sm-flex');
+	volumeDiv.style.display = 'none';
+	voltar.style.display = 'block';
+	botaoFonte.style.display = 'block';
+	selectFonte.style.display = "none";
+	tomMenorSwitchDiv.style.display = 'none';
+	orgaoCifrasBotoes.style.display = '';
+
+	tdVolume.setAttribute('rowspan', '');
+	tdVolume.setAttribute('colspan', 5);
+	volumeDiv.style.display = 'block';
+	textoVolume.classList.remove('textoVertical');
+	volumeInput.setAttribute('orient', '');
+
+	$('#tdVolume').appendTo('#orgaoTable');
+	$('#orgaoTable').prependTo('#bateriaBox');
 }
 
 function addEventCifras(frame) {

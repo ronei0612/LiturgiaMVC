@@ -520,7 +520,7 @@
             const arquivos = event.target.files;
 
             if (arquivos.length > 0) {
-                document.getElementById('modal01').style.display = 'none';
+                modal01.style.display = 'none';
                 let reader = new FileReader();
 
                 reader.onload = (evt) => {
@@ -536,16 +536,16 @@
         function pesquisarMusica() {
             modal_loading.style.display = 'block';
 
-            document.getElementById('listaMusicasCifra').innerHTML = '';
-            var textoPesquisa = document.getElementById('musicaSearch').value;
+            listaMusicasCifra.innerHTML = '';
+            var textoPesquisa = musicaSearch.value;
             
             $.ajax({
                 url: "Orgao/Pesquisar?texto=" + textoPesquisa, type: "post", dataType: "json",
                 success: function (data) {
                     if (data.success) {
-                        document.getElementById('escreverCifraTextArea').style.display = 'none';
-                        document.getElementById('linksCifraClubList').style.display = 'block';
-                        document.getElementById('botaoIniciar').style.display = 'none';
+                        escreverCifraTextArea.style.display = 'none';
+                        linksCifraClubList.style.display = 'block';
+                        botaoIniciar.style.display = 'none';
                         
                         var titulosMusicas = data.lista;
                         var linksMusicas = data.links;
