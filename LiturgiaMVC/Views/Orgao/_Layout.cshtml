@@ -113,7 +113,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Liturgia" asp-action="Index">Liturgia Diária</a>
+                            <a href="#" class="nav-link" onclick="mostrarLiturgiaDiaria()">Liturgia Diária</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Liturgia" asp-action="OracoesEucaristicas">Orações Eucarísticas</a>
@@ -254,6 +254,12 @@
 
         selectRitmo.selectedIndex = 2;
         selecionarInstrumento(true);
+
+        function mostrarLiturgiaDiaria() {
+            mudarParaTelaFrame();
+            textoCifras.src = "https://liturgiadiaria.edicoescnbb.com.br/";
+            modal01.style.display = 'none';
+        }
 
         function mutarVolume(mute = true) {
             if (mute == false) {
