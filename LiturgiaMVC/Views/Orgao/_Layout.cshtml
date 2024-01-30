@@ -260,6 +260,10 @@
                 ocultarModal();
         });
 
+        window.onbeforeunload = function () {
+            return "Deseja recarregar página?";
+        };
+
         selectRitmo.selectedIndex = 2;
         selecionarInstrumento(true);
 
