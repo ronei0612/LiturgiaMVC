@@ -303,11 +303,13 @@
 		if (esperar_audios == false) {
 			container.style.display = 'block';
 			document.getElementById('tracker-container').style.display = 'block';
+			navBar.style.display = '';
 		}
 		else
 			setTimeout(function () {
 				container.style.display = 'block';
 				document.getElementById('tracker-container').style.display = 'block';
+				navBar.style.display = '';
 		}, tempoMiliseg)
 	}
 
