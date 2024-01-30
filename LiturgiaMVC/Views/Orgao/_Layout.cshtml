@@ -19,7 +19,7 @@
 
 <body id="corpo" class="bg-light text-dark orgao-background">
     <header>
-        <nav id="navBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
+        <nav id="navBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3" style="display:none">
             <div id="linhaNavBar" class="justify-content-sm-around container-sm">
 
                 <button type="button" id="botaoOpcoes" class="input-group-text" onclick="mostrarModal('opcoes')">
@@ -299,6 +299,7 @@
             linksCifraClubList.style.display = 'none';
             botaoIniciar.style.display = '';
             escreverCifraTextArea.style.display = '';
+            oracoesEucaristicasDiv.style.display = 'none';
         }
 
         function mostrarModal(nome) {
