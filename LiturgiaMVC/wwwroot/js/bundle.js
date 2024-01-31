@@ -1135,53 +1135,53 @@ function setupBaseEvents() {
         selecionarRitmo(botao.value);
     });
 
-    document.getElementById('aro').addEventListener('click', function (e) {
+    document.getElementById('aro').addEventListener('mousedown', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             tocarBateria(document.activeElement);
             mudarRitmo('aro');
         }
     });
 
-    document.getElementById('meiaLua').addEventListener('click', function (e) {
+    document.getElementById('meiaLua').addEventListener('mousedown', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             tocarBateria(document.activeElement);
             mudarRitmo('meiaLua');
         }
     });
 
-    document.getElementById('caixa').addEventListener('click', function (e) {
+    document.getElementById('caixa').addEventListener('mousedown', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             tocarBateria(document.activeElement);
             mudarRitmo('');
         }
     });
 
-    document.getElementById('brush').addEventListener('click', function (e) {
+    document.getElementById('brush').addEventListener('mousedown', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             tocarBateria(document.activeElement);
             mudarRitmo('brush');
         }
     });
 
-    document.getElementById('ride').addEventListener('click', function (e) {
+    document.getElementById('ride').addEventListener('mousedown', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             tocarBateria(document.activeElement);
             mudarRitmo('ride');
         }
     });
 
-    document.getElementById('chimbal').addEventListener('click', function (e) {
+    document.getElementById('chimbal').addEventListener('mousedown', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             tocarBateria(document.activeElement);
             mudarRitmo('chimbal');
         }
     });
 
-    document.getElementById('play-pause_bateria').addEventListener('click', function (e) {
+    document.getElementById('play-pause_bateria').addEventListener('mousedown', function (e) {
         tocarBateria();
     });
 
-    document.getElementById('prato').addEventListener('click', function (e) {
+    document.getElementById('prato').addEventListener('mousedown', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             let pratoAtaque1 = buffers['prato1'].get();
             let node = routeGain(pratoAtaque1);
