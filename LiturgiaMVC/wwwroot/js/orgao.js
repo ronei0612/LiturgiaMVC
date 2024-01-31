@@ -27,6 +27,7 @@ const bpmRange = document.getElementById('bpmRange');
 const chimbal = document.getElementById('chimbal');
 const brush = document.getElementById('brush');
 const meiaLua = document.getElementById('meiaLua');
+const prato = document.getElementById('prato');
 const aro = document.getElementById('aro');
 const caixa = document.getElementById('caixa');
 const tomSelect = document.getElementById('tomSelect');
@@ -80,6 +81,7 @@ const pararBateriaBotao = document.getElementById('pararBateriaBotao');
 const playPauseBateria = document.getElementById('play-pause_bateria');
 const textoRitmo = document.getElementById('textoRitmo');
 const listaMusicasCifra = document.getElementById('listaMusicasCifra');
+const orgaoBox = document.getElementById('orgaoBox');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();

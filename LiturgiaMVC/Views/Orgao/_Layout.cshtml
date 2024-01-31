@@ -355,9 +355,33 @@
         function selecionarInstrumento(bateria) {
             var instrumentoSelecionado = instrumentoSelect.value;
             var bateriaSelecionado = selectRitmo.value;
+            const elementos = [brush, aro, caixa, chimbal, meiaLua, prato];
 
             titulo.innerText = instrumentoSelecionado + ' ▼';
             modal01.style.display = 'none';
+
+            if (instrumentoSelecionado === 'Bateria') {
+                orgaoBox.style.display = 'none';
+
+                Array.from(elementos).forEach((elemento) => {
+                    elemento.style.width = '115px';
+                    elemento.style.height = '66px';
+                    elemento.style.margin = '0px';
+                });
+
+                document.getElementsByClassName('centralizado-no-container')[1].style.width = '350px';
+            }
+
+            else {
+                orgaoBox.style.display = '';
+
+                Array.from(elementos).forEach((elemento) => {
+                    elemento.style.width = '77px';
+                    elemento.style.height = '44px';
+                    elemento.style.margin = '8px';
+                });
+
+                document.getElementsByClassName('centralizado-no-container')[1].style.width = '300px';
 
             if (bateria)
                 if (bateriaSelecionado == '')
