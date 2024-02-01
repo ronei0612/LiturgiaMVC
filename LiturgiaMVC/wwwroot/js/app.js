@@ -33,9 +33,9 @@ Application.prototype.start = function () {
         self.frequencyData = new Uint8Array(self.tuner.analyser.frequencyBinCount);
     });
 
-    document.querySelector(".auto input").addEventListener("change", () => {
-        this.notes.toggleAutoMode();
-    });
+    //document.querySelector(".auto input").addEventListener("change", () => {
+    //    this.notes.toggleAutoMode();
+    //});
 
     instrumentoSelect.addEventListener("change", () => {
         if (instrumentoSelect.value === 'Bateria') {
@@ -50,8 +50,10 @@ Application.prototype.update = function (note) {
     var nota = note.name;
     notaTuner.innerText = nota;
     try {
-        if (autoTunerCheck.checked)
+        if (autoTunerCheck.checked && _acordeSelecionado !== nota) {
+            _acordeSelecionado = nota;
             verificarAcompanhamentoEtocar(nota);
+        }
     } catch { }
 };
 
