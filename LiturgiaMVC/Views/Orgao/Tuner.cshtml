@@ -1,10 +1,12 @@
-<div class="notes">
-    <div class="notes-list" id="notaTuner"></div>
+<div class="notes-list">
+	<span id="notaTuner" style="font-size:25px"></span>
 </div>
+
 <div class="a4" style="display:none">A<sub>4</sub> = <span>440</span> Hz</div>
-<label class="auto">
+
+<label class="auto" style="display:none">
     Auto
-    <input type="checkbox" />
+    <input type="checkbox" id="autoTunerCheck"/>
 </label>
 
 <script src="https://cdn.jsdelivr.net/npm/aubiojs@0.1.1/build/aubio.min.js"></script>
