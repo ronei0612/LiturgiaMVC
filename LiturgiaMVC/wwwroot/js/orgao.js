@@ -91,6 +91,13 @@ const autoTunerCheck = document.getElementById('autoTunerCheck');
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
 
+function isScreenLockSupported() {
+	return ('wakeLock' in navigator);
+}
+
+let manterTelaLigada;
+navigator.wakeLock.request('screen').then(lock => { manterTelaLigada = lock; });
+
 function verificarOrientacaoCelular() {
 	if (window.matchMedia("(orientation: portrait)").matches) {
 		_orientacaoCelularPe = true;
