@@ -16,6 +16,8 @@ var _orientacaoCelularPe = true;
 var delay = new Pizzicato.Effects.Delay({ feedback: 0.5, time: 0.33, mix: 0.1 });
 
 const eventoClick = new Event('click');
+const eventoChange = new Event('change');
+
 const notasAcordes = Object.keys(notasAcordesJson);
 const instrumentoSelect = document.getElementById('instrumentoSelect');
 const autoCheck = document.getElementById('autoCheck');
@@ -84,6 +86,7 @@ const listaMusicasCifra = document.getElementById('listaMusicasCifra');
 const orgaoBox = document.getElementById('orgaoBox');
 const notaTuner = document.getElementById('notaTuner');
 const tunerDiv = document.getElementById('tunerDiv');
+const autoTunerCheck = document.getElementById('autoTunerCheck');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();

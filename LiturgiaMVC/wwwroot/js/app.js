@@ -21,12 +21,10 @@ Application.prototype.start = function () {
     const self = this;
 
     this.tuner.onNoteDetected = function (note) {
-        if (self.notes.isAutoMode) {
-            if (self.lastNote === note.name) {
-                self.update(note);
-            } else {
-                self.lastNote = note.name;
-            }
+        if (self.lastNote === note.name) {
+            self.update(note);
+        } else {
+            self.lastNote = note.name;
         }
     };
 
@@ -52,8 +50,8 @@ Application.prototype.update = function (note) {
     var nota = note.name;
     notaTuner.innerText = nota;
     try {
-        _instrumentoSelecionado = 'strings';
-        verificarAcompanhamentoEtocar(nota);
+        if (autoTunerCheck.checked)
+            verificarAcompanhamentoEtocar(nota);
     } catch { }
 };
 
