@@ -28,15 +28,6 @@ Application.prototype.start = function () {
         }
     };
 
-    this.$a4.addEventListener("click", function () {
-        self.tuner.init();
-        self.frequencyData = new Uint8Array(self.tuner.analyser.frequencyBinCount);
-    });
-
-    //document.querySelector(".auto input").addEventListener("change", () => {
-    //    this.notes.toggleAutoMode();
-    //});
-
     instrumentoSelect.addEventListener("change", () => {
         if (instrumentoSelect.value === 'Bateria') {
             self.tuner.init();
