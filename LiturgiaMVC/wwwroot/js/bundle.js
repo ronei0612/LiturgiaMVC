@@ -1126,7 +1126,31 @@ function selecionarRitmo(ritmo, virada = false) {
         }
 
 function setupBaseEvents() {
-    document.getElementById('selectRitmo').addEventListener('change', function (e) {
+
+    function verificarETocarBateria(mudarRitmoNome, tunerAcompanhamento) {
+        if (iconVolumeMute.style.display == 'none') {
+            if (tunerDiv.style.display !== 'none') {
+                if (tunerAcompanhamento) {
+                    if (autoTunerCheck.checked === false) {
+                        _instrumentoSelecionado = 'strings';
+                        verificarAcompanhamentoEtocar(notaTuner.innerText);
+                        autoTunerCheck.checked = true;
+                        autoTunerCheck.dispatchEvent(eventoChange);
+                    }
+                }
+                else {
+                    if (autoTunerCheck.checked) {
+                        pararOsAcordes();
+                        autoTunerCheck.checked = false;
+                        autoTunerCheck.dispatchEvent(eventoChange);
+                    }
+                }
+            }
+            tocarBateria(document.activeElement);
+            mudarRitmo(mudarRitmoNome);
+        }
+    }
+    selectRitmo.addEventListener('change', function (e) {
         var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
         
         if (ritmoSelecionado.length > 0)
@@ -1135,53 +1159,39 @@ function setupBaseEvents() {
         selecionarRitmo(botao.value);
     });
 
-    document.getElementById('aro').addEventListener('mousedown', function (e) {
-        if (iconVolumeMute.style.display == 'none') {
-            tocarBateria(document.activeElement);
-            mudarRitmo('aro');
-        }
+    aro.addEventListener('mousedown', function (e) {
+        verificarETocarBateria('aro', true);
     });
 
-    document.getElementById('meiaLua').addEventListener('mousedown', function (e) {
-        if (iconVolumeMute.style.display == 'none') {
-            tocarBateria(document.activeElement);
-            mudarRitmo('meiaLua');
-        }
+    meiaLua.addEventListener('mousedown', function (e) {
+        verificarETocarBateria('meiaLua', true);
     });
 
-    document.getElementById('caixa').addEventListener('mousedown', function (e) {
-        if (iconVolumeMute.style.display == 'none') {
-            tocarBateria(document.activeElement);
-            mudarRitmo('');
-        }
+    caixa.addEventListener('mousedown', function (e) {
+        verificarETocarBateria('', true);
     });
 
-    document.getElementById('brush').addEventListener('mousedown', function (e) {
-        if (iconVolumeMute.style.display == 'none') {
-            tocarBateria(document.activeElement);
-            mudarRitmo('brush');
-        }
+    brush.addEventListener('mousedown', function (e) {
+        verificarETocarBateria('brush', false);
     });
 
-    document.getElementById('ride').addEventListener('mousedown', function (e) {
-        if (iconVolumeMute.style.display == 'none') {
-            tocarBateria(document.activeElement);
-            mudarRitmo('ride');
-        }
+    ride.addEventListener('mousedown', function (e) {
+        verificarETocarBateria('ride', true);
     });
 
-    document.getElementById('chimbal').addEventListener('mousedown', function (e) {
-        if (iconVolumeMute.style.display == 'none') {
-            tocarBateria(document.activeElement);
-            mudarRitmo('chimbal');
-        }
+    chimbal.addEventListener('mousedown', function (e) {
+        verificarETocarBateria('chimbal', true);
     });
 
-    document.getElementById('play-pause_bateria').addEventListener('mousedown', function (e) {
+    playPauseBateria.addEventListener('mousedown', function (e) {
+        if (tunerDiv.style.display !== 'none') {
+            autoTunerCheck.checked = false;
+            pararOsAcordes();
+        }
         tocarBateria();
     });
 
-    document.getElementById('prato').addEventListener('mousedown', function (e) {
+    prato.addEventListener('mousedown', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             let pratoAtaque1 = buffers['prato1'].get();
             let node = routeGain(pratoAtaque1);
