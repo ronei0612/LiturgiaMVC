@@ -100,10 +100,6 @@
                     <partial name="~/Views/Liturgia/OracaoEucaristicaII.cshtml" />
                 </div>
 
-                <div id="tunerDiv" style="display:none">
-                    <partial name="~/Views/Orgao/Tuner.cshtml" />
-                </div>
-
                 <div id="selectInstrumento">
                     <br />
                     <h4>Instrumento</h4>
@@ -367,6 +363,7 @@
 
             if (instrumentoSelecionado === 'Bateria') {
                 orgaoBox.style.display = 'none';
+                tunerDiv.style.display = '';
 
                 Array.from(elementos).forEach((elemento) => {
                     elemento.style.width = '115px';
@@ -379,6 +376,7 @@
 
             else {
                 orgaoBox.style.display = '';
+                tunerDiv.style.display = 'none';
 
                 Array.from(elementos).forEach((elemento) => {
                     elemento.style.width = '77px';
