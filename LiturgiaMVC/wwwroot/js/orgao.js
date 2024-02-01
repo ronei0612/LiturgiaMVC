@@ -82,6 +82,8 @@ const playPauseBateria = document.getElementById('play-pause_bateria');
 const textoRitmo = document.getElementById('textoRitmo');
 const listaMusicasCifra = document.getElementById('listaMusicasCifra');
 const orgaoBox = document.getElementById('orgaoBox');
+const notaTuner = document.getElementById('notaTuner');
+const tunerDiv = document.getElementById('tunerDiv');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
