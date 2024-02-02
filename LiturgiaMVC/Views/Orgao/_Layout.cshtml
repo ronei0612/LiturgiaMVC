@@ -100,6 +100,10 @@
                     <partial name="~/Views/Liturgia/OracaoEucaristicaII.cshtml" />
                 </div>
 
+                <div id="liturgiaDiariaDiv" style="display:none;">
+                    <iframe id="liturgiaDiariaFrame" src="https://liturgiadiaria.edicoescnbb.com.br/" style="position:static;width:100%"></iframe> @* <style="position:absolute;width:100%; height:100%"></iframe> *@
+                </div>
+
                 <div id="selectInstrumento">
                     <br />
                     <h4>Instrumento</h4>
@@ -119,7 +123,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Início</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" onclick="mostrarLiturgiaDiaria()">Liturgia Diária</a>
+                            <a href="#" class="nav-link" onclick="mostrarModal('liturgiaDiaria')">Liturgia Diária</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link" onclick="mostrarModal('oracoesEucaristicas')">Orações Eucarísticas</a>
@@ -268,10 +272,11 @@
         selectRitmo.selectedIndex = 2;
         selecionarInstrumento(true);
 
-        function mostrarLiturgiaDiaria() {
-            mudarParaTelaFrame();
-            textoCifras.src = "https://liturgiadiaria.edicoescnbb.com.br/";
-            modal01.style.display = 'none';
+        function mudarTamanhoModal(aumentar) {
+            if (aumentar) {
+                var altura = window.innerHeight / 1.15;
+                liturgiaDiariaFrame.style.height = altura + 'px';
+            }
         }
 
         function mutarVolume(mute = true) {
@@ -296,31 +301,33 @@
         }
 
         function ocultarModal() {
+            liturgiaDiariaFrame.style.height = '';
             modal01.style.display = 'none';
             linksCifraClubList.style.display = 'none';
             botaoIniciar.style.display = '';
             escreverCifraTextArea.style.display = '';
             oracoesEucaristicasDiv.style.display = 'none';
+            liturgiaDiariaDiv.style.display = 'none';
         }
 
         function mostrarModal(nome) {
             modal01.style.display = 'block';
 
-            if (nome == 'opcoes') {
+            if (nome === 'opcoes') {
                 selectInstrumento.style.display = 'none';
                 modalGravar.style.display = 'none';
                 selectOpcoes.style.display = 'block';
                 salvarDiv.style.display = 'none';
             }
 
-            else if (nome == 'instrumento') {
+            else if (nome === 'instrumento') {
                 selectOpcoes.style.display = 'none';
                 modalGravar.style.display = 'none';
                 selectInstrumento.style.display = 'block';
                 salvarDiv.style.display = 'none';
             }
 
-            else if (nome == 'gravar') {
+            else if (nome === 'gravar') {
                 if (textoCifrasFrame.style.display == 'none' && textoCifras.contentDocument.body.innerHTML != '') {
                     escreverCifraTextArea.style.display = 'block';
                     linksCifraClubList.style.display = 'none';
@@ -338,7 +345,7 @@
                 }
             }
 
-            else if (nome == 'salvar') {
+            else if (nome === 'salvar') {
                 selectOpcoes.style.display = 'none';
                 selectInstrumento.style.display = 'none';
                 modalGravar.style.display = 'none';
@@ -347,9 +354,15 @@
                 carregarSalvamentosList();
             }
 
-            else if (nome == 'oracoesEucaristicas') {
+            else if (nome === 'oracoesEucaristicas') {
                 oracoesEucaristicasDiv.style.display = '';
                 selectOpcoes.style.display = 'none';
+            }
+            
+            else if (nome === 'liturgiaDiaria') {
+                liturgiaDiariaDiv.style.display = '';
+                selectOpcoes.style.display = 'none';
+                mudarTamanhoModal(true);
             }
         }
 
