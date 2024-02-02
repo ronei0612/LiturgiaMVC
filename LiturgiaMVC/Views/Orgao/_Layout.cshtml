@@ -486,6 +486,8 @@
                         salvar += '\n' + 'selectFonte,' + selectFonte.selectedIndex;
                         selectFonte.style.display = 'none';
                         botaoFonte.style.display = '';
+                        selectTamanhoIframe.style.display = "none";
+                        botaoTamanhoIframe.style.display = '';
                     }
 
                     localStorage.setItem(salvamentoSelecionado, salvar);
@@ -526,14 +528,12 @@
             storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
 
             if (storage != null) {
-                escreverCifraTextArea.style.display = 'block';
+                escreverCifraTextArea.style.display = 'block';                
 
                 var tom = tomSelect.value;
                 mostrarTextoArquivoCarregado(tom, storage);
                 
-                //selectFonte.style.display = '';
                 textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
-                //selectFonte.style.display = 'none';
             }
             else
                 voltarParaOrgao();
@@ -545,6 +545,8 @@
             voltar.style.display = 'none';
             botaoFonte.style.display = 'none';
             selectFonte.style.display = "none";
+            botaoTamanhoIframe.style.display = 'none';
+            selectTamanhoIframe.style.display = 'none';
             orgaoCifrasBotoes.style.display = 'none';
 
             textoCifrasFrame.style.display = 'none';

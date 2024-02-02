@@ -42,6 +42,25 @@
 							<option value="18">18</option>
 						</select>
 						&nbsp;
+						<button class="btn btn-light border" type="button" id="botaoTamanhoIframe" style="display:none" onclick="showselectIframe(true)">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
+								<path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707m4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707"/>
+							</svg>
+						</button>
+						<select class="form-control" id="selectTamanhoIframe" onchange="showselectIframe(false)" style="display:none">
+							<option value="100">100</option>
+							<option value="120">120</option>
+							<option value="140">140</option>
+							<option value="160">160</option>
+							<option value="180">180</option>
+							<option value="200" selected>200</option>
+							<option value="220">220</option>
+							<option value="240">240</option>
+							<option value="260">260</option>
+							<option value="280">280</option>
+							<option value="300">300</option>
+						</select>
+						&nbsp;
 						<button class="btn btn-primary" type="button" ondblclick="aumentarTom_clickDuplo(false)" onclick="aumentarTom_click(false)">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8" />
@@ -228,6 +247,8 @@
 		voltar.style.display = 'none';
 		botaoFonte.style.display = 'none';
 		selectFonte.style.display = "none";
+		botaoTamanhoIframe.style.display = 'none';
+		selectTamanhoIframe.style.display = "none";
 		orgaoCifrasBotoes.style.display = 'none';
 
 		textoCifrasFrame.style.display = 'none';
@@ -358,6 +379,19 @@
 		else {
 			if (textoCifrasFrame.style.display != 'none') {
 				textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
+			}
+		}
+	}
+
+	function showselectIframe(mostrar) {
+		if (mostrar) {
+			botaoTamanhoIframe.style.display = "none";
+			selectTamanhoIframe.style.display = "";
+		}
+		else {
+			if (textoCifrasFrame.style.display != 'none') {
+				textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
+				textoCifras.style.height = selectTamanhoIframe.value + 'px';
 			}
 		}
 	}

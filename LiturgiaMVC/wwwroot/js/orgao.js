@@ -40,7 +40,9 @@ const textoCifrasFrame = document.getElementById('textoCifrasFrame');
 const container = document.getElementById('container');
 const voltar  = document.getElementById('voltar');
 const botaoFonte  = document.getElementById('botaoFonte');
-const selectFonte  = document.getElementById('selectFonte');
+const selectFonte = document.getElementById('selectFonte');
+const botaoTamanhoIframe = document.getElementById('botaoTamanhoIframe');
+const selectTamanhoIframe = document.getElementById('selectTamanhoIframe');
 const tomMenorSwitchDiv  = document.getElementById('tomMenorSwitchDiv');
 const orgaoCifrasBotoes  = document.getElementById('orgaoCifrasBotoes');
 const tdVolume = document.getElementById('tdVolume');
@@ -602,6 +604,8 @@ function mudarParaTelaFrame() {
 	voltar.style.display = 'block';
 	botaoFonte.style.display = 'block';
 	selectFonte.style.display = "none";
+	botaoTamanhoIframe.style.display = 'block';
+	selectTamanhoIframe.style.display = "none";
 	tomMenorSwitchDiv.style.display = 'none';
 	orgaoCifrasBotoes.style.display = '';
 
