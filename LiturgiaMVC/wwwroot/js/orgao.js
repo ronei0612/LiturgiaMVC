@@ -89,6 +89,7 @@ const orgaoBox = document.getElementById('orgaoBox');
 const notaTuner = document.getElementById('notaTuner');
 const tunerDiv = document.getElementById('tunerDiv');
 const autoTunerCheck = document.getElementById('autoTunerCheck');
+const liturgiaDiariaDiv = document.getElementById('liturgiaDiariaDiv');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
