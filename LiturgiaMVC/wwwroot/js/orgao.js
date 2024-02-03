@@ -732,9 +732,9 @@ function selecionarStrings(stringsCheck) {
 		_stringsSelecionado = true;
 
 		if (_stringsParado)
-			if (_acordeAntesSelecionado != '') {
+			if (_acordeAntesSelecionado !== '') {
 				_stringsParado = false;
-				_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotas);
+				_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
 				_grupoNotasStrings = montarAcorde(_acordeAntesSelecionado, _grupoNotasStrings, 'strings');
 				_grupoNotasStrings.play();
 			}
