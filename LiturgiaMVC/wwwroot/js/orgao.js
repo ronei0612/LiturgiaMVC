@@ -93,13 +93,19 @@ const liturgiaDiariaDiv = document.getElementById('liturgiaDiariaDiv');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
+manterTelaLigada_v2();
 
-function isScreenLockSupported() {
-	return ('wakeLock' in navigator);
+document.addEventListener("visibilitychange", function () {
+	if (document.visibilityState === 'visible')
+		manterTelaLigada_v2();
+});
+
+function manterTelaLigada_v2() {		
+	let wakeLock = null;
+	try {
+		wakeLock = navigator.wakeLock.request("screen");
+	} catch { }
 }
-
-let manterTelaLigada;
-navigator.wakeLock.request('screen').then(lock => { manterTelaLigada = lock; });
 
 function verificarOrientacaoCelular() {
 	if (window.matchMedia("(orientation: portrait)").matches) {
