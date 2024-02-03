@@ -5,7 +5,3 @@ const Notes = function (selector, tuner) {
     this.$notes = [];
     this.$notesMap = {};
 };
-
-//Notes.prototype.toggleAutoMode = function () {
-//    this.isAutoMode = !this.isAutoMode;
-//};
