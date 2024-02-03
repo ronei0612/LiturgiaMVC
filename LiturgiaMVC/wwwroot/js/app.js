@@ -33,20 +33,24 @@ Application.prototype.start = function () {
             self.tuner.init();
             self.frequencyData = new Uint8Array(self.tuner.analyser.frequencyBinCount);
         }
+        else {
+            self.tuner.stopRecord();
+        }
     });
 };
 
 
 Application.prototype.update = function (note) {
     if (note.frequency < 110) {
-    var nota = note.name;
-    notaTuner.innerText = nota;
-    try {
-        if (autoTunerCheck.checked && _acordeSelecionado !== nota) {
-            _acordeSelecionado = nota;
-            verificarAcompanhamentoEtocar(nota);
-        }
-    } catch { }
+        var nota = note.name;
+        notaTuner.innerText = nota;
+        try {
+            if (autoTunerCheck.checked && _acordeSelecionado !== nota) {
+                _acordeSelecionado = nota;
+                verificarAcompanhamentoEtocar(nota);
+            }
+        } catch { }
+    }
 };
 
 const app = new Application();

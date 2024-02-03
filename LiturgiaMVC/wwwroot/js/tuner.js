@@ -59,6 +59,7 @@ Tuner.prototype.startRecord = function () {
   navigator.mediaDevices
     .getUserMedia({ audio: true })
     .then(function (stream) {
+      self.audioStream = stream;
       self.audioContext.createMediaStreamSource(stream).connect(self.analyser);
       self.analyser.connect(self.scriptProcessor);
       self.scriptProcessor.connect(self.audioContext.destination);
@@ -158,4 +159,17 @@ Tuner.prototype.stopOscillator = function () {
     this.oscillator.stop();
     this.oscillator = null;
   }
+};
+
+Tuner.prototype.stopRecord = function () {
+    if (this.audioStream) {
+        // Obtem todas as faixas de mídia de áudio
+        const audioTracks = this.audioStream.getAudioTracks();
+
+        // Itera sobre as faixas de mídia de áudio e para cada uma delas
+        audioTracks.forEach(track => track.stop());
+
+        // Define a referência da stream de áudio como nula
+        this.audioStream = null;
+    }
 };
