@@ -288,6 +288,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 		var notas = notasAcordesJson[acorde];
 
 		if (instrumento == 'stringsSolo') {
+			grupoNotas.addSound(acordes['strings_' + notas[0]]);
 			grupoNotas.addSound(acordes['strings_' + notas[0] + '_baixo']);
 			grupoNotas.addSound(acordes['strings_' + notas[0] + '_grave']);
 		}

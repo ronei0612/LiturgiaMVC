@@ -1159,12 +1159,12 @@ function setupBaseEvents() {
         selecionarRitmo(botao.value);
     });
 
-    aro.addEventListener('mousedown', function (e) { verificarETocarBateria('aro', true, 'epianoSolo') });
-    meiaLua.addEventListener('mousedown', function (e) { verificarETocarBateria('meiaLua', true, 'epianoSoloPad') });
-    caixa.addEventListener('mousedown', function (e) { verificarETocarBateria('', true, 'epianoSolo') });
+    aro.addEventListener('mousedown', function (e) { verificarETocarBateria('aro', false) });
+    meiaLua.addEventListener('mousedown', function (e) { verificarETocarBateria('meiaLua', true, 'stringsSolo') });
+    caixa.addEventListener('mousedown', function (e) { verificarETocarBateria('', false) });
     brush.addEventListener('mousedown', function (e) { verificarETocarBateria('brush', false) });
-    ride.addEventListener('mousedown', function (e) { verificarETocarBateria('ride', true, 'epianoSoloPad') });
-    chimbal.addEventListener('mousedown', function (e) { verificarETocarBateria('chimbal', true, 'epianoSoloPad') });
+    ride.addEventListener('mousedown', function (e) { verificarETocarBateria('ride', true, 'stringsSolo') });
+    chimbal.addEventListener('mousedown', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
     playPauseBateria.addEventListener('mousedown', function (e) {
         if (tunerDiv.style.display !== 'none') {
             autoTunerCheck.checked = false;
