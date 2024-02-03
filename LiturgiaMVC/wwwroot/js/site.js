@@ -21,18 +21,21 @@
     }
 }
 
-$(document).ready(function () {
+window.addEventListener('DOMContentLoaded', function () {
 	removerComercial();
+	if (699 >= window.innerWidth) {
+		var imgs = document.querySelectorAll('img');
+		imgs.forEach(function (img) {
+			img.style.maxWidth = '100%';
+			img.style.minWidth = '100%';
+			img.style.objectFit = 'fill';
+			img.style.height = 'auto';
+		});
 
-	// Adapta ao celular
-	if ($(window).width() <= 699) {
-		$('img')
-			.css('max-width', '100%')
-			.css('min-width', '100%')
-			.css('object-fit', 'fill')
-			.css('height', 'auto');
-		$('iframe')
-			.css('width', '100%')
+		var iframes = document.querySelectorAll('iframe');
+		iframes.forEach(function (iframe) {
+			iframe.style.width = '100%';
+		});
 	}
 });
 
