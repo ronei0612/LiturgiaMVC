@@ -38,6 +38,7 @@ Application.prototype.start = function () {
 
 
 Application.prototype.update = function (note) {
+    if (note.frequency < 110) {
     var nota = note.name;
     notaTuner.innerText = nota;
     try {
