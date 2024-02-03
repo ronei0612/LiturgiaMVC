@@ -100,6 +100,10 @@
                     <partial name="~/Views/Liturgia/OracaoEucaristicaII.cshtml" />
                 </div>
 
+                <div id="sobreDiv" style="display:none">
+                    <partial name="~/Views/Orgao/Sobre.cshtml" />
+                </div>
+
                 <div id="liturgiaDiariaDiv" style="display:none;">
                     <iframe id="liturgiaDiariaFrame" src="https://liturgiadiaria.edicoescnbb.com.br/" style="position:static;width:100%"></iframe> @* <style="position:absolute;width:100%; height:100%"></iframe> *@
                 </div>
@@ -135,7 +139,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Sugestoes" asp-action="Index">Sugestões</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Sobre">Sobre</a>
+                            <a href="#" class="nav-link" onclick="mostrarModal('sobre')">Sobre</a>
                         </li>
                     </ul>
                 </div>
@@ -308,6 +312,7 @@
             escreverCifraTextArea.style.display = '';
             oracoesEucaristicasDiv.style.display = 'none';
             liturgiaDiariaDiv.style.display = 'none';
+            sobreDiv.style.display = 'none';
         }
 
         function mostrarModal(nome) {
@@ -358,11 +363,16 @@
                 oracoesEucaristicasDiv.style.display = '';
                 selectOpcoes.style.display = 'none';
             }
-            
+
             else if (nome === 'liturgiaDiaria') {
                 liturgiaDiariaDiv.style.display = '';
                 selectOpcoes.style.display = 'none';
                 mudarTamanhoModal(true);
+            }
+
+            else if (nome === 'sobre') {
+                sobreDiv.style.display = '';
+                selectOpcoes.style.display = 'none';
             }
         }
 
