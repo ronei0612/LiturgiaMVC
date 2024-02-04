@@ -40,6 +40,25 @@ namespace LiturgiaMVC.Controllers
         [HttpPost]
         public JsonResult Pesquisar(string texto)
         {
+            /*
+             * Este método utiliza API do Google
+             * Para criar e gerar a apiKey precisei acessar o site:
+             * https://console.cloud.google.com/apis/credentials/key/
+             * Sessão Credentials (credenciais)
+             * e criar uma API Key (chave de API), na verdade já veio criada com o nome:
+             * Browser key (auto created by Firebase)
+             * Selecionado Definir uma restrição de aplicativo para NENHUM
+             * Restrições da API para NÃO RESTRINGIR A CHAVE
+             * 
+             * Para criar o searchEngineId foi preciso ativar o serviço Custom Search API em
+             * https://programmablesearchengine.google.com/controlpanel/all
+             * Utilizei esse site para seguir o passo a passo:
+             * https://help.elfsight.com/article/331-how-to-get-search-engine-id
+             * O ID do mecanismo de pesquisa é o searchEngineId
+             * É possível monitorar em Sessão APIs e Serviços Ativados
+             * https://console.cloud.google.com/apis/api/customsearch.googleapis.com/             
+             */
+
             string apiKey = "AIzaSyBWjthtU-mhxX8-YtWh6mLJoiWdLdD9hwE";
             string searchEngineId = "c226ebc5ae2754d20";
             string query = "cifra " + texto;
