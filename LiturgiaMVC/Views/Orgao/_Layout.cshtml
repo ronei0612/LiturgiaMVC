@@ -378,7 +378,6 @@
 
         function selecionarInstrumento(bateria) {
             var instrumentoSelecionado = instrumentoSelect.value;
-            var bateriaSelecionado = selectRitmo.value;
             const elementos = [brush, aro, caixa, chimbal, meiaLua, prato];
 
             titulo.innerText = instrumentoSelecionado + ' ▼';
@@ -410,18 +409,12 @@
                 document.getElementsByClassName('centralizado-no-container')[1].style.width = '300px';
 
                 if (bateria)
-                    if (bateriaSelecionado == '')
+                    if (selectRitmo.value === '')
                         bateriaBotoes.style.display = 'none';
                     else
                         bateriaBotoes.style.display = 'block';
 
-                var bpmRange_valor = bpmRange.value;
-                bpmRange_valor = 60000 / bpmRange_valor;
-
-                if (bateriaSelecionado == '6/8')
-                    bpmRange_valor = bpmRange_valor / 2;
-
-                lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
+                mudarTempoCompasso();
             }
         }
 
@@ -573,6 +566,8 @@
                                 element.dispatchEvent(eventoChange);
                         }
                     }
+
+                    mudarTempoCompasso();
                 }
             }
 
