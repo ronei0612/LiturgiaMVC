@@ -1,5 +1,7 @@
 ﻿function DarkMode() {
-    if (document.body.classList.contains("bg-dark")) {
+	localStorage.setItem('darkMode', switchDark.checked);
+
+	if (document.body.classList.contains("bg-dark")) {
 		document.body.classList = "bg-light text-dark orgao-background";
 		navBar.classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3";
 		document.getElementsByClassName("w3-modal-content")[0].style.cssText = 'background-color: #fff!important';

@@ -91,6 +91,7 @@ const tunerDiv = document.getElementById('tunerDiv');
 const autoTunerCheck = document.getElementById('autoTunerCheck');
 const liturgiaDiariaDiv = document.getElementById('liturgiaDiariaDiv');
 const violinoDesenho = document.getElementById('violinoDesenho');
+const switchDark = document.getElementById('switchDark');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
@@ -100,6 +101,15 @@ document.addEventListener("visibilitychange", function () {
 	if (document.visibilityState === 'visible')
 		manterTelaLigada_v2();
 });
+
+function darkModeLocalStorage() {
+	var darkMode = localStorage.getItem('darkMode');
+	if (darkMode)
+		if (darkMode === 'true') {
+			switchDark.checked = true;
+			switchDark.dispatchEvent(eventoClick);
+		}
+}
 
 function manterTelaLigada_v2() {		
 	let wakeLock = null;
