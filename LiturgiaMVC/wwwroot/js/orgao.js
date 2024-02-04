@@ -92,6 +92,9 @@ const autoTunerCheck = document.getElementById('autoTunerCheck');
 const liturgiaDiariaDiv = document.getElementById('liturgiaDiariaDiv');
 const violinoDesenho = document.getElementById('violinoDesenho');
 const switchDark = document.getElementById('switchDark');
+const solo = document.getElementById('solo');
+const mao = document.getElementById('mao');
+const full = document.getElementById('full');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
@@ -732,10 +735,14 @@ function avancarCifra(avancar_retroceder, botao) {
 
 function mudarTamanhoFrameCifras(aumentar) {
 	if (textoCifrasFrame.style.display != 'none') {
-		if (aumentar)
+		if (aumentar) {
 			textoCifras.style.height = '250px';
-		else
-			textoCifras.style.height = '150px';
+			textoCifrasFrame.style.height = '250px';
+		}
+		else {
+			textoCifras.style.height = '160px';
+			textoCifrasFrame.style.height = '160px';
+		}
 	}
 }
 
