@@ -90,6 +90,7 @@ const notaTuner = document.getElementById('notaTuner');
 const tunerDiv = document.getElementById('tunerDiv');
 const autoTunerCheck = document.getElementById('autoTunerCheck');
 const liturgiaDiariaDiv = document.getElementById('liturgiaDiariaDiv');
+const violinoDesenho = document.getElementById('violinoDesenho');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
