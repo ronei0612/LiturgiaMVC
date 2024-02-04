@@ -505,11 +505,15 @@
 
                     if (textoCifrasFrame.style.display != 'none') {
                         localStorage.setItem(salvamentoSelecionado + '_frameCifra', textoCifras.contentDocument.body.innerHTML);
+
                         selectFonte.style.display = '';
                         salvar += '\n' + 'selectFonte,' + selectFonte.selectedIndex;
                         selectFonte.style.display = 'none';
                         botaoFonte.style.display = '';
-                        selectTamanhoIframe.style.display = "none";
+
+                        selectTamanhoIframe.style.display = '';
+                        salvar += '\n' + 'selectTamanhoIframe,' + selectTamanhoIframe.selectedIndex;
+                        selectTamanhoIframe.style.display = 'none';                        
                         botaoTamanhoIframe.style.display = '';
                     }
 
@@ -522,7 +526,19 @@
 
         function carregar_Salvamento() {
             var salvamentoSelecionado = selectSalvamento.value;
-            var storage = localStorage.getItem(salvamentoSelecionado);
+            var storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
+
+            if (storage != null) {
+                escreverCifraTextArea.style.display = 'block';
+
+                var tom = tomSelect.value;
+                mostrarTextoArquivoCarregado(tom, storage);
+            }
+            else
+                voltarParaOrgao();
+
+            storage = localStorage.getItem(salvamentoSelecionado);
+
             if (storage != null) {
                 if (storage.includes('\n')) {
                     var itens = storage.split('\n');
@@ -548,18 +564,9 @@
                 }
             }
 
-            storage = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
-
-            if (storage != null) {
-                escreverCifraTextArea.style.display = 'block';                
-
-                var tom = tomSelect.value;
-                mostrarTextoArquivoCarregado(tom, storage);
-                
-                textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
-            }
-            else
-                voltarParaOrgao();
+            textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
+            textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
+            textoCifras.style.height = selectTamanhoIframe.value + 'px';
 
             modal01.style.display = 'none';
         }
