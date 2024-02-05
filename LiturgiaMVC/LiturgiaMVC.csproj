@@ -7,11 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\GoogleDrive.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="wwwroot\Sons\studio\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\GoogleDrive.cshtml" />
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 

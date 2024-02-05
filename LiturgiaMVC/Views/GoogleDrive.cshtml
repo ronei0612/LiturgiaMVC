@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth2 Google Login</title>
+</head>
+<body>
+    <button onclick="authorizeGoogle()">Login com Google</button>
+    <br />
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload</button>
+
+    <script>
+        // Configurações de OAuth2
+        const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com';
+        const redirectUri = 'https://localhost:7188/home';
+        const scope = [
+            'https://www.googleapis.com/auth/drive',
+            'https://www.googleapis.com/auth/drive.file',
+        ].join(' ');
+
+        // Função para iniciar a autorização com o Google
+        function authorizeGoogle() {
+            const authUrl = 'https://accounts.google.com/o/oauth2/auth' +
+                `?client_id=${clientId}` +
+                `&redirect_uri=${redirectUri}` +
+                '&response_type=token' +
+                `&scope=${encodeURIComponent(scope)}`;
+            window.location.href = authUrl;
+        }
+
+        // Função para processar o token de acesso
+        function processToken() {
+            const urlParams = new URLSearchParams(window.location.hash.substr(1));
+            const accessToken = urlParams.get('access_token');
+            const tokenType = urlParams.get('token_type');
+            const expiresIn = urlParams.get('expires_in');
+
+            // Armazenar o token de acesso no localStorage
+            localStorage.setItem('accessToken', accessToken);
+
+            // Aqui você pode usar o token de acesso para fazer solicitações à API do Google Drive
+            console.log('Token de acesso:', accessToken);
+        }
+
+        // Função para verificar se há um token de acesso no localStorage
+        function checkStoredToken() {
+            this.storedToken = localStorage.getItem('accessToken');
+            if (this.storedToken) {
+                console.log('Token encontrado no localStorage:', storedToken);
+                // Aqui você pode usar o token de acesso armazenado para fazer solicitações à API do Google Drive
+            } else {
+                console.log('Nenhum token encontrado no localStorage');
+                // Se não houver token no localStorage, iniciar o processo de autorização
+                authorizeGoogle();
+            }
+        }
+
+        // Verificar se a página foi carregada com um token de acesso
+        window.onload = function () {
+            if (window.location.hash) {
+                processToken();
+            } else {
+                checkStoredToken();
+            }
+        };
+
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const metadata = {
+                name: file.name,
+            };
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const content = e.target.result;
+                const accessToken = this.storedToken;
+                const headers = new Headers();
+                headers.append('Authorization', 'Bearer ' + accessToken);
+                headers.append('Content-Type', file.type);
+
+                fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
+                    method: 'POST',
+                    headers: headers,
+                    body: content,
+                }).then(response => {
+                    return response.json(); // Parse the response as JSON
+                }).then(data => {
+                    const fileId = data.id; // Extract file ID from the response
+                    const fileLink = `https://drive.google.com/file/d/${fileId}/view`; // Construct file link
+                    console.log('File uploaded successfully, link:', fileLink);
+                    // You can now use 'fileLink' for further processing or display
+                }).catch(error => {
+                    console.error('Error uploading file:', error);
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+    </script>
+</body>
+</html>
