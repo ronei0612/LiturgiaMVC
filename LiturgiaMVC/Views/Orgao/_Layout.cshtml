@@ -525,6 +525,8 @@
         }
 
         function carregar_Salvamento() {
+            modal01.style.display = 'none';
+
             var salvamentoSelecionado = selectSalvamento.value;
             var storageCifra = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
 
@@ -573,10 +575,6 @@
                     mudarTempoCompasso();
                 }
             }
-
-            modal01.style.display = 'none';
-
-
         }
 
         function escolherArquivo(event) {
