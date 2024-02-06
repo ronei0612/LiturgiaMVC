@@ -426,6 +426,7 @@
             var gravacaoSelecionada = selectSalvamento;
 
             if (gravacaoSelecionada.value != '') {
+                sairDeFullscreen();
                 if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
                     localStorage.removeItem(gravacaoSelecionada.value);
                     localStorage.removeItem(gravacaoSelecionada.value + '_frameCifra');
@@ -437,6 +438,7 @@
         }
 
         function novoSalvamento() {
+            sairDeFullscreen();
             var novoSalvamento = selectSalvamento;
             let nome = prompt('Nome da novo salvamento');
 
@@ -486,6 +488,7 @@
             var salvamentoSelecionado = selectSalvamento.value;
 
             if (salvamentoSelecionado != '') {
+                sairDeFullscreen();
                 if (confirm('Deseja salvar?\n' + salvamentoSelecionado)) {
                     var salvar = 'instrumentoSelect,' + instrumentoSelect.selectedIndex;
                     salvar += '\n' + 'selectRitmo,' + selectRitmo.selectedIndex;
