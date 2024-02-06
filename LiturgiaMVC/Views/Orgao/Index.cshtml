@@ -282,14 +282,8 @@
 		switchDarkDiv.style.display = 'none';
 		muteDiv.style.display = '';
 
-		if (textoCifrasFrame.style.display != 'none' && _orientacaoCelularPe == false) {
-			$('#exitfullscreenDiv').prependTo('#linhaSelectTom');
-			$('#botaoOpcoes').prependTo('#linhaSelectTom');
-			$('#botaoSalvar').appendTo('#linhaSelectTom');
-			$('#muteDiv').appendTo('#linhaSelectTom');
-
-			navBar.style.display = 'none';
-		}
+		if (textoCifrasFrame.style.display != 'none' && _orientacaoCelularPe == false && isMobileDevice())
+			ocultarNavBar();
 
 		var el = document.body;
 		var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
