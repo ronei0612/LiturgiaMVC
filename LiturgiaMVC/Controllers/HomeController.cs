@@ -8,6 +8,8 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System.Net;
 using Google.Apis.Auth.OAuth2.Responses;
+using Google.Apis.CustomSearchAPI.v1.Data;
+using Google.Apis.Upload;
 
 namespace LiturgiaMVC.Controllers
 {
@@ -59,7 +61,7 @@ namespace LiturgiaMVC.Controllers
             });
 
             // Fazer upload de um arquivo
-            UploadFile(service, @"C:\Users\ronei\Documents\Debian\testeUpload.txt");
+            UploadFile(service, @"C:\Users\Ronei\Documents\COdonto\testeUpload.txt");
             //UploadFile(service, @"C:\Users\ronei\Documents\Debian\testeUpload.txt", "");
 
             return View();
@@ -73,23 +75,61 @@ namespace LiturgiaMVC.Controllers
 
         static void UploadFile(DriveService service, string filePath)
         {
+            // Upload file photo.jpg on drive.
+            //var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+            //{
+            //    Name = "testeUpload.txt"
+            //};
+            //FilesResource.CreateMediaUpload request;
+            //// Create a new file on drive.
+            //using (var stream = new FileStream(filePath,
+            //           FileMode.Open))
+            //{
+            //    // Create a new file, with metadata and stream.
+            //    request = service.Files.Create(
+            //        fileMetadata, stream, "text/plain");
+            //    request.Fields = "id";
+            //    request.Upload();
+            //}
+
+            //var file = request.ResponseBody;
+            //// Prints the uploaded file id.
+            //Console.WriteLine("File ID: " + file.Id);
+
             var fileMetadata = new Google.Apis.Drive.v3.Data.File()
             {
                 Name = Path.GetFileName(filePath)
             };
 
             FilesResource.CreateMediaUpload request;
+            IUploadProgress result = null;
 
             using (var stream = new FileStream(filePath, FileMode.Open))
             {
                 request = service.Files.Create(fileMetadata, stream, "text/plain");
                 request.Fields = "id";
-                request.Upload();
-            }
+                result = request.Upload();
 
-            var file = request.ResponseBody;
-            Console.WriteLine("File ID: " + file.Id);
-            Console.WriteLine("File Link: https://drive.google.com/file/d/" + file.Id + "/view");
+                if (result.Status != UploadStatus.Completed)
+                {
+                    var rdn = new Random();
+                    var waitTime = 0;
+                    var count = 0;
+                    do
+                    {
+                        waitTime = (Convert.ToInt32(Math.Pow(2, count)) * 1000) + rdn.Next(0, 1000);
+                        Thread.Sleep(waitTime);
+
+                        result = request.Upload();
+                        count++;
+
+                    } while (count < 15 && (result.Status != UploadStatus.Completed));
+                }
+
+                var file = request.ResponseBody;
+                Console.WriteLine("File ID: " + file.Id);
+                Console.WriteLine("File Link: https://drive.google.com/file/d/" + file.Id + "/view");
+            }
         }
     }
 }
