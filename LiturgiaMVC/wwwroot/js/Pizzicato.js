@@ -355,24 +355,28 @@
 		function initializeWithInput(options, callback) {
 			navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
-			if (!navigator.getUserMedia) {
+			if (!navigator.getUserMedia && !navigator.mediaDevices.getUserMedia) {
 				console.error('Your browser does not support getUserMedia');
 				return;
 			}
 
-			navigator.getUserMedia({
-				audio: true
-			}, (function (stream) {
+			var handleStream = (function (stream) {
 				self.getRawSourceNode = function () {
 					return Pizzicato.context.createMediaStreamSource(stream);
 				};
 				if (util.isFunction(callback))
 					callback();
+			}).bind(self);
 
-			}).bind(self), function (error) {
+			var handleError = function (error) {
 				if (util.isFunction(callback))
 					callback(error);
-			});
+			};
+
+			if (!!navigator.mediaDevices.getUserMedia)
+				navigator.mediaDevices.getUserMedia({ audio: true }).then(handleStream).catch(handleError);
+			else
+				navigator.getUserMedia({ audio: true }, handleStream, handleError);
 		}
 
 
@@ -773,16 +777,21 @@
 			value: function () {
 				var currentValue = this.fadeNode.gain.value;
 				this.fadeNode.gain.cancelScheduledValues(Pz.context.currentTime);
-				this.fadeNode.gain.setValueAtTime(currentValue, Pz.context.currentTime);
 
 				if (!this.attack) {
-					this.fadeNode.gain.setValueAtTime(1.0, Pizzicato.context.currentTime);
+					this.fadeNode.gain.setTargetAtTime(1.0, Pz.context.currentTime, 0.001);
 					return;
 				}
 
-				var remainingAttackTime = (1 - this.fadeNode.gain.value) * this.attack;
-				this.fadeNode.gain.setValueAtTime(this.fadeNode.gain.value, Pizzicato.context.currentTime);
-				this.fadeNode.gain.linearRampToValueAtTime(1, Pizzicato.context.currentTime + remainingAttackTime);
+				// We can't calculate the remaining attack time 
+				// in Firefox due to https://bugzilla.mozilla.org/show_bug.cgi?id=893020
+				var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+				var remainingAttackTime = this.attack;
+
+				if (!isFirefox)
+					remainingAttackTime = (1 - this.fadeNode.gain.value) * this.attack;
+
+				this.fadeNode.gain.setTargetAtTime(1.0, Pz.context.currentTime, remainingAttackTime * 2);
 			}
 		},
 
@@ -803,16 +812,22 @@
 
 				var currentValue = this.fadeNode.gain.value;
 				this.fadeNode.gain.cancelScheduledValues(Pz.context.currentTime);
-				this.fadeNode.gain.setValueAtTime(currentValue, Pz.context.currentTime);
 
 				if (!this.release) {
+					this.fadeNode.gain.setTargetAtTime(0.0, Pz.context.currentTime, 0.001);
 					stopSound();
 					return;
 				}
 
-				var remainingReleaseTime = this.fadeNode.gain.value * this.release;
-				this.fadeNode.gain.setValueAtTime(this.fadeNode.gain.value, Pizzicato.context.currentTime);
-				this.fadeNode.gain.linearRampToValueAtTime(0.00001, Pizzicato.context.currentTime + remainingReleaseTime);
+				// We can't calculate the remaining attack time 
+				// in Firefox due to https://bugzilla.mozilla.org/show_bug.cgi?id=893020
+				var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+				var remainingReleaseTime = this.release;
+
+				if (!isFirefox)
+					remainingReleaseTime = this.fadeNode.gain.value * this.release;
+
+				this.fadeNode.gain.setTargetAtTime(0.00001, Pz.context.currentTime, remainingReleaseTime / 5);
 
 				window.setTimeout(function () {
 					stopSound();
@@ -874,6 +889,7 @@
 				}
 				if (sound.detached) {
 					console.warn('Groups do not support detached sounds. You can manually create an audio graph to group detached sounds together.');
+					return;
 				}
 
 				sound.disconnect(Pz.masterGainNode);
@@ -1008,7 +1024,7 @@
 					return this;
 				}
 
-				var previousNode = (index === 0) ? this.mergeGainNode : this.effectConnectors(index - 1);
+				var previousNode = (index === 0) ? this.mergeGainNode : this.effectConnectors[index - 1];
 				previousNode.disconnect();
 
 				// Disconnect connector and effect
@@ -1587,8 +1603,18 @@
 			this.pannerNode = Pizzicato.context.createStereoPanner();
 			this.inputNode.connect(this.pannerNode);
 			this.pannerNode.connect(this.outputNode);
-		}
-		else {
+
+		} else if (Pizzicato.context.createPanner) {
+
+			console.warn('Your browser does not support the StereoPannerNode. Will use PannerNode instead.');
+
+			this.pannerNode = Pizzicato.context.createPanner();
+			this.pannerNode.type = 'equalpower';
+			this.inputNode.connect(this.pannerNode);
+			this.pannerNode.connect(this.outputNode);
+
+		} else {
+			console.warn('Your browser does not support the Panner effect.');
 			this.inputNode.connect(this.outputNode);
 		}
 
@@ -1616,8 +1642,16 @@
 					return;
 
 				this.options.pan = pan;
-				if (this.pannerNode) {
+
+				if (!this.pannerNode)
+					return;
+
+				var isStereoPannerNode = this.pannerNode.toString().indexOf('StereoPannerNode') > -1;
+
+				if (isStereoPannerNode) {
 					this.pannerNode.pan.value = pan;
+				} else {
+					this.pannerNode.setPosition(pan, 0, 1 - Math.abs(pan));
 				}
 			}
 		}
@@ -1943,8 +1977,22 @@
 			impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - n / length, this.decay);
 		}
 
+		// https://github.com/alemangui/pizzicato/issues/91
+		// ConvolverNode can be associated with only one buffer.
+		// Not sure what's the best way, but we are recreating ConvolverNode
+		// when properties change to work it around.
+		if (this.reverbNode.buffer) {
+			this.inputNode.disconnect(this.reverbNode);
+			this.reverbNode.disconnect(this.wetGainNode);
+
+			this.reverbNode = Pizzicato.context.createConvolver();
+			this.inputNode.connect(this.reverbNode);
+			this.reverbNode.connect(this.wetGainNode);
+		}
+
 		this.reverbNode.buffer = impulse;
 	}
+
 	Pizzicato.Effects.Tremolo = function (options) {
 
 		// adapted from
