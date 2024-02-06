@@ -400,7 +400,7 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 
 		else {
 			if (_instrumentoSelecionado == 'epiano')
-				_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas, delay);
+				_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 			else
 				_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 
