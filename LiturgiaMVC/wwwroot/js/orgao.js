@@ -105,6 +105,10 @@ document.addEventListener("visibilitychange", function () {
 		manterTelaLigada_v2();
 });
 
+function isMobileDevice() {
+	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 function darkModeLocalStorage() {
 	var darkMode = localStorage.getItem('darkMode');
 	if (darkMode)
@@ -122,11 +126,12 @@ function manterTelaLigada_v2() {
 }
 
 function verificarOrientacaoCelular() {
-	if (window.matchMedia("(orientation: portrait)").matches) {
+	if (isMobileDevice()) {
+		if (window.matchMedia("(orientation: portrait)").matches)
 		_orientacaoCelularPe = true;
 	}
 
-	if (window.matchMedia("(orientation: landscape)").matches) {
+		if (window.matchMedia("(orientation: landscape)").matches)
 		_orientacaoCelularPe = false;
 	}
 }
@@ -167,13 +172,26 @@ instrumentoSelect.addEventListener('change', (e) => {
 });
 
 window.addEventListener("orientationchange", (event) => {
-	if (event.target.screen.orientation.angle == 0)
+	orientacaoCelularAlterado(event);
+});
+
+function orientacaoCelularAlterado(event) {
+	if (event.target.screen.orientation.angle == 0) {
 		_orientacaoCelularPe = true;
-	else
+
+		if (textoCifrasFrame.style.display != 'none')
+			mostrarNavBar();
+	}
+	else {
 		_orientacaoCelularPe = false;
 
-	mudarTamanhoFrameCifras(_orientacaoCelularPe);
-});
+		if (textoCifrasFrame.style.display != 'none')
+			ocultarNavBar();
+	}
+
+	if (exitfullscreen.style.display !== 'none')
+		mudarParaFullscreen();
+}
 
 function ocultarBotoesRitmo(ocultar = true) {
 	var bateriaBotoes = document.getElementsByClassName('trBateriaBotoes');
