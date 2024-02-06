@@ -129,7 +129,6 @@ function verificarOrientacaoCelular() {
 	if (isMobileDevice()) {
 		if (window.matchMedia("(orientation: portrait)").matches)
 		_orientacaoCelularPe = true;
-	}
 
 		if (window.matchMedia("(orientation: landscape)").matches)
 		_orientacaoCelularPe = false;
