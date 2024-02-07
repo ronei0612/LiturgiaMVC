@@ -128,10 +128,10 @@ function manterTelaLigada_v2() {
 function verificarOrientacaoCelular() {
 	if (isMobileDevice()) {
 		if (window.matchMedia("(orientation: portrait)").matches)
-		_orientacaoCelularPe = true;
+			_orientacaoCelularPe = true;
 
 		if (window.matchMedia("(orientation: landscape)").matches)
-		_orientacaoCelularPe = false;
+			_orientacaoCelularPe = false;
 	}
 }
 
@@ -651,7 +651,7 @@ function mudarParaTelaFrame() {
 	tdVolume.setAttribute('rowspan', '');
 	tdVolume.setAttribute('colspan', 5);
 	volumeDiv.style.display = 'block';
-	textoVolume.classList.remove('textoVertical');
+	textoVolume.style.display = 'none';
 	volumeInput.setAttribute('orient', '');
 
 	$('#tdVolume').appendTo('#orgaoTable');
@@ -765,16 +765,16 @@ function mudarTempoCompasso() {
 }
 
 function mudarTamanhoFrameCifras(aumentar) {
-	if (textoCifrasFrame.style.display != 'none') {
-		if (aumentar) {
-			textoCifras.style.height = '250px';
-			textoCifrasFrame.style.height = '250px';
-		}
-		else {
-			textoCifras.style.height = '160px';
-			textoCifrasFrame.style.height = '160px';
-		}
-	}
+	//if (textoCifrasFrame.style.display != 'none') {
+	//	var altura = parseInt(textoCifras.style.height);
+	//	if (aumentar)
+	//		altura = altura * 1.5;
+	//	else
+	//		altura = altura / 1.5;
+
+	//	textoCifras.style.height = altura + 'px';
+	//	textoCifrasFrame.style.height = altura + 'px';
+	//}
 }
 
 function selecionarStrings(stringsCheck) {
