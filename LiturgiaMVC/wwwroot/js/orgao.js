@@ -656,6 +656,9 @@ function mudarParaTelaFrame() {
 
 	$('#tdVolume').appendTo('#orgaoTable');
 	$('#orgaoTable').prependTo('#bateriaBox');
+
+	if (_orientacaoCelularPe == false)
+		ocultarNavBar();
 }
 
 function addEventCifras(frame) {

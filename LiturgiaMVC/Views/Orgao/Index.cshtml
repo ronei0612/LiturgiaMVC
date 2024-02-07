@@ -267,8 +267,10 @@
 		textoVolume.classList.add('textoVertical');
 		volumeInput.setAttribute('orient', 'vertical');
 
-		$('#tdVolume').appendTo('#orgaoControle');		
+		$('#tdVolume').appendTo('#orgaoControle');
 		$('#orgaoTable').appendTo('#orgaoBox');
+
+		mostrarNavBar();
 	}
 
 	function mudarParaFullscreen() {
@@ -291,19 +293,36 @@
 			requestMethod.call(el);
 	}
 
-	function sairDeFullscreen() {
-		$('#exitfullscreenDiv').prependTo('#linhaNavBar');
+	function ocultarNavBar() {
+		$('#titulo').prependTo('#linhaSelectTom');
+		$('#fullscreenDiv').prependTo('#linhaSelectTom');
+		$('#botaoOpcoes').prependTo('#linhaSelectTom');
+		$('#botaoSalvar').appendTo('#linhaSelectTom');
+		$('#muteDiv').appendTo('#linhaSelectTom');
+		navBar.style.display = 'none';
+		linhaSelectTom.style.width = '100%';
+	}
+
+	function mostrarNavBar() {
+		$('#fullscreenDiv').prependTo('#linhaNavBar');
 		$('#botaoOpcoes').prependTo('#linhaNavBar');
+		$('#titulo').appendTo('#linhaNavBar');
 		$('#botaoSalvar').appendTo('#linhaNavBar');
 		$('#switchDarkDiv').appendTo('#linhaNavBar');
 		$('#muteDiv').appendTo('#linhaNavBar');
+		navBar.style.display = 'block';
+		linhaSelectTom.style.width = '';
+	}
+
+	function sairDeFullscreen() {
+		if (textoCifrasFrame.style.display === 'none')
+			mostrarNavBar();
 
 		exitfullscreen.style.display = 'none';
 		botaoFullscreen.style.display = 'flex';
 		switchDarkDiv.style.display = '';
 		muteDiv.style.display = 'none';
 		document.exitFullscreen();
-		navBar.style.display = 'block';
 
 		linhaSelectTom.classList.add('d-flex');
 		//linhaSelectTom.style.display = 'flex';
