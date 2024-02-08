@@ -1524,7 +1524,7 @@ module.exports = {
     sampleSet:
       "./Sons/studio/samples.json",
     measureLength: 16,
-    bpm: 90,
+    bpm: 92,
     detune: 0,
     gainEnabled: "gain",
     attackAmp: 0,
