@@ -10,6 +10,14 @@
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
 
 		violinoDesenho.setAttribute('fill', '#000');
+
+		var elements = document.getElementsByClassName("nav-link");
+		for (var i = 0; i < elements.length; i++)
+			elements[i].style.color = '#0d6efd';
+
+		elements = document.getElementsByClassName("TextoMissal");
+		for (var i = 0; i < elements.length; i++)
+			elements[i].style.color = '#9c7b3e';
     }
     else {
 		document.body.classList = "bg-dark text-light orgao-background-dark";
@@ -20,6 +28,14 @@
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#fff';
 
 		violinoDesenho.setAttribute('fill', '#fff');
+				
+		var elements = document.getElementsByClassName("nav-link");
+		for (var i = 0; i < elements.length; i++)
+			elements[i].style.color = '#74acff';
+
+		elements = document.getElementsByClassName("TextoMissal");
+		for (var i = 0; i < elements.length; i++)
+			elements[i].style.color = '#b3a58a';
     }
 }
 
