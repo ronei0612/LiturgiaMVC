@@ -345,6 +345,17 @@
 		}, tempoMiliseg)
 	}
 
+	function darkModeLocalStorage() {
+		var darkMode = localStorage.getItem('darkMode');
+		if (darkMode)
+			if (darkMode === 'true') {
+				var switchDark = document.getElementById('switchDark');
+				var eventoClick = new Event('click');
+				switchDark.checked = true;
+				switchDark.dispatchEvent(eventoClick);
+			}
+	}
+
 	function deixarTomSelecionado(tom) {
 		document.getElementById('tomSelect').value = tom;
 	}
