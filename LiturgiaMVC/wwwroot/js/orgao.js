@@ -549,6 +549,8 @@ function mudarTom(tomSelecionado) {
 	}
 
 	mudarTomMenor(tomSelect.selectedIndex);
+
+	localStorage.setItem('tomSelecionadoIndex', tomSelect.selectedIndex)
 }
 
 function mudarTomMenor(acordeIndex) {
