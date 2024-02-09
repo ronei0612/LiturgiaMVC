@@ -305,6 +305,7 @@
         }
 
         function ocultarModal() {
+            rolagemTelaOracaoEucaristica();
             liturgiaDiariaFrame.style.height = '';
             modal01.style.display = 'none';
             linksCifraClubList.style.display = 'none';
@@ -362,6 +363,7 @@
             else if (nome === 'oracoesEucaristicas') {
                 oracoesEucaristicasDiv.style.display = '';
                 selectOpcoes.style.display = 'none';
+                rolagemTelaOracaoEucaristica(false);
             }
 
             else if (nome === 'liturgiaDiaria') {

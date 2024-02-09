@@ -777,6 +777,20 @@ function mudarTamanhoFrameCifras(aumentar) {
 	//}
 }
 
+function rolagemTelaOracaoEucaristica(guardar = true) {
+	if (oracoesEucaristicasDiv.style.display !== 'none') {
+		var nomeVar = 'scrollOracoesEuc';
+
+		if (guardar)
+			localStorage.setItem(nomeVar, modal01.scrollTop);
+		else {
+			var scrollPosition = localStorage.getItem(nomeVar);
+			if (scrollPosition)
+				modal01.scrollTo(0, parseInt(scrollPosition));
+		}
+	}
+}
+
 function selecionarStrings(stringsCheck) {
 	if (stringsCheck) {
 		_stringsSelecionado = true;
