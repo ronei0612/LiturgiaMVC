@@ -12,6 +12,7 @@ var _stringsSelecionado = false;
 var _stringsParado = true;
 var _autoMudarRitmo = false;
 var _orientacaoCelularPe = true;
+var _tomSelectedIndexCifra = 0;
 
 var delay = new Pizzicato.Effects.Delay({ feedback: 0.5, time: 0.33, mix: 0.1 });
 
@@ -510,6 +511,7 @@ function alterarVolume(volume, padrao) {
 }
 
 function mudarTomCifra(aumentar, quant) {
+	_tomSelectedIndexCifra = tomSelect.selectedIndex;
 	var texto = textoCifras.contentDocument.body.innerHTML;
 
 	$.ajax({
@@ -614,6 +616,8 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 			adicionarTonsSelect('tomSelect', tonsMenores.indexOf(tom), false);
 		else
 			adicionarTonsSelect('tomSelect', tonsMaiores.indexOf(tom), true);
+
+		_tomSelectedIndexCifra = tomSelect.selectedIndex;
 	}
 
 	if (texto)

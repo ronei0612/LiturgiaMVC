@@ -341,6 +341,7 @@
                     modal01.style.display = 'none';
 
                     mostrarTextoArquivoCarregado();
+                    tomSelect.selectedIndex = _tomSelectedIndexCifra;
                 }
 
                 else {
@@ -570,9 +571,11 @@
                             else
                                 element.selectedIndex = itens[i].split(',')[1];
 
-                            if (element.id == 'tomSelect') {
+                            if (element.id === 'tomSelect') {
                                 if (eventoChange_tomSelect)
                                     element.dispatchEvent(eventoChange);
+                                else
+                                    _tomSelectedIndexCifra = element.selectedIndex;
                             }
                             else
                                 element.dispatchEvent(eventoChange);
