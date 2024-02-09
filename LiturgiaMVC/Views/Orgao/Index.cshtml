@@ -429,22 +429,28 @@
 	}
 
 	function prepararMudarTomCifra(tomSelecionado) {
-		if (textoCifrasFrame.style.display == "none")
-			mudarTom(tomSelecionado);
+		var esperar = 0;
+		if (typeof mudarTom !== 'function' || typeof mudarTomCifra !== 'function') //1º carregamento
+			esperar = 500;
 
-		else {
-			if (tomSelecionado.includes('m'))
-				var index = tonsMenores.indexOf(tomSelecionado);
-			else
-				var index = tonsMaiores.indexOf(tomSelecionado);
+		setTimeout(function () {		
+			if (textoCifrasFrame.style.display == "none")
+				mudarTom(tomSelecionado);
 
-			index = index - _tomIndex;
+			else {
+				if (tomSelecionado.includes('m'))
+					var index = tonsMenores.indexOf(tomSelecionado);
+				else
+					var index = tonsMaiores.indexOf(tomSelecionado);
 
-			if (index < 0)
-				mudarTomCifra(false, Math.abs(index));
-			else
-				mudarTomCifra(true, index);
-		}
+				index = index - _tomIndex;
+
+				if (index < 0)
+					mudarTomCifra(false, Math.abs(index));
+				else
+					mudarTomCifra(true, index);
+			}
+		}, esperar);
 	}
 
 	function pegarTomCifra(tomSelecionado) {
