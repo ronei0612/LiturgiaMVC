@@ -315,19 +315,20 @@
 	}
 
 	function sairDeFullscreen() {
-		if (textoCifrasFrame.style.display === 'none')
-			mostrarNavBar();
+		if (exitfullscreen.style.display !== 'none') {
+			if (textoCifrasFrame.style.display === 'none')
+				mostrarNavBar();
 
-		exitfullscreen.style.display = 'none';
-		botaoFullscreen.style.display = 'flex';
-		switchDarkDiv.style.display = '';
-		muteDiv.style.display = 'none';
-		document.exitFullscreen();
+			exitfullscreen.style.display = 'none';
+			botaoFullscreen.style.display = 'flex';
+			switchDarkDiv.style.display = '';
+			muteDiv.style.display = 'none';
+			document.exitFullscreen();
 
-		linhaSelectTom.classList.add('d-flex');
-		//linhaSelectTom.style.display = 'flex';
+			linhaSelectTom.classList.add('d-flex');
 
-		mutarVolume(false);
+			mutarVolume(false);
+		}
 	}
 
 	function esperarAudios(tempoMiliseg, esperar_audios) {
