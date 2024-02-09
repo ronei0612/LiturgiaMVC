@@ -424,21 +424,6 @@
             modal01.style.display = 'none';
         }
 
-        function deletarSalvamento() {
-            var gravacaoSelecionada = selectSalvamento;
-
-            if (gravacaoSelecionada.value != '') {
-                sairDeFullscreen();
-                if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
-                    localStorage.removeItem(gravacaoSelecionada.value);
-                    localStorage.removeItem(gravacaoSelecionada.value + '_frameCifra');
-
-                    gravacaoSelecionada.remove(gravacaoSelecionada.selectedIndex);
-                    salvarOptionsNoStorage('salvamentos');
-                }
-            }
-        }
-
         function novoSalvamento() {
             sairDeFullscreen();
             var novoSalvamento = selectSalvamento;
@@ -458,6 +443,21 @@
                     novoSalvamento.add(option);
                     novoSalvamento.selectedIndex = novoSalvamento.length - 1;
 
+                    salvarOptionsNoStorage('salvamentos');
+                }
+            }
+        }
+
+        function deletarSalvamento() {
+            var gravacaoSelecionada = selectSalvamento;
+
+            if (gravacaoSelecionada.value != '') {
+                sairDeFullscreen();
+                if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
+                    localStorage.removeItem(gravacaoSelecionada.value);
+                    localStorage.removeItem(gravacaoSelecionada.value + '_frameCifra');
+
+                    gravacaoSelecionada.remove(gravacaoSelecionada.selectedIndex);
                     salvarOptionsNoStorage('salvamentos');
                 }
             }
