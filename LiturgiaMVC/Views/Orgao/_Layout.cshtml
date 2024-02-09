@@ -531,8 +531,10 @@
 
             var salvamentoSelecionado = selectSalvamento.value;
             var storageCifra = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
+            var eventoChange_tomSelect = true;
 
             if (storageCifra) {
+                eventoChange_tomSelect = false;
                 escreverCifraTextArea.style.display = 'block';
 
                 var tom = tomSelect.value;
@@ -567,8 +569,13 @@
                             }
                             else
                                 element.selectedIndex = itens[i].split(',')[1];
-                            
-                            element.dispatchEvent(eventoChange);
+
+                            if (element.id == 'tomSelect') {
+                                if (eventoChange_tomSelect)
+                                    element.dispatchEvent(eventoChange);
+                            }
+                            else
+                                element.dispatchEvent(eventoChange);
                         }
                     }
 
