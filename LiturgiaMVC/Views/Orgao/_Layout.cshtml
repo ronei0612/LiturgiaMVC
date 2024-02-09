@@ -498,6 +498,7 @@
                     salvar += '\n' + 'tomSelect,' + tomSelect.selectedIndex;
                     salvar += '\n' + 'bpm,' + bpm.value;
                     salvar += '\n' + 'autoCheck,' + autoCheck.checked;
+                    salvar += '\n' + 'stringsCheck,' + stringsCheck.checked;
 
                     var maoBotaoSelecionado = document.getElementsByClassName('selecionado');
                     if (maoBotaoSelecionado.length > 0)
@@ -564,9 +565,11 @@
                             else if (itens[i].split(',')[1] === 'selecionado') {
                                 escolherAcompanhamento(element.id, element);
                             }
-                            else if (itens[i].split(',')[0] === 'tomMenorSwitch' || itens[i].split(',')[0] == 'autoCheck') {
+                            else if (itens[i].split(',')[0] === 'tomMenorSwitch' || itens[i].split(',')[0] == 'autoCheck' || itens[i].split(',')[0] == 'stringsCheck') {
                                 if (itens[i].split(',')[1] === 'true')
-                                    element.checked = itens[i].split(',')[1];
+                                    element.checked = true;
+                                if (itens[i].split(',')[1] === 'false')
+                                    element.checked = false;
                             }
                             else
                                 element.selectedIndex = itens[i].split(',')[1];

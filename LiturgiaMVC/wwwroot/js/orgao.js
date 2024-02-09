@@ -96,6 +96,7 @@ const switchDark = document.getElementById('switchDark');
 const solo = document.getElementById('solo');
 const mao = document.getElementById('mao');
 const full = document.getElementById('full');
+const stringsCheck = document.getElementById('stringsCheck');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
