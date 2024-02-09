@@ -550,7 +550,6 @@
             if (storage) {
                 if (storage.includes('\n')) {
                     var itens = storage.split('\n');
-                    var eventoChange = new Event('change');
 
                     for (var i = 0; i < itens.length; i++) {
                         if (itens[i].split(',')[0] != '') {
@@ -569,8 +568,7 @@
                             else
                                 element.selectedIndex = itens[i].split(',')[1];
                             
-                            if (element.id != 'tomSelect')
-                                element.dispatchEvent(eventoChange);
+                            element.dispatchEvent(eventoChange);
                         }
                     }
 
