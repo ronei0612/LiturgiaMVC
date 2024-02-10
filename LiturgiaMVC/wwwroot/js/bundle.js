@@ -1003,10 +1003,8 @@ var _ritmoSelecionado = 'aro';
         function playBateria() {
             let storage = new tracksLocalStorage();
             let track = storage.getTrack();
-
             schedule.measureLength = track.settings.measureLength;
             schedule.stop();
-
             schedule.runSchedule(getSetAudioOptions.options.bpm);
         }
 
@@ -1064,8 +1062,7 @@ function setupBaseEvents() {
         }
     }
     selectRitmo.addEventListener('change', function (e) {
-        var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
-        
+        var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');        
         if (ritmoSelecionado.length > 0)
             ritmoSelecionado[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
@@ -1116,14 +1113,14 @@ function setupBaseEvents() {
     });
 
     document.getElementById('bpm').addEventListener('change', function (e) {
-        var bpmRange_valor = document.getElementById('bpmRange').value;
+        var bpmRange_valor = bpmRange.value;
         bpmRange_valor = 60000 / bpmRange_valor;
 
-        var measureLength_valor = document.getElementById('measureLength').value;
+        var measureLength_valor = measureLength.value;
         if (measureLength_valor == 24)
             bpmRange_valor = bpmRange_valor / 2;
 
-        document.getElementById('lightCompasso').style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
+        lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
 
         getSetAudioOptions.setTrackerControls();
         if (schedule.running) {
@@ -1133,13 +1130,8 @@ function setupBaseEvents() {
     });
 
     document.getElementById('bpmRange').addEventListener('input', function (e) {
-        var bpmRangeElem = document.getElementById('bpmRange');
-
-        var bpmElem = document.getElementById('bpm');
-        bpmElem.value = bpmRangeElem.value;
-
-        var novoEvento = new Event('change');
-        bpmElem.dispatchEvent(novoEvento);
+        bpm.value = bpmRange.value;
+        bpm.dispatchEvent(eventoChange);
     });
 
     document.getElementById('measureLength').addEventListener('change', (e) => {
