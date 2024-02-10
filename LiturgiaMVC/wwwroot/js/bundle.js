@@ -1109,12 +1109,12 @@ function setupBaseEvents() {
         }
     });
 
-    document.getElementById('bpmRange').addEventListener('input', function (e) {
+    bpmRange.addEventListener('input', function (e) {
         bpm.value = bpmRange.value;
         bpm.dispatchEvent(eventoChange);
     });
 
-    document.getElementById('measureLength').addEventListener('change', (e) => {
+    measureLength.addEventListener('change', (e) => {
         let value = document.getElementById('measureLength').value;
         let length = parseInt(value);
 
