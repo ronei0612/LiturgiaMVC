@@ -1092,27 +1092,7 @@ function setupBaseEvents() {
         }
     });
 
-    // var initializedCtx;
-    document.getElementById('play').addEventListener('click', function (e) {
-        let storage = new tracksLocalStorage();
-        let track = storage.getTrack();
-
-        schedule.measureLength = track.settings.measureLength;
-        schedule.stop();
-
-        schedule.runSchedule(getSetAudioOptions.options.bpm);
-    });
-
-    document.getElementById('pause').addEventListener('click', function (e) {
-        schedule.stop();
-    });
-
-    document.getElementById('stop').addEventListener('click', function (e) {
-        schedule.stop();
-        schedule = new simpleTracker(ctx, scheduleAudioBeat);
-    });
-
-    document.getElementById('bpm').addEventListener('change', function (e) {
+    bpm.addEventListener('change', function (e) {
         var bpmRange_valor = bpmRange.value;
         bpmRange_valor = 60000 / bpmRange_valor;
 
