@@ -32,3 +32,44 @@ function guardarChimbalAberto(instrumentName, instrument) {
         _chimbalIsAberto = true;
     }
 }
+
+//function mudarRitmo(ritmo) {
+//    _trocarRitmo = true;
+//    var selectRitmo = document.getElementById('selectRitmo');
+
+//    if (ritmo == '')
+//        _ritmoSelecionado = selectRitmo.value;
+//    else
+//        _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
+
+//    selecionarRitmo(_ritmoSelecionado);
+//}
+
+function selecionarRitmo(ritmo, virada = false) {
+    if (_trocarRitmo) {
+        _viradaRitmo = fazerViradaBateria(_ritmoSelecionado);
+
+        if (virada == false)
+            _trocarRitmo = false;
+
+        var ritmoMatrix = ritmo;
+        if (ritmo.includes('_'))
+            ritmoMatrix = ritmo.split('_')[0];
+
+        setBeats(ritmoMatrix);
+
+        var tabelaBateria = document.getElementById('tracker-table');
+        var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+
+        Array.from(tdsAtivados).forEach((tdAtivado) => {
+            tdAtivado.classList.remove('tracker-enabled');
+        });
+
+        var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+        var numerosIndex = ritmosJson[ritmo];
+
+        numerosIndex.forEach((numeroIndex) => {
+            tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+        });
+    }
+}

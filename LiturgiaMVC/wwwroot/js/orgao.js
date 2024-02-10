@@ -103,6 +103,7 @@ const mao = document.getElementById('mao');
 const full = document.getElementById('full');
 const stringsCheck = document.getElementById('stringsCheck');
 const measureLength = document.getElementById('measureLength');
+//const tabelaBateria = document.getElementById('tracker-table');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
