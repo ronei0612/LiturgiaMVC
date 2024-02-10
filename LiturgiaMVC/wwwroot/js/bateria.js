@@ -33,17 +33,16 @@ function guardarChimbalAberto(instrumentName, instrument) {
     }
 }
 
-//function mudarRitmo(ritmo) {
-//    _trocarRitmo = true;
-//    var selectRitmo = document.getElementById('selectRitmo');
+function mudarRitmo(ritmo) {
+    _trocarRitmo = true;
 
-//    if (ritmo == '')
-//        _ritmoSelecionado = selectRitmo.value;
-//    else
-//        _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
+    if (ritmo == '')
+        _ritmoSelecionado = selectRitmo.value;
+    else
+        _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
 
-//    selecionarRitmo(_ritmoSelecionado);
-//}
+    selecionarRitmo(_ritmoSelecionado);
+}
 
 function selecionarRitmo(ritmo, virada = false) {
     if (_trocarRitmo) {
@@ -71,5 +70,16 @@ function selecionarRitmo(ritmo, virada = false) {
         numerosIndex.forEach((numeroIndex) => {
             tdsAtivar[numeroIndex].classList.add('tracker-enabled');
         });
+    }
+}
+
+function gerarRitmosNomes(ritmosNomes) {
+    for (var i = 0, len = ritmosNomes.length; i < len; i++) {
+        if (ritmosNomes[i].includes('_') == false) {
+            let opt = document.createElement('option');
+            opt.value = ritmosNomes[i];
+            opt.textContent += ritmosNomes[i];
+            selectRitmo.appendChild(opt);
+        }
     }
 }

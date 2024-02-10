@@ -1015,27 +1015,7 @@ var _ritmoSelecionado = 'aro';
             schedule = new simpleTracker(ctx, scheduleAudioBeat);
         }
 
-        for (var i = 0, len = ritmosNomes.length; i < len; i++) {
-            if (ritmosNomes[i].includes('_') == false) {
-                let opt = document.createElement('option');
-                opt.value = ritmosNomes[i];
-                opt.textContent += ritmosNomes[i];
-                selectRitmo.appendChild(opt);
-            }
-        }
-
-
-        function mudarRitmo(ritmo) {
-            _trocarRitmo = true;
-            var selectRitmo = document.getElementById('selectRitmo');
-
-            if (ritmo == '')
-                _ritmoSelecionado = selectRitmo.value;
-            else
-                _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
-
-            selecionarRitmo(_ritmoSelecionado);
-        }
+        gerarRitmosNomes(ritmosNomes);
 
         function routeGain(source) {
             let gain = new adsrGainNode(ctx);
