@@ -1038,25 +1038,7 @@ var _ritmoSelecionado = 'aro';
 
 function setupBaseEvents() {
     function verificarETocarBateria(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento) {
-        if (iconVolumeMute.style.display == 'none') {
-            if (tunerDiv.style.display !== 'none') {
-                if (tunerAcompanhamento) {
-                    if (autoTunerCheck.checked === false)
-                        autoTunerCheck.checked = true;
-
-                    _instrumentoSelecionado = instrumentoAcompanhamento;
-                    verificarAcompanhamentoEtocar(notaTuner.innerText);
-                        
-                    autoTunerCheck.dispatchEvent(eventoChange);
-                }
-                else {
-                    if (autoTunerCheck.checked) {
-                        pararOsAcordes();
-                        autoTunerCheck.checked = false;
-                        autoTunerCheck.dispatchEvent(eventoChange);
-                    }
-                }
-            }
+        if (verificarETocarBateria_2(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento)) {
             tocarBateria(document.activeElement);
             mudarRitmo(mudarRitmoNome);
         }
