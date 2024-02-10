@@ -1,30 +1,5 @@
 const ritmosNomes = Object.keys(ritmosJson);
 var _ritmoSelecionado = 'aro';
-var _selecionarRitmoElem = document.getElementById('selectRitmo');
-var _trocarRitmo = false;
-var _viradaRitmo = '';
-var _chimbalIsAberto = false;
-var _sourceChimbalAberto;
-
-
-function setBeats(ritmoMatrix) {//compasso
-    var numerosIndex = ritmosJson[ritmoMatrix];
-    var measureLengthElement = document.getElementById('measureLength');
-
-    if (numerosIndex.includes(323))
-        measureLengthElement.value = 24;
-    else if (numerosIndex.includes(219))
-        measureLengthElement.value = 16;
-    else if (numerosIndex.includes(167))
-        measureLengthElement.value = 12;
-    else if (numerosIndex.includes(96) || numerosIndex.includes(110))
-        measureLengthElement.value = 6;
-
-    var novoEvento = new Event('change');
-    measureLengthElement.dispatchEvent(novoEvento);
-}
-
-
 function fazerViradaBateria() {
     _viradaRitmo = _ritmoSelecionado + '_fill';
 }
@@ -1087,7 +1062,7 @@ function selecionarRitmo(ritmo, virada = false) {
                 let opt = document.createElement('option');
                 opt.value = ritmosNomes[i];
                 opt.textContent += ritmosNomes[i];
-                _selecionarRitmoElem.appendChild(opt);
+                selectRitmo.appendChild(opt);
             }
         }
 
