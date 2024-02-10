@@ -1,12 +1,9 @@
 const ritmosNomes = Object.keys(ritmosJson);
 var _ritmoSelecionado = 'aro';
-function fazerViradaBateria() {
-    _viradaRitmo = _ritmoSelecionado + '_fill';
-}
 
 function selecionarRitmo(ritmo, virada = false) {
         if (_trocarRitmo) {
-            fazerViradaBateria();
+            _viradaRitmo = fazerViradaBateria(_ritmoSelecionado);
 
             if (virada == false)
                 _trocarRitmo = false;
@@ -1001,15 +998,9 @@ function selecionarRitmo(ritmo, virada = false) {
                 let node = routeGain(source)
                 node = routeDelay(node);
                 node.connect(ctx.destination);
-
-                if (instrumentName == 'chimbal' || instrumentName == 'chimbal2')
-                    if (_chimbalIsAberto) {
-                        _sourceChimbalAberto.stop(triggerTime);
-                        _chimbalIsAberto = false;
-                    }
-
+                
+                fecharChimbal(instrumentName, _sourceChimbalAberto, triggerTime);
                 source.start(triggerTime);
-
             }
 
             function routeGain(source) {
@@ -1033,11 +1024,7 @@ function selecionarRitmo(ritmo, virada = false) {
             }
 
             play(instrument);
-
-            if (instrumentName == 'aberto') {
-                _sourceChimbalAberto = instrument;
-                _chimbalIsAberto = true;
-            }
+            guardarChimbalAberto(instrumentName, instrument);
         }
 
         var schedule = new simpleTracker(ctx, scheduleAudioBeat);
