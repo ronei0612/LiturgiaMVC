@@ -144,24 +144,10 @@ function verificarOrientacaoCelular() {
 
 selectRitmo.addEventListener('change', function (e) {
 	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-
-	if (_grupoNotas.effects.length > 0) {
-		var bpmRange_valor = bpmRange.value;
-		bpmRange_valor = 30 / bpmRange_valor;
-
-		_grupoNotas.effects[0].time = bpmRange_valor;
-	}
 });
 
 bpm.addEventListener('change', function (e) {
 	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-
-	if (_grupoNotas.effects.length > 0) {
-		var bpmRange_valor = bpmRange.value;
-		bpmRange_valor = 30 / bpmRange_valor;
-
-		_grupoNotas.effects[0].time = bpmRange_valor;
-	}
 });
 
 autoCheck.addEventListener('change', function (e) {
