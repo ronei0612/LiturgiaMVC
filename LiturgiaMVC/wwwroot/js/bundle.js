@@ -1165,80 +1165,80 @@ function tracksLocalStorage() {
     this.setupStorage = function () {
 
         this.setLocalStorage();
-        document.getElementById('save').addEventListener('click', (e) => {
-            e.preventDefault();
+        //document.getElementById('save').addEventListener('click', (e) => {
+        //    e.preventDefault();
 
-            let song = this.getTrack();
-            let json = JSON.stringify(song);
+        //    let song = this.getTrack();
+        //    let json = JSON.stringify(song);
 
-            let filename = this.getFilename();
+        //    let filename = this.getFilename();
 
-            localStorage.setItem(filename, json);
-            this.setLocalStorage('update');
+        //    localStorage.setItem(filename, json);
+        //    this.setLocalStorage('update');
 
-            $("#beat-list").val(filename);
+        //    $("#beat-list").val(filename);
 
-            this.alert(`The track has been saved to local storage as <strong>${filename}</strong>`)
+        //    this.alert(`The track has been saved to local storage as <strong>${filename}</strong>`)
 
-        });
+        //});
 
         // saveAsJson
-        document.getElementById('saveAsJson').addEventListener('click', (e) => {
-            e.preventDefault();
+        //document.getElementById('saveAsJson').addEventListener('click', (e) => {
+        //    e.preventDefault();
 
-            let song = this.getTrack();
-            let json = JSON.stringify(song);
+        //    let song = this.getTrack();
+        //    let json = JSON.stringify(song);
 
-            let filename = this.getFilename();
+        //    let filename = this.getFilename();
 
-            var blob = new Blob([json], {type: "application/json"});
-            FileSaver.saveAs(blob, filename + ".json");
+        //    var blob = new Blob([json], {type: "application/json"});
+        //    FileSaver.saveAs(blob, filename + ".json");
 
 
-        });
+        //});
 
-        $('#filename').bind('keypress keydown keyup', (e) => {
-            if (e.keyCode == 13) {
-                e.preventDefault();
-            }
-        });
+        //$('#filename').bind('keypress keydown keyup', (e) => {
+        //    if (e.keyCode == 13) {
+        //        e.preventDefault();
+        //    }
+        //});
 
-        document.getElementById('beat-list').addEventListener('change', (e) => {
-            let item = $('#beat-list').val();
-            if (item === 'Select') {
-                document.getElementById('filename').value = '';
-                return;
-            }
+        //document.getElementById('beat-list').addEventListener('change', (e) => {
+        //    let item = $('#beat-list').val();
+        //    if (item === 'Select') {
+        //        document.getElementById('filename').value = '';
+        //        return;
+        //    }
 
-            document.getElementById('filename').value = item;
-            let track = JSON.parse(localStorage.getItem(item));
+        //    document.getElementById('filename').value = item;
+        //    let track = JSON.parse(localStorage.getItem(item));
 
-            let formValues = new getSetFormValues();
-            let form = document.getElementById("trackerControls");
+        //    let formValues = new getSetFormValues();
+        //    let form = document.getElementById("trackerControls");
 
-            formValues.set(form, track.settings);
-            getSetAudioOptions.setTrackerControls(track.settings);
-            schedule.stop();
-            schedule.measureLength = track.settings.measureLength;
+        //    formValues.set(form, track.settings);
+        //    getSetAudioOptions.setTrackerControls(track.settings);
+        //    schedule.stop();
+        //    schedule.measureLength = track.settings.measureLength;
 
-            initializeSampleSet(ctx, track.settings.sampleSet, track);
+        //    initializeSampleSet(ctx, track.settings.sampleSet, track);
 
-        });
+        //});
 
-        document.getElementById('delete').addEventListener('click', (e) => {
+        //document.getElementById('delete').addEventListener('click', (e) => {
 
-            e.preventDefault();
+        //    e.preventDefault();
 
-            let elem = document.getElementById('beat-list');
-            let toDelete = elem.options[elem.selectedIndex].text;
+        //    let elem = document.getElementById('beat-list');
+        //    let toDelete = elem.options[elem.selectedIndex].text;
 
-            localStorage.removeItem(toDelete);
-            document.getElementById('filename').value = '';
-            this.setLocalStorage('update');
+        //    localStorage.removeItem(toDelete);
+        //    document.getElementById('filename').value = '';
+        //    this.setLocalStorage('update');
 
-            this.alert(`Track has been deleted`)
+        //    this.alert(`Track has been deleted`)
 
-        });
+        //});
     };
 }
 
@@ -1748,7 +1748,7 @@ module.exports = {
 
 
 },{}],15:[function(require,module,exports){
-const getSetFormValues = require('get-set-form-values');
+    const getSetFormValues = require('get-set-form-values');
     const trackerControls = JSON.parse('{ "": 92, "adsrInterval": 0.1, "attackTime": 0, "bpm": 92, "decayAmp": 0.7, "decayTime": 0, "delay": 0.01, "filter": 1000, "releaseAmp": 1, "releaseTime": 2, "sustainAmp": 0.4, "sustainTime": 2 }');
 
 function getSetControls() {
@@ -1763,7 +1763,7 @@ function getSetControls() {
         //        ret[key] = 'delay';
         //        continue;
         //    }
-            
+
         //    if (key === 'sampleSet') {
         //        ret[key] = values[key];
         //        continue;
@@ -1872,12 +1872,12 @@ function tracker(ctx, scheduleAudioBeat) {
         
         
         
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
 
 
 
@@ -1892,13 +1892,13 @@ function tracker(ctx, scheduleAudioBeat) {
         this.scheduleMap[beat.colId] = triggerTime;
         if (beat.enabled) {
             if (_viradaRitmo != '') {
-                _trocarRitmo = true;
-                selecionarRitmo(_viradaRitmo, true);
+            _trocarRitmo = true;
+            selecionarRitmo(_viradaRitmo, true);
             }
             if (beat.colId == 0) {
-                selecionarRitmo(_ritmoSelecionado);
-                _viradaRitmo = '';
-            }
+            selecionarRitmo(_ritmoSelecionado);
+            _viradaRitmo = '';
+        }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
                 this.scheduleAudioBeat(beat.rowId, triggerTime);
             }, now);
