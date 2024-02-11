@@ -23,6 +23,7 @@ var delay = new Pizzicato.Effects.Delay({ feedback: 0.5, time: 0.33, mix: 0.1 })
 
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
+const eventoMousedown = new Event('mousedown');
 
 const notasAcordes = Object.keys(notasAcordesJson);
 const instrumentoSelect = document.getElementById('instrumentoSelect');
@@ -103,7 +104,6 @@ const mao = document.getElementById('mao');
 const full = document.getElementById('full');
 const stringsCheck = document.getElementById('stringsCheck');
 const measureLength = document.getElementById('measureLength');
-//const tabelaBateria = document.getElementById('tracker-table');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
@@ -264,23 +264,23 @@ function autoMudarRitmo(elementBotao = null) {
 
 		if (_stringsSelecionado) {
 			if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				chimbal.dispatchEvent(eventoClick);
+				chimbal.dispatchEvent(eventoMousedown);
 			} else if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-				brush.dispatchEvent(eventoClick);
+				brush.dispatchEvent(eventoMousedown);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-				meiaLua.dispatchEvent(eventoClick);
+				meiaLua.dispatchEvent(eventoMousedown);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-				aro.dispatchEvent(eventoClick);
+				aro.dispatchEvent(eventoMousedown);
 			}
 		} else {
 			if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				aro.dispatchEvent(eventoClick);
+				aro.dispatchEvent(eventoMousedown);
 			} else if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-				brush.dispatchEvent(eventoClick);
+				brush.dispatchEvent(eventoMousedown);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-				caixa.dispatchEvent(eventoClick);
+				caixa.dispatchEvent(eventoMousedown);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-				aro.dispatchEvent(eventoClick);
+				aro.dispatchEvent(eventoMousedown);
 			}
 		}
 	}
