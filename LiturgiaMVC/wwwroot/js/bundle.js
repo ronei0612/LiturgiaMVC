@@ -1011,6 +1011,8 @@ var _ritmoSelecionado = 'aro';
             schedule.runSchedule(getSetAudioOptions.options.bpm);
         }        
         function stopBateria() {
+            if (_autoMudarRitmo)
+                prato.dispatchEvent(eventoMousedown);
             schedule.stop();
             schedule = new simpleTracker(ctx, scheduleAudioBeat);
         }
