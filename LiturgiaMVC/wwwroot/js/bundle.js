@@ -955,9 +955,9 @@ var _ritmoSelecionado = 'aro';
                 
             
         
-        function scheduleAudioBeat(beat, triggerTime) { //tocar os beats
+        function scheduleAudioBeat(rowId, triggerTime) { //tocar os beats
 
-            let instrumentName = instrumentData.filename[beat.rowId];
+            let instrumentName = instrumentData.filename[rowId];
             let instrument = buffers[instrumentName].get();
             //let options = getSetAudioOptions.getTrackerControls();
             
@@ -1075,7 +1075,8 @@ function setupBaseEvents() {
         if (measureLength_valor == 24)
             bpmRange_valor = bpmRange_valor / 2;
         lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
-        getSetAudioOptions.setTrackerControls();
+        //getSetAudioOptions.setTrackerControls();
+        getSetAudioOptions.options.bpm = bpmRange.value;
         if (schedule.running) {
             schedule.stop();
             schedule.runSchedule(getSetAudioOptions.options.bpm);
@@ -1748,6 +1749,7 @@ module.exports = {
 
 },{}],15:[function(require,module,exports){
 const getSetFormValues = require('get-set-form-values');
+    const trackerControls = JSON.parse('{ "": 92, "adsrInterval": 0.1, "attackTime": 0, "bpm": 92, "decayAmp": 0.7, "decayTime": 0, "delay": 0.01, "filter": 1000, "releaseAmp": 1, "releaseTime": 2, "sustainAmp": 0.4, "sustainTime": 2 }');
 
 function getSetControls() {
     this.getTrackerControls = function () {
@@ -1768,7 +1770,7 @@ function getSetControls() {
         //    }
         //    ret[key] = parseFloat(values[key]);
         //}
-        return JSON.parse('{ "": 92, "adsrInterval": 0.1, "attackTime": 0, "bpm": 92, "decayAmp": 0.7, "decayTime": 0, "delay": 0.01, "filter": 1000, "releaseAmp": 1, "releaseTime": 2, "sustainAmp": 0.4, "sustainTime": 2 }');
+        return trackerControls;
     }
 
     this.setTrackerControls = function (values) {
@@ -1898,7 +1900,7 @@ function tracker(ctx, scheduleAudioBeat) {
                 _viradaRitmo = '';
             }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
-                this.scheduleAudioBeat(beat, triggerTime);
+                this.scheduleAudioBeat(beat.rowId, triggerTime);
             }, now);
         }
     };
@@ -1919,7 +1921,7 @@ function tracker(ctx, scheduleAudioBeat) {
         let triggerTime = this.scheduleMap[0] + beat.colId * this.milliPerBeat(this.bpm) / 1000;
         let now = ctx.currentTime;
         this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
-            this.scheduleAudioBeat(beat, triggerTime);
+            this.scheduleAudioBeat(beat.rowId, triggerTime);
         }, now);
     };
 
