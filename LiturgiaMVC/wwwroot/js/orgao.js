@@ -112,6 +112,11 @@ document.addEventListener("visibilitychange", function () {
 		manterTelaLigada_v2();
 });
 
+window.onerror = function (message, source, lineno, colno, error) {
+	if (isMobileDevice())
+		alert("Erro!\n" + message);
+};
+
 function isMobileDevice() {
 	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
@@ -168,16 +173,16 @@ window.addEventListener("orientationchange", (event) => {
 });
 
 function orientacaoCelularAlterado(event) {
-	if (event.target.screen.orientation.angle == 0) {
+	if (event.target.screen.orientation.angle === 0) {
 		_orientacaoCelularPe = true;
 
-		if (textoCifrasFrame.style.display != 'none')
+		if (textoCifrasFrame.style.display !== 'none')
 			mostrarNavBar();
 	}
 	else {
 		_orientacaoCelularPe = false;
 
-		if (textoCifrasFrame.style.display != 'none')
+		if (textoCifrasFrame.style.display !== 'none')
 			ocultarNavBar();
 	}
 
@@ -219,7 +224,7 @@ function escolherAcorde(acorde, botao) {
 		_cifraId--;
 	}
 
-	if (_acordeAntesSelecionado == acorde)
+	if (_acordeAntesSelecionado === acorde)
 		_acordeSelecionado = '';
 	else
 		_acordeSelecionado = acorde;
@@ -227,7 +232,7 @@ function escolherAcorde(acorde, botao) {
 	if (botao)
 		levantarBotoesAcordes();
 
-	if (_acordeSelecionado == '') {
+	if (_acordeSelecionado === '') {
 		_acordeAntesSelecionado = _acordeSelecionado;
 		pararOsAcordes();
 
@@ -295,29 +300,29 @@ function setTom(acorde = 'C') {
 }
 
 function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
-	if (instrumento == 'stringsSolo' && _stringsSelecionado)
+	if (instrumento === 'stringsSolo' && _stringsSelecionado)
 		instrumento = 'strings';
 
 	if (acorde.includes('_'))
 		acorde = acorde.split('_')[1];
 
 	if (acorde.length > 1) {
-		if (acorde[1] == 'b') {
+		if (acorde[1] === 'b') {
 			var soNota = acorde.slice(0, 2);
 			acorde = acorde.replace(soNota, acidentesCorrespondentesJson[soNota]);
 		}
 	}
 
-	if (grupoNotas != null) {
+	if (grupoNotas !== null) {
 		var notas = notasAcordesJson[acorde];
 
-		if (instrumento == 'stringsSolo') {
+		if (instrumento === 'stringsSolo') {
 			grupoNotas.addSound(acordes['strings_' + notas[0]]);
 			grupoNotas.addSound(acordes['strings_' + notas[0] + '_baixo']);
 			grupoNotas.addSound(acordes['strings_' + notas[0] + '_grave']);
 		}
 
-		else if (instrumento == 'epianoSolo') {
+		else if (instrumento === 'epianoSolo') {
 			grupoNotas.addSound(acordes['epiano_' + notas[0]]);
 			grupoNotas.addSound(acordes['epiano_' + notas[2]]);
 			grupoNotas.addSound(acordes['epiano_' + notas[0] + '_baixo']);
@@ -326,7 +331,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 			grupoNotas.addSound(acordes['epiano_' + notas[2] + '_grave']);
 		}
 
-		else if (instrumento == 'epianoSoloPad') {
+		else if (instrumento === 'epianoSoloPad') {
 			grupoNotas.addSound(acordes['epiano_' + notas[0]]);
 			grupoNotas.addSound(acordes['epiano_' + notas[2]]);
 			grupoNotas.addSound(acordes['epiano_' + notas[0] + '_baixo']);
@@ -345,25 +350,25 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 		else {
 			for (var i = 0, len = notas.length; i < len; i++) {
 				if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
-					if (i == 0)
+					if (i === 0)
 						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
 
-					if (instrumento != 'strings')
+					if (instrumento !== 'strings')
 						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
 					else {
-						if (i == 1)
+						if (i === 1)
 							grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
 					}
 				}
 
 				if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
-					if (instrumento == 'stringsSolo')
+					if (instrumento === 'stringsSolo')
 						grupoNotas.addSound(acordes['strings_' + notas[0]]);
 					else {
-						if (instrumento != 'strings')
+						if (instrumento !== 'strings')
 							grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
 						else {
-							if (i != 0 && i != 1)
+							if (i !== 0 && i !== 1)
 								grupoNotas.addSound(acordes[instrumento + '_' + notas[i]]);
 						}
 					}
@@ -375,7 +380,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 }
 
 function verificarGrupoNotasInstanciado(grupoNotas, efeito = null) {
-	if (grupoNotas == null) {
+	if (grupoNotas === null) {
 		grupoNotas = new Pizzicato.Group();
 
 		grupoNotas.volume = _volume;
@@ -392,7 +397,7 @@ function verificarGrupoNotasInstanciado(grupoNotas, efeito = null) {
 }
 
 function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
-	if (_acordeAntesSelecionado == acorde) {
+	if (_acordeAntesSelecionado === acorde) {
 		pararOsAcordes(true, true);
 		esperar = 50;
 	}
@@ -402,14 +407,14 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 	//setTimeout(function () { 
 		_acordeAntesSelecionado = acorde;
 
-		if (_instrumentoSelecionado == 'strings') {
+		if (_instrumentoSelecionado === 'strings') {
 			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
 			_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'stringsSolo');
 			_grupoNotasStrings.play();
 		}
 
 		else {
-			if (_instrumentoSelecionado == 'epiano')
+			if (_instrumentoSelecionado === 'epiano')
 				_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 			else
 				_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
@@ -440,8 +445,8 @@ function pararOsAcordes(removerSons = false, continuarStrings = false) {
 		}
 	}
 
-	if (continuarStrings == false)
-		if (_grupoNotasStrings != null) {
+	if (continuarStrings === false)
+		if (_grupoNotasStrings !== null) {
 			_stringsParado = true;
 			_grupoNotasStrings.stop();
 
@@ -466,9 +471,9 @@ function levantarBotoesAcompanhamento() {
 }
 
 function pressionarBotaoAcompanhamento(botao) {
-	if (botaoAcompPressionado(botao) == false) {
-		if (_acordeAntesSelecionado != '')
-			if (_instrumentoSelecionado != 'epiano')
+	if (botaoAcompPressionado(botao) === false) {
+		if (_acordeAntesSelecionado !== '')
+			if (_instrumentoSelecionado !== 'epiano')
 				verificarAcompanhamentoEtocar(_acordeAntesSelecionado);
 
 		levantarBotoesAcompanhamento();
@@ -490,13 +495,13 @@ function pressionarBotaoAcomp(botao) {
 function alterarVolume(volume, padrao) {
 	_volume = parseFloat(volume);
 
-	if (_grupoNotas != null)
+	if (_grupoNotas !== null)
 		_grupoNotas.volume = _volume;
 
-	if (_grupoNotasStrings != null)
+	if (_grupoNotasStrings !== null)
 		_grupoNotasStrings.volume = _volume;
 
-	if (volume == padrao)
+	if (volume === padrao)
 		volumeTexto.innerHTML = volume * 10;	
 	else
 		volumeTexto.innerHTML = (volume * 10) + '*';
@@ -589,7 +594,7 @@ function adicionarTonsSelect(element, index, maior) {
 	selectElem.innerHTML = "";
 
 	var tons = tonsMaiores;
-	if (maior == false)
+	if (maior === false)
 		tons = tonsMenores;
 
 	for (var i = 0; i < tons.length; i++) {
@@ -620,7 +625,7 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 	else
 		textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
 
-	if (textoCifrasFrame.style.display == 'none') {
+	if (textoCifrasFrame.style.display === 'none') {
 		mudarParaTelaFrame();
 	}
 
@@ -655,7 +660,7 @@ function mudarParaTelaFrame() {
 	$('#tdVolume').appendTo('#orgaoTable');
 	$('#orgaoTable').prependTo('#bateriaBox');
 
-	if (_orientacaoCelularPe == false)
+	if (_orientacaoCelularPe === false)
 		ocultarNavBar();
 }
 
@@ -679,7 +684,7 @@ function addEventCifras(frame) {
 function tocarCifraManualmente(cifraElem) {
 	_cifraId = cifraElem.id.split('cifra')[1] - 1;
 
-	if (_cifraParado == false)
+	if (_cifraParado === false)
 		avancarCifra('avancar', cifraAvancar);
 }
 
@@ -687,14 +692,14 @@ var _cifraId = 0;
 var _cifraParado = true;
 
 function avancarCifra(avancar_retroceder, botao) {
-	if (avancar_retroceder == '') {
+	if (avancar_retroceder === '') {
 		escolherAcorde('', botao);
 		botaoGravar.style.display = 'block';
 		play_pause.style.display = 'none';
 	}
 	
-	else if (avancar_retroceder == 'repetir') {
-		if (_cifraParado == false)
+	else if (avancar_retroceder === 'repetir') {
+		if (_cifraParado === false)
 			verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 50);
 	}
 
@@ -703,7 +708,7 @@ function avancarCifra(avancar_retroceder, botao) {
 		var elements_b = frameContent.getElementsByTagName('b');
 		var cifraElems = frameContent.getElementsByClassName('cifraSelecionada');
 
-		if (avancar_retroceder == 'avancar') {
+		if (avancar_retroceder === 'avancar') {
 			if (_cifraId < elements_b.length) {
 				if (cifraElems.length > 0)
 					cifraElems[0].classList.remove('cifraSelecionada');
@@ -725,7 +730,7 @@ function avancarCifra(avancar_retroceder, botao) {
 			}
 		}
 
-		if (avancar_retroceder == 'retroceder') {
+		if (avancar_retroceder === 'retroceder') {
 			if (_cifraId - 1 > 0) {
 				if (cifraElems.length > 0)
 					cifraElems[0].classList.remove('cifraSelecionada');
