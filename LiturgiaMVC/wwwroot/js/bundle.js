@@ -1750,25 +1750,25 @@ module.exports = {
 const getSetFormValues = require('get-set-form-values');
 
 function getSetControls() {
-    this.getTrackerControls = function() {
-        let formValues = new getSetFormValues();
-        let form = document.getElementById("trackerControls");
-        let values = formValues.get(form);
-        let ret = {};
-        for (let key in values) {
+    this.getTrackerControls = function () {
+        //let formValues = new getSetFormValues();
+        //let form = document.getElementById("trackerControls");
+        //let values = formValues.get(form);
+        //let ret = {};
+        //for (let key in values) {
 
-            if (key === 'delayEnabled') {
-                ret[key] = 'delay';
-                continue;
-            }
+        //    if (key === 'delayEnabled') {
+        //        ret[key] = 'delay';
+        //        continue;
+        //    }
             
-            if (key === 'sampleSet') { 
-                ret[key] = values[key];
-                continue;
-            }
-            ret[key] = parseFloat(values[key]);
-        }
-        return ret;
+        //    if (key === 'sampleSet') {
+        //        ret[key] = values[key];
+        //        continue;
+        //    }
+        //    ret[key] = parseFloat(values[key]);
+        //}
+        return JSON.parse('{ "": 92, "adsrInterval": 0.1, "attackTime": 0, "bpm": 92, "decayAmp": 0.7, "decayTime": 0, "delay": 0.01, "filter": 1000, "releaseAmp": 1, "releaseTime": 2, "sustainAmp": 0.4, "sustainTime": 2 }');
     }
 
     this.setTrackerControls = function (values) {
@@ -1801,6 +1801,7 @@ function tracker(ctx, scheduleAudioBeat) {
     this.clock = new WAAClock(ctx);
     this.clock.start();
     this.running = false;
+
 
     /**
      * Draw a tracker table by numRows and numCols
