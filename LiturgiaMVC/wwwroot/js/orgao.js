@@ -19,8 +19,6 @@ var _sourceChimbalAberto;
 var _viradaRitmo = '';
 var _trocarRitmo = false;
 
-var delay = new Pizzicato.Effects.Delay({ feedback: 0.5, time: 0.33, mix: 0.1 });
-
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
 const eventoMousedown = new Event('mousedown');
