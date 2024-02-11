@@ -959,7 +959,7 @@ var _ritmoSelecionado = 'aro';
 
             let instrumentName = instrumentData.filename[beat.rowId];
             let instrument = buffers[instrumentName].get();
-            let options = getSetAudioOptions.getTrackerControls();
+            //let options = getSetAudioOptions.getTrackerControls();
             
 
             function play(source) {
@@ -968,7 +968,7 @@ var _ritmoSelecionado = 'aro';
 
                 
                 let node = routeGain(source)
-                node = routeDelay(node);
+                //node = routeDelay(node);
                 node.connect(ctx.destination);
 
                 fecharChimbal(instrumentName, _sourceChimbalAberto, triggerTime);
@@ -995,10 +995,10 @@ var _ritmoSelecionado = 'aro';
                 return gainNode;
             }
             // Note delay always uses above gain - even if not enabled
-            function routeDelay(node) {
-                if (!options.delayEnabled)
-                    return node;
-            }
+            //function routeDelay(node) {
+            //    if (!options.delayEnabled)
+            //        return node;
+            //}
             play(instrument);
             guardarChimbalAberto(instrumentName, instrument);
         }        
