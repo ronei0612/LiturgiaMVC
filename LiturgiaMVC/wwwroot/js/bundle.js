@@ -929,10 +929,9 @@ var _ritmoSelecionado = 'aro';
         }
 
         window.onload = function () {
-
+            
             let formValues = new getSetFormValues();
             let form = document.getElementById("trackerControls");
-
             formValues.set(form, defaultTrack.settings);
             getSetAudioOptions.setTrackerControls(defaultTrack.settings);
 
@@ -942,7 +941,6 @@ var _ritmoSelecionado = 'aro';
             storage = new tracksLocalStorage();
             storage.setupStorage();
         };
-
         var instrumentData = {};
         function setupTrackerHtml(data, measureLength) {
             instrumentData = data;
@@ -950,7 +948,6 @@ var _ritmoSelecionado = 'aro';
             schedule.drawTracker(data.filename.length, measureLength, instrumentData);
             return;
         }
-
         function disconnectNode(node, options) {
             let totalLength =
                 options.attackTime + options.sustainTime + options.releaseTime;
@@ -958,21 +955,26 @@ var _ritmoSelecionado = 'aro';
                 node.disconnect();
             }, totalLength * 1000);
         }
-
         function scheduleAudioBeat(beat, triggerTime) { //tocar os beats
 
             let instrumentName = instrumentData.filename[beat.rowId];
             let instrument = buffers[instrumentName].get();
             let options = getSetAudioOptions.getTrackerControls();
+            
 
             function play(source) {
+                
+
+
+                
                 let node = routeGain(source)
                 node = routeDelay(node);
                 node.connect(ctx.destination);
-                
+
                 fecharChimbal(instrumentName, _sourceChimbalAberto, triggerTime);
                 source.start(triggerTime);
             }
+
 
             function routeGain(source) {
                 let gain = new adsrGainNode(ctx);
@@ -981,52 +983,48 @@ var _ritmoSelecionado = 'aro';
 
                 let gainNode;
 
+
+
+
+
+
                 gain.setOptions(options);
                 gainNode = gain.getGainNode(triggerTime);
                 source.connect(gainNode);
 
                 return gainNode;
             }
-
             // Note delay always uses above gain - even if not enabled
             function routeDelay(node) {
                 if (!options.delayEnabled)
                     return node;
             }
-
             play(instrument);
             guardarChimbalAberto(instrumentName, instrument);
-        }
-
-        var schedule = new simpleTracker(ctx, scheduleAudioBeat);
-
+        }        
+        var schedule = new simpleTracker(ctx, scheduleAudioBeat);        
         function playBateria() {
             let storage = new tracksLocalStorage();
             let track = storage.getTrack();
             schedule.measureLength = track.settings.measureLength;
             schedule.stop();
             schedule.runSchedule(getSetAudioOptions.options.bpm);
-        }
-
+        }        
         function stopBateria() {
             schedule.stop();
             schedule = new simpleTracker(ctx, scheduleAudioBeat);
         }
-
         gerarRitmosNomes(ritmosNomes);
-
         function routeGain(source) {
             let gain = new adsrGainNode(ctx);
             gain.mode = 'linearRampToValueAtTime';
             let options = getSetAudioOptions.getTrackerControls();
             let gainNode;
-
             gain.setOptions(options);
             gainNode = gain.getGainNode(0);
             source.connect(gainNode);
             return gainNode;
         }
-
         function tocarBateria(botao = null) {
             if (botao) {
                 if (!schedule.running)
@@ -1035,7 +1033,6 @@ var _ritmoSelecionado = 'aro';
             else
                 stopBateria();
         }
-
 function setupBaseEvents() {
     function verificarETocarBateria(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento) {
         if (verificarETocarBateria_2(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento)) {
@@ -1044,13 +1041,12 @@ function setupBaseEvents() {
         }
     }
     selectRitmo.addEventListener('change', function (e) {
-        var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');        
+        var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
         if (ritmoSelecionado.length > 0)
             ritmoSelecionado[0].classList.toggle('selecionadoDrum', false);
         var botao = document.activeElement;
         selecionarRitmo(botao.value);
     });
-
     aro.addEventListener('mousedown', function (e) { verificarETocarBateria('aro', false) });
     meiaLua.addEventListener('mousedown', function (e) { verificarETocarBateria('meiaLua', true, 'stringsSolo') });
     caixa.addEventListener('mousedown', function (e) { verificarETocarBateria('', false) });
@@ -1064,7 +1060,6 @@ function setupBaseEvents() {
         }
         tocarBateria();
     });
-
     prato.addEventListener('mousedown', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             let pratoAtaque1 = buffers['prato1'].get();
@@ -1073,43 +1068,34 @@ function setupBaseEvents() {
             pratoAtaque1.start();
         }
     });
-
     bpm.addEventListener('change', function (e) {
         var bpmRange_valor = bpmRange.value;
         bpmRange_valor = 60000 / bpmRange_valor;
-
         var measureLength_valor = measureLength.value;
         if (measureLength_valor == 24)
             bpmRange_valor = bpmRange_valor / 2;
-
         lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
-
         getSetAudioOptions.setTrackerControls();
         if (schedule.running) {
             schedule.stop();
             schedule.runSchedule(getSetAudioOptions.options.bpm);
         }
     });
-
     bpmRange.addEventListener('input', function (e) {
         bpm.value = bpmRange.value;
         bpm.dispatchEvent(eventoChange);
     });
-
     measureLength.addEventListener('change', (e) => {
         let value = document.getElementById('measureLength').value;
         let length = parseInt(value);
-
         if (length < 1) return;
         schedule.measureLength = length;
-
         let track = schedule.getTrackerValues();
         setupTrackerHtml(currentSampleData, length);
         schedule.measureLength = length;
         schedule.loadTrackerValues(track);
         schedule.setupEvents();
     });
-
     $('.base').on('change', function () {
         getSetAudioOptions.setTrackerControls();
     });
@@ -1408,19 +1394,369 @@ module.exports = {
   }
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 },{}],15:[function(require,module,exports){
 const getSetFormValues = require('get-set-form-values');
 
 function getSetControls() {
-
     this.getTrackerControls = function() {
-
         let formValues = new getSetFormValues();
         let form = document.getElementById("trackerControls");
         let values = formValues.get(form);
         let ret = {};
         for (let key in values) {
-            
+
             if (key === 'delayEnabled') {
                 ret[key] = 'delay';
                 continue;
@@ -1440,8 +1776,7 @@ function getSetControls() {
             values = this.getTrackerControls();
         }
         this.options = values;
-    };  
-
+    };
 }
 
 module.exports = getSetControls;
@@ -1456,7 +1791,6 @@ const hasClass = require('has-class');
  * @param {audioContext} ctx 
  * @param {function} scheduleAudioBeat funtion when an audio is played
  */
-
 function tracker(ctx, scheduleAudioBeat) {
 
     this.measureLength = 16;
@@ -1525,14 +1859,25 @@ function tracker(ctx, scheduleAudioBeat) {
     this.schedule = function () {
         let beatColumn = this.getTrackerRowValues(this.current);
         let now = ctx.currentTime;
-
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         beatColumn.forEach((beat) => {
             this.scheduleBeat(beat, now);
         });
     };
 
     this.scheduleBeat = function (beat, now) { //tocar os beats
-
         let triggerTime = now + this.scheduleForward;
         this.scheduleMap[beat.colId] = triggerTime;
         if (beat.enabled) {
@@ -1543,7 +1888,7 @@ function tracker(ctx, scheduleAudioBeat) {
             if (beat.colId == 0) {
                 selecionarRitmo(_ritmoSelecionado);
                 _viradaRitmo = '';
-                }
+            }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
                 this.scheduleAudioBeat(beat, triggerTime);
             }, now);
@@ -1692,23 +2037,17 @@ function trackerTable() {
         str += `</td>`;
         return str;
     };
-
     var i = 0;
-
     this.getCells = function (rowID, numRows, data) {
         var str = '';
         var num = '';
-
         str += this.getFirstCell(rowID, data);
-
         let cssClass = 'tracker-cell';
-
         if (rowID == 'header') {
             cssClass = 'tracker-cell-header';
         }
-
         for (let c = 0; c < numRows; c++) {
-            if (cssClass == 'tracker-cell')
+            if (cssClass == 'tracker-cell') 
                 num = i;
             else
                 num = '';
