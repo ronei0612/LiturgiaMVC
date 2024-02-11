@@ -19,9 +19,16 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery/dist/jquery-3.4.1.slim.js"></script>
 
-    <script src="~/js/bateria.js" asp-append-version="true"></script>
-    <script src="~/js/bundle.js" asp-append-version="true"></script>
-    @* <script src="~/js/bundle.min.js" asp-append-version="true"></script> *@
+    @if (ViewContext.HttpContext.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
+    {
+        <script src="~/js/bateria.js" asp-append-version="true"></script>
+        <script src="~/js/bundle.js" asp-append-version="true"></script>
+    }
+    else
+    {
+        <script src="~/js/bateria.min.js" asp-append-version="true"></script>
+        <script src="~/js/bundle.min.js" asp-append-version="true"></script>
+    }
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

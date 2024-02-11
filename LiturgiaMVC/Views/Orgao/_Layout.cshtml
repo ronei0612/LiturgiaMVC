@@ -254,10 +254,16 @@
         </main>
     </div>
     
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
-
-    <script src="~/js/orgao.js" asp-append-version="true"></script>
-    @* <script src="~/js/orgao.min.js" asp-append-version="true"></script> *@
+    @if (ViewContext.HttpContext.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
+    {
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/orgao.js" asp-append-version="true"></script>
+    }
+    else
+    {
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/orgao.min.js" asp-append-version="true"></script>
+    }
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
