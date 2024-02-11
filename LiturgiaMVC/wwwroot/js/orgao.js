@@ -381,12 +381,12 @@ function verificarGrupoNotasInstanciado(grupoNotas, efeito = null) {
 		grupoNotas.volume = _volume;
 	}
 
-	if (efeito) {
-		if (grupoNotas.effects.length == 0)
-			grupoNotas.addEffect(efeito);
-	}
-	else if (grupoNotas.effects.length > 0)
-		grupoNotas.removeEffect(grupoNotas.effects[0]);
+	//if (efeito) {
+	//	if (grupoNotas.effects.length == 0)
+	//		grupoNotas.addEffect(efeito);
+	//}
+	//else if (grupoNotas.effects.length > 0)
+	//	grupoNotas.removeEffect(grupoNotas.effects[0]);
 
 	return grupoNotas;
 }
