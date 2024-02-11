@@ -13,37 +13,6 @@ function setBeats(ritmoMatrix) {//compasso
     measureLength.dispatchEvent(eventoChange);
 }
 
-function fazerViradaBateria(ritmoSelecionado) {
-    var viradaRitmo = _ritmoSelecionado + '_fill';
-    return viradaRitmo;
-}
-
-function fecharChimbal(instrumentName, sourceChimbalAberto, triggerTime) {
-    if (instrumentName == 'chimbal' || instrumentName == 'chimbal2')
-        if (_chimbalIsAberto) {
-            sourceChimbalAberto.stop(triggerTime);
-            _chimbalIsAberto = false;
-        }
-}
-
-function guardarChimbalAberto(instrumentName, instrument) {
-    if (instrumentName == 'aberto') {
-        _sourceChimbalAberto = instrument;
-        _chimbalIsAberto = true;
-    }
-}
-
-function mudarRitmo(ritmo) {
-    _trocarRitmo = true;
-
-    if (ritmo == '')
-        _ritmoSelecionado = selectRitmo.value;
-    else
-        _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
-
-    selecionarRitmo(_ritmoSelecionado);
-}
-
 function selecionarRitmo(ritmo, virada = false) {
     if (_trocarRitmo) {
         _viradaRitmo = fazerViradaBateria(_ritmoSelecionado);
@@ -71,6 +40,37 @@ function selecionarRitmo(ritmo, virada = false) {
             tdsAtivar[numeroIndex].classList.add('tracker-enabled');
         });
     }
+}
+
+function fazerViradaBateria(ritmoSelecionado) {
+    var viradaRitmo = ritmoSelecionado + '_fill';
+    return viradaRitmo;
+}
+
+function fecharChimbal(instrumentName, sourceChimbalAberto, triggerTime) {
+    if (instrumentName == 'chimbal' || instrumentName == 'chimbal2')
+        if (_chimbalIsAberto) {
+            sourceChimbalAberto.stop(triggerTime);
+            _chimbalIsAberto = false;
+        }
+}
+
+function guardarChimbalAberto(instrumentName, instrument) {
+    if (instrumentName == 'aberto') {
+        _sourceChimbalAberto = instrument;
+        _chimbalIsAberto = true;
+    }
+}
+
+function mudarRitmo(ritmo) {
+    _trocarRitmo = true;
+
+    if (ritmo == '')
+        _ritmoSelecionado = selectRitmo.value;
+    else
+        _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
+
+    selecionarRitmo(_ritmoSelecionado);
 }
 
 function gerarRitmosNomes(ritmosNomes) {
