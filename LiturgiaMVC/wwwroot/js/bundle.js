@@ -1817,6 +1817,7 @@ function tracker(ctx, scheduleAudioBeat) {
         t.insertAdjacentHTML('afterbegin', str);
     }
 
+
     /**
      * Push current beat one forward
      */
@@ -1827,6 +1828,7 @@ function tracker(ctx, scheduleAudioBeat) {
         }
     };
 
+
     /**
      * Calculate milli seconds per beat
      */
@@ -1836,6 +1838,7 @@ function tracker(ctx, scheduleAudioBeat) {
         }
         return 1000 * 60 / beats;
     };
+
 
     /**
      * Get a tracker row from a cell-id
@@ -1871,6 +1874,10 @@ function tracker(ctx, scheduleAudioBeat) {
         
         
         
+        
+
+
+
         
         beatColumn.forEach((beat) => {
             this.scheduleBeat(beat, now);
