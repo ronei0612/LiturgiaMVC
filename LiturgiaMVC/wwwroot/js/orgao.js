@@ -284,7 +284,7 @@ function escolherAcompanhamento(funcao, botao) {
 
 function tocarAcorde(acorde, botao) {
 	if (botao) {
-		if (botao.value != '')
+		if (botao.value !== '')
 			verificarAcompanhamentoEtocar(botao.value);
 		else
 			verificarAcompanhamentoEtocar(acorde);
@@ -349,7 +349,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 
 		else {
 			for (var i = 0, len = notas.length; i < len; i++) {
-				if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'baixo') {
+				if (_acompanhamentoSelecionado === 'full' || _acompanhamentoSelecionado === 'baixo') {
 					if (i === 0)
 						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
 
@@ -361,7 +361,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 					}
 				}
 
-				if (_acompanhamentoSelecionado == 'full' || _acompanhamentoSelecionado == 'mao')
+				if (_acompanhamentoSelecionado === 'full' || _acompanhamentoSelecionado === 'mao')
 					if (instrumento === 'stringsSolo')
 						grupoNotas.addSound(acordes['strings_' + notas[0]]);
 					else {
@@ -557,7 +557,7 @@ function aumentarTom(aumentar, quant, select) {
 		var tonsArray = tonsMaiores;
 
 	if (aumentar) {
-		if (tomSelecionadoIndex + quant == tomElement.length)
+		if (tomSelecionadoIndex + quant === tomElement.length)
 			tomElement.value = tonsArray[0];
 		else if (tomSelecionadoIndex + quant > tomElement.length)
 			tomElement.value = tonsArray[-1 + quant];
@@ -566,7 +566,7 @@ function aumentarTom(aumentar, quant, select) {
 	}
 	else {
 		if (tomSelecionadoIndex - quant < 0)
-			if (tomSelecionadoIndex == 0)
+			if (tomSelecionadoIndex === 0)
 				tomElement.value = tonsArray[tomElement.length - quant];
 			else
 				tomElement.value = tonsArray[tomElement.length - 1];
@@ -574,7 +574,7 @@ function aumentarTom(aumentar, quant, select) {
 			tomElement.value = tonsArray[tomSelecionadoIndex - quant];
 	}
 	
-	if (textoCifrasFrame.style.display == "block")
+	if (textoCifrasFrame.style.display === "block")
 		mudarTomCifra(aumentar, quant);
 	else
 		mudarTom(tomElement.value);
@@ -726,7 +726,7 @@ function avancarCifra(avancar_retroceder, botao) {
 				if (cifraElems.length > 0)
 					cifraElems[0].classList.remove('cifraSelecionada');
 
-				if (_cifraParado == false)
+				if (_cifraParado === false)
 					_cifraId--;
 
 				var cifraElem = elements_b[_cifraId - 1];
