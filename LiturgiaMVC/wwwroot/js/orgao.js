@@ -97,7 +97,7 @@ const autoTunerCheck = document.getElementById('autoTunerCheck');
 const liturgiaDiariaDiv = document.getElementById('liturgiaDiariaDiv');
 const violinoDesenho = document.getElementById('violinoDesenho');
 const switchDark = document.getElementById('switchDark');
-const solo = document.getElementById('solo');
+const baixo = document.getElementById('baixo');
 const mao = document.getElementById('mao');
 const full = document.getElementById('full');
 const stringsCheck = document.getElementById('stringsCheck');
@@ -252,9 +252,9 @@ function autoMudarRitmo(elementBotao = null) {
 		var selecionadoElement = elementBotao || document.querySelector('.selecionado');
 
 		if (_stringsSelecionado) {
-			if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
+			if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
 				chimbal.dispatchEvent(eventoMousedown);
-			} else if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
+			} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
 				brush.dispatchEvent(eventoMousedown);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
 				meiaLua.dispatchEvent(eventoMousedown);
@@ -262,9 +262,9 @@ function autoMudarRitmo(elementBotao = null) {
 				aro.dispatchEvent(eventoMousedown);
 			}
 		} else {
-			if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
+			if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
 				aro.dispatchEvent(eventoMousedown);
-			} else if ((selecionadoElement.id === 'solo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
+			} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
 				brush.dispatchEvent(eventoMousedown);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
 				caixa.dispatchEvent(eventoMousedown);
