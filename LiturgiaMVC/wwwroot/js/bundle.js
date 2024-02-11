@@ -948,13 +948,13 @@ var _ritmoSelecionado = 'aro';
             schedule.drawTracker(data.filename.length, measureLength, instrumentData);
             return;
         }
-        function disconnectNode(node, options) {
-            let totalLength =
-                options.attackTime + options.sustainTime + options.releaseTime;
-            setTimeout(() => {
-                node.disconnect();
-            }, totalLength * 1000);
-        }
+        
+            
+                
+            
+                
+            
+        
         function scheduleAudioBeat(beat, triggerTime) { //tocar os beats
 
             let instrumentName = instrumentData.filename[beat.rowId];
