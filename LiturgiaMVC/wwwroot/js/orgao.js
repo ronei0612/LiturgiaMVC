@@ -300,12 +300,8 @@ function setTom(acorde = 'C') {
 	tomSelect.value = acorde;
 }
 
-function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
-	if (instrumento === 'stringsSolo' && _stringsSelecionado)
-		instrumento = 'strings';
-
-	if (acorde.includes('_'))
-		acorde = acorde.split('_')[1];
+function refinarAcorde(acorde) {
+	acorde = acorde.includes('_') ? acorde.split('_')[1] : acorde;
 
 	if (acorde.length > 1) {
 		if (acorde[1] === 'b') {
@@ -313,6 +309,15 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 			acorde = acorde.replace(soNota, acidentesCorrespondentesJson[soNota]);
 		}
 	}
+
+	_acordeSelecionado = acorde;
+}
+
+function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
+	if (instrumento === 'stringsSolo' && _stringsSelecionado)
+		instrumento = 'strings';
+
+	refinarAcorde(acorde);
 
 	if (grupoNotas) {
 		var notas = notasAcordesJson[acorde];
