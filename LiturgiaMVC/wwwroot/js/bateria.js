@@ -55,9 +55,18 @@ function fecharChimbal(instrumentName, sourceChimbalAberto, triggerTime) {
         }
 }
 
-function pararBaixo(triggerTime) {
-    if (_sourceBaixo)
-        _sourceBaixo.stop(triggerTime);
+function pararBaixo(ctx) {
+    if (_sourceBaixo) {
+        //let node = _sourceBaixo.context.createGain();
+        //_sourceBaixo.connect(node);
+        //node.gain.setValueAtTime(1, ctx.currentTime);
+        //node.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.1);
+
+        // Parar o áudio após o fading out
+        //_sourceBaixo.stop(ctx.currentTime + 0.1);
+        //_sourceBaixo.stop(ctx.currentTime + 0.05);
+        _sourceBaixo.stop();
+    }
 }
 
 function guardarChimbalAberto(instrumentName, instrument) {
