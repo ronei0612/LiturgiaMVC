@@ -1000,7 +1000,7 @@ var _ritmoSelecionado = 'aro';
                     if (_acordeSelecionado) {
                         setTimeout(function () {
                             //pararBaixo(ctx);
-                            let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado : _acordeSelecionado;
+                            let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0] : _acordeSelecionado;
                             let baixoAudio = buffers['baixo_' + nota].get();
                             guardarBaixo(baixoAudio);
                             play(baixoAudio);
