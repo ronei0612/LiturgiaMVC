@@ -996,7 +996,7 @@ var _ritmoSelecionado = 'aro';
                 return gainNode;
             }
             function playBaixo() {
-                if (instrumentName === 'bumbo') {
+                if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano') {
                     if (_acordeSelecionado) {
                         setTimeout(function () {
                             //pararBaixo(ctx);
@@ -1004,7 +1004,7 @@ var _ritmoSelecionado = 'aro';
                             let baixoAudio = buffers['baixo_' + nota].get();
                             guardarBaixo(baixoAudio);
                             play(baixoAudio);
-                        }, 150)
+                        }, 130)
                     }
                 }
             }
