@@ -328,7 +328,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 			grupoNotas.addSound(acordes['epiano_' + notas[0] + '_baixo']);
 			grupoNotas.addSound(acordes['epiano_' + notas[2] + '_baixo']);
 			grupoNotas.addSound(acordes['epiano_' + notas[0] + '_grave']);
-			grupoNotas.addSound(acordes['epiano_' + notas[2] + '_grave']);
+			//grupoNotas.addSound(acordes['epiano_' + notas[2] + '_grave']);
 		}
 
 		else if (instrumento === 'epianoSoloPad') {
@@ -337,14 +337,14 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 			grupoNotas.addSound(acordes['epiano_' + notas[0] + '_baixo']);
 			grupoNotas.addSound(acordes['epiano_' + notas[2] + '_baixo']);
 			grupoNotas.addSound(acordes['epiano_' + notas[0] + '_grave']);
-			grupoNotas.addSound(acordes['epiano_' + notas[2] + '_grave']);
+			//grupoNotas.addSound(acordes['epiano_' + notas[2] + '_grave']);
 
 			grupoNotas.addSound(acordes['strings_' + notas[0]]);
 			grupoNotas.addSound(acordes['strings_' + notas[2]]);
 			grupoNotas.addSound(acordes['strings_' + notas[0] + '_baixo']);
 			grupoNotas.addSound(acordes['strings_' + notas[2] + '_baixo']);
 			grupoNotas.addSound(acordes['strings_' + notas[0] + '_grave']);
-			grupoNotas.addSound(acordes['strings_' + notas[2] + '_grave']);
+			//grupoNotas.addSound(acordes['strings_' + notas[2] + '_grave']);
 		}
 
 		else {
