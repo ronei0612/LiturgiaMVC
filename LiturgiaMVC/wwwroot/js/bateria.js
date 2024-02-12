@@ -55,11 +55,20 @@ function fecharChimbal(instrumentName, sourceChimbalAberto, triggerTime) {
         }
 }
 
+function pararBaixo(triggerTime) {
+    if (_sourceBaixo)
+        _sourceBaixo.stop(triggerTime);
+}
+
 function guardarChimbalAberto(instrumentName, instrument) {
     if (instrumentName === 'aberto') {
         _sourceChimbalAberto = instrument;
         _chimbalIsAberto = true;
     }
+}
+
+function guardarBaixo(instrument) {
+    _sourceBaixo = instrument;
 }
 
 function mudarRitmo(ritmo) {

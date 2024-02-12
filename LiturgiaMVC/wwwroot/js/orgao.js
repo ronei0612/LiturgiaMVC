@@ -16,6 +16,7 @@ var _tomSelectedIndexCifra = 0;
 
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
+var _sourceBaixo;
 var _viradaRitmo = '';
 var _trocarRitmo = false;
 

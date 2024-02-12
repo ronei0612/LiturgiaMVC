@@ -999,14 +999,12 @@ var _ritmoSelecionado = 'aro';
                 if (instrumentName === 'bumbo') {
                     if (_acordeSelecionado) {
                         let nota = _acordeSelecionado.includes('_') ? _acordeSelecionado.split('_')[1] : _acordeSelecionado;
-                        this.baixoAudio = buffers['baixo_' + nota].get();
-                        play(this.baixoAudio);
+                        let baixoAudio = buffers['baixo_' + nota].get();
+                        pararBaixo();
+                        guardarBaixo(baixoAudio);
+                        play(baixoAudio);
                     }
                 }
-                //else if (instrumentName === 'caixa' || instrumentName === 'caixa-low' || instrumentName === 'aro') {
-                //    if (this.baixoAudio)
-                //        this.baixoAudio.stop(triggerTime);
-                //}
             }
             
             play(instrument);
