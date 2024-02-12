@@ -998,13 +998,13 @@ var _ritmoSelecionado = 'aro';
             function playBaixo() {
                 if (instrumentName === 'bumbo') {
                     if (_acordeSelecionado) {
-                        pararBaixo();
                         setTimeout(function () {
+                            //pararBaixo(ctx);
                             let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado : _acordeSelecionado;
                             let baixoAudio = buffers['baixo_' + nota].get();
                             guardarBaixo(baixoAudio);
                             play(baixoAudio);
-                        }, 80)
+                        }, 150)
                     }
                 }
             }
