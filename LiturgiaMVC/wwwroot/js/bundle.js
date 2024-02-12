@@ -968,10 +968,11 @@ var _ritmoSelecionado = 'aro';
 
                 
                 let node = routeGain(source)
-                //node = routeDelay(node);
                 node.connect(ctx.destination);
-
                 fecharChimbal(instrumentName, _sourceChimbalAberto, triggerTime);
+
+                
+
                 source.start(triggerTime);
             }
 
@@ -994,12 +995,22 @@ var _ritmoSelecionado = 'aro';
 
                 return gainNode;
             }
-            // Note delay always uses above gain - even if not enabled
-            //function routeDelay(node) {
-            //    if (!options.delayEnabled)
-            //        return node;
-            //}
+            function playBaixo() {
+                if (instrumentName === 'bumbo') {
+                    if (_acordeSelecionado) {
+                        let nota = _acordeSelecionado.includes('_') ? _acordeSelecionado.split('_')[1] : _acordeSelecionado;
+                        this.baixoAudio = buffers['baixo_' + nota].get();
+                        play(this.baixoAudio);
+                    }
+                }
+                //else if (instrumentName === 'caixa' || instrumentName === 'caixa-low' || instrumentName === 'aro') {
+                //    if (this.baixoAudio)
+                //        this.baixoAudio.stop(triggerTime);
+                //}
+            }
+            
             play(instrument);
+            playBaixo();
             guardarChimbalAberto(instrumentName, instrument);
         }        
         var schedule = new simpleTracker(ctx, scheduleAudioBeat);        
@@ -2030,7 +2041,7 @@ function trackerTable() {
         this.setHeader(numCols, data);
         for (let rowID = 0; rowID < numRows; rowID++) {
             this.str += `<tr class="tracker-row" data-id="${rowID}">`;
-            this.str += this.getCells(rowID, numCols, data);
+            this.str += data.title && data.title[rowID].includes('baixo') ? '' : this.getCells(rowID, numCols, data);
             this.str += `</tr>`;
         }
     };
@@ -2040,7 +2051,7 @@ function trackerTable() {
         var str = '';
         
         str += `<td class="tracker-first-cell" data-row-id="${rowID}">`;
-        if (data.title) { 
+        if (data.title) {
             str += data.title[rowID];
         }
         

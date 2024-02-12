@@ -6,6 +6,9 @@
   "type": "Acoustic Drum",
   "samples": "./Sons/studio/Drums/",
   "files": [
+    "baixo_G.ogg",
+    "baixo_F.ogg",
+    "baixo_C.ogg",
     "prato2.ogg",
     "prato1.ogg",
     "meiaLua.ogg",
