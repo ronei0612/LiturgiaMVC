@@ -17,7 +17,7 @@ function selecionarRitmo(ritmo, virada = false) {
     if (_trocarRitmo) {
         _viradaRitmo = fazerViradaBateria(_ritmoSelecionado);
 
-        if (virada == false)
+        if (virada === false)
             _trocarRitmo = false;
 
         var ritmoMatrix = ritmo;
@@ -48,7 +48,7 @@ function fazerViradaBateria(ritmoSelecionado) {
 }
 
 function fecharChimbal(instrumentName, sourceChimbalAberto, triggerTime) {
-    if (instrumentName == 'chimbal' || instrumentName == 'chimbal2')
+    if (instrumentName === 'chimbal' || instrumentName === 'chimbal2')
         if (_chimbalIsAberto) {
             sourceChimbalAberto.stop(triggerTime);
             _chimbalIsAberto = false;
@@ -56,7 +56,7 @@ function fecharChimbal(instrumentName, sourceChimbalAberto, triggerTime) {
 }
 
 function guardarChimbalAberto(instrumentName, instrument) {
-    if (instrumentName == 'aberto') {
+    if (instrumentName === 'aberto') {
         _sourceChimbalAberto = instrument;
         _chimbalIsAberto = true;
     }
@@ -65,7 +65,7 @@ function guardarChimbalAberto(instrumentName, instrument) {
 function mudarRitmo(ritmo) {
     _trocarRitmo = true;
 
-    if (ritmo == '')
+    if (ritmo === '')
         _ritmoSelecionado = selectRitmo.value;
     else
         _ritmoSelecionado = selectRitmo.value + "_" + ritmo;
@@ -75,7 +75,7 @@ function mudarRitmo(ritmo) {
 
 function gerarRitmosNomes(ritmosNomes) {
     for (var i = 0, len = ritmosNomes.length; i < len; i++) {
-        if (ritmosNomes[i].includes('_') == false) {
+        if (ritmosNomes[i].includes('_') === false) {
             let opt = document.createElement('option');
             opt.value = ritmosNomes[i];
             opt.textContent += ritmosNomes[i];
@@ -85,7 +85,7 @@ function gerarRitmosNomes(ritmosNomes) {
 }
 
 function verificarETocarBateria_2(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento) {
-    if (iconVolumeMute.style.display == 'none') {
+    if (iconVolumeMute.style.display === 'none') {
         if (tunerDiv.style.display !== 'none') {
             if (tunerAcompanhamento) {
                 if (autoTunerCheck.checked === false)
