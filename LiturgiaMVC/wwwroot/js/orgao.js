@@ -13,6 +13,8 @@ var _stringsParado = true;
 var _autoMudarRitmo = false;
 var _orientacaoCelularPe = true;
 var _tomSelectedIndexCifra = 0;
+var timer;
+var _tomIndex = '';
 
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
@@ -808,6 +810,204 @@ function selecionarStrings(stringsCheck) {
 		_stringsSelecionado = false;
 
 	autoMudarRitmo();
+}
+
+
+
+function voltarParaOrgao() {
+	voltar.style.display = 'none';
+	botaoFonte.style.display = 'none';
+	selectFonte.style.display = "none";
+	botaoTamanhoIframe.style.display = 'none';
+	selectTamanhoIframe.style.display = "none";
+	orgaoCifrasBotoes.style.display = 'none';
+
+	textoCifrasFrame.style.display = 'none';
+	tomMenorSwitchDiv.style.display = '';
+
+	var elements = document.getElementsByClassName('orgaoBotoes');
+	for (var i = 0; i < elements.length; i++) {
+		elements[i].style.display = '';
+	};
+
+	container.classList.add('d-sm-flex');
+
+	tdVolume.setAttribute('rowspan', 5);
+	tdVolume.setAttribute('colspan', '');
+	volumeDiv.style.display = 'flex';
+	textoVolume.style.display = '';
+	volumeInput.setAttribute('orient', 'vertical');
+
+	$('#tdVolume').appendTo('#orgaoControle');
+	$('#orgaoTable').appendTo('#orgaoBox');
+
+	mostrarNavBar();
+
+	ultimoTomSelecionadoStorage();
+}
+
+function mudarParaFullscreen() {
+	exitfullscreen.style.display = 'flex';
+	botaoFullscreen.style.display = 'none';
+
+	divBateriaSwitch.style.display = 'none';
+	bateria.style.display = 'none';
+	switchDarkDiv.style.display = 'none';
+	muteDiv.style.display = '';
+
+	if (textoCifrasFrame.style.display != 'none' && _orientacaoCelularPe == false && isMobileDevice())
+		ocultarNavBar();
+
+	var el = document.body;
+	var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
+		|| el.mozRequestFullScreen || el.msRequestFullScreen;
+
+	if (requestMethod)
+		requestMethod.call(el);
+}
+
+function sairDeFullscreen() {
+	if (exitfullscreen.style.display !== 'none') {
+		if (textoCifrasFrame.style.display === 'none')
+			mostrarNavBar();
+
+		exitfullscreen.style.display = 'none';
+		botaoFullscreen.style.display = 'flex';
+		switchDarkDiv.style.display = '';
+		muteDiv.style.display = 'none';
+		document.exitFullscreen();
+
+		linhaSelectTom.classList.add('d-flex');
+
+		mutarVolume(false);
+	}
+}
+
+function mostrarNavBar() {
+	$('#fullscreenDiv').prependTo('#linhaNavBar');
+	$('#botaoOpcoes').prependTo('#linhaNavBar');
+	$('#titulo').appendTo('#linhaNavBar');
+	$('#botaoSalvar').appendTo('#linhaNavBar');
+	$('#switchDarkDiv').appendTo('#linhaNavBar');
+	$('#muteDiv').appendTo('#linhaNavBar');
+	navBar.style.display = 'block';
+	linhaSelectTom.style.width = '';
+}
+
+function ocultarNavBar() {
+	$('#titulo').prependTo('#linhaSelectTom');
+	$('#fullscreenDiv').prependTo('#linhaSelectTom');
+	$('#botaoOpcoes').prependTo('#linhaSelectTom');
+	$('#botaoSalvar').appendTo('#linhaSelectTom');
+	$('#muteDiv').appendTo('#linhaSelectTom');
+	navBar.style.display = 'none';
+	linhaSelectTom.style.width = '100%';
+}
+
+function darkModeLocalStorage() {
+	var darkMode = localStorage.getItem('darkMode');
+	if (darkMode)
+		if (darkMode === 'true') {
+			var switchDark = document.getElementById('switchDark');
+			var eventoClick = new Event('click');
+			switchDark.checked = true;
+			switchDark.dispatchEvent(eventoClick);
+		}
+}
+
+function ultimoTomSelecionadoStorage() {
+	var tomSelecionadoIndex = localStorage.getItem('tomSelecionadoIndex');
+	if (tomSelecionadoIndex) {
+		tomSelect.selectedIndex = tomSelecionadoIndex;
+		tomSelect.dispatchEvent(new Event('change'));
+	}
+}
+
+function selecionarTomMenor(selecionadoMenor) {
+	if (selecionadoMenor) {
+		textoAcordeMenor.style.color = 'black';
+		tomSelect.style.color = 'grey';
+		acorde_10.style.display = 'block';
+		acorde_7.style.display = 'block';
+		acorde_9.style.display = 'block';
+	}
+	else {
+		textoAcordeMenor.style.color = 'grey';
+		tomSelect.style.color = 'black';
+		acorde_10.style.display = 'none';
+		acorde_7.style.display = 'none';
+		acorde_9.style.display = 'none';
+	}
+}
+
+function aumentarTom_click(aumentar) {
+	if (timer)
+		clearTimeout(timer);
+	timer = setTimeout(function () {
+		aumentarTom(aumentar, 1, "tomSelect");
+	}, 240);
+}
+
+function aumentarTom_clickDuplo(aumentar) {
+	clearTimeout(timer);
+	aumentarTom(aumentar, 2, "tomSelect");
+}
+
+function showselectFonte(mostrar) {
+	if (mostrar) {
+		botaoFonte.style.display = "none";
+		selectFonte.style.display = "";
+	}
+	else {
+		if (textoCifrasFrame.style.display != 'none') {
+			textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
+		}
+	}
+}
+
+function showselectIframe(mostrar) {
+	if (mostrar) {
+		botaoTamanhoIframe.style.display = "none";
+		selectTamanhoIframe.style.display = "";
+	}
+	else {
+		if (textoCifrasFrame.style.display != 'none') {
+			textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
+			textoCifras.style.height = selectTamanhoIframe.value + 'px';
+		}
+	}
+}
+
+function prepararMudarTomCifra(tomSelecionado) {
+	var esperar = 0;
+	if (typeof mudarTom !== 'function' || typeof mudarTomCifra !== 'function') //1º carregamento
+		esperar = 500;
+
+	setTimeout(function () {
+		if (textoCifrasFrame.style.display == "none")
+			mudarTom(tomSelecionado);
+
+		else {
+			if (tomSelecionado.includes('m'))
+				var index = tonsMenores.indexOf(tomSelecionado);
+			else
+				var index = tonsMaiores.indexOf(tomSelecionado);
+
+			index = index - _tomIndex;
+
+			if (index < 0)
+				mudarTomCifra(false, Math.abs(index));
+			else
+				mudarTomCifra(true, index);
+		}
+	}, esperar);
+}
+
+function pegarTomCifra(tomSelecionado) {
+	if (tomSelecionado.includes('m'))
+		_tomIndex = tonsMenores.indexOf(tomSelecionado);
+	else
+		_tomIndex = tonsMaiores.indexOf(tomSelecionado);
 }
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
