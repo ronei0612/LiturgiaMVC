@@ -311,13 +311,14 @@ function refinarAcorde(acorde) {
 	}
 
 	_acordeSelecionado = acorde;
+	return acorde;
 }
 
 function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	if (instrumento === 'stringsSolo' && _stringsSelecionado)
 		instrumento = 'strings';
 
-	refinarAcorde(acorde);
+	acorde = refinarAcorde(acorde);
 
 	if (grupoNotas) {
 		var notas = notasAcordesJson[acorde];
