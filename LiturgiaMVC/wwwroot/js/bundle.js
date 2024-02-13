@@ -1023,7 +1023,7 @@ var _ritmoSelecionado = 'aro';
         }        
         function stopBateria() {
             if (_autoMudarRitmo && schedule.running)
-                prato.dispatchEvent(eventoMousedown);
+                prato.dispatchEvent(eventoClick);
             schedule.stop();
             schedule = new simpleTracker(ctx, scheduleAudioBeat);
         }
@@ -1059,26 +1059,26 @@ function setupBaseEvents() {
         var botao = document.activeElement;
         selecionarRitmo(botao.value);
     });
-    aro.addEventListener('mousedown', function (e) { verificarETocarBateria('aro', false) });
-    meiaLua.addEventListener('mousedown', function (e) { verificarETocarBateria('meiaLua', true, 'stringsSolo') });
-    caixa.addEventListener('mousedown', function (e) { verificarETocarBateria('', false) });
-    brush.addEventListener('mousedown', function (e) { verificarETocarBateria('brush', false) });
-    ride.addEventListener('mousedown', function (e) { verificarETocarBateria('ride', true, 'stringsSolo') });
-    chimbal.addEventListener('mousedown', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
-    playPauseBateria.addEventListener('mousedown', function (e) {
-        if (tunerDiv.style.display !== 'none') {
-            autoTunerCheck.checked = false;
-            pararOsAcordes();
-        }
-        tocarBateria();
-    });
-    prato.addEventListener('mousedown', function (e) {
+    aro.addEventListener('click', function (e) { verificarETocarBateria('aro', false) });
+    meiaLua.addEventListener('click', function (e) { verificarETocarBateria('meiaLua', true, 'stringsSolo') });
+    caixa.addEventListener('click', function (e) { verificarETocarBateria('', false) });
+    brush.addEventListener('click', function (e) { verificarETocarBateria('brush', false) });
+    ride.addEventListener('click', function (e) { verificarETocarBateria('ride', true, 'stringsSolo') });
+    chimbal.addEventListener('click', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
+    prato.addEventListener('click', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             let pratoAtaque1 = buffers['prato1'].get();
             let node = routeGain(pratoAtaque1);
             node.connect(ctx.destination);
             pratoAtaque1.start();
         }
+    });
+    playPauseBateria.addEventListener('mousedown', function (e) {
+        if (tunerDiv.style.display !== 'none') {
+            autoTunerCheck.checked = false;
+            pararOsAcordes();
+        }
+        tocarBateria();
     });
     bpm.addEventListener('change', function (e) {
         var bpmRange_valor = bpmRange.value;

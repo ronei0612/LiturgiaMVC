@@ -120,6 +120,15 @@ window.onerror = function (message, source, lineno, colno, error) {
 		alert("Erro!\n" + message);
 };
 
+function handleTouchStart(event, element, bateria = false) {
+	event.preventDefault();
+
+	element.dispatchEvent(eventoMousedown);
+
+	if (bateria)
+		element.dispatchEvent(eventoClick);
+}
+
 function isMobileDevice() {
 	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
@@ -256,23 +265,23 @@ function autoMudarRitmo(elementBotao = null) {
 
 		if (_stringsSelecionado) {
 			if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				chimbal.dispatchEvent(eventoMousedown);
+				chimbal.dispatchEvent(eventoClick);
 			} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-				brush.dispatchEvent(eventoMousedown);
+				brush.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-				meiaLua.dispatchEvent(eventoMousedown);
+				meiaLua.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-				aro.dispatchEvent(eventoMousedown);
+				aro.dispatchEvent(eventoClick);
 			}
 		} else {
 			if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				aro.dispatchEvent(eventoMousedown);
+				aro.dispatchEvent(eventoClick);
 			} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-				brush.dispatchEvent(eventoMousedown);
+				brush.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-				caixa.dispatchEvent(eventoMousedown);
+				caixa.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-				aro.dispatchEvent(eventoMousedown);
+				aro.dispatchEvent(eventoClick);
 			}
 		}
 	}
