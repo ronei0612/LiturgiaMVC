@@ -22,6 +22,10 @@
     @if (ViewContext.HttpContext.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
     {
         <script src="~/js/bateria.js" asp-append-version="true"></script>
+        <script src="~/js/soundtouch.js" asp-append-version="true"></script>
+        @* <script src="~/js/script2.js" asp-append-version="true"></script> *@
+        <script src="~/js/AudioProcessor.js" asp-append-version="true"></script>
+        @* <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.37/Tone.js"></script> *@
         <script src="~/js/bundle.js" asp-append-version="true"></script>
     }
     else

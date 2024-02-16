@@ -955,10 +955,11 @@ var _ritmoSelecionado = 'aro';
                 
             
         
-        function scheduleAudioBeat(rowId, triggerTime) { //tocar os beats
+        function scheduleAudioBeat(rowId, triggerTime, colId) { //tocar os beats
 
             let instrumentName = instrumentData.filename[rowId];
             let instrument = buffers[instrumentName].get();
+            let colID = colId;
             //let options = getSetAudioOptions.getTrackerControls();
             
 
@@ -1008,11 +1009,95 @@ var _ritmoSelecionado = 'aro';
                     }
                 }
             }
-            
+
+            function playViolao() {
+                //debugger;
+                starta();
+                aaa();
+
+                // Initialize the AudioPlayer
+                //audioPlayer = new AudioPlayer({
+                //    emitter: {
+                //        emit: () => { },
+                //    },
+                //    pitch: pitchSlider.value,
+                //    tempo: tempoSlider.value
+                //});
+
+                //try {
+                //    fetch(som)
+                //        .then(response => response.arrayBuffer())
+                //        .then(arrayBuffer => audioPlayer.decodeAudioData(arrayBuffer)) // Decodificando o áudio
+                //        .then(audioBuffer => {
+                //            audioPlayer.setBuffer(audioBuffer); // Definindo o buffer de áudio no player
+                //            //audioPlayer.play(); // Iniciando a reprodução
+                //            //isPlaying = true;
+                //            audioPlayer1 = audioPlayer;
+
+                //            // Configurando um intervalo para atualizar o seek
+                //            myInterval = setInterval(() => {
+                //                updateSeek(audioPlayer, seekSlider);
+                //            }, 1000);
+                //        })
+                //        .catch(error => {
+                //            console.error(error);
+                //        });
+                //} catch (error) {
+                //    console.error(error);
+                //}
+
+                
+                //const buffer = response.arrayBuffer();
+                //const audioData = audioPlayer.decodeAudioData(buffer);
+                //audioPlayer.setBuffer(audioData);
+
+                //console.log(audioPlayer);
+                ////var som = './Sons/studio/Drums/violao_C.ogg';
+                ////changePitchWithoutSpeed(buffers['violao_C'],)
+                //violao_C.fan(pitchShift);
+                //violao_C.start();
+                //pitchShift.pitch = 12;
+                ////violao_C.fan(pitchShift1);
+                //violao_C.start();
+                ////violao_C.playbackRate = 0.25;
+                //// Exemplo de uso para mudar a velocidade sem alterar o tom
+                ////changeSpeed(som, 0.5); // Mudar para metade da velocidade original
+
+                //// Exemplo de uso para mudar o tom sem alterar a velocidade
+                ////changePitch(som, 2); // Dobrar o tom
+
+
+
+
+                ////if (colID === '0' && instrumentoSelect.value === 'Epiano') {
+                ////    if (_acordeSelecionado) {
+                ////        setTimeout(function () {
+                ////            debugger;
+                ////            //pararBaixo(ctx);
+                ////            let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0] : _acordeSelecionado;
+                ////            let violaoAudio = buffers['violao_' + nota].get();
+                ////            play(violaoAudio);
+                ////        }, 130)
+                ////    }
+                ////}
+            }
+
+            //var som = './Sons/studio/Drums/violao_C.ogg';
+            //const response = fetch(som);
             play(instrument);
             playBaixo();
+            playViolao();
             guardarChimbalAberto(instrumentName, instrument);
-        }        
+        }
+        //const violao_C = new Tone.Player('./Sons/studio/Drums/violao_C.ogg');
+        //const pitchShift = new Tone.PitchShift(0).toDestination();
+
+        //const pitchShift1 = new Tone.PitchShift(1).toDestination();
+        //const pitchShift2 = new Tone.PitchShift(2).toDestination();
+        //const pitchShift3 = new Tone.PitchShift(3).toDestination();
+
+        //violao_C.fan(pitchShift);
+
         var schedule = new simpleTracker(ctx, scheduleAudioBeat);        
         function playBateria() {
             let storage = new tracksLocalStorage();
@@ -1911,7 +1996,7 @@ function tracker(ctx, scheduleAudioBeat) {
             _viradaRitmo = '';
         }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
-                this.scheduleAudioBeat(beat.rowId, triggerTime);
+                this.scheduleAudioBeat(beat.rowId, triggerTime, beat.colId);
             }, now);
         }
     };
@@ -1932,7 +2017,7 @@ function tracker(ctx, scheduleAudioBeat) {
         let triggerTime = this.scheduleMap[0] + beat.colId * this.milliPerBeat(this.bpm) / 1000;
         let now = ctx.currentTime;
         this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
-            this.scheduleAudioBeat(beat.rowId, triggerTime);
+            this.scheduleAudioBeat(beat.rowId, triggerTime, beat.colId);
         }, now);
     };
 
@@ -2041,7 +2126,7 @@ function trackerTable() {
         this.setHeader(numCols, data);
         for (let rowID = 0; rowID < numRows; rowID++) {
             this.str += `<tr class="tracker-row" data-id="${rowID}">`;
-            this.str += data.title && data.title[rowID].includes('baixo') ? '' : this.getCells(rowID, numCols, data);
+            this.str += data.title && (data.title[rowID].includes('baixo') || data.title[rowID].includes('violao')) ? '' : this.getCells(rowID, numCols, data);
             this.str += `</tr>`;
         }
     };
