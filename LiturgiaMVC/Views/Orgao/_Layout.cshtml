@@ -341,7 +341,7 @@
             }
 
             else if (nome === 'gravar') {
-                if (textoCifrasFrame.style.display == 'none' && textoCifras.contentDocument.body.innerHTML != '') {
+                if (textoCifrasFrame.style.display == 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
                     escreverCifraTextArea.style.display = 'block';
                     linksCifraClubList.style.display = 'none';
                     musicaSearch.value = "";
@@ -356,6 +356,11 @@
                     selectInstrumento.style.display = 'none';
                     modalGravar.style.display = 'block';
                     salvarDiv.style.display = 'none';
+                    
+                    if (textoCifrasFrame.style.display != 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
+                        musicaAcordesTextArea.style.fontSize = '13px';
+                        musicaAcordesTextArea.value = textoCifras.contentDocument.body.innerText;
+                    }
                 }
             }
 
@@ -430,7 +435,7 @@
 
         function iniciarCifra() {
             if (musicaAcordesTextArea.value != '') {
-            modal01.style.display = 'none';
+                modal01.style.display = 'none';
                 modal_loading.style.display = 'block';
 
                 $.ajax({
