@@ -515,6 +515,7 @@ namespace LiturgiaMVC
                     {
                         if (!string.IsNullOrEmpty(acordes[i]) && Regex.IsMatch(acordes[i], somenteAcordes))
                         {
+                            //System.Diagnostics.Debug.WriteLine(acordes[i]);
                             string[] retorno;
                             if (acordes[i][0] == '(')
                             {
