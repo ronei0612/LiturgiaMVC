@@ -500,6 +500,7 @@ namespace LiturgiaMVC
             var linhasTexto = cifraTexto.Split('\n');
             var texto = new List<string>();
             var somenteAcordes = @"^[A-G0-9m#bsusº/()| ]*$";
+            var acordeId = 0;
 
             texto.Add("<style>.cifraSelecionada{background-color:#ff0}pre{line-height:1.6;font-size:14px}</style><pre>");
 
@@ -547,10 +548,12 @@ namespace LiturgiaMVC
                             if (string.IsNullOrEmpty(cifraFormatada) == false)
                             {
                                 cifraFormatada = ">" + cifraFormatada + "</b>";
-                                texto.Add("<b id=\"cifra" + i + "\"" + cifraFormatada);
+                                texto.Add("<b id=\"cifra" + acordeId + "\"" + cifraFormatada);
 
                                 if (i != acordes.Length - 1)
                                     texto.Add(" ");
+
+                                acordeId++;
                             }
                             else
                                 texto.Add("");
