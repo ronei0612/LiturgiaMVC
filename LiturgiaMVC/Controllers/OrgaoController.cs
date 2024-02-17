@@ -192,5 +192,28 @@ namespace LiturgiaMVC.Controllers
                 });
             }
         }
+
+        [HttpPost]
+        public JsonResult EditarCifra(string texto)
+        {
+            try
+            {
+                var cifraTexto = Ferramentas.SearchAcordes(texto);
+
+                return Json(new
+                {
+                    success = true,
+                    message = cifraTexto
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
     }
 }

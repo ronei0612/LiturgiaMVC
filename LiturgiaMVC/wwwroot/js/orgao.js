@@ -105,6 +105,7 @@ const mao = document.getElementById('mao');
 const full = document.getElementById('full');
 const stringsCheck = document.getElementById('stringsCheck');
 const measureLength = document.getElementById('measureLength');
+const musicaAcordesTextArea = document.getElementById('musicaAcordesTextArea');
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
