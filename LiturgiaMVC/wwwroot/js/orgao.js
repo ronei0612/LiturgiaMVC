@@ -111,8 +111,9 @@ verificarOrientacaoCelular();
 manterTelaLigada_v2();
 
 document.addEventListener("visibilitychange", function () {
-	if (document.visibilityState === 'visible')
-		manterTelaLigada_v2();
+	if (isMobileDevice())
+		if (document.visibilityState === 'visible')
+			manterTelaLigada_v2();
 });
 
 window.onerror = function (message, source, lineno, colno, error) {
