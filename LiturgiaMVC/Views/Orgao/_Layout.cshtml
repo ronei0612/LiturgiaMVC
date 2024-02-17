@@ -239,7 +239,7 @@
                     <input class="form-control" type="file" id="formFile" onchange="escolherArquivo(event)">
                     <br />*@
 
-                    <button id="botaoIniciar" class="btn btn-primary" type="button" onclick="escolherGravacao()">
+                    <button id="botaoIniciar" class="btn btn-primary" type="button" onclick="iniciarCifra()">
                         Iniciar
                     </button>
                     <br /><br />
@@ -428,8 +428,30 @@
             }
         }
 
-        function escolherGravacao() {
+        function iniciarCifra() {
+            if (musicaAcordesTextArea.value != '') {
             modal01.style.display = 'none';
+                modal_loading.style.display = 'block';
+
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "Orgao/EditarCifra",
+                    data: {
+                        texto: musicaAcordesTextArea.value,
+                    },
+                    success: function (data) {
+                        if (data.success) {
+                            musicaAcordesTextArea.value = '';
+                            mudarParaTelaCifras(data);
+                        }
+                        else
+                            alert(data.message);
+
+                        modal_loading.style.display = 'none';
+                    }
+                });
+            }
         }
 
         function novoSalvamento() {
