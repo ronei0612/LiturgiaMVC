@@ -275,9 +275,10 @@
                 ocultarModal();
         });
 
-        window.onbeforeunload = function () {
-            return "Deseja recarregar página?";
-        };
+        //Impedir atualização errônea da página
+        // window.onbeforeunload = function () {
+        //     return "Deseja recarregar página?";
+        // };
 
         selectRitmo.selectedIndex = 2;
         selecionarInstrumento(true);
