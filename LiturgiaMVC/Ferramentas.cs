@@ -497,9 +497,9 @@ namespace LiturgiaMVC
         }
 
         public static string SearchAcordes(string cifraTexto) {
-            var linhasTexto = cifraTexto.Split(Environment.NewLine);
+            var linhasTexto = cifraTexto.Split('\n');
             var texto = new List<string>();
-            var somenteAcordes = @"^[A-G0-9m#bsusº/\(\)| ]*$";
+            var somenteAcordes = @"^[A-G0-9m#bsusº/()| ]*$";
 
             texto.Add("<pre>");
 
