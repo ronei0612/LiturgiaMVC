@@ -517,15 +517,21 @@ namespace LiturgiaMVC
                         {
                             //System.Diagnostics.Debug.WriteLine(acordes[i]);
                             string[] retorno;
-                            if (acordes[i][0] == '(')
-                            {
+                            if (acordes[i][0] == '(') {
                                 texto.Add("(");
                                 retorno = GetAcorde(acordes[i].Split('(')[1].Replace("|", ""));
                             }
-                            else if (acordes[i].EndsWith(')'))
-                            {
+                            else if (acordes[i][0] == ')') {
+                                texto.Add(")");
+                                retorno = GetAcorde(acordes[i].Split(')')[1].Replace("|", ""));
+                            }
+                            else if (acordes[i].EndsWith(')')) {
                                 texto.Add(")");
                                 retorno = GetAcorde(acordes[i].Split(')')[0].Replace("|", ""));
+                            }
+                            else if (acordes[i].EndsWith('(')) {
+                                texto.Add("(");
+                                retorno = GetAcorde(acordes[i].Split('(')[0].Replace("|", ""));
                             }
                             else
                                 retorno = GetAcorde(acordes[i].Replace("|", ""));
