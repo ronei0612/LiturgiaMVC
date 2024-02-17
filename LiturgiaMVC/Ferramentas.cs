@@ -546,8 +546,11 @@ namespace LiturgiaMVC
 
                             if (string.IsNullOrEmpty(cifraFormatada) == false)
                             {
-                                cifraFormatada = ">" + cifraFormatada + "</b>";                                
+                                cifraFormatada = ">" + cifraFormatada + "</b>";
                                 texto.Add("<b id=\"cifra" + i + "\"" + cifraFormatada);
+
+                                if (i != acordes.Length - 1)
+                                    texto.Add(" ");
                             }
                             else
                                 texto.Add("");
