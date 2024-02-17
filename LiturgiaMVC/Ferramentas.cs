@@ -463,7 +463,10 @@ namespace LiturgiaMVC
                     var retorno = GetAcorde(cifraFormatada);
                     var cifraSomenteNota = retorno[0];
                     var cifraAcordeAlteracoes = retorno[1];
-                    cifraFormatada = cifraSomenteNota + cifraAcordeAlteracoes;
+                    cifraFormatada = cifraSomenteNota;
+
+                    if (cifraAcordeAlteracoes.Contains('/') == false)
+                        cifraFormatada += cifraAcordeAlteracoes;
 
                     // Vai removendo os últimos caracateres até chegar num que conheça como C#7sus encontra C#7
                     while (Variaveis.notasAcordes.ContainsKey(cifraFormatada) == false)
@@ -473,15 +476,11 @@ namespace LiturgiaMVC
                     {
                         if (tom != 0)
                         {
-                            var acordeIndex = Array.IndexOf(Variaveis.tonsMaiores, cifraSomenteNota);
-                            acordeIndex += tom;
+                            cifraFormatada = MudarCifraTom(tom, cifraSomenteNota);
 
-                            if (acordeIndex > 11)
-                                acordeIndex -= 12;
-                            else if (acordeIndex < 0)
-                                acordeIndex += 12;
+                            if (cifraAcordeAlteracoes.Contains('/'))
+                                cifraAcordeAlteracoes = "/" + MudarCifraTom(tom, cifraAcordeAlteracoes.Split('/')[1]);
 
-                            cifraFormatada = Variaveis.tonsMaiores.ElementAt(acordeIndex);
                             cifraFormatada += cifraAcordeAlteracoes;
                         }
 
@@ -494,6 +493,18 @@ namespace LiturgiaMVC
             }
 
             return string.Join("", texto);
+        }
+
+        static string MudarCifraTom(int tom, string cifraSomenteNota) {
+            var acordeIndex = Array.IndexOf(Variaveis.tonsMaiores, cifraSomenteNota);
+            acordeIndex += tom;
+
+            if (acordeIndex > 11)
+                acordeIndex -= 12;
+            else if (acordeIndex < 0)
+                acordeIndex += 12;
+
+            return Variaveis.tonsMaiores.ElementAt(acordeIndex);
         }
 
         public static string SearchAcordes(string cifraTexto) {
@@ -542,7 +553,11 @@ namespace LiturgiaMVC
                             var cifraFormatada = cifraSomenteNota + cifraAcordeAlteracoes;
 
                             // Vai removendo os últimos caracateres até chegar num que conheça como C#7sus encontra C#7
-                            while (Variaveis.notasAcordes.ContainsKey(cifraFormatada) == false)
+                            var cifraProcurar = cifraFormatada;
+                            if (acordes[i].Contains('/'))
+                                cifraProcurar = cifraProcurar.Split('/')[0];
+
+                            while (Variaveis.notasAcordes.ContainsKey(cifraProcurar) == false)
                                 cifraFormatada = cifraFormatada.Remove(cifraFormatada.Length - 1);
 
                             if (string.IsNullOrEmpty(cifraFormatada) == false)
@@ -579,8 +594,8 @@ namespace LiturgiaMVC
             // Retira acordes compostos mais complexos como C7/E(9)
             if (possivelAcorde.Contains('('))
                 cifraFormatada = possivelAcorde.Split('(')[0];
-            if (possivelAcorde.Contains('/'))
-                cifraFormatada = possivelAcorde.Split('/')[0];
+            //if (possivelAcorde.Contains('/'))
+            //    cifraFormatada = possivelAcorde.Split('/')[0];
 
             var cifraSomenteNota = cifraFormatada;
             var cifraAcordeAlteracoes = "";

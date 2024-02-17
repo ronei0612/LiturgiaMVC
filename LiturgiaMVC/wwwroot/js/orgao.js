@@ -331,8 +331,13 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	if (instrumento === 'stringsSolo' && _stringsSelecionado)
 		instrumento = 'strings';
 
-	acorde = refinarAcorde(acorde);
-
+	if (acorde.includes('/')) {
+		var acordeBaixo = refinarAcorde(acorde.split('/')[1]);
+		acorde = refinarAcorde(acorde.split('/')[0]);
+	}
+	else
+		acorde = refinarAcorde(acorde);
+	
 	if (grupoNotas) {
 		var notas = notasAcordesJson[acorde];
 
@@ -371,7 +376,10 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 			for (var i = 0, len = notas.length; i < len; i++) {
 				if (_acompanhamentoSelecionado === 'full' || _acompanhamentoSelecionado === 'baixo') {
 					if (i === 0)
-						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
+						if (acordeBaixo)
+							grupoNotas.addSound(acordes[instrumento + '_' + notasAcordesJson[acordeBaixo][0] + '_grave']);
+						else
+							grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_grave']);
 
 					if (instrumento !== 'strings')
 						grupoNotas.addSound(acordes[instrumento + '_' + notas[i] + '_baixo']);
