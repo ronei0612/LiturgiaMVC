@@ -444,6 +444,9 @@ namespace LiturgiaMVC
 
         public static string GetAcordes(string cifraTexto, int tom = 0)
         {
+            if (cifraTexto.Contains("<b") == false)
+                return SearchAcordes(cifraTexto);
+
             var notas = cifraTexto.Split("<b");                                             
             var texto = new List<string>();
 
@@ -471,15 +474,15 @@ namespace LiturgiaMVC
                         if (tom != 0)
                         {
                             var acordeIndex = Array.IndexOf(Variaveis.tonsMaiores, cifraSomenteNota);
-                            acordeIndex = acordeIndex + tom;
+                            acordeIndex += tom;
 
                             if (acordeIndex > 11)
-                                acordeIndex = acordeIndex - 12;
+                                acordeIndex -= 12;
                             else if (acordeIndex < 0)
-                                acordeIndex = acordeIndex + 12;
+                                acordeIndex += 12;
 
                             cifraFormatada = Variaveis.tonsMaiores.ElementAt(acordeIndex);
-                            cifraFormatada = cifraFormatada + cifraAcordeAlteracoes;
+                            cifraFormatada += cifraAcordeAlteracoes;
                         }
 
                         cifraFormatada = ">" + cifraFormatada + "<" + linhaRestante;
@@ -489,6 +492,69 @@ namespace LiturgiaMVC
                         texto.Add("       " + linhaRestante);
                 }
             }
+
+            return string.Join("", texto);
+        }
+
+        public static string SearchAcordes(string cifraTexto) {
+            var linhasTexto = cifraTexto.Split(Environment.NewLine);
+            var texto = new List<string>();
+            var somenteAcordes = @"^[A-G0-9m#bsusº/\(\)| ]*$";
+
+            texto.Add("<pre>");
+
+            foreach (var linha in linhasTexto)
+            {
+                var linhaFormatada = linha.Replace("[Intro]", "").Replace("[Solo]", "").Replace("[Final]", "");
+
+                if (!string.IsNullOrEmpty(linha) && Regex.IsMatch(linhaFormatada, somenteAcordes))
+                {
+                    var acordes = linha.Split(' ');
+
+                    for (int i = 0; i < acordes.Length; i++)
+                    {
+                        if (!string.IsNullOrEmpty(acordes[i]) && Regex.IsMatch(acordes[i], somenteAcordes))
+                        {
+                            string[] retorno;
+                            if (acordes[i][0] == '(')
+                            {
+                                texto.Add("(");
+                                retorno = GetAcorde(acordes[i].Split('(')[1].Replace("|", ""));
+                            }
+                            else if (acordes[i].EndsWith(')'))
+                            {
+                                texto.Add(")");
+                                retorno = GetAcorde(acordes[i].Split(')')[0].Replace("|", ""));
+                            }
+                            else
+                                retorno = GetAcorde(acordes[i].Replace("|", ""));
+
+                            var cifraSomenteNota = retorno[0];
+                            var cifraAcordeAlteracoes = retorno[1];
+                            var cifraFormatada = cifraSomenteNota + cifraAcordeAlteracoes;
+
+                            // Vai removendo os últimos caracateres até chegar num que conheça como C#7sus encontra C#7
+                            while (Variaveis.notasAcordes.ContainsKey(cifraFormatada) == false)
+                                cifraFormatada = cifraFormatada.Remove(cifraFormatada.Length - 1);
+
+                            if (string.IsNullOrEmpty(cifraFormatada) == false)
+                            {
+                                cifraFormatada = ">" + cifraFormatada + "</b>";                                
+                                texto.Add("<b id=\"cifra" + i + "\"" + cifraFormatada);
+                            }
+                            else
+                                texto.Add("");
+                        }
+                        else
+                            texto.Add(acordes[i] + " ");
+                    }
+                    texto.Add(Environment.NewLine);
+                }
+                else
+                    texto.Add(linha + Environment.NewLine);
+            }
+
+            texto.Add("</pre>");
 
             return string.Join("", texto);
         }
