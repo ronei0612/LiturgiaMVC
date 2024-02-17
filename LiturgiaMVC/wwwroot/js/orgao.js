@@ -779,6 +779,8 @@ function mudarTempoCompasso() {
 }
 
 function mudarTamanhoFrameCifras(aumentar) {
+	textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
+
 	//if (textoCifrasFrame.style.display != 'none') {
 	//	var altura = parseInt(textoCifras.style.height);
 	//	if (aumentar)
