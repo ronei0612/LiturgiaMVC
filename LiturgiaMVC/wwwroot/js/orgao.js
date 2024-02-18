@@ -646,6 +646,13 @@ function mostrarTextoCifrasCarregado(tom = null, texto = null) {
 	mudarTamanhoFrameCifras(_orientacaoCelularPe);
 }
 
+function selecionarCifraId() {
+	var cifraElems = textoCifras.contentDocument.getElementsByClassName('cifraSelecionada');
+
+	if (cifraElems.length > 0)
+		_cifraId = cifraElems[0].id.split('cifra')[1] - 1;
+}
+
 function mudarParaTelaFrame() {
 	textoCifrasFrame.style.display = 'block';
 
