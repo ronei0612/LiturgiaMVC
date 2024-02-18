@@ -460,6 +460,7 @@ namespace LiturgiaMVC
                     var linhaRestante = notas[i].Split('<')[1];
 
                     var cifraFormatada = cifra;
+
                     var retorno = GetAcorde(cifraFormatada);
                     var cifraSomenteNota = retorno[0];
                     var cifraAcordeAlteracoes = retorno[1];
@@ -471,6 +472,9 @@ namespace LiturgiaMVC
                     // Vai removendo os últimos caracateres até chegar num que conheça como C#7sus encontra C#7
                     while (Variaveis.notasAcordes.ContainsKey(cifraFormatada) == false)
                         cifraFormatada = cifraFormatada.Remove(cifraFormatada.Length - 1);
+
+                    if (cifraAcordeAlteracoes.Contains('/'))
+                        cifraFormatada += cifraAcordeAlteracoes;
 
                     if (string.IsNullOrEmpty(cifraFormatada) == false)
                     {
@@ -590,18 +594,21 @@ namespace LiturgiaMVC
         public static string[] GetAcorde(string possivelAcorde)
         {
             var cifraFormatada = possivelAcorde;
-
-            // Retira acordes compostos mais complexos como C7/E(9)
-            if (possivelAcorde.Contains('('))
-                cifraFormatada = possivelAcorde.Split('(')[0];
-            //if (possivelAcorde.Contains('/'))
-            //    cifraFormatada = possivelAcorde.Split('/')[0];
-
-            var cifraSomenteNota = cifraFormatada;
             var cifraAcordeAlteracoes = "";
 
-            if (cifraSomenteNota.Length > 1)
-            {
+            // Retira acordes compostos mais complexos como C7(9)
+            if (possivelAcorde.Contains('('))
+                cifraFormatada = possivelAcorde.Split('(')[0];
+
+            if (possivelAcorde.Contains('/')) {
+                cifraFormatada = possivelAcorde.Split('/')[0];
+                var retorno = GetAcorde(possivelAcorde.Split('/')[1]);
+                cifraAcordeAlteracoes = "/" + retorno[0];
+            }
+
+            var cifraSomenteNota = cifraFormatada;
+
+            if (cifraSomenteNota.Length > 1) {
                 if (cifraSomenteNota[1] == '#')
                     cifraSomenteNota = cifraSomenteNota[0] + "#";
                 else if (cifraSomenteNota[1] == 'b')
