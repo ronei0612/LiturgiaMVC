@@ -514,7 +514,7 @@ namespace LiturgiaMVC
 
                     for (int i = 0; i < acordes.Length; i++)
                     {
-                        if (!string.IsNullOrEmpty(acordes[i]) && Regex.IsMatch(acordes[i], somenteAcordes))
+                        if (!string.IsNullOrEmpty(acordes[i]) && Regex.IsMatch(acordes[i], somenteAcordes) && Regex.IsMatch(acordes[i], @"\b[A-G]"))
                         {
                             //System.Diagnostics.Debug.WriteLine(acordes[i]);
                             string[] retorno;
