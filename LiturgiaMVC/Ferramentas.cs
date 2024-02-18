@@ -510,7 +510,7 @@ namespace LiturgiaMVC
         public static string SearchAcordes(string cifraTexto) {
             var linhasTexto = cifraTexto.Split('\n');
             var texto = new List<string>();
-            var somenteAcordes = @"^[A-G0-9m#bsusº/()| ]*$";
+            var somenteAcordes = @"^[A-G0-9m#bsus°º/()| ]*$";
             var acordeId = 1;
 
             texto.Add("<style>.cifraSelecionada{background-color:#ff0}pre{line-height:1.6;font-size:14px}</style><pre>");
@@ -525,7 +525,7 @@ namespace LiturgiaMVC
 
                     for (int i = 0; i < acordes.Length; i++)
                     {
-                        if (!string.IsNullOrEmpty(acordes[i]) && Regex.IsMatch(acordes[i], somenteAcordes))
+                        if (!string.IsNullOrEmpty(acordes[i]) && Regex.IsMatch(acordes[i], somenteAcordes) && Regex.IsMatch(acordes[i], @"\b[A-G]"))
                         {
                             //System.Diagnostics.Debug.WriteLine(acordes[i]);
                             string[] retorno;

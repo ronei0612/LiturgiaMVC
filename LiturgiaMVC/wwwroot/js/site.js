@@ -6,7 +6,7 @@
 		navBar.classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3";
 		document.getElementsByClassName("w3-modal-content")[0].style.cssText = 'background-color: #fff!important';
 
-		if (textoCifrasFrame.style.display != 'none')
+		if (textoCifrasFrame.style.display !== 'none')
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
 
 		violinoDesenho.setAttribute('fill', '#000');
@@ -24,7 +24,7 @@
 		navBar.classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black box-shadow mb-3";
 		document.getElementsByClassName("w3-modal-content")[0].style.cssText = 'background-color: #505050!important';
 
-		if (textoCifrasFrame.style.display != 'none')
+		if (textoCifrasFrame.style.display !== 'none')
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#fff';
 
 		violinoDesenho.setAttribute('fill', '#fff');

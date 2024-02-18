@@ -15,6 +15,8 @@ var _orientacaoCelularPe = true;
 var _tomSelectedIndexCifra = 0;
 var timer;
 var _tomIndex = '';
+var _cifraId = 0;
+var _cifraParado = true;
 
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
@@ -122,6 +124,31 @@ window.onerror = function (message, source, lineno, colno, error) {
 		alert("Erro!\n" + message);
 };
 
+selectRitmo.addEventListener('change', function (e) {
+	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+});
+
+bpm.addEventListener('change', function (e) {
+	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+});
+
+autoCheck.addEventListener('change', function (e) {
+	_autoMudarRitmo = this.checked;
+	if (_autoMudarRitmo)
+		ocultarBotoesRitmo();
+	else
+		ocultarBotoesRitmo(false);
+});
+
+instrumentoSelect.addEventListener('change', (e) => {
+	var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+	_instrumentoSelecionado = semacentos.toLowerCase();
+});
+
+window.addEventListener("orientationchange", (event) => {
+	orientacaoCelularAlterado(event);
+});
+
 function handleTouchStart(event, element, bateria = false) {
 	event.preventDefault();
 
@@ -160,31 +187,6 @@ function verificarOrientacaoCelular() {
 			_orientacaoCelularPe = false;
 	}
 }
-
-selectRitmo.addEventListener('change', function (e) {
-	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-});
-
-bpm.addEventListener('change', function (e) {
-	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-});
-
-autoCheck.addEventListener('change', function (e) {
-	_autoMudarRitmo = this.checked;
-	if (_autoMudarRitmo)
-		ocultarBotoesRitmo();
-	else
-		ocultarBotoesRitmo(false);
-});
-
-instrumentoSelect.addEventListener('change', (e) => {
-	var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-	_instrumentoSelecionado = semacentos.toLowerCase();
-});
-
-window.addEventListener("orientationchange", (event) => {
-	orientacaoCelularAlterado(event);
-});
 
 function orientacaoCelularAlterado(event) {
 	if (event.target.screen.orientation.angle === 0) {
@@ -267,7 +269,7 @@ function autoMudarRitmo(elementBotao = null) {
 
 		if (_stringsSelecionado) {
 			if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				chimbal.dispatchEvent(eventoClick);
+				caixa.dispatchEvent(eventoClick);
 			} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
 				brush.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
@@ -626,7 +628,7 @@ function adicionarTonsSelect(element, index, maior) {
 	selectElem.selectedIndex = index;
 }
 
-function mostrarTextoArquivoCarregado(tom = null, texto = null) {
+function mostrarTextoCifrasCarregado(tom = null, texto = null) {
 	if (tom) {
 		if (tom.includes('m'))
 			adicionarTonsSelect('tomSelect', tonsMenores.indexOf(tom), false);
@@ -650,6 +652,13 @@ function mostrarTextoArquivoCarregado(tom = null, texto = null) {
 
 	addEventCifras(textoCifras);
 	mudarTamanhoFrameCifras(_orientacaoCelularPe);
+}
+
+function selecionarCifraId() {
+	var cifraElems = textoCifras.contentDocument.getElementsByClassName('cifraSelecionada');
+
+	if (cifraElems.length > 0)
+		_cifraId = cifraElems[0].id.split('cifra')[1] - 1;
 }
 
 function mudarParaTelaFrame() {
@@ -706,9 +715,6 @@ function tocarCifraManualmente(cifraElem) {
 	if (_cifraParado === false)
 		avancarCifra('avancar', cifraAvancar);
 }
-
-var _cifraId = 0;
-var _cifraParado = true;
 
 function avancarCifra(avancar_retroceder, botao) {
 	if (avancar_retroceder === '') {
@@ -834,7 +840,6 @@ function selecionarStrings(stringsCheck) {
 }
 
 
-
 function voltarParaOrgao() {
 	voltar.style.display = 'none';
 	botaoFonte.style.display = 'none';
@@ -876,7 +881,7 @@ function mudarParaFullscreen() {
 	switchDarkDiv.style.display = 'none';
 	muteDiv.style.display = '';
 
-	if (textoCifrasFrame.style.display != 'none' && _orientacaoCelularPe == false && isMobileDevice())
+	if (textoCifrasFrame.style.display !== 'none' && _orientacaoCelularPe === false && isMobileDevice())
 		ocultarNavBar();
 
 	var el = document.body;
@@ -980,7 +985,7 @@ function showselectFonte(mostrar) {
 		selectFonte.style.display = "";
 	}
 	else {
-		if (textoCifrasFrame.style.display != 'none') {
+		if (textoCifrasFrame.style.display !== 'none') {
 			textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
 		}
 	}
@@ -992,7 +997,7 @@ function showselectIframe(mostrar) {
 		selectTamanhoIframe.style.display = "";
 	}
 	else {
-		if (textoCifrasFrame.style.display != 'none') {
+		if (textoCifrasFrame.style.display !== 'none') {
 			textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
 			textoCifras.style.height = selectTamanhoIframe.value + 'px';
 		}
