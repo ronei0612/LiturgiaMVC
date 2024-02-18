@@ -873,7 +873,7 @@ function mudarParaFullscreen() {
 	switchDarkDiv.style.display = 'none';
 	muteDiv.style.display = '';
 
-	if (textoCifrasFrame.style.display != 'none' && _orientacaoCelularPe == false && isMobileDevice())
+	if (textoCifrasFrame.style.display !== 'none' && _orientacaoCelularPe === false && isMobileDevice())
 		ocultarNavBar();
 
 	var el = document.body;
@@ -977,7 +977,7 @@ function showselectFonte(mostrar) {
 		selectFonte.style.display = "";
 	}
 	else {
-		if (textoCifrasFrame.style.display != 'none') {
+		if (textoCifrasFrame.style.display !== 'none') {
 			textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
 		}
 	}
@@ -989,7 +989,7 @@ function showselectIframe(mostrar) {
 		selectTamanhoIframe.style.display = "";
 	}
 	else {
-		if (textoCifrasFrame.style.display != 'none') {
+		if (textoCifrasFrame.style.display !== 'none') {
 			textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
 			textoCifras.style.height = selectTamanhoIframe.value + 'px';
 		}

@@ -103,11 +103,11 @@
 
 		var inputPesquisa = document.getElementById('inputPesquisa');
 		
-		if (document.getElementById('video') != null)
+		if (document.getElementById('video'))
 			inputPesquisa.style.display = 'block';
 
 		function Pesquisar(){
-			if (inputPesquisa.style.display == 'block')
+			if (inputPesquisa.style.display === 'block')
 				inputPesquisa.style.display = 'none';
 			else
 				inputPesquisa.style.display = 'block';

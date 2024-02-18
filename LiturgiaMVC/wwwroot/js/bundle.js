@@ -1902,7 +1902,7 @@ function tracker(ctx, scheduleAudioBeat) {
         let triggerTime = now + this.scheduleForward;
         this.scheduleMap[beat.colId] = triggerTime;
         if (beat.enabled) {
-            if (_viradaRitmo != '') {
+            if (_viradaRitmo !== '') {
             _trocarRitmo = true;
             selecionarRitmo(_viradaRitmo, true);
             }
