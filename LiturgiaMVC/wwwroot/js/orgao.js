@@ -267,7 +267,7 @@ function autoMudarRitmo(elementBotao = null) {
 
 		if (_stringsSelecionado) {
 			if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				chimbal.dispatchEvent(eventoClick);
+				caixa.dispatchEvent(eventoClick);
 			} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
 				brush.dispatchEvent(eventoClick);
 			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
