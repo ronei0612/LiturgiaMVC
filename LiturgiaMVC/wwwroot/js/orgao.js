@@ -15,6 +15,8 @@ var _orientacaoCelularPe = true;
 var _tomSelectedIndexCifra = 0;
 var timer;
 var _tomIndex = '';
+var _cifraId = 0;
+var _cifraParado = true;
 
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
@@ -122,6 +124,31 @@ window.onerror = function (message, source, lineno, colno, error) {
 		alert("Erro!\n" + message);
 };
 
+selectRitmo.addEventListener('change', function (e) {
+	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+});
+
+bpm.addEventListener('change', function (e) {
+	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+});
+
+autoCheck.addEventListener('change', function (e) {
+	_autoMudarRitmo = this.checked;
+	if (_autoMudarRitmo)
+		ocultarBotoesRitmo();
+	else
+		ocultarBotoesRitmo(false);
+});
+
+instrumentoSelect.addEventListener('change', (e) => {
+	var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+	_instrumentoSelecionado = semacentos.toLowerCase();
+});
+
+window.addEventListener("orientationchange", (event) => {
+	orientacaoCelularAlterado(event);
+});
+
 function handleTouchStart(event, element, bateria = false) {
 	event.preventDefault();
 
@@ -160,31 +187,6 @@ function verificarOrientacaoCelular() {
 			_orientacaoCelularPe = false;
 	}
 }
-
-selectRitmo.addEventListener('change', function (e) {
-	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-});
-
-bpm.addEventListener('change', function (e) {
-	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-});
-
-autoCheck.addEventListener('change', function (e) {
-	_autoMudarRitmo = this.checked;
-	if (_autoMudarRitmo)
-		ocultarBotoesRitmo();
-	else
-		ocultarBotoesRitmo(false);
-});
-
-instrumentoSelect.addEventListener('change', (e) => {
-	var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-	_instrumentoSelecionado = semacentos.toLowerCase();
-});
-
-window.addEventListener("orientationchange", (event) => {
-	orientacaoCelularAlterado(event);
-});
 
 function orientacaoCelularAlterado(event) {
 	if (event.target.screen.orientation.angle === 0) {
@@ -698,9 +700,6 @@ function tocarCifraManualmente(cifraElem) {
 	if (_cifraParado === false)
 		avancarCifra('avancar', cifraAvancar);
 }
-
-var _cifraId = 0;
-var _cifraParado = true;
 
 function avancarCifra(avancar_retroceder, botao) {
 	if (avancar_retroceder === '') {
