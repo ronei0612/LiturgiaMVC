@@ -347,7 +347,7 @@
                     musicaSearch.value = "";
                     modal01.style.display = 'none';
 
-                    mostrarTextoArquivoCarregado();
+                    mostrarTextoCifrasCarregado();
                     tomSelect.selectedIndex = _tomSelectedIndexCifra;
                 }
 
@@ -574,7 +574,7 @@
                 escreverCifraTextArea.style.display = 'block';
 
                 var tom = tomSelect.value;
-                mostrarTextoArquivoCarregado(tom, storageCifra);
+                mostrarTextoCifrasCarregado(tom, storageCifra);
 
                 textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
                 textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
@@ -583,11 +583,11 @@
             else
                 voltarParaOrgao();
 
-            var storage = localStorage.getItem(salvamentoSelecionado);
+            var storageElements = localStorage.getItem(salvamentoSelecionado);
 
-            if (storage) {
-                if (storage.includes('\n')) {
-                    var itens = storage.split('\n');
+            if (storageElements) {
+                if (storageElements.includes('\n')) {
+                    var itens = storageElements.split('\n');
 
                     for (var i = 0; i < itens.length; i++) {
                         if (itens[i].split(',')[0] != '') {
@@ -634,7 +634,7 @@
                 reader.onload = (evt) => {
                     var texto = evt.target.result;
 
-                    mostrarTextoArquivoCarregado(texto);
+                    mostrarTextoCifrasCarregado(texto);
                 };
 
                 reader.readAsText(arquivos[0]);
@@ -701,7 +701,7 @@
             musicaSearch.value = "";
             modal01.style.display = 'none';
 
-            mostrarTextoArquivoCarregado(data.tom, data.message);
+            mostrarTextoCifrasCarregado(data.tom, data.message);
         }
     </script>
 </body>

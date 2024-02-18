@@ -620,7 +620,7 @@ function adicionarTonsSelect(element, index, maior) {
 	selectElem.selectedIndex = index;
 }
 
-function mostrarTextoArquivoCarregado(tom = null, texto = null) {
+function mostrarTextoCifrasCarregado(tom = null, texto = null) {
 	if (tom) {
 		if (tom.includes('m'))
 			adicionarTonsSelect('tomSelect', tonsMenores.indexOf(tom), false);
@@ -823,7 +823,6 @@ function selecionarStrings(stringsCheck) {
 
 	autoMudarRitmo();
 }
-
 
 
 function voltarParaOrgao() {
