@@ -616,7 +616,9 @@ namespace LiturgiaMVC
                 else
                     cifraSomenteNota = cifraSomenteNota[0].ToString();
 
-                cifraAcordeAlteracoes = cifraFormatada.Split(cifraSomenteNota)[1];
+                if (string.IsNullOrEmpty(cifraAcordeAlteracoes))
+                    cifraAcordeAlteracoes = cifraFormatada.Split(cifraSomenteNota)[1];
+
                 cifraSomenteNota = Variaveis.acidentesCorrespondentes[cifraSomenteNota];
             }
 
