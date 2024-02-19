@@ -121,109 +121,109 @@ namespace LiturgiaMVC
             if (File.Exists(Variaveis.arquivoNotasLinks) == false)
             {
                 File.WriteAllText(Variaveis.arquivoNotasLinks,
-                    "orgao_do, " + Variaveis.pastaSonsOrgao + "orgao do.ogg" + Environment.NewLine +
-                    "orgao_do#, " + Variaveis.pastaSonsOrgao + "orgao do_.ogg" + Environment.NewLine +
-                    "orgao_re, " + Variaveis.pastaSonsOrgao + "orgao re.ogg" + Environment.NewLine +
-                    "orgao_re#, " + Variaveis.pastaSonsOrgao + "orgao re_.ogg" + Environment.NewLine +
-                    "orgao_mi, " + Variaveis.pastaSonsOrgao + "orgao mi.ogg" + Environment.NewLine +
-                    "orgao_fa, " + Variaveis.pastaSonsOrgao + "orgao fa.ogg" + Environment.NewLine +
-                    "orgao_fa#, " + Variaveis.pastaSonsOrgao + "orgao fa_.ogg" + Environment.NewLine +
-                    "orgao_sol, " + Variaveis.pastaSonsOrgao + "orgao sol.ogg" + Environment.NewLine +
-                    "orgao_sol#, " + Variaveis.pastaSonsOrgao + "orgao sol_.ogg" + Environment.NewLine +
-                    "orgao_la, " + Variaveis.pastaSonsOrgao + "orgao la.ogg" + Environment.NewLine +
-                    "orgao_la#, " + Variaveis.pastaSonsOrgao + "orgao la_.ogg" + Environment.NewLine +
-                    "orgao_si, " + Variaveis.pastaSonsOrgao + "orgao si.ogg" + Environment.NewLine +
+                    "orgao_c, " + Variaveis.pastaSonsOrgao + "orgao do.ogg" + Environment.NewLine +
+                    "orgao_c#, " + Variaveis.pastaSonsOrgao + "orgao do_.ogg" + Environment.NewLine +
+                    "orgao_d, " + Variaveis.pastaSonsOrgao + "orgao re.ogg" + Environment.NewLine +
+                    "orgao_d#, " + Variaveis.pastaSonsOrgao + "orgao re_.ogg" + Environment.NewLine +
+                    "orgao_e, " + Variaveis.pastaSonsOrgao + "orgao mi.ogg" + Environment.NewLine +
+                    "orgao_f, " + Variaveis.pastaSonsOrgao + "orgao fa.ogg" + Environment.NewLine +
+                    "orgao_f#, " + Variaveis.pastaSonsOrgao + "orgao fa_.ogg" + Environment.NewLine +
+                    "orgao_g, " + Variaveis.pastaSonsOrgao + "orgao sol.ogg" + Environment.NewLine +
+                    "orgao_g#, " + Variaveis.pastaSonsOrgao + "orgao sol_.ogg" + Environment.NewLine +
+                    "orgao_a, " + Variaveis.pastaSonsOrgao + "orgao la.ogg" + Environment.NewLine +
+                    "orgao_a#, " + Variaveis.pastaSonsOrgao + "orgao la_.ogg" + Environment.NewLine +
+                    "orgao_b, " + Variaveis.pastaSonsOrgao + "orgao si.ogg" + Environment.NewLine +
                     Environment.NewLine +
-                    "orgao_do_baixo, " + Variaveis.pastaSonsOrgao + "orgao do baixo.ogg" + Environment.NewLine +
-                    "orgao_do#_baixo, " + Variaveis.pastaSonsOrgao + "orgao do_ baixo.ogg" + Environment.NewLine +
-                    "orgao_re_baixo, " + Variaveis.pastaSonsOrgao + "orgao re baixo.ogg" + Environment.NewLine +
-                    "orgao_re#_baixo, " + Variaveis.pastaSonsOrgao + "orgao re_ baixo.ogg" + Environment.NewLine +
-                    "orgao_mi_baixo, " + Variaveis.pastaSonsOrgao + "orgao mi baixo.ogg" + Environment.NewLine +
-                    "orgao_fa_baixo, " + Variaveis.pastaSonsOrgao + "orgao fa baixo.ogg" + Environment.NewLine +
-                    "orgao_fa#_baixo, " + Variaveis.pastaSonsOrgao + "orgao fa_ baixo.ogg" + Environment.NewLine +
-                    "orgao_sol_baixo, " + Variaveis.pastaSonsOrgao + "orgao sol baixo.ogg" + Environment.NewLine +
-                    "orgao_sol#_baixo, " + Variaveis.pastaSonsOrgao + "orgao sol_ baixo.ogg" + Environment.NewLine +
-                    "orgao_la_baixo, " + Variaveis.pastaSonsOrgao + "orgao la baixo.ogg" + Environment.NewLine +
-                    "orgao_la#_baixo, " + Variaveis.pastaSonsOrgao + "orgao la_ baixo.ogg" + Environment.NewLine +
-                    "orgao_si_baixo, " + Variaveis.pastaSonsOrgao + "orgao si baixo.ogg" +
+                    "orgao_c_baixo, " + Variaveis.pastaSonsOrgao + "orgao do baixo.ogg" + Environment.NewLine +
+                    "orgao_c#_baixo, " + Variaveis.pastaSonsOrgao + "orgao do_ baixo.ogg" + Environment.NewLine +
+                    "orgao_d_baixo, " + Variaveis.pastaSonsOrgao + "orgao re baixo.ogg" + Environment.NewLine +
+                    "orgao_d#_baixo, " + Variaveis.pastaSonsOrgao + "orgao re_ baixo.ogg" + Environment.NewLine +
+                    "orgao_e_baixo, " + Variaveis.pastaSonsOrgao + "orgao mi baixo.ogg" + Environment.NewLine +
+                    "orgao_f_baixo, " + Variaveis.pastaSonsOrgao + "orgao fa baixo.ogg" + Environment.NewLine +
+                    "orgao_f#_baixo, " + Variaveis.pastaSonsOrgao + "orgao fa_ baixo.ogg" + Environment.NewLine +
+                    "orgao_g_baixo, " + Variaveis.pastaSonsOrgao + "orgao sol baixo.ogg" + Environment.NewLine +
+                    "orgao_g#_baixo, " + Variaveis.pastaSonsOrgao + "orgao sol_ baixo.ogg" + Environment.NewLine +
+                    "orgao_a_baixo, " + Variaveis.pastaSonsOrgao + "orgao la baixo.ogg" + Environment.NewLine +
+                    "orgao_a#_baixo, " + Variaveis.pastaSonsOrgao + "orgao la_ baixo.ogg" + Environment.NewLine +
+                    "orgao_b_baixo, " + Variaveis.pastaSonsOrgao + "orgao si baixo.ogg" +
                     Environment.NewLine +
-                    "orgao_do_grave, " + Variaveis.pastaSonsOrgao + "orgao do grave.ogg" + Environment.NewLine +
-                    "orgao_do#_grave, " + Variaveis.pastaSonsOrgao + "orgao do_ grave.ogg" + Environment.NewLine +
-                    "orgao_re_grave, " + Variaveis.pastaSonsOrgao + "orgao re grave.ogg" + Environment.NewLine +
-                    "orgao_re#_grave, " + Variaveis.pastaSonsOrgao + "orgao re_ grave.ogg" + Environment.NewLine +
-                    "orgao_mi_grave, " + Variaveis.pastaSonsOrgao + "orgao mi grave.ogg" + Environment.NewLine +
-                    "orgao_fa_grave, " + Variaveis.pastaSonsOrgao + "orgao fa grave.ogg" + Environment.NewLine +
-                    "orgao_fa#_grave, " + Variaveis.pastaSonsOrgao + "orgao fa_ grave.ogg" + Environment.NewLine +
-                    "orgao_sol_grave, " + Variaveis.pastaSonsOrgao + "orgao sol grave.ogg" + Environment.NewLine +
-                    "orgao_sol#_grave, " + Variaveis.pastaSonsOrgao + "orgao sol_ grave.ogg" + Environment.NewLine +
-                    "orgao_la_grave, " + Variaveis.pastaSonsOrgao + "orgao la grave.ogg" + Environment.NewLine +
-                    "orgao_la#_grave, " + Variaveis.pastaSonsOrgao + "orgao la_ grave.ogg" + Environment.NewLine +
-                    "orgao_si_grave, " + Variaveis.pastaSonsOrgao + "orgao si grave.ogg" +
+                    "orgao_c_grave, " + Variaveis.pastaSonsOrgao + "orgao do grave.ogg" + Environment.NewLine +
+                    "orgao_c#_grave, " + Variaveis.pastaSonsOrgao + "orgao do_ grave.ogg" + Environment.NewLine +
+                    "orgao_d_grave, " + Variaveis.pastaSonsOrgao + "orgao re grave.ogg" + Environment.NewLine +
+                    "orgao_d#_grave, " + Variaveis.pastaSonsOrgao + "orgao re_ grave.ogg" + Environment.NewLine +
+                    "orgao_e_grave, " + Variaveis.pastaSonsOrgao + "orgao mi grave.ogg" + Environment.NewLine +
+                    "orgao_f_grave, " + Variaveis.pastaSonsOrgao + "orgao fa grave.ogg" + Environment.NewLine +
+                    "orgao_f#_grave, " + Variaveis.pastaSonsOrgao + "orgao fa_ grave.ogg" + Environment.NewLine +
+                    "orgao_g_grave, " + Variaveis.pastaSonsOrgao + "orgao sol grave.ogg" + Environment.NewLine +
+                    "orgao_g#_grave, " + Variaveis.pastaSonsOrgao + "orgao sol_ grave.ogg" + Environment.NewLine +
+                    "orgao_a_grave, " + Variaveis.pastaSonsOrgao + "orgao la grave.ogg" + Environment.NewLine +
+                    "orgao_a#_grave, " + Variaveis.pastaSonsOrgao + "orgao la_ grave.ogg" + Environment.NewLine +
+                    "orgao_b_grave, " + Variaveis.pastaSonsOrgao + "orgao si grave.ogg" +
                     Environment.NewLine +
-                    "epiano_do, " + Variaveis.pastaSonsOrgao + "epiano do.ogg" + Environment.NewLine +
-                    "epiano_do#, " + Variaveis.pastaSonsOrgao + "epiano do_.ogg" + Environment.NewLine +
-                    "epiano_re, " + Variaveis.pastaSonsOrgao + "epiano re.ogg" + Environment.NewLine +
-                    "epiano_re#, " + Variaveis.pastaSonsOrgao + "epiano re_.ogg" + Environment.NewLine +
-                    "epiano_mi, " + Variaveis.pastaSonsOrgao + "epiano mi.ogg" + Environment.NewLine +
-                    "epiano_fa, " + Variaveis.pastaSonsOrgao + "epiano fa.ogg" + Environment.NewLine +
-                    "epiano_fa#, " + Variaveis.pastaSonsOrgao + "epiano fa_.ogg" + Environment.NewLine +
-                    "epiano_sol, " + Variaveis.pastaSonsOrgao + "epiano sol.ogg" + Environment.NewLine +
-                    "epiano_sol#, " + Variaveis.pastaSonsOrgao + "epiano sol_.ogg" + Environment.NewLine +
-                    "epiano_la, " + Variaveis.pastaSonsOrgao + "epiano la.ogg" + Environment.NewLine +
-                    "epiano_la#, " + Variaveis.pastaSonsOrgao + "epiano la_.ogg" + Environment.NewLine +
-                    "epiano_si, " + Variaveis.pastaSonsOrgao + "epiano si.ogg" + Environment.NewLine +
+                    "epiano_c, " + Variaveis.pastaSonsOrgao + "epiano do.ogg" + Environment.NewLine +
+                    "epiano_c#, " + Variaveis.pastaSonsOrgao + "epiano do_.ogg" + Environment.NewLine +
+                    "epiano_d, " + Variaveis.pastaSonsOrgao + "epiano re.ogg" + Environment.NewLine +
+                    "epiano_d#, " + Variaveis.pastaSonsOrgao + "epiano re_.ogg" + Environment.NewLine +
+                    "epiano_e, " + Variaveis.pastaSonsOrgao + "epiano mi.ogg" + Environment.NewLine +
+                    "epiano_f, " + Variaveis.pastaSonsOrgao + "epiano fa.ogg" + Environment.NewLine +
+                    "epiano_f#, " + Variaveis.pastaSonsOrgao + "epiano fa_.ogg" + Environment.NewLine +
+                    "epiano_g, " + Variaveis.pastaSonsOrgao + "epiano sol.ogg" + Environment.NewLine +
+                    "epiano_g#, " + Variaveis.pastaSonsOrgao + "epiano sol_.ogg" + Environment.NewLine +
+                    "epiano_a, " + Variaveis.pastaSonsOrgao + "epiano la.ogg" + Environment.NewLine +
+                    "epiano_a#, " + Variaveis.pastaSonsOrgao + "epiano la_.ogg" + Environment.NewLine +
+                    "epiano_b, " + Variaveis.pastaSonsOrgao + "epiano si.ogg" + Environment.NewLine +
                     Environment.NewLine +
-                    "epiano_do_baixo, " + Variaveis.pastaSonsOrgao + "epiano do baixo.ogg" + Environment.NewLine +
-                    "epiano_do#_baixo, " + Variaveis.pastaSonsOrgao + "epiano do_ baixo.ogg" + Environment.NewLine +
-                    "epiano_re_baixo, " + Variaveis.pastaSonsOrgao + "epiano re baixo.ogg" + Environment.NewLine +
-                    "epiano_re#_baixo, " + Variaveis.pastaSonsOrgao + "epiano re_ baixo.ogg" + Environment.NewLine +
-                    "epiano_mi_baixo, " + Variaveis.pastaSonsOrgao + "epiano mi baixo.ogg" + Environment.NewLine +
-                    "epiano_fa_baixo, " + Variaveis.pastaSonsOrgao + "epiano fa baixo.ogg" + Environment.NewLine +
-                    "epiano_fa#_baixo, " + Variaveis.pastaSonsOrgao + "epiano fa_ baixo.ogg" + Environment.NewLine +
-                    "epiano_sol_baixo, " + Variaveis.pastaSonsOrgao + "epiano sol baixo.ogg" + Environment.NewLine +
-                    "epiano_sol#_baixo, " + Variaveis.pastaSonsOrgao + "epiano sol_ baixo.ogg" + Environment.NewLine +
-                    "epiano_la_baixo, " + Variaveis.pastaSonsOrgao + "epiano la baixo.ogg" + Environment.NewLine +
-                    "epiano_la#_baixo, " + Variaveis.pastaSonsOrgao + "epiano la_ baixo.ogg" + Environment.NewLine +
-                    "epiano_si_baixo, " + Variaveis.pastaSonsOrgao + "epiano si baixo.ogg" +
+                    "epiano_c_baixo, " + Variaveis.pastaSonsOrgao + "epiano do baixo.ogg" + Environment.NewLine +
+                    "epiano_c#_baixo, " + Variaveis.pastaSonsOrgao + "epiano do_ baixo.ogg" + Environment.NewLine +
+                    "epiano_d_baixo, " + Variaveis.pastaSonsOrgao + "epiano re baixo.ogg" + Environment.NewLine +
+                    "epiano_d#_baixo, " + Variaveis.pastaSonsOrgao + "epiano re_ baixo.ogg" + Environment.NewLine +
+                    "epiano_e_baixo, " + Variaveis.pastaSonsOrgao + "epiano mi baixo.ogg" + Environment.NewLine +
+                    "epiano_f_baixo, " + Variaveis.pastaSonsOrgao + "epiano fa baixo.ogg" + Environment.NewLine +
+                    "epiano_f#_baixo, " + Variaveis.pastaSonsOrgao + "epiano fa_ baixo.ogg" + Environment.NewLine +
+                    "epiano_g_baixo, " + Variaveis.pastaSonsOrgao + "epiano sol baixo.ogg" + Environment.NewLine +
+                    "epiano_g#_baixo, " + Variaveis.pastaSonsOrgao + "epiano sol_ baixo.ogg" + Environment.NewLine +
+                    "epiano_a_baixo, " + Variaveis.pastaSonsOrgao + "epiano la baixo.ogg" + Environment.NewLine +
+                    "epiano_a#_baixo, " + Variaveis.pastaSonsOrgao + "epiano la_ baixo.ogg" + Environment.NewLine +
+                    "epiano_b_baixo, " + Variaveis.pastaSonsOrgao + "epiano si baixo.ogg" +
                     Environment.NewLine +
-                    "epiano_do_grave, " + Variaveis.pastaSonsOrgao + "epiano do grave.ogg" + Environment.NewLine +
-                    "epiano_do#_grave, " + Variaveis.pastaSonsOrgao + "epiano do_ grave.ogg" + Environment.NewLine +
-                    "epiano_re_grave, " + Variaveis.pastaSonsOrgao + "epiano re grave.ogg" + Environment.NewLine +
-                    "epiano_re#_grave, " + Variaveis.pastaSonsOrgao + "epiano re_ grave.ogg" + Environment.NewLine +
-                    "epiano_mi_grave, " + Variaveis.pastaSonsOrgao + "epiano mi grave.ogg" + Environment.NewLine +
-                    "epiano_fa_grave, " + Variaveis.pastaSonsOrgao + "epiano fa grave.ogg" + Environment.NewLine +
-                    "epiano_fa#_grave, " + Variaveis.pastaSonsOrgao + "epiano fa_ grave.ogg" + Environment.NewLine +
-                    "epiano_sol_grave, " + Variaveis.pastaSonsOrgao + "epiano sol grave.ogg" + Environment.NewLine +
-                    "epiano_sol#_grave, " + Variaveis.pastaSonsOrgao + "epiano sol_ grave.ogg" + Environment.NewLine +
-                    "epiano_la_grave, " + Variaveis.pastaSonsOrgao + "epiano la grave.ogg" + Environment.NewLine +
-                    "epiano_la#_grave, " + Variaveis.pastaSonsOrgao + "epiano la_ grave.ogg" + Environment.NewLine +
-                    "epiano_si_grave, " + Variaveis.pastaSonsOrgao + "epiano si grave.ogg" +
+                    "epiano_c_grave, " + Variaveis.pastaSonsOrgao + "epiano do grave.ogg" + Environment.NewLine +
+                    "epiano_c#_grave, " + Variaveis.pastaSonsOrgao + "epiano do_ grave.ogg" + Environment.NewLine +
+                    "epiano_d_grave, " + Variaveis.pastaSonsOrgao + "epiano re grave.ogg" + Environment.NewLine +
+                    "epiano_d#_grave, " + Variaveis.pastaSonsOrgao + "epiano re_ grave.ogg" + Environment.NewLine +
+                    "epiano_e_grave, " + Variaveis.pastaSonsOrgao + "epiano mi grave.ogg" + Environment.NewLine +
+                    "epiano_f_grave, " + Variaveis.pastaSonsOrgao + "epiano fa grave.ogg" + Environment.NewLine +
+                    "epiano_f#_grave, " + Variaveis.pastaSonsOrgao + "epiano fa_ grave.ogg" + Environment.NewLine +
+                    "epiano_g_grave, " + Variaveis.pastaSonsOrgao + "epiano sol grave.ogg" + Environment.NewLine +
+                    "epiano_g#_grave, " + Variaveis.pastaSonsOrgao + "epiano sol_ grave.ogg" + Environment.NewLine +
+                    "epiano_a_grave, " + Variaveis.pastaSonsOrgao + "epiano la grave.ogg" + Environment.NewLine +
+                    "epiano_a#_grave, " + Variaveis.pastaSonsOrgao + "epiano la_ grave.ogg" + Environment.NewLine +
+                    "epiano_b_grave, " + Variaveis.pastaSonsOrgao + "epiano si grave.ogg" +
                     Environment.NewLine +
-                    "strings_do, " + Variaveis.pastaSonsStrings + "strings do.ogg" + Environment.NewLine +
-                    "strings_do#, " + Variaveis.pastaSonsStrings + "strings do_.ogg" + Environment.NewLine +
-                    "strings_re, " + Variaveis.pastaSonsStrings + "strings re.ogg" + Environment.NewLine +
-                    "strings_re#, " + Variaveis.pastaSonsStrings + "strings re_.ogg" + Environment.NewLine +
-                    "strings_mi, " + Variaveis.pastaSonsStrings + "strings mi.ogg" + Environment.NewLine +
-                    "strings_fa, " + Variaveis.pastaSonsStrings + "strings fa.ogg" + Environment.NewLine +
-                    "strings_fa#, " + Variaveis.pastaSonsStrings + "strings fa_.ogg" + Environment.NewLine +
-                    "strings_sol, " + Variaveis.pastaSonsStrings + "strings sol.ogg" + Environment.NewLine +
-                    "strings_sol#, " + Variaveis.pastaSonsStrings + "strings sol_.ogg" + Environment.NewLine +
-                    "strings_la, " + Variaveis.pastaSonsStrings + "strings la.ogg" + Environment.NewLine +
-                    "strings_la#, " + Variaveis.pastaSonsStrings + "strings la_.ogg" + Environment.NewLine +
-                    "strings_si, " + Variaveis.pastaSonsStrings + "strings si.ogg" + Environment.NewLine +
+                    "strings_c, " + Variaveis.pastaSonsStrings + "strings do.ogg" + Environment.NewLine +
+                    "strings_c#, " + Variaveis.pastaSonsStrings + "strings do_.ogg" + Environment.NewLine +
+                    "strings_d, " + Variaveis.pastaSonsStrings + "strings re.ogg" + Environment.NewLine +
+                    "strings_d#, " + Variaveis.pastaSonsStrings + "strings re_.ogg" + Environment.NewLine +
+                    "strings_e, " + Variaveis.pastaSonsStrings + "strings mi.ogg" + Environment.NewLine +
+                    "strings_f, " + Variaveis.pastaSonsStrings + "strings fa.ogg" + Environment.NewLine +
+                    "strings_f#, " + Variaveis.pastaSonsStrings + "strings fa_.ogg" + Environment.NewLine +
+                    "strings_g, " + Variaveis.pastaSonsStrings + "strings sol.ogg" + Environment.NewLine +
+                    "strings_g#, " + Variaveis.pastaSonsStrings + "strings sol_.ogg" + Environment.NewLine +
+                    "strings_a, " + Variaveis.pastaSonsStrings + "strings la.ogg" + Environment.NewLine +
+                    "strings_a#, " + Variaveis.pastaSonsStrings + "strings la_.ogg" + Environment.NewLine +
+                    "strings_b, " + Variaveis.pastaSonsStrings + "strings si.ogg" + Environment.NewLine +
                     Environment.NewLine +
-                    "strings_do_baixo, " + Variaveis.pastaSonsStrings + "strings do baixo.ogg" + Environment.NewLine +
-                    "strings_do#_baixo, " + Variaveis.pastaSonsStrings + "strings do_ baixo.ogg" + Environment.NewLine +
-                    "strings_re_baixo, " + Variaveis.pastaSonsStrings + "strings re baixo.ogg" + Environment.NewLine +
-                    "strings_re#_baixo, " + Variaveis.pastaSonsStrings + "strings re_ baixo.ogg" + Environment.NewLine +
-                    "strings_mi_baixo, " + Variaveis.pastaSonsStrings + "strings mi baixo.ogg" + Environment.NewLine +
-                    "strings_fa_baixo, " + Variaveis.pastaSonsStrings + "strings fa baixo.ogg" + Environment.NewLine +
-                    "strings_fa#_baixo, " + Variaveis.pastaSonsStrings + "strings fa_ baixo.ogg" + Environment.NewLine +
-                    "strings_sol_baixo, " + Variaveis.pastaSonsStrings + "strings sol baixo.ogg" + Environment.NewLine +
-                    "strings_sol#_baixo, " + Variaveis.pastaSonsStrings + "strings sol_ baixo.ogg" + Environment.NewLine +
-                    "strings_la_baixo, " + Variaveis.pastaSonsStrings + "strings la baixo.ogg" + Environment.NewLine +
-                    "strings_la#_baixo, " + Variaveis.pastaSonsStrings + "strings la_ baixo.ogg" + Environment.NewLine +
-                    "strings_si_baixo, " + Variaveis.pastaSonsStrings + "strings si baixo.ogg" + Environment.NewLine
+                    "strings_c_baixo, " + Variaveis.pastaSonsStrings + "strings do baixo.ogg" + Environment.NewLine +
+                    "strings_c#_baixo, " + Variaveis.pastaSonsStrings + "strings do_ baixo.ogg" + Environment.NewLine +
+                    "strings_d_baixo, " + Variaveis.pastaSonsStrings + "strings re baixo.ogg" + Environment.NewLine +
+                    "strings_d#_baixo, " + Variaveis.pastaSonsStrings + "strings re_ baixo.ogg" + Environment.NewLine +
+                    "strings_e_baixo, " + Variaveis.pastaSonsStrings + "strings mi baixo.ogg" + Environment.NewLine +
+                    "strings_f_baixo, " + Variaveis.pastaSonsStrings + "strings fa baixo.ogg" + Environment.NewLine +
+                    "strings_f#_baixo, " + Variaveis.pastaSonsStrings + "strings fa_ baixo.ogg" + Environment.NewLine +
+                    "strings_g_baixo, " + Variaveis.pastaSonsStrings + "strings sol baixo.ogg" + Environment.NewLine +
+                    "strings_g#_baixo, " + Variaveis.pastaSonsStrings + "strings sol_ baixo.ogg" + Environment.NewLine +
+                    "strings_a_baixo, " + Variaveis.pastaSonsStrings + "strings la baixo.ogg" + Environment.NewLine +
+                    "strings_a#_baixo, " + Variaveis.pastaSonsStrings + "strings la_ baixo.ogg" + Environment.NewLine +
+                    "strings_b_baixo, " + Variaveis.pastaSonsStrings + "strings si baixo.ogg" + Environment.NewLine
                 );
             }
 
