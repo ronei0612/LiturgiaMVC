@@ -1113,9 +1113,9 @@ function setupBaseEvents() {
         var measureLength_valor = measureLength.value;
         if (measureLength_valor == 24)
             bpmRange_valor = bpmRange_valor / 2;
-        lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
-        //getSetAudioOptions.setTrackerControls();
+        lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';        
         getSetAudioOptions.options.bpm = bpmRange.value;
+        getSetAudioOptions.setTrackerControls();
         if (schedule.running) {
             schedule.stop();
             schedule.runSchedule(getSetAudioOptions.options.bpm);
@@ -1123,7 +1123,14 @@ function setupBaseEvents() {
     });
     bpmRange.addEventListener('input', function (e) {
         bpm.value = bpmRange.value;
-        bpm.dispatchEvent(eventoChange);
+    });
+    bpmRange.addEventListener('change', function (e) {
+        getSetAudioOptions.options.bpm = bpmRange.value;
+        getSetAudioOptions.setTrackerControls();
+        if (schedule.running) {
+            schedule.stop();
+            schedule.runSchedule(getSetAudioOptions.options.bpm);
+        }
     });
     measureLength.addEventListener('change', (e) => {
         let value = document.getElementById('measureLength').value;
@@ -1930,13 +1937,13 @@ function tracker(ctx, scheduleAudioBeat) {
         this.scheduleMap[beat.colId] = triggerTime;
         if (beat.enabled) {
             if (_viradaRitmo !== '') {
-            _trocarRitmo = true;
-            selecionarRitmo(_viradaRitmo, true);
+                _trocarRitmo = true;
+                selecionarRitmo(_viradaRitmo, true);
             }
             if (beat.colId == 0) {
-            selecionarRitmo(_ritmoSelecionado);
-            _viradaRitmo = '';
-        }
+                selecionarRitmo(_ritmoSelecionado);
+                _viradaRitmo = '';
+            }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
                 this.scheduleAudioBeat(beat.rowId, triggerTime);
             }, now);
@@ -2038,7 +2045,7 @@ function tracker(ctx, scheduleAudioBeat) {
                 let val = Object.assign({}, e.target.dataset);
                 val.enabled = hasClass(e.target, "tracker-enabled");
                 let currentBeat = e.target.dataset.colId;
-                if (val.colId > currentBeat) {
+                if (val.colId > currentBeat) {debugger;
                     this.scheduleAudioBeatNow(val);
                 }
                 e.target.classList.toggle('tracker-enabled');
