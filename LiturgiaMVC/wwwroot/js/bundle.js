@@ -930,16 +930,13 @@ var _ritmoSelecionado = 'aro';
 
         window.onload = function () {
             
-            let formValues = new getSetFormValues();
-            let form = document.getElementById("trackerControls");
-            formValues.set(form, defaultTrack.settings);
+            //let formValues = new getSetFormValues();
+            //let form = document.getElementById("trackerControls");
+            //formValues.set(form, defaultTrack.settings);
             getSetAudioOptions.setTrackerControls(defaultTrack.settings);
 
             initializeSampleSet(ctx, defaultTrack.settings.sampleSet, defaultTrack); //carrega e inicializa tracks
             setupBaseEvents();
-
-            storage = new tracksLocalStorage();
-            storage.setupStorage();
         };
         var instrumentData = {};
         function setupTrackerHtml(data, measureLength) {
@@ -955,9 +952,9 @@ var _ritmoSelecionado = 'aro';
                 
             
         
-        function scheduleAudioBeat(rowId, triggerTime) { //tocar os beats
+        function scheduleAudioBeat(beat, triggerTime) { //tocar os beats
 
-            let instrumentName = instrumentData.filename[rowId];
+            let instrumentName = instrumentData.filename[beat.rowId];
             let instrument = buffers[instrumentName].get();
             //let options = getSetAudioOptions.getTrackerControls();
             
@@ -1012,6 +1009,7 @@ var _ritmoSelecionado = 'aro';
             function playCravo() {
                 if (instrumentName === 'tom-01' || instrumentName === 'tom-02' || instrumentName === 'tom-03') {
                     if (_acordeSelecionado) {
+                        this.scheduleMap[beat.colId] = triggerTime;
                         let notas = notasAcordesJson[_acordeSelecionado];
                         notas.sort();
 
@@ -1042,9 +1040,6 @@ var _ritmoSelecionado = 'aro';
         }        
         var schedule = new simpleTracker(ctx, scheduleAudioBeat);        
         function playBateria() {
-            let storage = new tracksLocalStorage();
-            let track = storage.getTrack();
-            schedule.measureLength = track.settings.measureLength;
             schedule.stop();
             schedule.runSchedule(getSetAudioOptions.options.bpm);
         }        
@@ -1152,141 +1147,6 @@ $('#sampleSet').on('change', function () {
     initializeSampleSet(ctx, this.value);
 });
 
-function tracksLocalStorage() {
-
-    this.setLocalStorage = function (update) {
-        var storage = {};
-        storage['Select'] = 'Select';
-
-
-        for (var i = 0, len = localStorage.length; i < len; ++i) {
-            let item = localStorage.key(i);
-            storage[item] = item;
-        }
-
-        // Create select element
-        var s = new selectElement(
-            'load-storage', // id to append the select list to
-            'beat-list', // id of the select list
-            storage //
-        );
-
-        if (update) {
-            s.update('beat-list', storage);
-        } else {
-            s.create();
-        }
-    };
-
-    this.getFilename = function () {
-        let filename = $('#filename').val();
-        if (!filename) {
-            filename = 'untitled';
-        }
-        return filename;
-    }
-
-    /**
-     * Get complete song
-     */
-    this.getTrack = function () {
-        let formData = getSetAudioOptions.getTrackerControls();
-
-        let beat = schedule.getTrackerValues();
-        let song = { "beat": beat, "settings": formData };
-        
-        return song;
-    }
-
-    this.alert = function (message) {
-        let appMessage = document.getElementById('app-message');
-
-        appMessage.innerHTML = message
-        appMessage.style.display = 'block'
-        setTimeout(function () {
-            appMessage.style.display = 'none'
-        }, 2000)
-    }
-
-    this.setupStorage = function () {
-
-        this.setLocalStorage();
-        //document.getElementById('save').addEventListener('click', (e) => {
-        //    e.preventDefault();
-
-        //    let song = this.getTrack();
-        //    let json = JSON.stringify(song);
-
-        //    let filename = this.getFilename();
-
-        //    localStorage.setItem(filename, json);
-        //    this.setLocalStorage('update');
-
-        //    $("#beat-list").val(filename);
-
-        //    this.alert(`The track has been saved to local storage as <strong>${filename}</strong>`)
-
-        //});
-
-        // saveAsJson
-        //document.getElementById('saveAsJson').addEventListener('click', (e) => {
-        //    e.preventDefault();
-
-        //    let song = this.getTrack();
-        //    let json = JSON.stringify(song);
-
-        //    let filename = this.getFilename();
-
-        //    var blob = new Blob([json], {type: "application/json"});
-        //    FileSaver.saveAs(blob, filename + ".json");
-
-
-        //});
-
-        //$('#filename').bind('keypress keydown keyup', (e) => {
-        //    if (e.keyCode == 13) {
-        //        e.preventDefault();
-        //    }
-        //});
-
-        //document.getElementById('beat-list').addEventListener('change', (e) => {
-        //    let item = $('#beat-list').val();
-        //    if (item === 'Select') {
-        //        document.getElementById('filename').value = '';
-        //        return;
-        //    }
-
-        //    document.getElementById('filename').value = item;
-        //    let track = JSON.parse(localStorage.getItem(item));
-
-        //    let formValues = new getSetFormValues();
-        //    let form = document.getElementById("trackerControls");
-
-        //    formValues.set(form, track.settings);
-        //    getSetAudioOptions.setTrackerControls(track.settings);
-        //    schedule.stop();
-        //    schedule.measureLength = track.settings.measureLength;
-
-        //    initializeSampleSet(ctx, track.settings.sampleSet, track);
-
-        //});
-
-        //document.getElementById('delete').addEventListener('click', (e) => {
-
-        //    e.preventDefault();
-
-        //    let elem = document.getElementById('beat-list');
-        //    let toDelete = elem.options[elem.selectedIndex].text;
-
-        //    localStorage.removeItem(toDelete);
-        //    document.getElementById('filename').value = '';
-        //    this.setLocalStorage('update');
-
-        //    this.alert(`Track has been deleted`)
-
-        //});
-    };
-}
 
 },{"./default-track":14,"./get-set-controls":15,"./simple-tracker":16,"adsr-gain-node":1,"file-saver":3,"get-set-form-values":5,"load-sample-set":7,"select-element":10}],14:[function(require,module,exports){
 module.exports = {
@@ -1945,7 +1805,7 @@ function tracker(ctx, scheduleAudioBeat) {
                 _viradaRitmo = '';
             }
             this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
-                this.scheduleAudioBeat(beat.rowId, triggerTime);
+                this.scheduleAudioBeat(beat, triggerTime);
             }, now);
         }
     };
@@ -1966,7 +1826,7 @@ function tracker(ctx, scheduleAudioBeat) {
         let triggerTime = this.scheduleMap[0] + beat.colId * this.milliPerBeat(this.bpm) / 1000;
         let now = ctx.currentTime;
         this.eventMap[this.getEventKey(beat)] = this.clock.callbackAtTime(() => {
-            this.scheduleAudioBeat(beat.rowId, triggerTime);
+            this.scheduleAudioBeat(beat, triggerTime);
         }, now);
     };
 
