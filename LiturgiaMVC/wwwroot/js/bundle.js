@@ -1012,22 +1012,20 @@ var _ritmoSelecionado = 'aro';
             function playCravo() {
                 if (instrumentName === 'tom-01' || instrumentName === 'tom-02' || instrumentName === 'tom-03') {
                     if (_acordeSelecionado) {
-                        if (_acordeSelecionado.length > 1) {
-                            let notas = notasAcordesJson[_acordeSelecionado];
-                            notas.sort();
+                        let notas = notasAcordesJson[_acordeSelecionado];
+                        notas.sort();
 
-                            let nota = notas[0];
+                        let nota = notas[0];
                                 
-                            if (instrumentName === 'tom-02')
-                                nota = notas[1];
-                            else if (instrumentName === 'tom-03')
-                                nota = notas[2];
+                        if (instrumentName === 'tom-02')
+                            nota = notas[1];
+                        else if (instrumentName === 'tom-03')
+                            nota = notas[2];
 
-                            nota = nota.includes('#') ? nota.split('#')[0] + '_' : nota[0];
-                            setTimeout(function () {
-                                play(buffers['cravo_' + nota].get());
-                            }, 130);
-                        }
+                        nota = nota.includes('#') ? nota.split('#')[0] + '_' : nota[0];
+                        setTimeout(function () {
+                            play(buffers['cravo_' + nota].get());
+                        }, 130);
                     }
                 }
                 else
