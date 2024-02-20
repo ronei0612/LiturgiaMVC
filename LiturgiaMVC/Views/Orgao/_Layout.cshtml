@@ -114,6 +114,7 @@
                     <br />
                     <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento()" id="instrumentoSelect">
                         <option selected value="Órgão">Órgão</option>
+                        <option value="orgao_cravo">Órgão e Cravo</option>
                         <option value="Epiano">Epiano</option>
                         <option value="Strings">Strings</option>
                         <option value="Bateria">Só Bateria</option>
@@ -430,6 +431,11 @@
                         bateriaBotoes.style.display = 'block';
 
                 mudarTempoCompasso();
+
+                if (instrumentoSelecionado === 'orgao_cravo')
+                    _cravoSelecionado = true;
+                else
+                    _cravoSelecionado = false;
             }
         }
 

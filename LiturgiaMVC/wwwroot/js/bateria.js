@@ -80,6 +80,10 @@ function guardarBaixo(instrument) {
     _sourceBaixo = instrument;
 }
 
+function guardarCravo(instrument) {
+    _sourceCravo = instrument;
+}
+
 function mudarRitmo(ritmo) {
     _trocarRitmo = true;
 

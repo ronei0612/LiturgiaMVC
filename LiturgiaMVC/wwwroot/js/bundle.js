@@ -998,18 +998,47 @@ var _ritmoSelecionado = 'aro';
             function playBaixo() {
                 if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano') {
                     if (_acordeSelecionado) {
+                        let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0] : _acordeSelecionado;
+                        let baixoAudio = buffers['baixo_' + nota].get();
+                        guardarBaixo(baixoAudio);
                         setTimeout(function () {
                             //pararBaixo(ctx);
-                            let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0] : _acordeSelecionado;
-                            let baixoAudio = buffers['baixo_' + nota].get();
-                            guardarBaixo(baixoAudio);
                             play(baixoAudio);
                         }, 130)
                     }
                 }
             }
+
+            function playCravo() {
+                if (instrumentName === 'tom-01' || instrumentName === 'tom-02' || instrumentName === 'tom-03') {
+                    if (_acordeSelecionado) {
+                        if (_acordeSelecionado.length > 1) {
+                            let notas = notasAcordesJson[_acordeSelecionado];
+                            notas.sort();
+
+                            let nota = notas[0];
+                                
+                            if (instrumentName === 'tom-02')
+                                nota = notas[1];
+                            else if (instrumentName === 'tom-03')
+                                nota = notas[2];
+
+                            nota = nota.includes('#') ? nota.split('#')[0] + '_' : nota[0];
+                            setTimeout(function () {
+                                play(buffers['cravo_' + nota].get());
+                            }, 130);
+                        }
+                    }
+                }
+                else
+                    play(instrument);
+            }
+            //debugger;
+            if (_cravoSelecionado)
+                playCravo();
+            else
+                play(instrument);
             
-            play(instrument);
             playBaixo();
             guardarChimbalAberto(instrumentName, instrument);
         }        
@@ -2041,7 +2070,7 @@ function trackerTable() {
         this.setHeader(numCols, data);
         for (let rowID = 0; rowID < numRows; rowID++) {
             this.str += `<tr class="tracker-row" data-id="${rowID}">`;
-            this.str += data.title && data.title[rowID].includes('baixo') ? '' : this.getCells(rowID, numCols, data);
+            this.str += data.title && (data.title[rowID].includes('baixo') || data.title[rowID].includes('cravo')) ? '' : this.getCells(rowID, numCols, data);
             this.str += `</tr>`;
         }
     };
