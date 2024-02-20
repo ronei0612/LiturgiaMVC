@@ -905,7 +905,6 @@ var _ritmoSelecionado = 'aro';
         var storage;
 
         function initializeSampleSet(ctx, dataUrl, track) {
-
             var sampleSetPromise = loadSampleSet(ctx, dataUrl);
             sampleSetPromise.then(function (data) {
 
@@ -925,7 +924,6 @@ var _ritmoSelecionado = 'aro';
                 schedule.loadTrackerValues(track.beat);
                 schedule.setupEvents();
             });
-
         }
 
         window.onload = function () {
@@ -944,35 +942,19 @@ var _ritmoSelecionado = 'aro';
             instrumentData.title = instrumentData.filename;
             schedule.drawTracker(data.filename.length, measureLength, instrumentData);
             return;
-        }
-        
-            
-                
-            
-                
-            
+        }   
         
         function scheduleAudioBeat(beat, triggerTime) { //tocar os beats
-
             let instrumentName = instrumentData.filename[beat.rowId];
             let instrument = buffers[instrumentName].get();
             //let options = getSetAudioOptions.getTrackerControls();
-            
 
             function play(source) {
-                
-
-
-                
                 let node = routeGain(source)
                 node.connect(ctx.destination);
                 fecharChimbal(instrumentName, _sourceChimbalAberto, triggerTime);
-
-                
-
                 source.start(triggerTime);
             }
-
 
             function routeGain(source) {
                 let gain = new adsrGainNode(ctx);
@@ -980,12 +962,6 @@ var _ritmoSelecionado = 'aro';
                 let options = getSetAudioOptions.getTrackerControls();
 
                 let gainNode;
-
-
-
-
-
-
                 gain.setOptions(options);
                 gainNode = gain.getGainNode(triggerTime);
                 source.connect(gainNode);
@@ -1009,7 +985,7 @@ var _ritmoSelecionado = 'aro';
             function playCravo() {
                 if (instrumentName === 'tom-01' || instrumentName === 'tom-02' || instrumentName === 'tom-03') {
                     if (_acordeSelecionado) {
-                        this.scheduleMap[beat.colId] = triggerTime;
+                        //this.scheduleMap[beat.colId] = triggerTime; teste
                         let notas = notasAcordesJson[_acordeSelecionado];
                         notas.sort();
 
@@ -1029,7 +1005,7 @@ var _ritmoSelecionado = 'aro';
                 else
                     play(instrument);
             }
-            //debugger;
+
             if (_cravoSelecionado)
                 playCravo();
             else
@@ -1699,7 +1675,6 @@ const hasClass = require('has-class');
  * @param {function} scheduleAudioBeat funtion when an audio is played
  */
 function tracker(ctx, scheduleAudioBeat) {
-
     this.measureLength = 16;
     this.scheduleAudioBeat = scheduleAudioBeat;
     this.scheduleForward = 0.1;
@@ -1767,26 +1742,9 @@ function tracker(ctx, scheduleAudioBeat) {
     /**
      * Mudando as colunas beats
      */
-    this.schedule = function () {
+        this.schedule = function () {
         let beatColumn = this.getTrackerRowValues(this.current);
         let now = ctx.currentTime;
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-        
         beatColumn.forEach((beat) => {
             this.scheduleBeat(beat, now);
         });
@@ -1905,7 +1863,7 @@ function tracker(ctx, scheduleAudioBeat) {
                 let val = Object.assign({}, e.target.dataset);
                 val.enabled = hasClass(e.target, "tracker-enabled");
                 let currentBeat = e.target.dataset.colId;
-                if (val.colId > currentBeat) {debugger;
+                if (val.colId > currentBeat) {
                     this.scheduleAudioBeatNow(val);
                 }
                 e.target.classList.toggle('tracker-enabled');
