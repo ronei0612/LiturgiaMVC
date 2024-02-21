@@ -989,7 +989,34 @@ var _ritmoSelecionado = 'aro';
                 }
             }
             
+            function playCravo() {
+                if (instrumentName === 'tom-01' || instrumentName === 'tom-02' || instrumentName === 'tom-03') {
+                    if (_acordeSelecionado && _cravoSelecionado) {
+                        let notas = notasAcordesJson[_acordeSelecionado];
+                        notas.sort();
+
+                        let nota = notas[0];
+
+                        if (instrumentName === 'tom-02')
+                            nota = notas[1];
+                        else if (instrumentName === 'tom-03')
+                            nota = notas[2];
+
+                        nota = nota.includes('#') ? nota.split('#')[0] + '_' : nota[0];
+                        setTimeout(function () {
+                            play(buffers['cravo_' + nota].get());
+                        }, 130);
+                    }
+                }
+                else
             play(instrument);
+            }
+
+            if (_cravoSelecionado)
+                playCravo();
+            else
+                play(instrument);
+
             playBaixo();
             guardarChimbalAberto(instrumentName, instrument);
         }        
@@ -1043,6 +1070,8 @@ function setupBaseEvents() {
     brush.addEventListener('click', function (e) { verificarETocarBateria('brush', false) });
     ride.addEventListener('click', function (e) { verificarETocarBateria('ride', true, 'stringsSolo') });
     chimbal.addEventListener('click', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
+            cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
+            brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
     prato.addEventListener('click', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             let pratoAtaque1 = buffers['prato1'].get();
@@ -1073,7 +1102,14 @@ function setupBaseEvents() {
     });
     bpmRange.addEventListener('input', function (e) {
         bpm.value = bpmRange.value;
-        bpm.dispatchEvent(eventoChange);
+            });
+            bpmRange.addEventListener('change', function (e) {
+                getSetAudioOptions.options.bpm = bpmRange.value;
+                getSetAudioOptions.setTrackerControls();
+                if (schedule.running) {
+                    schedule.stop();
+                    schedule.runSchedule(getSetAudioOptions.options.bpm);
+                }
     });
     measureLength.addEventListener('change', (e) => {
         let value = document.getElementById('measureLength').value;

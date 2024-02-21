@@ -19,6 +19,7 @@ var _tomIndex = '';
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
 var _sourceBaixo;
+var _cravoSelecionado = false;
 var _viradaRitmo = '';
 var _trocarRitmo = false;
 
@@ -40,19 +41,21 @@ const meiaLua = document.getElementById('meiaLua');
 const prato = document.getElementById('prato');
 const aro = document.getElementById('aro');
 const caixa = document.getElementById('caixa');
+const cravo = document.getElementById('cravo');
+const brushCravo = document.getElementById('brushCravo');
 const tomSelect = document.getElementById('tomSelect');
 const volumeTexto = document.getElementById('volumeTexto');
 const textoCifras = document.getElementById('textoCifras');
 const textoAcordeMenor = document.getElementById('textoAcordeMenor');
 const textoCifrasFrame = document.getElementById('textoCifrasFrame');
 const container = document.getElementById('container');
-const voltar  = document.getElementById('voltar');
-const botaoFonte  = document.getElementById('botaoFonte');
+const voltar = document.getElementById('voltar');
+const botaoFonte = document.getElementById('botaoFonte');
 const selectFonte = document.getElementById('selectFonte');
 const botaoTamanhoIframe = document.getElementById('botaoTamanhoIframe');
 const selectTamanhoIframe = document.getElementById('selectTamanhoIframe');
-const tomMenorSwitchDiv  = document.getElementById('tomMenorSwitchDiv');
-const orgaoCifrasBotoes  = document.getElementById('orgaoCifrasBotoes');
+const tomMenorSwitchDiv = document.getElementById('tomMenorSwitchDiv');
+const orgaoCifrasBotoes = document.getElementById('orgaoCifrasBotoes');
 const tdVolume = document.getElementById('tdVolume');
 const volumeDiv = document.getElementById('volumeDiv');
 const textoVolume = document.getElementById('textoVolume');
@@ -122,6 +125,31 @@ window.onerror = function (message, source, lineno, colno, error) {
 		alert("Erro!\n" + message);
 };
 
+selectRitmo.addEventListener('change', function (e) {
+	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+});
+
+bpm.addEventListener('change', function (e) {
+	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+});
+
+autoCheck.addEventListener('change', function (e) {
+	_autoMudarRitmo = this.checked;
+	if (_autoMudarRitmo)
+		ocultarBotoesRitmo();
+	else
+		ocultarBotoesRitmo(false);
+});
+
+instrumentoSelect.addEventListener('change', (e) => {
+	var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+	_instrumentoSelecionado = semacentos.toLowerCase();
+});
+
+window.addEventListener("orientationchange", (event) => {
+	orientacaoCelularAlterado(event);
+});
+
 function handleTouchStart(event, element, bateria = false) {
 	event.preventDefault();
 
@@ -161,31 +189,6 @@ function verificarOrientacaoCelular() {
 	}
 }
 
-selectRitmo.addEventListener('change', function (e) {
-	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-});
-
-bpm.addEventListener('change', function (e) {
-	_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-});
-
-autoCheck.addEventListener('change', function (e) {
-	_autoMudarRitmo = this.checked;
-	if (_autoMudarRitmo)
-		ocultarBotoesRitmo();
-	else
-		ocultarBotoesRitmo(false);
-});
-
-instrumentoSelect.addEventListener('change', (e) => {
-	var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
-	_instrumentoSelecionado = semacentos.toLowerCase();
-});
-
-window.addEventListener("orientationchange", (event) => {
-	orientacaoCelularAlterado(event);
-});
-
 function orientacaoCelularAlterado(event) {
 	if (event.target.screen.orientation.angle === 0) {
 		_orientacaoCelularPe = true;
@@ -206,14 +209,21 @@ function orientacaoCelularAlterado(event) {
 
 function ocultarBotoesRitmo(ocultar = true) {
 	var bateriaBotoes = document.getElementsByClassName('trBateriaBotoes');
+	let cravoBotoes = document.getElementsByClassName('trCravoBotoes');
 
 	if (ocultar) {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = 'none';
+
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = '';
 	}
 	else {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = '';
+
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = 'none';
 	}
 }
 

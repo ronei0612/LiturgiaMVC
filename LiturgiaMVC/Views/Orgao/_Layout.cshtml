@@ -430,6 +430,15 @@
                         bateriaBotoes.style.display = 'block';
 
                 mudarTempoCompasso();
+
+                if (instrumentoSelecionado === 'Órgão') {
+                    ocultarBotoesRitmo(true);
+                    _cravoSelecionado = true;
+                }
+                else {
+                    ocultarBotoesRitmo(false);
+                    _cravoSelecionado = false;
+                }
             }
         }
 
