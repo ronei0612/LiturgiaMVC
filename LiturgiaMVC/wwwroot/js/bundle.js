@@ -927,10 +927,6 @@ var _ritmoSelecionado = 'aro';
         }
 
         window.onload = function () {
-            
-            //let formValues = new getSetFormValues();
-            //let form = document.getElementById("trackerControls");
-            //formValues.set(form, defaultTrack.settings);
             getSetAudioOptions.setTrackerControls(defaultTrack.settings);
 
             initializeSampleSet(ctx, defaultTrack.settings.sampleSet, defaultTrack); //carrega e inicializa tracks
@@ -947,7 +943,6 @@ var _ritmoSelecionado = 'aro';
         function scheduleAudioBeat(rowId, triggerTime) { //tocar os beats
             let instrumentName = instrumentData.filename[rowId];
             let instrument = buffers[instrumentName].get();
-            //let options = getSetAudioOptions.getTrackerControls();
             
             function play(source) {
                 let node = routeGain(source)
@@ -971,9 +966,9 @@ var _ritmoSelecionado = 'aro';
             function playBaixo() {
                 if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano') {
                     if (_acordeSelecionado) {
-                            let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0] : _acordeSelecionado;
-                            let baixoAudio = buffers['baixo_' + nota].get();
-                            guardarBaixo(baixoAudio);
+                        let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0] : _acordeSelecionado;
+                        let baixoAudio = buffers['baixo_' + nota].get();
+                        guardarBaixo(baixoAudio);
                         setTimeout(function () {
                             //pararBaixo(ctx);
                             play(baixoAudio);
@@ -1063,8 +1058,8 @@ function setupBaseEvents() {
     brush.addEventListener('click', function (e) { verificarETocarBateria('brush', false) });
     ride.addEventListener('click', function (e) { verificarETocarBateria('ride', true, 'stringsSolo') });
     chimbal.addEventListener('click', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
-            cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
-            brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
+    cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
+    brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
     prato.addEventListener('click', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             let pratoAtaque1 = buffers['prato1'].get();
