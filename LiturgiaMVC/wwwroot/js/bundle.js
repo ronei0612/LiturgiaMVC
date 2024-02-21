@@ -1094,8 +1094,8 @@ function setupBaseEvents() {
         if (measureLength_valor == 24)
             bpmRange_valor = bpmRange_valor / 2;
         lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
-        //getSetAudioOptions.setTrackerControls();
         getSetAudioOptions.options.bpm = bpmRange.value;
+        getSetAudioOptions.setTrackerControls();
         if (schedule.running) {
             schedule.stop();
             schedule.runSchedule(getSetAudioOptions.options.bpm);
