@@ -944,12 +944,6 @@ var _ritmoSelecionado = 'aro';
             return;
         }
         
-            
-                
-            
-                
-            
-        
         function scheduleAudioBeat(rowId, triggerTime) { //tocar os beats
 
             let instrumentName = instrumentData.filename[rowId];
