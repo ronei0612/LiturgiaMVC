@@ -1018,7 +1018,8 @@ var _ritmoSelecionado = 'aro';
         function tocarBateria(botao = null) {
             if (botao) {
                 if (!schedule.running)
-                    playBateria(); }
+                    playBateria();
+            }
             else
                 stopBateria();
         }
