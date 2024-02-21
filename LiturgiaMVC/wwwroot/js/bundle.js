@@ -2024,7 +2024,7 @@ function trackerTable() {
         this.setHeader(numCols, data);
         for (let rowID = 0; rowID < numRows; rowID++) {
             this.str += `<tr class="tracker-row" data-id="${rowID}">`;
-            this.str += data.title && data.title[rowID].includes('baixo') ? '' : this.getCells(rowID, numCols, data);
+            this.str += data.title && (data.title[rowID].includes('baixo') || data.title[rowID].includes('cravo')) ? '' : this.getCells(rowID, numCols, data);
             this.str += `</tr>`;
         }
     };
