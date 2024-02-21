@@ -431,10 +431,14 @@
 
                 mudarTempoCompasso();
 
-                if (instrumentoSelecionado === 'Órgão')
+                if (instrumentoSelecionado === 'Órgão') {
+                    ocultarBotoesRitmo(true);
                     _cravoSelecionado = true;
-                else
+                }
+                else {
+                    ocultarBotoesRitmo(false);
                     _cravoSelecionado = false;
+                }
             }
         }
 

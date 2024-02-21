@@ -43,6 +43,8 @@ const meiaLua = document.getElementById('meiaLua');
 const prato = document.getElementById('prato');
 const aro = document.getElementById('aro');
 const caixa = document.getElementById('caixa');
+const cravo = document.getElementById('cravo');
+const brushCravo = document.getElementById('brushCravo');
 const tomSelect = document.getElementById('tomSelect');
 const volumeTexto = document.getElementById('volumeTexto');
 const textoCifras = document.getElementById('textoCifras');
@@ -209,14 +211,21 @@ function orientacaoCelularAlterado(event) {
 
 function ocultarBotoesRitmo(ocultar = true) {
 	var bateriaBotoes = document.getElementsByClassName('trBateriaBotoes');
+	let cravoBotoes = document.getElementsByClassName('trCravoBotoes');
 
 	if (ocultar) {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = 'none';
+
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = '';
 	}
 	else {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = '';
+
+		for (let i = 0; i < bateriaBotoes.length; i++)
+			bateriaBotoes[i].style.display = 'none';
 	}
 }
 

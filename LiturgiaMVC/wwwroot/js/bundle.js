@@ -1062,6 +1062,8 @@ function setupBaseEvents() {
     brush.addEventListener('click', function (e) { verificarETocarBateria('brush', false) });
     ride.addEventListener('click', function (e) { verificarETocarBateria('ride', true, 'stringsSolo') });
     chimbal.addEventListener('click', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
+    cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
+    brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
     prato.addEventListener('click', function (e) {
         if (iconVolumeMute.style.display == 'none') {
             let pratoAtaque1 = buffers['prato1'].get();
