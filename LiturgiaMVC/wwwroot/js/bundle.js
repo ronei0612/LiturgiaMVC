@@ -981,11 +981,11 @@ var _ritmoSelecionado = 'aro';
             function playBaixo() {
                 if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano') {
                     if (_acordeSelecionado) {
-                        setTimeout(function () {
-                            //pararBaixo(ctx);
                             let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0] : _acordeSelecionado;
                             let baixoAudio = buffers['baixo_' + nota].get();
                             guardarBaixo(baixoAudio);
+                        setTimeout(function () {
+                            //pararBaixo(ctx);
                             play(baixoAudio);
                         }, 130)
                     }
@@ -1051,7 +1051,8 @@ var _ritmoSelecionado = 'aro';
         function tocarBateria(botao = null) {
             if (botao) {
                 if (!schedule.running)
-                    playBateria(); }
+                    playBateria();
+            }
             else
                 stopBateria();
         }
