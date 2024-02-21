@@ -1737,23 +1737,6 @@ function tracker(ctx, scheduleAudioBeat) {
     this.schedule = function () {
         let beatColumn = this.getTrackerRowValues(this.current);
         let now = ctx.currentTime;
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-        
         beatColumn.forEach((beat) => {
             this.scheduleBeat(beat, now);
         });
