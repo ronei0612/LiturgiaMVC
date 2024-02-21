@@ -21,6 +21,7 @@ var _cifraParado = true;
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
 var _sourceBaixo;
+var _cravoSelecionado = false;
 var _viradaRitmo = '';
 var _trocarRitmo = false;
 
@@ -42,6 +43,8 @@ const meiaLua = document.getElementById('meiaLua');
 const prato = document.getElementById('prato');
 const aro = document.getElementById('aro');
 const caixa = document.getElementById('caixa');
+const cravo = document.getElementById('cravo');
+const brushCravo = document.getElementById('brushCravo');
 const tomSelect = document.getElementById('tomSelect');
 const volumeTexto = document.getElementById('volumeTexto');
 const textoCifras = document.getElementById('textoCifras');
@@ -171,7 +174,7 @@ function darkModeLocalStorage() {
 		}
 }
 
-function manterTelaLigada_v2() {		
+function manterTelaLigada_v2() {
 	let wakeLock = null;
 	try {
 		wakeLock = navigator.wakeLock.request("screen");
@@ -208,14 +211,21 @@ function orientacaoCelularAlterado(event) {
 
 function ocultarBotoesRitmo(ocultar = true) {
 	var bateriaBotoes = document.getElementsByClassName('trBateriaBotoes');
+	let cravoBotoes = document.getElementsByClassName('trCravoBotoes');
 
 	if (ocultar) {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = 'none';
+
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = '';
 	}
 	else {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = '';
+
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = 'none';
 	}
 }
 
@@ -339,7 +349,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	}
 	else
 		acorde = refinarAcorde(acorde);
-	
+
 	if (grupoNotas) {
 		var notas = notasAcordesJson[acorde];
 
@@ -523,7 +533,7 @@ function alterarVolume(volume, padrao) {
 		_grupoNotasStrings.volume = _volume;
 
 	if (volume === padrao)
-		volumeTexto.innerHTML = volume * 10;	
+		volumeTexto.innerHTML = volume * 10;
 	else
 		volumeTexto.innerHTML = (volume * 10) + '*';
 }
@@ -580,7 +590,7 @@ function mudarTomMenor(acordeIndex) {
 function aumentarTom(aumentar, quant, select) {
 	var tomElement = document.getElementById(select);
 	var tomSelecionadoIndex = tomElement.selectedIndex;
-	
+
 	if (tomElement.value.includes('m'))
 		var tonsArray = tonsMenores;
 	else
@@ -603,7 +613,7 @@ function aumentarTom(aumentar, quant, select) {
 		else
 			tomElement.value = tonsArray[tomSelecionadoIndex - quant];
 	}
-	
+
 	if (textoCifrasFrame.style.display === "block")
 		mudarTomCifra(aumentar, quant);
 	else
@@ -722,7 +732,7 @@ function avancarCifra(avancar_retroceder, botao) {
 		botaoGravar.style.display = 'block';
 		play_pause.style.display = 'none';
 	}
-	
+
 	else if (avancar_retroceder === 'repetir') {
 		if (_cifraParado === false)
 			verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 50);
