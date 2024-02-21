@@ -945,7 +945,6 @@ var _ritmoSelecionado = 'aro';
         }
         
         function scheduleAudioBeat(rowId, triggerTime) { //tocar os beats
-
             let instrumentName = instrumentData.filename[rowId];
             let instrument = buffers[instrumentName].get();
             //let options = getSetAudioOptions.getTrackerControls();
@@ -1003,7 +1002,7 @@ var _ritmoSelecionado = 'aro';
                     }
                 }
                 else
-            play(instrument);
+                    play(instrument);
             }
 
             if (_cravoSelecionado)
