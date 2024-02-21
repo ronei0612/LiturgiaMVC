@@ -229,6 +229,12 @@ function ocultarBotoesRitmo(ocultar = true) {
 	}
 }
 
+function pressionarBotaoCravo() {
+	var botaoCravoSelecionado = document.getElementsByClassName('selecionadoDrum');
+	if (botaoCravoSelecionado.length > 0)
+		botaoCravoSelecionado[0].dispatchEvent(eventoClick);
+}
+
 function deixarAcompanhamentoSelecionado(funcao) {
 	escolherAcompanhamento(funcao, document.getElementById(funcao));
 }
@@ -267,6 +273,7 @@ function escolherAcorde(acorde, botao) {
 	}
 	else {
 		tocarAcorde(acorde, botao);
+		//pressionarBotaoCravo();
 
 		if (botao)
 			ocultarBotaoRec();
