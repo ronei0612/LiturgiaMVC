@@ -928,16 +928,13 @@ var _ritmoSelecionado = 'aro';
 
         window.onload = function () {
             
-            let formValues = new getSetFormValues();
-            let form = document.getElementById("trackerControls");
-            formValues.set(form, defaultTrack.settings);
+            //let formValues = new getSetFormValues();
+            //let form = document.getElementById("trackerControls");
+            //formValues.set(form, defaultTrack.settings);
             getSetAudioOptions.setTrackerControls(defaultTrack.settings);
 
             initializeSampleSet(ctx, defaultTrack.settings.sampleSet, defaultTrack); //carrega e inicializa tracks
             setupBaseEvents();
-
-            storage = new tracksLocalStorage();
-            storage.setupStorage();
         };
         var instrumentData = {};
         function setupTrackerHtml(data, measureLength) {
@@ -998,9 +995,6 @@ var _ritmoSelecionado = 'aro';
         }        
         var schedule = new simpleTracker(ctx, scheduleAudioBeat);        
         function playBateria() {
-            let storage = new tracksLocalStorage();
-            let track = storage.getTrack();
-            schedule.measureLength = track.settings.measureLength;
             schedule.stop();
             schedule.runSchedule(getSetAudioOptions.options.bpm);
         }        
@@ -1070,7 +1064,6 @@ function setupBaseEvents() {
         if (measureLength_valor == 24)
             bpmRange_valor = bpmRange_valor / 2;
         lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
-        //getSetAudioOptions.setTrackerControls();
         getSetAudioOptions.options.bpm = bpmRange.value;
         if (schedule.running) {
             schedule.stop();
