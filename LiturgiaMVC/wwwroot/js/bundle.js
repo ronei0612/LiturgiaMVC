@@ -984,7 +984,7 @@ var _ritmoSelecionado = 'aro';
 
             function playCravo() {
                 if (instrumentName === 'tom-01' || instrumentName === 'tom-02' || instrumentName === 'tom-03') {
-                    if (_acordeSelecionado) {
+                    if (_acordeSelecionado && _cravoSelecionado) {
                         let notas = notasAcordesJson[_acordeSelecionado];
                         notas.sort();
 

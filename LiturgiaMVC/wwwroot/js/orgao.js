@@ -224,8 +224,8 @@ function ocultarBotoesRitmo(ocultar = true) {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = '';
 
-		for (let i = 0; i < bateriaBotoes.length; i++)
-			bateriaBotoes[i].style.display = 'none';
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = 'none';
 	}
 }
 
