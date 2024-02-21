@@ -1642,23 +1642,6 @@ module.exports = {
 
 function getSetControls() {
     this.getTrackerControls = function () {
-        //let formValues = new getSetFormValues();
-        //let form = document.getElementById("trackerControls");
-        //let values = formValues.get(form);
-        //let ret = {};
-        //for (let key in values) {
-
-        //    if (key === 'delayEnabled') {
-        //        ret[key] = 'delay';
-        //        continue;
-        //    }
-
-        //    if (key === 'sampleSet') {
-        //        ret[key] = values[key];
-        //        continue;
-        //    }
-        //    ret[key] = parseFloat(values[key]);
-        //}
         return trackerControls;
     }
 
