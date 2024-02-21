@@ -905,7 +905,6 @@ var _ritmoSelecionado = 'aro';
         var storage;
 
         function initializeSampleSet(ctx, dataUrl, track) {
-
             var sampleSetPromise = loadSampleSet(ctx, dataUrl);
             sampleSetPromise.then(function (data) {
 
@@ -925,7 +924,6 @@ var _ritmoSelecionado = 'aro';
                 schedule.loadTrackerValues(track.beat);
                 schedule.setupEvents();
             });
-
         }
 
         window.onload = function () {
@@ -961,21 +959,12 @@ var _ritmoSelecionado = 'aro';
             let instrument = buffers[instrumentName].get();
             //let options = getSetAudioOptions.getTrackerControls();
             
-
             function play(source) {
-                
-
-
-                
                 let node = routeGain(source)
                 node.connect(ctx.destination);
                 fecharChimbal(instrumentName, _sourceChimbalAberto, triggerTime);
-
-                
-
                 source.start(triggerTime);
             }
-
 
             function routeGain(source) {
                 let gain = new adsrGainNode(ctx);
@@ -983,12 +972,6 @@ var _ritmoSelecionado = 'aro';
                 let options = getSetAudioOptions.getTrackerControls();
 
                 let gainNode;
-
-
-
-
-
-
                 gain.setOptions(options);
                 gainNode = gain.getGainNode(triggerTime);
                 source.connect(gainNode);
@@ -1805,7 +1788,6 @@ const hasClass = require('has-class');
  * @param {function} scheduleAudioBeat funtion when an audio is played
  */
 function tracker(ctx, scheduleAudioBeat) {
-
     this.measureLength = 16;
     this.scheduleAudioBeat = scheduleAudioBeat;
     this.scheduleForward = 0.1;
@@ -1876,23 +1858,6 @@ function tracker(ctx, scheduleAudioBeat) {
     this.schedule = function () {
         let beatColumn = this.getTrackerRowValues(this.current);
         let now = ctx.currentTime;
-        
-        
-        
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-        
         beatColumn.forEach((beat) => {
             this.scheduleBeat(beat, now);
         });
