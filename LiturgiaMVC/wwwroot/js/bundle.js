@@ -985,7 +985,6 @@ var _ritmoSelecionado = 'aro';
             function playCravo() {
                 if (instrumentName === 'tom-01' || instrumentName === 'tom-02' || instrumentName === 'tom-03') {
                     if (_acordeSelecionado) {
-                        //this.scheduleMap[beat.colId] = triggerTime; teste
                         let notas = notasAcordesJson[_acordeSelecionado];
                         notas.sort();
 
@@ -1634,23 +1633,6 @@ module.exports = {
 
 function getSetControls() {
     this.getTrackerControls = function () {
-        //let formValues = new getSetFormValues();
-        //let form = document.getElementById("trackerControls");
-        //let values = formValues.get(form);
-        //let ret = {};
-        //for (let key in values) {
-
-        //    if (key === 'delayEnabled') {
-        //        ret[key] = 'delay';
-        //        continue;
-        //    }
-
-        //    if (key === 'sampleSet') {
-        //        ret[key] = values[key];
-        //        continue;
-        //    }
-        //    ret[key] = parseFloat(values[key]);
-        //}
         return trackerControls;
     }
 
