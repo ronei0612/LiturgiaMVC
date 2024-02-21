@@ -136,11 +136,13 @@ bpm.addEventListener('change', function (e) {
 });
 
 autoCheck.addEventListener('change', function (e) {
-	_autoMudarRitmo = this.checked;
-	if (_autoMudarRitmo)
-		ocultarBotoesRitmo();
-	else
-		ocultarBotoesRitmo(false);
+	if (_cravoSelecionado == false) {
+		_autoMudarRitmo = this.checked;
+		if (_autoMudarRitmo)
+			ocultarBotoesRitmo();
+		else
+			ocultarBotoesRitmo(false);
+	}
 });
 
 instrumentoSelect.addEventListener('change', (e) => {
