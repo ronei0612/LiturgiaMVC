@@ -136,7 +136,9 @@ bpm.addEventListener('change', function (e) {
 });
 
 autoCheck.addEventListener('change', function (e) {
-	if (_cravoSelecionado == false) {
+	if (_cravoSelecionado)
+		_autoMudarRitmo = false;
+	else {
 		_autoMudarRitmo = this.checked;
 		if (_autoMudarRitmo)
 			ocultarBotoesRitmo();
@@ -949,16 +951,16 @@ function ocultarNavBar() {
 	linhaSelectTom.style.width = '100%';
 }
 
-function darkModeLocalStorage() {
-	var darkMode = localStorage.getItem('darkMode');
-	if (darkMode)
-		if (darkMode === 'true') {
-			var switchDark = document.getElementById('switchDark');
-			var eventoClick = new Event('click');
-			switchDark.checked = true;
-			switchDark.dispatchEvent(eventoClick);
-		}
-}
+//function darkModeLocalStorage() {
+//	var darkMode = localStorage.getItem('darkMode');
+//	if (darkMode)
+//		if (darkMode === 'true') {
+//			var switchDark = document.getElementById('switchDark');
+//			var eventoClick = new Event('click');
+//			switchDark.checked = true;
+//			switchDark.dispatchEvent(eventoClick);
+//		}
+//}
 
 function ultimoTomSelecionadoStorage() {
 	var tomSelecionadoIndex = localStorage.getItem('tomSelecionadoIndex');
