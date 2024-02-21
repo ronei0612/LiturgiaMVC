@@ -905,7 +905,6 @@ var _ritmoSelecionado = 'aro';
         var storage;
 
         function initializeSampleSet(ctx, dataUrl, track) {
-
             var sampleSetPromise = loadSampleSet(ctx, dataUrl);
             sampleSetPromise.then(function (data) {
 
@@ -925,7 +924,6 @@ var _ritmoSelecionado = 'aro';
                 schedule.loadTrackerValues(track.beat);
                 schedule.setupEvents();
             });
-
         }
 
         window.onload = function () {
@@ -961,21 +959,12 @@ var _ritmoSelecionado = 'aro';
             let instrument = buffers[instrumentName].get();
             //let options = getSetAudioOptions.getTrackerControls();
             
-
             function play(source) {
-                
-
-
-                
                 let node = routeGain(source)
                 node.connect(ctx.destination);
                 fecharChimbal(instrumentName, _sourceChimbalAberto, triggerTime);
-
-                
-
                 source.start(triggerTime);
             }
-
 
             function routeGain(source) {
                 let gain = new adsrGainNode(ctx);
@@ -983,12 +972,6 @@ var _ritmoSelecionado = 'aro';
                 let options = getSetAudioOptions.getTrackerControls();
 
                 let gainNode;
-
-
-
-
-
-
                 gain.setOptions(options);
                 gainNode = gain.getGainNode(triggerTime);
                 source.connect(gainNode);
