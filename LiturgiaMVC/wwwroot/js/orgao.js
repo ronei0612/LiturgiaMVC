@@ -144,8 +144,6 @@ autoCheck.addEventListener('change', function (e) {
 instrumentoSelect.addEventListener('change', (e) => {
 	var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
 	_instrumentoSelecionado = semacentos.toLowerCase();
-	if (_instrumentoSelecionado === 'orgao_cravo')
-		_instrumentoSelecionado = 'orgao';
 });
 
 window.addEventListener("orientationchange", (event) => {
