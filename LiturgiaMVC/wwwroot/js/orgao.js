@@ -21,7 +21,7 @@ var _cifraParado = true;
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
 var _sourceBaixo;
-var _cravoSelecionado = false;
+var _cravoSelecionado = true;
 var _viradaRitmo = '';
 var _trocarRitmo = false;
 
