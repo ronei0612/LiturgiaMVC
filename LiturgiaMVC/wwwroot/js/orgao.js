@@ -113,6 +113,25 @@ const full = document.getElementById('full');
 const stringsCheck = document.getElementById('stringsCheck');
 const measureLength = document.getElementById('measureLength');
 const musicaAcordesTextArea = document.getElementById('musicaAcordesTextArea');
+const acorde_C = document.getElementById('acorde_0');
+const acorde_F = document.getElementById('acorde_3');
+const acorde_G = document.getElementById('acorde_4');
+const acorde_Am = document.getElementById('acorde_5');
+const acorde_Dm = document.getElementById('acorde_1');
+const acorde_Em = document.getElementById('acorde_2');
+const aumentarTomMais = document.getElementById('aumentarTom');
+const diminuirTomMenos = document.getElementById('diminuirTom');
+const tomMenorSwitch = document.getElementById('tomMenorSwitch');
+
+const teclasDesejadas = ['Delete', 'End', 'PageDown', 'Insert', 'Home', 'PageUp', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp', 'Enter', '+', '-', '='];
+const teclasParaBotoesAcordes = {
+	'Insert': acorde_C,
+	'Home': acorde_F,
+	'PageUp': acorde_G,
+	'Delete': acorde_Am,
+	'End': acorde_Dm,
+	'PageDown': acorde_Em
+};
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
@@ -122,6 +141,10 @@ document.addEventListener("visibilitychange", function () {
 	if (isMobileDevice())
 		if (document.visibilityState === 'visible')
 			manterTelaLigada_v2();
+});
+
+document.addEventListener('keydown', function (event) {
+	capturarTeclaPressionada(event.key);
 });
 
 window.onerror = function (message, source, lineno, colno, error) {
@@ -157,6 +180,48 @@ instrumentoSelect.addEventListener('change', (e) => {
 window.addEventListener("orientationchange", (event) => {
 	orientacaoCelularAlterado(event);
 });
+
+function capturarTeclaPressionada(tecla) {
+	if (teclasDesejadas.includes(tecla))
+		pressionarBotaoPelaTecla(tecla);
+}
+
+function pressionarBotaoPelaTecla(tecla) {
+	switch (tecla) {
+		case 'Enter':
+			play_pause.dispatchEvent(eventoClick);
+			break;
+		case 'ArrowUp':
+			stringsCheck.checked = !stringsCheck.checked;
+			stringsCheck.dispatchEvent(eventoChange);
+			break;
+		case 'ArrowLeft':
+			baixo.dispatchEvent(eventoMousedown);
+			break;
+		case 'ArrowDown':
+			mao.dispatchEvent(eventoMousedown);
+			break;
+		case 'ArrowRight':
+			full.dispatchEvent(eventoMousedown);
+			break;
+		case '+':
+			aumentarTomMais.dispatchEvent(eventoClick);
+			break;
+		case '-':
+			diminuirTomMenos.dispatchEvent(eventoClick);
+			break;
+		case '=':
+			tomMenorSwitch.checked = !tomMenorSwitch.checked;
+			tomMenorSwitch.dispatchEvent(eventoChange);
+			break;
+		default:
+			const botao = teclasParaBotoesAcordes[tecla];
+			if (botao) {
+				botao.dispatchEvent(eventoMouseup);
+			}
+			break;
+	}
+}
 
 function handleTouchStart(event, element, bateria = false) {
 	event.preventDefault();
@@ -1060,6 +1125,7 @@ function pegarTomCifra(tomSelecionado) {
 	else
 		_tomIndex = tonsMaiores.indexOf(tomSelecionado);
 }
+
 
 //[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
 
