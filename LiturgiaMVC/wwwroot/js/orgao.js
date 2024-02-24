@@ -28,8 +28,10 @@ var _trocarRitmo = false;
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
 const eventoMousedown = new Event('mousedown');
+const eventoMouseup = new Event('mouseup');
 
 const notasAcordes = Object.keys(notasAcordesJson);
+
 const instrumentoSelect = document.getElementById('instrumentoSelect');
 const autoCheck = document.getElementById('autoCheck');
 const bpm = document.getElementById('bpm');
