@@ -25,13 +25,15 @@ var _cravoSelecionado = true;
 var _viradaRitmo = '';
 var _trocarRitmo = false;
 var _configurandoTeclas = false;
-var _configuracaoTeclas = [];
-var _configuracaoElementos = [];
+var _configuracaoElementos = {};
+var _configuracaoElemento;
+var _configuracaoEvento;
 
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
 const eventoMousedown = new Event('mousedown');
 const eventoMouseup = new Event('mouseup');
+const eventoTouchstart = new Event('touchstart');
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
@@ -334,7 +336,7 @@ function ocultarBotaoRec(ocultar = true) {
 
 function escolherAcorde(acorde, botao) {
 	if (_configurandoTeclas) {
-		capturarTeclaConfiguracaoTeclas(document.activeElement.id);
+		capturarTeclaConfiguracaoTeclas(document.activeElement);
 		return;
 	}
 
@@ -1039,6 +1041,8 @@ function mostrarSalvarConfiguracaoTeclas() {
 	modal01.style.display = 'none';
 	tituloConfiguracaoTeclas.style.display = '';
 	titulo.style.display = 'none';
+	botaoGravar.style.display = 'none';
+	play_pause.style.display = '';
 	alert('Configurar teclas para utilizar o teclado físico');
 }
 
@@ -1047,32 +1051,28 @@ function ocultarSalvarConfiguracaoTeclas() {
 	tituloConfiguracaoTeclas.style.display = 'none';
 	titulo.style.display = '';
 	tecladoTeclasDiv.style.display = 'none';
+	botaoGravar.style.display = '';
+	play_pause.style.display = 'none';
 }
 
 function capturarTeclaConfiguracaoTeclas(elementoCapturado) {
+	_configuracaoEvento = elementoCapturado.getAttribute('dataEventoTecla');
 	modal01.style.display = 'block';
-	_configuracaoElemento = elementoCapturado;
+	_configuracaoElemento = elementoCapturado.id;
 	selectOpcoes.style.display = 'none';
 	tecladoTeclasDiv.style.display = '';
 	inputTecla.focus();
 }
 
 function armazenarTeclaConfiguracaoTeclas(tecla) {
-	_configuracaoElementos.push(_configuracaoElemento);
-	_configuracaoTeclas.push(tecla);
+	let array = [_configuracaoEvento, tecla];
+	_configuracaoElementos[_configuracaoElemento] = array;
 	ocultarModal();
 }
 
 function salvarConfiguracaoTeclas() {
-	if (_configuracaoElementos && _configuracaoTeclas) {
-		var elementosComTeclas = {};
-		
-		_configuracaoElementos.forEach(function (elemento, index) {
-			var teclaAssociada = _configuracaoTeclas[index];
-			elementosComTeclas[elemento] = teclaAssociada;
-		});
-		
-		localStorage.setItem('teclasConfiguracao', JSON.stringify(elementosComTeclas));
+	if (_configuracaoElementos) {
+		localStorage.setItem('teclasConfiguracao', JSON.stringify(_configuracaoElementos));
 
 		alert('Teclas salvas');
 		ocultarSalvarConfiguracaoTeclas();

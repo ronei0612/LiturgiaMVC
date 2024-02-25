@@ -337,13 +337,13 @@
         }
 
         function mostrarModal(nome) {
-            if (titulo.style.display === 'none')
-                ocultarSalvarConfiguracaoTeclas();
-
             modal01.style.display = 'block';
 
             switch (nome) {
                 case 'opcoes':
+                    if (_configurandoTeclas)
+                        ocultarSalvarConfiguracaoTeclas();
+
                     selectInstrumento.style.display = 'none';
                     modalGravar.style.display = 'none';
                     selectOpcoes.style.display = 'block';
