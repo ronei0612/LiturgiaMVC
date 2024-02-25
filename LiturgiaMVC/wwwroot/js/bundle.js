@@ -1040,6 +1040,10 @@ var _ritmoSelecionado = 'aro';
         }
 function setupBaseEvents() {
     function verificarETocarBateria(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(document.activeElement);
+            return;
+        }
         if (verificarETocarBateria_2(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento)) {
             tocarBateria(document.activeElement);
             mudarRitmo(mudarRitmoNome);
