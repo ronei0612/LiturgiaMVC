@@ -1048,6 +1048,8 @@ function mostrarSalvarConfiguracaoTeclas() {
 	titulo.style.display = 'none';
 	botaoGravar.style.display = 'none';
 	play_pause.style.display = '';
+	prepararBateriaBotao.style.display = 'none';
+	pararBateriaBotao.style.display = '';
 	alert('Configurar teclas para utilizar o teclado físico');
 }
 
@@ -1058,6 +1060,8 @@ function ocultarSalvarConfiguracaoTeclas() {
 	tecladoTeclasDiv.style.display = 'none';
 	botaoGravar.style.display = '';
 	play_pause.style.display = 'none';
+	prepararBateriaBotao.style.display = '';
+	pararBateriaBotao.style.display = 'none';
 }
 
 function capturarTeclaConfiguracaoTeclas(elementoCapturado) {

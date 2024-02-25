@@ -1073,6 +1073,10 @@ function setupBaseEvents() {
         }
     });
     playPauseBateria.addEventListener('mousedown', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(document.activeElement);
+            return;
+        }
         if (tunerDiv.style.display !== 'none') {
             autoTunerCheck.checked = false;
             pararOsAcordes();

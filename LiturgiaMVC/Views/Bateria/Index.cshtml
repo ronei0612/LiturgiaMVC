@@ -315,7 +315,8 @@
 	}
 
 	function playBotaoBateria(botao, tocar = true, levantarBotoes = true) {
-		pressionarBotao(botao, levantarBotoes);
+		if (!_configurandoTeclas)
+			pressionarBotao(botao, levantarBotoes);
 	}
 
 	function pressionarBotao(botao, levantarBotoes = true) {
