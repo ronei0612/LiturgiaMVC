@@ -380,7 +380,9 @@
                     break;
                 case 'salvar':
                     if (_configurandoTeclas) {
-                        salvarConfiguracaoTeclas();
+                        if (confirm('Salvar Configuração de Teclas?')) {
+                            salvarConfiguracaoTeclas();
+                        }
                         ocultarModal();
                         break;
                     }
