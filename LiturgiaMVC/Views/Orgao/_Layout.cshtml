@@ -306,19 +306,19 @@
         function mutarVolume(mute = true) {
             if (mute === false) {
                 volumeInput.value = 0.9;
-                volumeInput.dispatchEvent(eventoClick);
+                volumeInput.dispatchEvent(eventoInput);
                 iconVolume.style.display = '';
                 iconVolumeMute.style.display = 'none';
             }
             else if (iconVolumeMute.style.display === 'none') {
                 volumeInput.value = 0;
-                volumeInput.dispatchEvent(eventoClick);
+                volumeInput.dispatchEvent(eventoInput);
                 iconVolume.style.display = 'none';
                 iconVolumeMute.style.display = '';
             }
             else {
                 volumeInput.value = 0.9;
-                volumeInput.dispatchEvent(eventoClick);
+                volumeInput.dispatchEvent(eventoInput);
                 iconVolume.style.display = '';
                 iconVolumeMute.style.display = 'none';
             }

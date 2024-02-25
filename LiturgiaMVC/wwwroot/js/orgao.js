@@ -34,6 +34,7 @@ const eventoChange = new Event('change');
 const eventoMousedown = new Event('mousedown');
 const eventoMouseup = new Event('mouseup');
 const eventoTouchstart = new Event('touchstart');
+const eventoInput = new Event('input');
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
