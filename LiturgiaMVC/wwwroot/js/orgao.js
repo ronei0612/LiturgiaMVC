@@ -17,7 +17,6 @@ var timer;
 var _tomIndex = '';
 var _cifraId = 0;
 var _cifraParado = true;
-var _configurandoTeclas = false;
 
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
@@ -25,6 +24,7 @@ var _sourceBaixo;
 var _cravoSelecionado = true;
 var _viradaRitmo = '';
 var _trocarRitmo = false;
+var _configurandoTeclas = false;
 var _configuracaoTeclas = [];
 var _configuracaoElementos = [];
 
@@ -1043,6 +1043,7 @@ function mostrarSalvarConfiguracaoTeclas() {
 }
 
 function ocultarSalvarConfiguracaoTeclas() {
+	_configurandoTeclas = false;
 	tituloConfiguracaoTeclas.style.display = 'none';
 	titulo.style.display = '';
 	tecladoTeclasDiv.style.display = 'none';
