@@ -17,6 +17,7 @@ var timer;
 var _tomIndex = '';
 var _cifraId = 0;
 var _cifraParado = true;
+var _configurandoTeclas = false;
 
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
@@ -24,6 +25,8 @@ var _sourceBaixo;
 var _cravoSelecionado = true;
 var _viradaRitmo = '';
 var _trocarRitmo = false;
+var _configuracaoTeclas = [];
+var _configuracaoElementos = [];
 
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
@@ -122,6 +125,10 @@ const acorde_Em = document.getElementById('acorde_2');
 const aumentarTomMais = document.getElementById('aumentarTom');
 const diminuirTomMenos = document.getElementById('diminuirTom');
 const tomMenorSwitch = document.getElementById('tomMenorSwitch');
+const tituloConfiguracaoTeclas = document.getElementById('tituloConfiguracaoTeclas');
+const textoConfiguracao = document.getElementById('textoConfiguracao');
+const tecladoTeclasDiv = document.getElementById('tecladoTeclasDiv');
+const inputTecla = document.getElementById('inputTecla')
 
 const teclasDesejadas = ['Delete', 'End', 'PageDown', 'Insert', 'Home', 'PageUp', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp', 'Enter', '+', '-', '='];
 const teclasParaBotoesAcordes = {
@@ -182,7 +189,9 @@ window.addEventListener("orientationchange", (event) => {
 });
 
 function capturarTeclaPressionada(tecla) {
-	if (teclasDesejadas.includes(tecla))
+	if (_configurandoTeclas)
+		armazenarTeclaConfiguracaoTeclas(tecla);
+	else if (teclasDesejadas.includes(tecla))
 		pressionarBotaoPelaTecla(tecla);
 }
 
@@ -324,6 +333,11 @@ function ocultarBotaoRec(ocultar = true) {
 }
 
 function escolherAcorde(acorde, botao) {
+	if (_configurandoTeclas) {
+		capturarTeclaConfiguracaoTeclas(document.activeElement.id);
+		return;
+	}
+
 	if (_cifraId > 0) {
 		_cifraParado = true;
 		_cifraId--;
@@ -1020,16 +1034,51 @@ function ocultarNavBar() {
 	linhaSelectTom.style.width = '100%';
 }
 
-//function darkModeLocalStorage() {
-//	var darkMode = localStorage.getItem('darkMode');
-//	if (darkMode)
-//		if (darkMode === 'true') {
-//			var switchDark = document.getElementById('switchDark');
-//			var eventoClick = new Event('click');
-//			switchDark.checked = true;
-//			switchDark.dispatchEvent(eventoClick);
-//		}
-//}
+function mostrarSalvarConfiguracaoTeclas() {
+	_configurandoTeclas = true;
+	modal01.style.display = 'none';
+	tituloConfiguracaoTeclas.style.display = '';
+	titulo.style.display = 'none';
+	alert('Configurar teclas para utilizar o teclado físico');
+}
+
+function ocultarSalvarConfiguracaoTeclas() {
+	tituloConfiguracaoTeclas.style.display = 'none';
+	titulo.style.display = '';
+	tecladoTeclasDiv.style.display = 'none';
+}
+
+function capturarTeclaConfiguracaoTeclas(elementoCapturado) {
+	modal01.style.display = 'block';
+	_configuracaoElemento = elementoCapturado;
+	selectOpcoes.style.display = 'none';
+	tecladoTeclasDiv.style.display = '';
+	inputTecla.focus();
+}
+
+function armazenarTeclaConfiguracaoTeclas(tecla) {
+	_configuracaoElementos.push(_configuracaoElemento);
+	_configuracaoTeclas.push(tecla);
+	ocultarModal();
+}
+
+function salvarConfiguracaoTeclas() {
+	if (_configuracaoElementos && _configuracaoTeclas) {
+		var elementosComTeclas = {};
+		
+		_configuracaoElementos.forEach(function (elemento, index) {
+			var teclaAssociada = _configuracaoTeclas[index];
+			elementosComTeclas[elemento] = teclaAssociada;
+		});
+		
+		localStorage.setItem('teclasConfiguracao', JSON.stringify(elementosComTeclas));
+
+		alert('Teclas salvas');
+		ocultarSalvarConfiguracaoTeclas();
+	}
+	else
+		alert('Nada foi configurado. Saindo...');
+}
 
 function ultimoTomSelecionadoStorage() {
 	var tomSelecionadoIndex = localStorage.getItem('tomSelecionadoIndex');
