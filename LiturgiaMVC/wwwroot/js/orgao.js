@@ -824,6 +824,10 @@ function tocarCifraManualmente(cifraElem) {
 }
 
 function avancarCifra(avancar_retroceder, botao) {
+	if (_configurandoTeclas) {
+		capturarTeclaConfiguracaoTeclas(document.activeElement);
+		return;
+	}
 	if (avancar_retroceder === '') {
 		escolherAcorde('', botao);
 		botaoGravar.style.display = 'block';
