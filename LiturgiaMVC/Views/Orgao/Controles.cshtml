@@ -2,7 +2,7 @@
 	<td></td>
 	<td>
 		<div class="form-check naoSelecionarTexto" id="autoCheckDiv">
-			<input class="form-check-input" type="checkbox" value="" id="autoCheck" style="width:1.5em;margin-left:-0.5em">
+			<input class="form-check-input" type="checkbox" value="" id="autoCheck" dataEventoTecla="eventoChange" style="width:1.5em;margin-left:-0.5em">
 			&nbsp;Auto<br />ritmo
 		</div>
 	</td>
@@ -20,7 +20,7 @@
 	</td>
 	<td>
 		<div class="form-check" id="stringsCheckDiv" >
-			<input class="form-check-input" type="checkbox" value="" id="stringsCheck" style="width:1.5em;margin-left:-0.5em" onchange="selecionarStrings(this.checked)">
+			<input class="form-check-input" type="checkbox" value="" id="stringsCheck" style="width:1.5em;margin-left:-0.5em" dataEventoTecla="eventoChange" onchange="selecionarStrings(this.checked)">
 			<svg fill="#000000" height="45px" width="45px" version="1.1" id="violinoDesenho" viewBox="0 0 512 512" xml:space="preserve">
 				<g>
 				<g>
