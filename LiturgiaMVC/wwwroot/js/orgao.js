@@ -399,6 +399,10 @@ function autoMudarRitmo(elementBotao = null) {
 }
 
 function escolherAcompanhamento(funcao, botao) {
+	if (_configurandoTeclas) {
+		capturarTeclaConfiguracaoTeclas(document.activeElement);
+		return;
+	}
 	_acompanhamentoSelecionado = funcao;
 	pressionarBotaoAcompanhamento(botao);
 
@@ -685,6 +689,10 @@ function mudarTomMenor(acordeIndex) {
 }
 
 function aumentarTom(aumentar, quant, select) {
+	if (_configurandoTeclas) {
+		capturarTeclaConfiguracaoTeclas(document.activeElement);
+		return;
+	}
 	var tomElement = document.getElementById(select);
 	var tomSelecionadoIndex = tomElement.selectedIndex;
 
@@ -933,6 +941,10 @@ function rolagemTelaOracaoEucaristica(guardar = true) {
 }
 
 function selecionarStrings(stringsCheck) {
+	if (_configurandoTeclas) {
+		capturarTeclaConfiguracaoTeclas(document.activeElement);
+		return;
+	}
 	if (stringsCheck) {
 		_stringsSelecionado = true;
 
