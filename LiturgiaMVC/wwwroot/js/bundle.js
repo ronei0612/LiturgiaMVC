@@ -1072,7 +1072,7 @@ function setupBaseEvents() {
             pratoAtaque1.start();
         }
     });
-    playPauseBateria.addEventListener('mousedown', function (e) {
+    play_pause_bateria.addEventListener('mousedown', function (e) {
         if (_configurandoTeclas) {
             capturarTeclaConfiguracaoTeclas(document.activeElement);
             return;

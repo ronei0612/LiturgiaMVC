@@ -402,38 +402,6 @@ function salvarConfiguracaoTeclas() {
 function carregarConfiguracaoTeclas() {
 	const dadosStorage = localStorage.getItem('teclasConfiguracao');
 	_teclasConfiguracao = JSON.parse(dadosStorage) || {};	
-
-	//// Recuperar os dados do armazenamento local
-	//const dadosStorage = localStorage.getItem('teclasConfiguracao');
-
-	//// Verificar se há dados armazenados
-	//if (dadosStorage) {
-	//	// Converter os dados de volta para o formato de objeto JavaScript
-	//	_teclasConfiguracao = JSON.parse(dadosStorage);
-
-	//	for (const elementoID in _teclasConfiguracao) {
-	//		// Verificar se a chave pertence diretamente ao objeto (não aos protótipos)
-	//		if (Object.prototype.hasOwnProperty.call(dicionario, elementoID)) {
-	//			// Aqui você pode fazer o que quiser com cada elementoID
-	//			console.log(elementoID);
-	//		}
-	//	}
-
-	//	// Agora você pode acessar os valores conforme necessário
-	//	// Por exemplo, para acessar a configuração do elemento com o ID 'elementoID':
-	//	const array = _teclasConfiguracao[elementoID];
-
-	//	// array agora contém os valores configurados
-	//	const _configuracaoEvento = array[0];
-	//	const tecla = array[1];
-
-	//	// Faça o que for necessário com os valores recuperados
-	//	console.log(_configuracaoEvento, tecla);
-	//} else {
-	//	console.log('Não há dados armazenados');
-	//}
-
-	//_teclasConfiguracao = JSON.parse(localStorage.getItem('teclasConfiguracao'));
 }
 
 function handleTouchStart(event, element, bateria = false) {
