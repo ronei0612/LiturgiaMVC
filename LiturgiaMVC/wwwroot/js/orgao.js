@@ -28,6 +28,7 @@ var _configurandoTeclas = false;
 var _configuracaoElementos = {};
 var _configuracaoElemento;
 var _configuracaoEvento;
+var _teclasConfiguracao;
 
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
@@ -35,6 +36,15 @@ const eventoMousedown = new Event('mousedown');
 const eventoMouseup = new Event('mouseup');
 const eventoTouchstart = new Event('touchstart');
 const eventoInput = new Event('input');
+
+const eventos = {
+	eventoClick: eventoClick,
+	eventoChange: eventoChange,
+	eventoMousedown: eventoMousedown,
+	eventoMouseup: eventoMouseup,
+	eventoTouchstart: eventoTouchstart,
+	eventoInput: eventoInput
+};
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
@@ -100,10 +110,10 @@ const titulo = document.getElementById('titulo');
 const bateriaBotoes = document.getElementById('bateriaBotoes');
 const selectSalvamento = document.getElementById('selectSalvamento');
 const lightCompasso = document.getElementById('lightCompasso');
-const modal_loading = document.getElementById('modal-loading');
+const modal_loading = document.getElementById('modal_loading');
 const prepararBateriaBotao = document.getElementById('prepararBateriaBotao');
 const pararBateriaBotao = document.getElementById('pararBateriaBotao');
-const playPauseBateria = document.getElementById('play_pause_bateria');
+const play_pause_bateria = document.getElementById('play_pause_bateria');
 const textoRitmo = document.getElementById('textoRitmo');
 const listaMusicasCifra = document.getElementById('listaMusicasCifra');
 const orgaoBox = document.getElementById('orgaoBox');
@@ -119,33 +129,131 @@ const full = document.getElementById('full');
 const stringsCheck = document.getElementById('stringsCheck');
 const measureLength = document.getElementById('measureLength');
 const musicaAcordesTextArea = document.getElementById('musicaAcordesTextArea');
-const acorde_C = document.getElementById('acorde_0');
-const acorde_F = document.getElementById('acorde_3');
-const acorde_G = document.getElementById('acorde_4');
-const acorde_Am = document.getElementById('acorde_5');
-const acorde_Dm = document.getElementById('acorde_1');
-const acorde_Em = document.getElementById('acorde_2');
-const aumentarTomMais = document.getElementById('aumentarTom');
-const diminuirTomMenos = document.getElementById('diminuirTom');
+const acorde_0 = document.getElementById('acorde_0');
+const acorde_3 = document.getElementById('acorde_3');
+const acorde_4 = document.getElementById('acorde_4');
+const acorde_5 = document.getElementById('acorde_5');
+const acorde_1 = document.getElementById('acorde_1');
+const acorde_2 = document.getElementById('acorde_2');
+const aumentarTomMais = document.getElementById('aumentarTomMais');
+const diminuirTomMenos = document.getElementById('diminuirTomMenos');
 const tomMenorSwitch = document.getElementById('tomMenorSwitch');
 const tituloConfiguracaoTeclas = document.getElementById('tituloConfiguracaoTeclas');
 const textoConfiguracao = document.getElementById('textoConfiguracao');
 const tecladoTeclasDiv = document.getElementById('tecladoTeclasDiv');
-const inputTecla = document.getElementById('inputTecla')
+const inputTecla = document.getElementById('inputTecla');
 
-const teclasDesejadas = ['Delete', 'End', 'PageDown', 'Insert', 'Home', 'PageUp', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp', 'Enter', '+', '-', '='];
-const teclasParaBotoesAcordes = {
-	'Insert': acorde_C,
-	'Home': acorde_F,
-	'PageUp': acorde_G,
-	'Delete': acorde_Am,
-	'End': acorde_Dm,
-	'PageDown': acorde_Em
+const elementos = {
+	instrumentoSelect: instrumentoSelect,
+	autoCheck: autoCheck,
+	bpm: bpm,
+	selectRitmo: selectRitmo,
+	botaobotaoGravar: botaobotaoGravar,
+	play_pause: play_pause,
+	bpmRange: bpmRange,
+	chimbal: chimbal,
+	brush: brush,
+	meiaLua: meiaLua,
+	prato: prato,
+	aro: aro,
+	caixa: caixa,
+	cravo: cravo,
+	brushCravo: brushCravo,
+	tomSelect: tomSelect,
+	volumeTexto: volumeTexto,
+	textoCifras: textoCifras,
+	textoAcordeMenor: textoAcordeMenor,
+	textoCifrasFrame: textoCifrasFrame,
+	container: container,
+	voltar: voltar,
+	botaoFonte: botaoFonte,
+	selectFonte: selectFonte,
+	botaoTamanhoIframe: botaoTamanhoIframe,
+	selectTamanhoIframe: selectTamanhoIframe,
+	tomMenorSwitchDiv: tomMenorSwitchDiv,
+	orgaoCifrasBotoes: orgaoCifrasBotoes,
+	tdVolume: tdVolume,
+	volumeDiv: volumeDiv,
+	textoVolume: textoVolume,
+	volumeInput: volumeInput,
+	cifraAvancar: cifraAvancar,
+	cifraRetroceder: cifraRetroceder,
+	exitfullscreen: exitfullscreen,
+	fullscreenDiv: fullscreenDiv,
+	botaoFullscreen: botaoFullscreen,
+	trackerControls: trackerControls,
+	divBateriaSwitch: divBateriaSwitch,
+	bateria: bateria,
+	linhaSelectTom: linhaSelectTom,
+	navBar: navBar,
+	oracoesEucaristicasDiv: oracoesEucaristicasDiv,
+	acorde_10: acorde_10,
+	acorde_7: acorde_7,
+	acorde_9: acorde_9,
+	muteDiv: muteDiv,
+	iconVolumeMute: iconVolumeMute,
+	iconVolume: iconVolume,
+	modal01: modal01,
+	linksCifraClubList: linksCifraClubList,
+	botaoIniciar: botaoIniciar,
+	escreverCifraTextArea: escreverCifraTextArea,
+	selectInstrumento: selectInstrumento,
+	salvarDiv: salvarDiv,
+	selectOpcoes: selectOpcoes,
+	modalGravar: modalGravar,
+	musicaSearch: musicaSearch,
+	titulo: titulo,
+	bateriaBotoes: bateriaBotoes,
+	selectSalvamento: selectSalvamento,
+	lightCompasso: lightCompasso,
+	modal_loading: modal_loading,
+	prepararBateriaBotao: prepararBateriaBotao,
+	pararBateriaBotao: pararBateriaBotao,
+	play_pause_bateria: play_pause_bateria,
+	textoRitmo: textoRitmo,
+	listaMusicasCifra: listaMusicasCifra,
+	orgaoBox: orgaoBox,
+	notaTuner: notaTuner,
+	tunerDiv: tunerDiv,
+	autoTunerCheck: autoTunerCheck,
+	liturgiaDiariaDiv: liturgiaDiariaDiv,
+	violinoDesenho: violinoDesenho,
+	switchDark: switchDark,
+	baixo: baixo,
+	mao: mao,
+	full: full,
+	stringsCheck: stringsCheck,
+	measureLength: measureLength,
+	musicaAcordesTextArea: musicaAcordesTextArea,
+	acorde_0: acorde_0,
+	acorde_3: acorde_3,
+	acorde_4: acorde_4,
+	acorde_5: acorde_5,
+	acorde_1: acorde_1,
+	acorde_2: acorde_2,
+	aumentarTom: aumentarTomMais,
+	diminuirTom: diminuirTomMenos,
+	tomMenorSwitch: tomMenorSwitch,
+	tituloConfiguracaoTeclas: tituloConfiguracaoTeclas,
+	textoConfiguracao: textoConfiguracao,
+	tecladoTeclasDiv: tecladoTeclasDiv,
+	inputTecla: inputTecla
 };
+
+//const teclasDesejadas = ['Delete', 'End', 'PageDown', 'Insert', 'Home', 'PageUp', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp', 'Enter', '+', '-', '='];
+//const teclasParaBotoesAcordes = {
+//	'Insert': acorde_0,
+//	'Home': acorde_3,
+//	'PageUp': acorde_4,
+//	'Delete': acorde_5,
+//	'End': acorde_1,
+//	'PageDown': acorde_2
+//};
 
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
 manterTelaLigada_v2();
+carregarConfiguracaoTeclas();
 
 document.addEventListener("visibilitychange", function () {
 	if (isMobileDevice())
@@ -194,8 +302,13 @@ window.addEventListener("orientationchange", (event) => {
 function capturarTeclaPressionada(tecla) {
 	if (_configurandoTeclas)
 		armazenarTeclaConfiguracaoTeclas(tecla);
-	else if (teclasDesejadas.includes(tecla))
-		pressionarBotaoPelaTecla(tecla);
+	else if (_teclasConfiguracao[tecla]) {
+		const elemento = elementos[_teclasConfiguracao[tecla][0]];
+		const evento = eventos[_teclasConfiguracao[tecla][1]];
+		elemento.dispatchEvent(evento);
+	}
+	//else if (teclasDesejadas.includes(tecla))
+	//	pressionarBotaoPelaTecla(tecla);
 }
 
 function pressionarBotaoPelaTecla(tecla) {
@@ -233,6 +346,94 @@ function pressionarBotaoPelaTecla(tecla) {
 			}
 			break;
 	}
+}
+
+function mostrarSalvarConfiguracaoTeclas() {
+	_configurandoTeclas = true;
+	modal01.style.display = 'none';
+	tituloConfiguracaoTeclas.style.display = '';
+	titulo.style.display = 'none';
+	botaoGravar.style.display = 'none';
+	play_pause.style.display = '';
+	prepararBateriaBotao.style.display = 'none';
+	pararBateriaBotao.style.display = '';
+	alert('Configurar teclas para utilizar o teclado físico');
+}
+
+function ocultarSalvarConfiguracaoTeclas() {
+	_configurandoTeclas = false;
+	tituloConfiguracaoTeclas.style.display = 'none';
+	titulo.style.display = '';
+	tecladoTeclasDiv.style.display = 'none';
+	botaoGravar.style.display = '';
+	play_pause.style.display = 'none';
+	prepararBateriaBotao.style.display = '';
+	pararBateriaBotao.style.display = 'none';
+}
+
+function capturarTeclaConfiguracaoTeclas(elementoCapturado) {
+	_configuracaoEvento = elementoCapturado.getAttribute('dataEventoTecla');
+	modal01.style.display = 'block';
+	_configuracaoElemento = elementoCapturado.id;
+	selectOpcoes.style.display = 'none';
+	tecladoTeclasDiv.style.display = '';
+	inputTecla.focus();
+}
+
+function armazenarTeclaConfiguracaoTeclas(tecla) {
+	let array = [_configuracaoElemento, _configuracaoEvento];
+	_configuracaoElementos[tecla] = array;
+	ocultarModal();
+}
+
+function salvarConfiguracaoTeclas() {
+	if (_configuracaoElementos) {
+		localStorage.setItem('teclasConfiguracao', JSON.stringify(_configuracaoElementos));
+
+		alert('Teclas salvas');
+		ocultarSalvarConfiguracaoTeclas();
+	}
+	else
+		alert('Nada foi configurado. Saindo...');
+
+	carregarConfiguracaoTeclas();
+}
+
+function carregarConfiguracaoTeclas() {
+	const dadosStorage = localStorage.getItem('teclasConfiguracao');
+	_teclasConfiguracao = JSON.parse(dadosStorage) || {};	
+
+	//// Recuperar os dados do armazenamento local
+	//const dadosStorage = localStorage.getItem('teclasConfiguracao');
+
+	//// Verificar se há dados armazenados
+	//if (dadosStorage) {
+	//	// Converter os dados de volta para o formato de objeto JavaScript
+	//	_teclasConfiguracao = JSON.parse(dadosStorage);
+
+	//	for (const elementoID in _teclasConfiguracao) {
+	//		// Verificar se a chave pertence diretamente ao objeto (não aos protótipos)
+	//		if (Object.prototype.hasOwnProperty.call(dicionario, elementoID)) {
+	//			// Aqui você pode fazer o que quiser com cada elementoID
+	//			console.log(elementoID);
+	//		}
+	//	}
+
+	//	// Agora você pode acessar os valores conforme necessário
+	//	// Por exemplo, para acessar a configuração do elemento com o ID 'elementoID':
+	//	const array = _teclasConfiguracao[elementoID];
+
+	//	// array agora contém os valores configurados
+	//	const _configuracaoEvento = array[0];
+	//	const tecla = array[1];
+
+	//	// Faça o que for necessário com os valores recuperados
+	//	console.log(_configuracaoEvento, tecla);
+	//} else {
+	//	console.log('Não há dados armazenados');
+	//}
+
+	//_teclasConfiguracao = JSON.parse(localStorage.getItem('teclasConfiguracao'));
 }
 
 function handleTouchStart(event, element, bateria = false) {
@@ -1051,55 +1252,6 @@ function ocultarNavBar() {
 	$('#muteDiv').appendTo('#linhaSelectTom');
 	navBar.style.display = 'none';
 	linhaSelectTom.style.width = '100%';
-}
-
-function mostrarSalvarConfiguracaoTeclas() {
-	_configurandoTeclas = true;
-	modal01.style.display = 'none';
-	tituloConfiguracaoTeclas.style.display = '';
-	titulo.style.display = 'none';
-	botaoGravar.style.display = 'none';
-	play_pause.style.display = '';
-	prepararBateriaBotao.style.display = 'none';
-	pararBateriaBotao.style.display = '';
-	alert('Configurar teclas para utilizar o teclado físico');
-}
-
-function ocultarSalvarConfiguracaoTeclas() {
-	_configurandoTeclas = false;
-	tituloConfiguracaoTeclas.style.display = 'none';
-	titulo.style.display = '';
-	tecladoTeclasDiv.style.display = 'none';
-	botaoGravar.style.display = '';
-	play_pause.style.display = 'none';
-	prepararBateriaBotao.style.display = '';
-	pararBateriaBotao.style.display = 'none';
-}
-
-function capturarTeclaConfiguracaoTeclas(elementoCapturado) {
-	_configuracaoEvento = elementoCapturado.getAttribute('dataEventoTecla');
-	modal01.style.display = 'block';
-	_configuracaoElemento = elementoCapturado.id;
-	selectOpcoes.style.display = 'none';
-	tecladoTeclasDiv.style.display = '';
-	inputTecla.focus();
-}
-
-function armazenarTeclaConfiguracaoTeclas(tecla) {
-	let array = [_configuracaoEvento, tecla];
-	_configuracaoElementos[_configuracaoElemento] = array;
-	ocultarModal();
-}
-
-function salvarConfiguracaoTeclas() {
-	if (_configuracaoElementos) {
-		localStorage.setItem('teclasConfiguracao', JSON.stringify(_configuracaoElementos));
-
-		alert('Teclas salvas');
-		ocultarSalvarConfiguracaoTeclas();
-	}
-	else
-		alert('Nada foi configurado. Saindo...');
 }
 
 function ultimoTomSelecionadoStorage() {
