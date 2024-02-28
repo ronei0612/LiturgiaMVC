@@ -334,6 +334,7 @@ function ocultarSalvarConfiguracaoTeclas() {
 
 function capturarTeclaConfiguracaoTeclas(elementoCapturado) {
 	_configuracaoEvento = elementoCapturado.getAttribute('dataEventoTecla');
+	selectConfiguracao.style.display = 'none';
 	modal01.style.display = 'block';
 	_configuracaoElemento = elementoCapturado.id;
 	selectOpcoes.style.display = 'none';
