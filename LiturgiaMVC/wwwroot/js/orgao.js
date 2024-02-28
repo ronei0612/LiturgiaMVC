@@ -25,10 +25,9 @@ var _cravoSelecionado = true;
 var _viradaRitmo = '';
 var _trocarRitmo = false;
 var _configurandoTeclas = false;
-var _configuracaoElementos = {};
 var _configuracaoElemento;
 var _configuracaoEvento;
-var _teclasConfiguracao;
+var _teclasConfiguracao = {};
 
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
@@ -231,8 +230,8 @@ const elementos = {
 	acorde_5: acorde_5,
 	acorde_1: acorde_1,
 	acorde_2: acorde_2,
-	aumentarTom: aumentarTomMais,
-	diminuirTom: diminuirTomMenos,
+	aumentarTomMais: aumentarTomMais,
+	diminuirTomMenos: diminuirTomMenos,
 	tomMenorSwitch: tomMenorSwitch,
 	tituloConfiguracaoTeclas: tituloConfiguracaoTeclas,
 	textoConfiguracao: textoConfiguracao,
@@ -305,7 +304,11 @@ function capturarTeclaPressionada(tecla) {
 	else if (_teclasConfiguracao[tecla]) {
 		const elemento = elementos[_teclasConfiguracao[tecla][0]];
 		const evento = eventos[_teclasConfiguracao[tecla][1]];
-		elemento.dispatchEvent(evento);
+
+		if (_teclasConfiguracao[tecla][0].includes('Check'))
+			elemento.checked = !elemento.checked;
+
+		elemento.dispatchEvent(evento);		
 	}
 	//else if (teclasDesejadas.includes(tecla))
 	//	pressionarBotaoPelaTecla(tecla);
@@ -382,15 +385,13 @@ function capturarTeclaConfiguracaoTeclas(elementoCapturado) {
 
 function armazenarTeclaConfiguracaoTeclas(tecla) {
 	let array = [_configuracaoElemento, _configuracaoEvento];
-	_configuracaoElementos[tecla] = array;
+	_teclasConfiguracao[tecla] = array;
 	ocultarModal();
 }
 
 function salvarConfiguracaoTeclas() {
-	if (_configuracaoElementos) {
-		localStorage.setItem('teclasConfiguracao', JSON.stringify(_configuracaoElementos));
-
-		alert('Teclas salvas');
+	if (_teclasConfiguracao) {
+		localStorage.setItem('teclasConfiguracao', JSON.stringify(_teclasConfiguracao));
 		ocultarSalvarConfiguracaoTeclas();
 	}
 	else
@@ -401,7 +402,8 @@ function salvarConfiguracaoTeclas() {
 
 function carregarConfiguracaoTeclas() {
 	const dadosStorage = localStorage.getItem('teclasConfiguracao');
-	_teclasConfiguracao = JSON.parse(dadosStorage) || {};	
+	if (dadosStorage)
+		_teclasConfiguracao = JSON.parse(dadosStorage);	
 }
 
 function handleTouchStart(event, element, bateria = false) {
@@ -506,7 +508,7 @@ function ocultarBotaoRec(ocultar = true) {
 
 function escolherAcorde(acorde, botao) {
 	if (_configurandoTeclas) {
-		capturarTeclaConfiguracaoTeclas(document.activeElement);
+		capturarTeclaConfiguracaoTeclas(botao);
 		return;
 	}
 
@@ -569,7 +571,7 @@ function autoMudarRitmo(elementBotao = null) {
 
 function escolherAcompanhamento(funcao, botao) {
 	if (_configurandoTeclas) {
-		capturarTeclaConfiguracaoTeclas(document.activeElement);
+		capturarTeclaConfiguracaoTeclas(botao);
 		return;
 	}
 	_acompanhamentoSelecionado = funcao;
@@ -1002,7 +1004,7 @@ function tocarCifraManualmente(cifraElem) {
 
 function avancarCifra(avancar_retroceder, botao) {
 	if (_configurandoTeclas) {
-		capturarTeclaConfiguracaoTeclas(document.activeElement);
+		capturarTeclaConfiguracaoTeclas(botao);
 		return;
 	}
 	if (avancar_retroceder === '') {
@@ -1109,12 +1111,12 @@ function rolagemTelaOracaoEucaristica(guardar = true) {
 	}
 }
 
-function selecionarStrings(stringsCheck) {
+function selecionarStrings(checked) {
 	if (_configurandoTeclas) {
-		capturarTeclaConfiguracaoTeclas(document.activeElement);
+		capturarTeclaConfiguracaoTeclas(stringsCheck);
 		return;
 	}
-	if (stringsCheck) {
+	if (checked) {
 		_stringsSelecionado = true;
 
 		if (_stringsParado)
