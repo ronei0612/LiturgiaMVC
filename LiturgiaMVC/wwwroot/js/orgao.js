@@ -1071,6 +1071,7 @@ function rolagemTelaOracaoEucaristica(guardar = true) {
 
 function selecionarStrings(checked) {
 	if (_configurandoTeclas) {
+		stringsCheck.checked = false;
 		capturarTeclaConfiguracaoTeclas(stringsCheck);
 		return;
 	}
