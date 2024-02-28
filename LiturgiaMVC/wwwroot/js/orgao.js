@@ -318,7 +318,6 @@ function mostrarSalvarConfiguracaoTeclas() {
 	play_pause.style.display = '';
 	prepararBateriaBotao.style.display = 'none';
 	pararBateriaBotao.style.display = '';
-	alert('Configurar teclas para utilizar o teclado físico');
 }
 
 function ocultarSalvarConfiguracaoTeclas() {
