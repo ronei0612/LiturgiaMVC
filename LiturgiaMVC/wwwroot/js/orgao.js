@@ -343,7 +343,15 @@ function capturarTeclaConfiguracaoTeclas(elementoCapturado) {
 	inputTecla.focus();
 }
 
+function verificarSeTemValor(dicionario, elementoProcurar) {
+	for (let chave in dicionario) {
+		if (dicionario[chave][0].includes(elementoProcurar))
+			delete dicionario[chave];
+	}
+}
+
 function armazenarTeclaConfiguracaoTeclas(tecla) {
+	verificarSeTemValor(_teclasConfiguracao, _configuracaoElemento);
 	let array = [_configuracaoElemento, _configuracaoEvento];
 	_teclasConfiguracao[tecla] = array;
 	ocultarModal();
