@@ -137,7 +137,7 @@
                             <a href="#" class="nav-link" onclick="mostrarModal('oracoesEucaristicas')">Orações Eucarísticas</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link" onclick="mostrarModal('configuracao')">Configuração</a>
+                            <a href="#" class="nav-link" onclick="mostrarModal('configuracaoOpcoes')">Configuração</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Sugestoes" asp-action="Index">Sugestões</a>
@@ -146,6 +146,15 @@
                             <a href="#" class="nav-link" onclick="mostrarModal('sobre')">Sobre</a>
                         </li>
                     </ul>
+                </div>
+
+                <div id="selectConfiguracao" style="display:none">
+                    <br />
+                    <h4>Configuração das Teclas</h4>
+                    <br />
+                    <a href="#" class="nav-link" onclick="mostrarModal('configuracao')">Configurar as Teclas</a>
+                    <a href="#" class="nav-link" onclick="limparConfiguracaoTeclas()">Limpar as Configurações de Teclas</a>
+                    <br />
                 </div>
 
                 <div id="tecladoTeclasDiv" style="display:none">
@@ -348,12 +357,14 @@
                     modalGravar.style.display = 'none';
                     selectOpcoes.style.display = 'block';
                     salvarDiv.style.display = 'none';
+                    selectConfiguracao.style.display = 'none';
                     break;
                 case 'instrumento':
                     selectOpcoes.style.display = 'none';
                     modalGravar.style.display = 'none';
                     selectInstrumento.style.display = 'block';
                     salvarDiv.style.display = 'none';
+                    selectConfiguracao.style.display = 'none';
                     break;
                 case 'gravar':
                     if (textoCifrasFrame.style.display === 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
@@ -371,6 +382,7 @@
                         selectInstrumento.style.display = 'none';
                         modalGravar.style.display = 'block';
                         salvarDiv.style.display = 'none';
+                        selectConfiguracao.style.display = 'none';
 
                         if (textoCifrasFrame.style.display !== 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
                             musicaAcordesTextArea.style.fontSize = '13px';
@@ -390,6 +402,7 @@
                     selectInstrumento.style.display = 'none';
                     modalGravar.style.display = 'none';
                     salvarDiv.style.display = 'block';
+                    selectConfiguracao.style.display = 'none';
 
                     carregarSalvamentosList();
                     break;
@@ -409,6 +422,10 @@
                     break;
                 case 'configuracao':
                     mostrarSalvarConfiguracaoTeclas();
+                    break;
+                case 'configuracaoOpcoes':
+                    selectConfiguracao.style.display = '';
+                    selectOpcoes.style.display = 'none';
                     break;
                 default:
                     break;

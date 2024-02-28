@@ -47,6 +47,8 @@ const eventos = {
 
 const notasAcordes = Object.keys(notasAcordesJson);
 
+const selectConfiguracao = document.getElementById('selectConfiguracao');
+
 const instrumentoSelect = document.getElementById('instrumentoSelect');
 const autoCheck = document.getElementById('autoCheck');
 const bpm = document.getElementById('bpm');
@@ -239,16 +241,6 @@ const elementos = {
 	inputTecla: inputTecla
 };
 
-//const teclasDesejadas = ['Delete', 'End', 'PageDown', 'Insert', 'Home', 'PageUp', 'ArrowLeft', 'ArrowRight', 'ArrowDown', 'ArrowUp', 'Enter', '+', '-', '='];
-//const teclasParaBotoesAcordes = {
-//	'Insert': acorde_0,
-//	'Home': acorde_3,
-//	'PageUp': acorde_4,
-//	'Delete': acorde_5,
-//	'End': acorde_1,
-//	'PageDown': acorde_2
-//};
-
 deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
 manterTelaLigada_v2();
@@ -310,45 +302,11 @@ function capturarTeclaPressionada(tecla) {
 
 		elemento.dispatchEvent(evento);		
 	}
-	//else if (teclasDesejadas.includes(tecla))
-	//	pressionarBotaoPelaTecla(tecla);
 }
 
-function pressionarBotaoPelaTecla(tecla) {
-	switch (tecla) {
-		case 'Enter':
-			play_pause.dispatchEvent(eventoClick);
-			break;
-		case 'ArrowUp':
-			stringsCheck.checked = !stringsCheck.checked;
-			stringsCheck.dispatchEvent(eventoChange);
-			break;
-		case 'ArrowLeft':
-			baixo.dispatchEvent(eventoMousedown);
-			break;
-		case 'ArrowDown':
-			mao.dispatchEvent(eventoMousedown);
-			break;
-		case 'ArrowRight':
-			full.dispatchEvent(eventoMousedown);
-			break;
-		case '+':
-			aumentarTomMais.dispatchEvent(eventoClick);
-			break;
-		case '-':
-			diminuirTomMenos.dispatchEvent(eventoClick);
-			break;
-		case '=':
-			tomMenorSwitch.checked = !tomMenorSwitch.checked;
-			tomMenorSwitch.dispatchEvent(eventoChange);
-			break;
-		default:
-			const botao = teclasParaBotoesAcordes[tecla];
-			if (botao) {
-				botao.dispatchEvent(eventoMouseup);
-			}
-			break;
-	}
+function limparConfiguracaoTeclas() {
+	if (confirm('Apagar as Configurações de Teclas?'))
+		localStorage.removeItem('teclasConfiguracao');
 }
 
 function mostrarSalvarConfiguracaoTeclas() {
