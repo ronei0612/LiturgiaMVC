@@ -1065,6 +1065,10 @@ function setupBaseEvents() {
     cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
     brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
     prato.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(prato);
+            return;
+        }
         if (iconVolumeMute.style.display == 'none') {
             let pratoAtaque1 = buffers['prato1'].get();
             let node = routeGain(pratoAtaque1);
@@ -1074,7 +1078,7 @@ function setupBaseEvents() {
     });
     play_pause_bateria.addEventListener('mousedown', function (e) {
         if (_configurandoTeclas) {
-            capturarTeclaConfiguracaoTeclas(document.activeElement);
+            capturarTeclaConfiguracaoTeclas(play_pause_bateria);
             return;
         }
         if (tunerDiv.style.display !== 'none') {
