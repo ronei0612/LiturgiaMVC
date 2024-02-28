@@ -97,6 +97,7 @@ const acorde_10 = document.getElementById('acorde_10');
 const acorde_7 = document.getElementById('acorde_7');
 const acorde_9 = document.getElementById('acorde_9');
 const muteDiv = document.getElementById('muteDiv');
+const botaoMute = document.getElementById('botaoMute');
 const iconVolumeMute = document.getElementById('iconVolumeMute');
 const iconVolume = document.getElementById('iconVolume');
 const modal01 = document.getElementById('modal01');
@@ -194,6 +195,7 @@ const elementos = {
 	acorde_7: acorde_7,
 	acorde_9: acorde_9,
 	muteDiv: muteDiv,
+	botaoMute: botaoMute,
 	iconVolumeMute: iconVolumeMute,
 	iconVolume: iconVolume,
 	modal01: modal01,
