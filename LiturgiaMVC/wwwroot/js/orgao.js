@@ -82,6 +82,7 @@ const volumeDiv = document.getElementById('volumeDiv');
 const textoVolume = document.getElementById('textoVolume');
 const volumeInput = document.getElementById('volumeInput');
 const cifraAvancar = document.getElementById('cifraAvancar');
+const cifraRepetir = document.getElementById('cifraRepetir');
 const cifraRetroceder = document.getElementById('cifraRetroceder');
 const exitfullscreen = document.getElementById('exitfullscreen');
 const fullscreenDiv = document.getElementById('fullscreenDiv');
@@ -178,6 +179,7 @@ const elementos = {
 	textoVolume: textoVolume,
 	volumeInput: volumeInput,
 	cifraAvancar: cifraAvancar,
+	cifraRepetir: cifraRepetir,
 	cifraRetroceder: cifraRetroceder,
 	exitfullscreen: exitfullscreen,
 	fullscreenDiv: fullscreenDiv,
