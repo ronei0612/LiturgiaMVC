@@ -1068,6 +1068,18 @@ function setupBaseEvents() {
     chimbal.addEventListener('click', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
     cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
     brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
+    pratoCravo.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(prato);
+            return;
+        }
+        if (iconVolumeMute.style.display == 'none') {
+            let pratoAtaque1 = buffers['prato1'].get();
+            let node = routeGain(pratoAtaque1);
+            node.connect(ctx.destination);
+            pratoAtaque1.start();
+        }
+    });
     prato.addEventListener('click', function (e) {
         if (_configurandoTeclas) {
             capturarTeclaConfiguracaoTeclas(prato);

@@ -63,6 +63,7 @@ const prato = document.getElementById('prato');
 const aro = document.getElementById('aro');
 const caixa = document.getElementById('caixa');
 const cravo = document.getElementById('cravo');
+const pratoCravo = document.getElementById('pratoCravo');
 const brushCravo = document.getElementById('brushCravo');
 const tomSelect = document.getElementById('tomSelect');
 const volumeTexto = document.getElementById('volumeTexto');
@@ -162,6 +163,7 @@ const elementos = {
 	caixa: caixa,
 	cravo: cravo,
 	brushCravo: brushCravo,
+	pratoCravo: pratoCravo,
 	tomSelect: tomSelect,
 	volumeTexto: volumeTexto,
 	textoCifras: textoCifras,
