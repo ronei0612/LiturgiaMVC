@@ -969,7 +969,7 @@ var _ritmoSelecionado = 'aro';
                         setTimeout(function () {
                             let nota;
                             if (_acordeSelecionado.includes('/'))
-                                nota = _acordeSelecionado.split('/')[1];
+                                nota = _acordeSelecionado.split('/')[1].includes('#') ? _acordeSelecionado.split('/')[1][0] + '_' : _acordeSelecionado.split('/')[1];
                             else
                                 nota = _acordeSelecionado.length > 1 ? (_acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0]) : _acordeSelecionado;
 
