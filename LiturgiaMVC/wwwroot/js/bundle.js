@@ -966,13 +966,17 @@ var _ritmoSelecionado = 'aro';
             function playBaixo() {
                 if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano') {
                     if (_acordeSelecionado) {
-                        let nota = _acordeSelecionado.length > 1 ? _acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0] : _acordeSelecionado;
-                        let baixoAudio = buffers['baixo_' + nota].get();
-                        guardarBaixo(baixoAudio);
                         setTimeout(function () {
-                            //pararBaixo(ctx);
+                            let nota;
+                            if (_acordeSelecionado.includes('/'))
+                                nota = _acordeSelecionado.split('/')[1];
+                            else
+                                nota = _acordeSelecionado.length > 1 ? (_acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0]) : _acordeSelecionado;
+
+                            let baixoAudio = buffers['baixo_' + nota].get();
+                            guardarBaixo(baixoAudio);
                             play(baixoAudio);
-                        }, 130)
+                        }, 130);
                     }
                 }
             }
