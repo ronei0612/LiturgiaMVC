@@ -600,7 +600,7 @@ namespace LiturgiaMVC
             if (possivelAcorde.Contains('('))
                 cifraFormatada = possivelAcorde.Split('(')[0];
 
-            if (possivelAcorde.Contains('/')) {
+            if (possivelAcorde.Contains('/') && possivelAcorde.Contains('(') == false) {
                 cifraFormatada = possivelAcorde.Split('/')[0];
                 var retorno = GetAcorde(possivelAcorde.Split('/')[1]);
                 cifraAcordeAlteracoes = "/" + retorno[0];
