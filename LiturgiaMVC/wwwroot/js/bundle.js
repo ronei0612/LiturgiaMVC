@@ -967,14 +967,9 @@ var _ritmoSelecionado = 'aro';
                 if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano') {
                     if (_acordeSelecionado) {
                         setTimeout(function () {
-                            let nota;
-                            if (_acordeSelecionado.includes('/'))
-                                nota = _acordeSelecionado.split('/')[1].includes('#') ? _acordeSelecionado.split('/')[1][0] + '_' : _acordeSelecionado.split('/')[1];
-                            else
-                                nota = _acordeSelecionado.length > 1 ? (_acordeSelecionado.includes('#') ? _acordeSelecionado.split('#')[0] + '_' : _acordeSelecionado[0]) : _acordeSelecionado;
-
-                            let baixoAudio = buffers['baixo_' + nota].get();
-                            guardarBaixo(baixoAudio);
+                            let notaBaixo = _acordeBaixo.includes('#') ? _acordeBaixo[0] + '_' : _acordeBaixo;
+                            let baixoAudio = buffers['baixo_' + notaBaixo].get();
+                            //guardarBaixo(baixoAudio);
                             play(baixoAudio);
                         }, 130);
                     }
@@ -985,7 +980,7 @@ var _ritmoSelecionado = 'aro';
                 if (instrumentName === 'tom-01' || instrumentName === 'tom-02' || instrumentName === 'tom-03') {
                     if (_acordeSelecionado && _cravoSelecionado) {
                         setTimeout(function () {
-                            let notas = notasAcordesJson[_acordeSelecionado];
+                            let notas = _acordeNotas;
                             notas.sort();
 
                             let index = 0;
