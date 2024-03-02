@@ -586,18 +586,26 @@ function refinarAcorde(acorde) {
 }
 
 function getNotaBaixo(acorde) {
-	if (acorde.includes('/'))
-		return notasAcordesJson[acorde.split('/')[1]][0];
-	else
-		return notasAcordesJson[acorde][0];
+	let notaBaixo;
+	if (acorde.includes('/')) {
+		notaBaixo = refinarAcorde(acorde.split('/')[1]);
+		acorde = refinarAcorde(acorde.split('/')[0]);
+		notaBaixo = notasAcordesJson[notaBaixo][0];
+	}		
+	else {
+		acorde = refinarAcorde(acorde);
+		notaBaixo = notasAcordesJson[acorde][0];
+	}
+	return [acorde, notaBaixo];
 }
 
 function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	if (instrumento === 'stringsSolo' && _stringsSelecionado)
 		instrumento = 'strings';
 		
-	acorde = refinarAcorde(acorde);
-	_acordeBaixo = getNotaBaixo(acorde);
+	let retorno = getNotaBaixo(acorde);
+	acorde = retorno[0];
+	_acordeBaixo = retorno[1];
 	_acordeNotas = notasAcordesJson[acorde];
 
 	if (grupoNotas) {
