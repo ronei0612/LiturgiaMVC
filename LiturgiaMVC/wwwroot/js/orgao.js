@@ -690,7 +690,7 @@ function verificarGrupoNotasInstanciado(grupoNotas, efeito = null) {
 
 function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 	if (_acordeAntesSelecionado === acorde) {
-		pararOsAcordes(true, true);
+		pararOsAcordes(true, _stringsSelecionado);
 		esperar = 50;
 	}
 	else
