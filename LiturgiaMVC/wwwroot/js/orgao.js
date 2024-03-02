@@ -672,6 +672,9 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 		}
 	}
 
+	if (instrumento === 'orgao')
+		grupoNotas.attack = 0.1;
+
 	return grupoNotas;
 }
 
