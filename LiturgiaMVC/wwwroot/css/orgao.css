@@ -320,14 +320,17 @@ input[type=range][orient=vertical] {
 }
 
 .light {
-	width: 14px;
-	height: 14px;
+	width: 77px;
+	height: 44px;
+	/*position: relative;*/
 	/*background-color: #0d6efd;*/
 	background-color: #198754;
-	border-radius: 50%;
+	border-radius: 8px;
 	position: absolute;
-	top: 45%;
-	left: 45%;
+	top: 12px;
+	left: 9px;
+	z-index: -1;
+	box-shadow: 0 0 15px 3px #198754;
 	animation: blink 666.6666666666667ms infinite;
 }
 
