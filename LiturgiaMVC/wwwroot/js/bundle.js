@@ -976,15 +976,21 @@ var _ritmoSelecionado = 'aro';
 
             function playViolao() {
                 if ((instrumentoSelect.value === 'Epiano' || instrumentoSelect.value === 'Strings') &&
-                    (instrumentName === '0' || instrumentName === '1')) {
+                    (instrumentName === '0' || instrumentName === '1' || instrumentName === '2')) {
                     setTimeout(function () {
-                        let nota = _acordeSelecionado.match(/^[A-Z]#?m?/)[0];
-                        nota = nota.replace('#', '_');
+                        let violaoAudio;
+                        if (instrumentName === '2') {
+                            violaoAudio = buffers['violao_'].get();
+                        }
+                        else {
+                            let nota = _acordeSelecionado.match(/^[A-Z]#?m?/)[0];
+                            nota = nota.replace('#', '_');
 
-                        if (instrumentName === '1')
-                            nota = nota + '1';
+                            if (instrumentName === '1')
+                                nota = nota + '1';
 
-                        let violaoAudio = buffers['violao_' + nota].get();
+                            violaoAudio = buffers['violao_' + nota].get();
+                        }
                         play(violaoAudio);
                     }, 100);
                 }

@@ -6,6 +6,7 @@
   "type": "Acoustic Drum",
   "samples": "./Sons/studio/Drums/",
   "files": [
+    "violao_.ogg",
     "violao_C.ogg",
     "violao_C_.ogg",
     "violao_D.ogg",
