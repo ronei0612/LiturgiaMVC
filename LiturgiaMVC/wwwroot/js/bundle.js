@@ -978,14 +978,11 @@ var _ritmoSelecionado = 'aro';
                 if ((instrumentoSelect.value === 'Epiano' || instrumentoSelect.value === 'Strings') &&
                     (instrumentName === '0' || instrumentName === '1')) {
                     setTimeout(function () {
-                        let nota = _acordeSelecionado;
-                        if (nota.includes('m'))
-                            nota = nota.replace('#', '_') + 'm';
-                        else
-                            nota = nota.split('#')[0];
+                        let nota = _acordeSelecionado.match(/^[A-Z]#?m?/)[0];
+                        nota = nota.replace('#', '_');
 
                         if (instrumentName === '1')
-                            nota = '1' + nota;
+                            nota = nota + '1';
 
                         let violaoAudio = buffers['violao_' + nota].get();
                         play(violaoAudio);
