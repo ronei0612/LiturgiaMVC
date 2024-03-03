@@ -365,6 +365,22 @@ input[type=range][orient=vertical] {
 		transform: rotate(360deg)
 	}
 }
+.st0 {
+	fill: none;
+	stroke: #000000;
+	stroke-width: 2;
+	stroke-linejoin: round;
+	stroke-miterlimit: 10;
+}
+
+.st1 {
+	fill: none;
+	stroke: #ffffff;
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-miterlimit: 10;
+}
 
 /*
 	Novo blink, precisa ser implementado

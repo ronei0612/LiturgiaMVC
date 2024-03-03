@@ -9,7 +9,8 @@
 		if (textoCifrasFrame.style.display !== 'none')
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
 
-		violinoDesenho.setAttribute('fill', '#000');
+		violinoDesenho.classList = 'st0';
+		violaoDesenho.classList = 'st0';
 
 		var elements = document.getElementsByClassName("nav-link");
 		for (var i = 0; i < elements.length; i++)
@@ -27,7 +28,8 @@
 		if (textoCifrasFrame.style.display !== 'none')
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#fff';
 
-		violinoDesenho.setAttribute('fill', '#fff');
+		violinoDesenho.classList = 'st1';
+		violaoDesenho.classList = 'st1';
 				
 		var elements = document.getElementsByClassName("nav-link");
 		for (var i = 0; i < elements.length; i++)
