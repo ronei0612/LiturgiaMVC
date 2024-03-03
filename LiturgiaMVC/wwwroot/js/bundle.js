@@ -975,7 +975,7 @@ var _ritmoSelecionado = 'aro';
             }
 
             function playViolao() {
-                if ((instrumentoSelect.value === 'Epiano' || instrumentoSelect.value === 'Strings') &&
+                if (_violaoSelecionado && (instrumentoSelect.value === 'Epiano' || instrumentoSelect.value === 'Strings') &&
                     (instrumentName === '0' || instrumentName === '1' || instrumentName === '2')) {
                     setTimeout(function () {
                         let violaoAudio;
