@@ -964,7 +964,7 @@ var _ritmoSelecionado = 'aro';
                 return gainNode;
             }
             function playBaixo() {
-                if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano' && _acordeSelecionado) {
+                if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano') {
                     setTimeout(function () {
                         let notaBaixo = _acordeBaixo.includes('#') ? _acordeBaixo[0] + '_' : _acordeBaixo;
                         let baixoAudio = buffers['baixo_' + notaBaixo].get();
@@ -973,9 +973,25 @@ var _ritmoSelecionado = 'aro';
                     }, 130);
                 }
             }
+
+            function playViolao() {
+                if ((instrumentoSelect.value === 'Epiano' || instrumentoSelect.value === 'Strings') &&
+                    (instrumentName === '0' || instrumentName === '1')) {
+                    setTimeout(function () {
+                        let nota = _acordeNotas[0];
+                        nota = nota.includes('#') ? nota.split('#')[0] + '_' : nota[0];
+
+                        if (instrumentName === '1')
+                            nota = '1' + nota;
+
+                        let violaoAudio = buffers['violao_' + nota].get();
+                        play(violaoAudio);
+                    }, 130);
+                }
+            }
             
             function playCravo() {
-                if ((instrumentName === '0' || instrumentName === '1' || instrumentName === '2') && _acordeSelecionado) {
+                if (instrumentName === '0' || instrumentName === '1' || instrumentName === '2' && _acordeSelecionado) {
                     setTimeout(function () {
                         let notas = _acordeNotas;
                         notas.sort();
@@ -990,12 +1006,15 @@ var _ritmoSelecionado = 'aro';
                     play(instrument);
             }
 
+            if (_acordeSelecionado) {
+                playViolao();
+                playBaixo();
+            }
+
             if (_cravoSelecionado)
                 playCravo();
             else
                 play(instrument);
-
-            playBaixo();
             guardarChimbalAberto(instrumentName, instrument);
         }        
         var schedule = new simpleTracker(ctx, scheduleAudioBeat);        
@@ -1887,7 +1906,7 @@ function trackerTable() {
         this.setHeader(numCols, data);
         for (let rowID = 0; rowID < numRows; rowID++) {
             this.str += `<tr class="tracker-row" data-id="${rowID}">`;
-            this.str += data.title && (data.title[rowID].includes('baixo') || data.title[rowID].includes('cravo')) ? '' : this.getCells(rowID, numCols, data);
+            this.str += data.title && (data.title[rowID].includes('baixo') || data.title[rowID].includes('cravo') || data.title[rowID].includes('violao')) ? '' : this.getCells(rowID, numCols, data);
             this.str += `</tr>`;
         }
     };
