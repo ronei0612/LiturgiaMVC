@@ -989,7 +989,7 @@ var _ritmoSelecionado = 'aro';
 
                         let violaoAudio = buffers['violao_' + nota].get();
                         play(violaoAudio);
-                    }, 130);
+                    }, 100);
                 }
             }
             
