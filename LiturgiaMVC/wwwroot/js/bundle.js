@@ -981,17 +981,22 @@ var _ritmoSelecionado = 'aro';
                         let violaoAudio;
                         if (instrumentName === '2') {
                             violaoAudio = buffers['violao_'].get();
+                            play(violaoAudio);
                         }
                         else {
-                            let nota = _acordeSelecionado.match(/^[A-Z]#?m?/)[0];
-                            nota = nota.replace('#', '_');
+                            let matches = _acordeSelecionado.match(/^[A-Z]#?m?/);
+                            if (matches) {
+                                let nota = matches[0];
+                                nota = nota.replace('#', '_');
 
-                            if (instrumentName === '1')
-                                nota = nota + '1';
+                                if (instrumentName === '1')
+                                    nota = nota + '1';
 
-                            violaoAudio = buffers['violao_' + nota].get();
-                        }
-                        play(violaoAudio);
+                                violaoAudio = buffers['violao_' + nota].get();
+
+                                play(violaoAudio);
+                            }
+                        }                        
                     }, 100);
                 }
             }
