@@ -602,7 +602,8 @@ function getNotaBaixo(acorde) {
 function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	if (instrumento === 'stringsSolo' && _stringsSelecionado)
 		instrumento = 'strings';
-		
+
+	acorde = acorde.replace('E#', 'F');
 	let retorno = getNotaBaixo(acorde);
 	acorde = retorno[0];
 	_acordeBaixo = retorno[1];
