@@ -964,36 +964,27 @@ var _ritmoSelecionado = 'aro';
                 return gainNode;
             }
             function playBaixo() {
-                if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano') {
-                    if (_acordeSelecionado) {
-                        setTimeout(function () {
-                            let notaBaixo = _acordeBaixo.includes('#') ? _acordeBaixo[0] + '_' : _acordeBaixo;
-                            let baixoAudio = buffers['baixo_' + notaBaixo].get();
-                            //guardarBaixo(baixoAudio);
-                            play(baixoAudio);
-                        }, 130);
-                    }
+                if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano' && _acordeSelecionado) {
+                    setTimeout(function () {
+                        let notaBaixo = _acordeBaixo.includes('#') ? _acordeBaixo[0] + '_' : _acordeBaixo;
+                        let baixoAudio = buffers['baixo_' + notaBaixo].get();
+                        //guardarBaixo(baixoAudio);
+                        play(baixoAudio);
+                    }, 130);
                 }
             }
             
             function playCravo() {
-                if (instrumentName === 'tom-01' || instrumentName === 'tom-02' || instrumentName === 'tom-03') {
-                    if (_acordeSelecionado && _cravoSelecionado) {
-                        setTimeout(function () {
-                            let notas = _acordeNotas;
-                            notas.sort();
+                if ((instrumentName === '0' || instrumentName === '1' || instrumentName === '2') && _acordeSelecionado) {
+                    setTimeout(function () {
+                        let notas = _acordeNotas;
+                        notas.sort();
 
-                            let index = 0;
-                            if (instrumentName === 'tom-02') index = 1;
-                            else if (instrumentName === 'tom-03') index = 2;
-
-                            let nota = notas[index];
-
-                            nota = nota.includes('#') ? nota.split('#')[0] + '_' : nota[0];
+                        let nota = notas[instrumentName];
+                        nota = nota.includes('#') ? nota.split('#')[0] + '_' : nota[0];
                         
-                            play(buffers['cravo_' + nota].get());
-                        }, 130);
-                    }
+                        play(buffers['cravo_' + nota].get());
+                    }, 130);
                 }
                 else
                     play(instrument);
