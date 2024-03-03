@@ -978,8 +978,11 @@ var _ritmoSelecionado = 'aro';
                 if ((instrumentoSelect.value === 'Epiano' || instrumentoSelect.value === 'Strings') &&
                     (instrumentName === '0' || instrumentName === '1')) {
                     setTimeout(function () {
-                        let nota = _acordeNotas[0];
-                        nota = nota.includes('#') ? nota.split('#')[0] + '_' : nota[0];
+                        let nota = _acordeSelecionado;
+                        if (nota.includes('m'))
+                            nota = nota.replace('#', '_') + 'm';
+                        else
+                            nota = nota.split('#')[0];
 
                         if (instrumentName === '1')
                             nota = '1' + nota;
