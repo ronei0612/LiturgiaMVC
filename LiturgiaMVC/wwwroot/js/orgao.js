@@ -54,6 +54,9 @@ const selectConfiguracao = document.getElementById('selectConfiguracao');
 
 const instrumentoSelect = document.getElementById('instrumentoSelect');
 const autoCheck = document.getElementById('autoCheck');
+const autoCheckDiv = document.getElementById('autoCheckDiv');
+const acompCheck = document.getElementById('acompCheck');
+const acompCheckDiv = document.getElementById('acompCheckDiv');
 const bpm = document.getElementById('bpm');
 const selectRitmo = document.getElementById('selectRitmo');
 const botaobotaoGravar = document.getElementById('botaoGravar');
@@ -68,6 +71,9 @@ const caixa = document.getElementById('caixa');
 const cravo = document.getElementById('cravo');
 const pratoCravo = document.getElementById('pratoCravo');
 const brushCravo = document.getElementById('brushCravo');
+const violaoBotao = document.getElementById('violaoBotao');
+const pianoBotao = document.getElementById('pianoBotao');
+const baixoBotao = document.getElementById('baixoBotao');
 const tomSelect = document.getElementById('tomSelect');
 const volumeTexto = document.getElementById('volumeTexto');
 const textoCifras = document.getElementById('textoCifras');
@@ -169,6 +175,9 @@ const elementos = {
 	cravo: cravo,
 	brushCravo: brushCravo,
 	pratoCravo: pratoCravo,
+	violaoBotao: violaoBotao,
+	pianoBotao: pianoBotao,
+	baixoBotao: baixoBotao,
 	tomSelect: tomSelect,
 	volumeTexto: volumeTexto,
 	textoCifras: textoCifras,
@@ -442,26 +451,57 @@ function orientacaoCelularAlterado(event) {
 		mudarParaFullscreen();
 }
 
+function ocultarBotoesCravo(ocultar = true) {
+	let cravoBotoes = document.getElementsByClassName('trCravoBotoes');
+
+	if (ocultar) {
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = 'none';
+
+		autoCheckDiv.style.display = '';
+		//acompCheckDiv.style.display = 'none';
+		baixo.style.display = 'none';
+		mao.style.display = 'none';
+		full.style.display = 'none';
+		violaoBotao.style.display = '';
+		pianoBotao.style.display = '';
+		baixoBotao.style.display = '';
+	}
+	else {
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = '';
+
+		autoCheckDiv.style.display = 'none';
+		//acompCheckDiv.style.display = '';
+		baixo.style.display = '';
+		mao.style.display = '';
+		full.style.display = '';
+		violaoBotao.style.display = 'none';
+		pianoBotao.style.display = 'none';
+		baixoBotao.style.display = 'none';
+	}
+}
+
 function ocultarBotoesRitmo(ocultar = true) {
 	var bateriaBotoes = document.getElementsByClassName('trBateriaBotoes');
-	let cravoBotoes = document.getElementsByClassName('trCravoBotoes');
 
 	if (ocultar) {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = 'none';
-
-		if (_cravoSelecionado) {
-			for (let i = 0; i < cravoBotoes.length; i++)
-				cravoBotoes[i].style.display = '';
-		}
 	}
 	else {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = '';
-
-		for (let i = 0; i < cravoBotoes.length; i++)
-			cravoBotoes[i].style.display = 'none';
 	}
+
+	//if (_cravoSelecionado) {
+	//	cravo.style.display = '';
+	//	violaoBotao.style.display = 'none';
+	//}
+	//else {
+	//	cravo.style.display = 'none';
+	//	violaoBotao.style.display = '';
+	//}
 }
 
 function pressionarBotaoCravo() {
