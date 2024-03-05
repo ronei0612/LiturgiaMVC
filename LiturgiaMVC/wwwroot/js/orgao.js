@@ -9,7 +9,9 @@ var _grupoNotasStrings;
 var _volume = 0.9;
 var _instrumentoSelecionado = 'orgao';
 var _stringsSelecionado = false;
+var _baixoSelecionado = false;
 var _violaoSelecionado = false;
+var _epianoSelecionado = false;
 var _stringsParado = true;
 var _autoMudarRitmo = false;
 var _orientacaoCelularPe = true;
@@ -562,7 +564,6 @@ function escolherAcorde(acorde, botao) {
 	}
 	else {
 		tocarAcorde(acorde, botao);
-		//pressionarBotaoCravo();
 
 		if (botao)
 			ocultarBotaoRec();
@@ -594,6 +595,32 @@ function autoMudarRitmo(elementBotao = null) {
 				aro.dispatchEvent(eventoClick);
 			}
 		}
+	}
+}
+
+function escolherAcompanhamentoBateria(botao, variavel) {
+	if (_configurandoTeclas) {
+		botao.classList.toggle('instrumentoSelecionado', false);
+		capturarTeclaConfiguracaoTeclas(botao);
+		return;
+	}
+
+	if (botao.classList.contains('instrumentoSelecionado') == false) {
+		eval(variavel + ' = ' + JSON.stringify(true));
+
+		if (variavel === '_stringsSelecionado' && _stringsParado)
+			if (_acordeAntesSelecionado !== '') {
+				_stringsParado = false;
+				_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
+				_grupoNotasStrings = montarAcorde(_acordeAntesSelecionado, _grupoNotasStrings, 'strings');
+				_grupoNotasStrings.play();
+			}
+
+		botao.classList.toggle('instrumentoSelecionado', true);
+	}
+	else {
+		eval(variavel + ' = ' + JSON.stringify(false));
+		botao.classList.toggle('instrumentoSelecionado', false);
 	}
 }
 
@@ -752,28 +779,30 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 		pararOsAcordes(true);
 
 	_acordeAntesSelecionado = acorde;
+	
+	if ((_instrumentoSelecionado === 'epiano' && _epianoSelecionado === false) == false) {
+		if (_instrumentoSelecionado === 'strings') {
+			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
+			_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'stringsSolo');
+			_grupoNotasStrings.play();
+		}
 
-	if (_instrumentoSelecionado === 'strings') {
-		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
-		_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'stringsSolo');
-		_grupoNotasStrings.play();
-	}
+		else {
+			if (_instrumentoSelecionado === 'epiano')
+				_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+			else
+				_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 
-	else {
-		if (_instrumentoSelecionado === 'epiano')
-			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		else
-			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+			_grupoNotas = montarAcorde(acorde, _grupoNotas, _instrumentoSelecionado);
+			_grupoNotas.play();
 
-		_grupoNotas = montarAcorde(acorde, _grupoNotas, _instrumentoSelecionado);
-		_grupoNotas.play();
-
-		if (_stringsSelecionado) {
-			if (_stringsParado || _grupoNotas.sounds.length < 10) {
-				_stringsParado = false;
-				_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
-				_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
-				_grupoNotasStrings.play();
+			if (_stringsSelecionado) {
+				if (_stringsParado || _grupoNotas.sounds.length < 10) {
+					_stringsParado = false;
+					_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
+					_grupoNotasStrings = montarAcorde(acorde, _grupoNotasStrings, 'strings');
+					_grupoNotasStrings.play();
+				}
 			}
 		}
 	}
@@ -1152,46 +1181,6 @@ function rolagemTelaOracaoEucaristica(guardar = true) {
 		}
 	}
 }
-
-function selecionarStrings(botao) {
-	if (_configurandoTeclas) {
-		botao.classList.toggle('instrumentoSelecionado', false);
-		capturarTeclaConfiguracaoTeclas(stringsBotao);
-		return;
-	}
-
-	if (botao.classList.contains('instrumentoSelecionado') == false) {
-		_stringsSelecionado = true;
-
-		if (_stringsParado)
-			if (_acordeAntesSelecionado !== '') {
-				_stringsParado = false;
-				_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
-				_grupoNotasStrings = montarAcorde(_acordeAntesSelecionado, _grupoNotasStrings, 'strings');
-				_grupoNotasStrings.play();
-			}
-		botao.classList.toggle('instrumentoSelecionado', true);
-	}
-	else {
-		_stringsSelecionado = false;
-		botao.classList.toggle('instrumentoSelecionado', false);
-	}
-
-	autoMudarRitmo();
-}
-
-function selecionarViolao(checked) {
-	if (_configurandoTeclas) {
-		violaoCheck.checked = false;
-		capturarTeclaConfiguracaoTeclas(violaoCheck);
-		return;
-	}
-	if (checked)
-		_violaoSelecionado = true;
-	else
-		_violaoSelecionado = false;
-}
-
 
 function voltarParaOrgao() {
 	voltar.style.display = 'none';
