@@ -596,7 +596,7 @@
                     salvar += '\n' + 'tomSelect,' + tomSelect.selectedIndex;
                     salvar += '\n' + 'bpm,' + bpm.value;
                     salvar += '\n' + 'autoCheck,' + autoCheck.checked;
-                    salvar += '\n' + 'stringsCheck,' + stringsCheck.checked;
+                    salvar += '\n' + 'acompCheck,' + acompCheck.checked;
 
                     var maoBotaoSelecionado = document.getElementsByClassName('selecionado');
                     if (maoBotaoSelecionado.length > 0)
@@ -665,7 +665,7 @@
                             else if (itens[i].split(',')[1] === 'selecionado') {
                                 escolherAcompanhamentoOrgao(element.id, element);
                             }
-                            else if (itens[i].split(',')[0] === 'tomMenorSwitch' || itens[i].split(',')[0] === 'autoCheck' || itens[i].split(',')[0] === 'stringsCheck') {
+                            else if (itens[i].split(',')[0] === 'tomMenorSwitch' || itens[i].split(',')[0] === 'autoCheck' || itens[i].split(',')[0] === 'acompCheck') {
                                 if (itens[i].split(',')[1] === 'true')
                                     element.checked = true;
                                 if (itens[i].split(',')[1] === 'false')

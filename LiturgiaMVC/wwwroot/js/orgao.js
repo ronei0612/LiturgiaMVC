@@ -142,8 +142,6 @@ const switchDark = document.getElementById('switchDark');
 const baixo = document.getElementById('baixo');
 const mao = document.getElementById('mao');
 const full = document.getElementById('full');
-const stringsCheck = document.getElementById('stringsCheck');
-const violaoCheck = document.getElementById('stringsCheck');
 const measureLength = document.getElementById('measureLength');
 const musicaAcordesTextArea = document.getElementById('musicaAcordesTextArea');
 const acorde_0 = document.getElementById('acorde_0');
@@ -246,8 +244,6 @@ const elementos = {
 	baixo: baixo,
 	mao: mao,
 	full: full,
-	stringsCheck: stringsCheck,
-	violaoCheck: stringsCheck,
 	measureLength: measureLength,
 	musicaAcordesTextArea: musicaAcordesTextArea,
 	acorde_0: acorde_0,
