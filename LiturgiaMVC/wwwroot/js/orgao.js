@@ -520,7 +520,7 @@ function pressionarBotaoCravo() {
 }
 
 function deixarAcompanhamentoSelecionado(funcao) {
-	escolherAcompanhamento(funcao, document.getElementById(funcao));
+	escolherAcompanhamentoOrgao(funcao, document.getElementById(funcao));
 }
 
 function ocultarBotaoRec(ocultar = true) {
@@ -597,7 +597,7 @@ function autoMudarRitmo(elementBotao = null) {
 	}
 }
 
-function escolherAcompanhamento(funcao, botao) {
+function escolherAcompanhamentoOrgao(funcao, botao) {
 	if (_configurandoTeclas) {
 		capturarTeclaConfiguracaoTeclas(botao);
 		return;
@@ -1153,13 +1153,14 @@ function rolagemTelaOracaoEucaristica(guardar = true) {
 	}
 }
 
-function selecionarStrings(checked) {
+function selecionarStrings(botao) {
 	if (_configurandoTeclas) {
-		stringsCheck.checked = false;
-		capturarTeclaConfiguracaoTeclas(stringsCheck);
+		stringsBotao.classList.remove('selecionado');
+		capturarTeclaConfiguracaoTeclas(stringsBotao);
 		return;
 	}
-	if (checked) {
+
+	if (botao.classList.contains('selecionado') == false) {
 		_stringsSelecionado = true;
 
 		if (_stringsParado)
@@ -1169,9 +1170,12 @@ function selecionarStrings(checked) {
 				_grupoNotasStrings = montarAcorde(_acordeAntesSelecionado, _grupoNotasStrings, 'strings');
 				_grupoNotasStrings.play();
 			}
+		botao.classList.toggle('selecionado', true);
 	}
-	else
+	else {
 		_stringsSelecionado = false;
+		botao.classList.toggle('selecionado', false);
+	}
 
 	autoMudarRitmo();
 }

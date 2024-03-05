@@ -9,10 +9,17 @@
     <link rel="stylesheet" href="~/LiturgiaMVC.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/w3.css" asp-append-version="true" />
 
-    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/orgao.min.css" asp-append-version="true" />
-    @*<link rel="stylesheet" href="~/css/orgao.css" asp-append-version="true" />*@
-
+    
+    @if (ViewContext.HttpContext.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
+    {
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/orgao.css" asp-append-version="true" />
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/css/orgao.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    }
 
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
 </head>
@@ -656,7 +663,7 @@
                                 element.value = itens[i].split(',')[1];
                             }
                             else if (itens[i].split(',')[1] === 'selecionado') {
-                                escolherAcompanhamento(element.id, element);
+                                escolherAcompanhamentoOrgao(element.id, element);
                             }
                             else if (itens[i].split(',')[0] === 'tomMenorSwitch' || itens[i].split(',')[0] === 'autoCheck' || itens[i].split(',')[0] === 'stringsCheck') {
                                 if (itens[i].split(',')[1] === 'true')
