@@ -303,7 +303,7 @@
         // };
 
         selectRitmo.selectedIndex = 2;
-        selecionarInstrumento(true);
+        selecionarInstrumento();
 
         function mudarTamanhoModal(aumentar) {
             if (aumentar) {
@@ -437,7 +437,7 @@
             }
         }
 
-        function selecionarInstrumento(bateria) {
+        function selecionarInstrumento(bateria = false) {
             var instrumentoSelecionado = instrumentoSelect.value;
             const elementos = [brush, aro, caixa, chimbal, meiaLua, prato];
 

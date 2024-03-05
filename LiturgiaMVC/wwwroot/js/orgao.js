@@ -451,6 +451,15 @@ function orientacaoCelularAlterado(event) {
 		mudarParaFullscreen();
 }
 
+function mostrarBateria(mostrar = true) {
+	if (mostrar)
+		bateriaBotoes.style.display = '';
+	else
+		bateriaBotoes.style.display = 'none';
+
+	localStorage.setItem('acompCheck', acompCheck.checked);
+}
+
 function ocultarBotoesCravo(ocultar = true) {
 	let cravoBotoes = document.getElementsByClassName('trCravoBotoes');
 
@@ -1276,6 +1285,20 @@ function ultimoTomSelecionadoStorage() {
 		tomSelect.selectedIndex = tomSelecionadoIndex;
 		tomSelect.dispatchEvent(new Event('change'));
 	}
+}
+
+function carregarConfiguracoesDoStorage() {
+	darkModeLocalStorage();
+	ultimoTomSelecionadoStorage();
+
+	let storage = localStorage.getItem('acompCheck');
+	if (storage && storage === 'true') {
+		acompCheck.checked = true;
+		acompCheck.dispatchEvent(eventoClick);
+		mostrarBateria(true);
+	}
+	else
+		acompCheck.checked = false;
 }
 
 function selecionarTomMenor(selecionadoMenor) {
