@@ -1155,12 +1155,12 @@ function rolagemTelaOracaoEucaristica(guardar = true) {
 
 function selecionarStrings(botao) {
 	if (_configurandoTeclas) {
-		stringsBotao.classList.remove('selecionado');
+		botao.classList.toggle('instrumentoSelecionado', false);
 		capturarTeclaConfiguracaoTeclas(stringsBotao);
 		return;
 	}
 
-	if (botao.classList.contains('selecionado') == false) {
+	if (botao.classList.contains('instrumentoSelecionado') == false) {
 		_stringsSelecionado = true;
 
 		if (_stringsParado)
@@ -1170,11 +1170,11 @@ function selecionarStrings(botao) {
 				_grupoNotasStrings = montarAcorde(_acordeAntesSelecionado, _grupoNotasStrings, 'strings');
 				_grupoNotasStrings.play();
 			}
-		botao.classList.toggle('selecionado', true);
+		botao.classList.toggle('instrumentoSelecionado', true);
 	}
 	else {
 		_stringsSelecionado = false;
-		botao.classList.toggle('selecionado', false);
+		botao.classList.toggle('instrumentoSelecionado', false);
 	}
 
 	autoMudarRitmo();
