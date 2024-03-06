@@ -1,4 +1,82 @@
-﻿var _acordeSelecionado = '';
+﻿const notasFrequencias = {
+	//c: 65.406,
+	//c_: 69.296,
+	//d: 73.416,
+	//d_: 77.782,
+	//e: 82.407,
+	//f: 87.307,
+	//f_: 92.499,
+	//g: 97.999,
+	//g_: 103.83,
+	a: 110.00,
+	a_: 116.54,
+	b: 123.47,
+	c1: 130.81,
+	c_1: 138.59,
+	d1: 146.83,
+	d_1: 155.56,
+	e1: 164.81,
+	f1: 174.61,
+	f_1: 185.00,
+	g1: 196.00,
+	g_1: 207.65,
+	a1: 220.00,
+	a_1: 233.08,
+	b1: 246.94,
+	c2: 261.63,
+	c_2: 277.18,
+	d2: 293.67,
+	d_2: 311.13,
+	//e2: 329.63,
+	//f2: 349.23,
+	//f_2: 369.99,
+	//g2: 392.00,
+	//g_2: 415.30,
+	//a2: 440.00,
+	//a_2: 466.16,
+	//b2: 493.88
+}
+
+const primeiraGuitar = new Pizzicato.Sound({
+	source: 'wave',
+	options: {
+		type: 'sawtooth',
+		frequency: notasFrequencias.c1,
+		release: 1,
+		attack: 0.4,
+		volume: 1
+	}
+});
+
+const quintaGuitar = new Pizzicato.Sound({
+	source: 'wave',
+	options: {
+		type: 'sawtooth',
+		frequency: notasFrequencias.g1,
+		release: 1,
+		attack: 0.4,
+		volume: 1
+	}
+});
+
+var distortion = new Pizzicato.Effects.Distortion({
+	gain: 0.5,
+	mix: 0.5
+});
+
+var group = new Pizzicato.Group();
+
+group.addSound(primeiraGuitar);
+group.addSound(quintaGuitar);
+
+group.addEffect(distortion);
+group.play();
+
+//primeiraGuitar.frequency = notasFrequencias.d1;
+//quintaGuitar.frequency = notasFrequencias.a1;
+
+
+var _acordeSelecionado = '';
 var _acordeAntesSelecionado = '';
 var _acompanhamentoSelecionado = '';
 var _acompanhamentoSolo = false;
