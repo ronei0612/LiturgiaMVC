@@ -44,7 +44,7 @@ const primeiraGuitar = new Pizzicato.Sound({
 		frequency: notasFrequencias.c1,
 		release: 1,
 		attack: 0.4,
-		volume: 1
+		volume: 0.05
 	}
 });
 
@@ -55,25 +55,18 @@ const quintaGuitar = new Pizzicato.Sound({
 		frequency: notasFrequencias.g1,
 		release: 1,
 		attack: 0.4,
-		volume: 1
+		volume: 0.05
 	}
 });
 
-var distortion = new Pizzicato.Effects.Distortion({
+const distortion = new Pizzicato.Effects.Distortion({
 	gain: 0.5,
 	mix: 0.5
 });
 
-var group = new Pizzicato.Group();
 
-group.addSound(primeiraGuitar);
-group.addSound(quintaGuitar);
-
-group.addEffect(distortion);
-group.play();
-
-//primeiraGuitar.frequency = notasFrequencias.d1;
-//quintaGuitar.frequency = notasFrequencias.a1;
+primeiraGuitar.addEffect(distortion);
+quintaGuitar.addEffect(distortion);
 
 
 var _acordeSelecionado = '';
