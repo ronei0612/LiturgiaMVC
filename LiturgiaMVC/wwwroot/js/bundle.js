@@ -1020,7 +1020,7 @@ var _ritmoSelecionado = 'aro';
             }
             
             function playCravo() {
-                if (instrumentName === '0' || instrumentName === '1' || instrumentName === '2' && _acordeSelecionado) {
+                if ((instrumentName === '0' || instrumentName === '1' || instrumentName === '2') && _acordeSelecionado) {
                     setTimeout(function () {
                         let notas = _acordeNotas;
                         notas.sort();
@@ -1029,7 +1029,7 @@ var _ritmoSelecionado = 'aro';
                         nota = nota.includes('#') ? nota.split('#')[0] + '_' : nota[0];
                         
                         play(buffers['cravo_' + nota].get());
-                    }, 130);
+                    }, 100);
                 }
                 else
                     play(instrument);
