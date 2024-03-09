@@ -102,7 +102,7 @@ function gerarRitmosNomes(ritmosNomes) {
     }
 }
 
-function verificarETocarBateria_2(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento) {
+function verificarETocarBateria_2(tunerAcompanhamento, instrumentoAcompanhamento) {
     if (iconVolumeMute.style.display === 'none') {
         if (tunerDiv.style.display !== 'none') {
             if (tunerAcompanhamento) {

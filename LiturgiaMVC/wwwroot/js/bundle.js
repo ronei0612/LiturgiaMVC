@@ -1082,7 +1082,7 @@ function setupBaseEvents() {
             capturarTeclaConfiguracaoTeclas(document.activeElement);
             return;
         }
-        if (verificarETocarBateria_2(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento)) {
+        if (verificarETocarBateria_2(tunerAcompanhamento, instrumentoAcompanhamento)) {
             tocarBateria(document.activeElement);
             mudarRitmo(mudarRitmoNome);
         }
