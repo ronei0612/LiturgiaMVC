@@ -1313,6 +1313,14 @@ function carregarConfiguracoesDoStorage() {
 	}
 	else
 		acompCheck.checked = false;
+
+	let index = localStorage.getItem('instrumentoSelecionadoIndex');
+	if (index) {
+		instrumentoSelect.selectedIndex = index;
+		instrumentoSelect.dispatchEvent(eventoChange);
+		var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
+		_instrumentoSelecionado = semacentos.toLowerCase().replace('banda', 'epiano');
+	}
 }
 
 function selecionarTomMenor(selecionadoMenor) {

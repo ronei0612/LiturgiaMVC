@@ -123,7 +123,7 @@
                     <br />
                     <h4>Instrumento</h4>
                     <br />
-                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento()" id="instrumentoSelect">
+                    <select class="form-control" tyle="height:3m" onchange="selecionarInstrumento(false, true)" id="instrumentoSelect">
                         <option selected value="Órgão">Órgão</option>
                         <option value="Banda">Banda</option>
                         <option value="Strings">Strings</option>
@@ -444,7 +444,10 @@
             }
         }
 
-        function selecionarInstrumento(bateria = false) {
+        function selecionarInstrumento(bateria = false, manualmente = false) {
+            if (manualmente)
+                localStorage.setItem('instrumentoSelecionadoIndex', instrumentoSelect.selectedIndex);
+
             var instrumentoSelecionado = instrumentoSelect.value;
             const elementos = [brush, aro, caixa, chimbal, meiaLua, prato];
 
