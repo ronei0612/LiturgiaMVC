@@ -1042,9 +1042,10 @@ var _ritmoSelecionado = 'aro';
 
             if (_cravoSelecionado)
                 playCravo();
-            else
+            else {
                 play(instrument);
             guardarChimbalAberto(instrumentName, instrument);
+        }        
         }        
         var schedule = new simpleTracker(ctx, scheduleAudioBeat);        
         function playBateria() {
