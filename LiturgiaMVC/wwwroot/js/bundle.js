@@ -965,7 +965,7 @@ var _ritmoSelecionado = 'aro';
             }
 
             function playBaixo() {
-                if (instrumentName === 'bumbo' && instrumentoSelect.value === 'Epiano' && _baixoSelecionado) {
+                if (instrumentName === '-' && instrumentoSelect.value === 'Banda' && _baixoSelecionado) {
                     setTimeout(function () {
                         let notaBaixo = _acordeBaixo.includes('#') ? _acordeBaixo[0] + '_' : _acordeBaixo;
                         let baixoAudio = buffers['baixo_' + notaBaixo].get();
@@ -992,7 +992,7 @@ var _ritmoSelecionado = 'aro';
             }
 
             function playViolao() {
-                if (_violaoSelecionado && (instrumentoSelect.value === 'Epiano' || instrumentoSelect.value === 'Strings') &&
+                if (_violaoSelecionado && (instrumentoSelect.value === 'Banda') &&
                     (instrumentName === '0' || instrumentName === '1' || instrumentName === '2')) {
                     setTimeout(function () {
                         //playGuitarra();
