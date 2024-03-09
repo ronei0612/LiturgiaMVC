@@ -1044,8 +1044,8 @@ var _ritmoSelecionado = 'aro';
                 playCravo();
             else {
                 play(instrument);
-            guardarChimbalAberto(instrumentName, instrument);
-        }        
+                guardarChimbalAberto(instrumentName, instrument);
+            }
         }        
         var schedule = new simpleTracker(ctx, scheduleAudioBeat);        
         function playBateria() {
@@ -1097,12 +1097,13 @@ function setupBaseEvents() {
     });
     aro.addEventListener('click', function (e) { verificarETocarBateria('aro', false) });
     meiaLua.addEventListener('click', function (e) { verificarETocarBateria('meiaLua', true, 'stringsSolo') });
-    caixa.addEventListener('click', function (e) { verificarETocarBateria('', false) });
+    caixa.addEventListener('click', function (e) { verificarETocarBateria('caixa', false) });
     brush.addEventListener('click', function (e) { verificarETocarBateria('brush', false) });
-    ride.addEventListener('click', function (e) { verificarETocarBateria('ride', true, 'stringsSolo') });
     chimbal.addEventListener('click', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
     cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
     brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
+    baixoBotao.addEventListener('click', function (e) { verificarETocarBateria('', false) });
+    violaoBotao.addEventListener('click', function (e) { verificarETocarBateria('', false) });
     pratoCravo.addEventListener('click', function (e) {
         if (_configurandoTeclas) {
             capturarTeclaConfiguracaoTeclas(prato);
