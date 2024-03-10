@@ -1,14 +1,20 @@
 function setBeats(ritmoMatrix) {//compasso
-    var numerosIndex = ritmosJson[ritmoMatrix];
-
-    if (numerosIndex.includes(323))
+    if (ritmoMatrix === '6/8')
         measureLength.value = 24;
-    else if (numerosIndex.includes(219))
-        measureLength.value = 16;
-    else if (numerosIndex.includes(167))
+    else if (ritmoMatrix === '3/4')
         measureLength.value = 12;
-    else if (numerosIndex.includes(96) || numerosIndex.includes(110))
-        measureLength.value = 6;
+    else
+        measureLength.value = 16;
+    //var numerosIndex = ritmosJson[ritmoMatrix];
+
+    //if (numerosIndex.includes(323))
+    //    measureLength.value = 24;
+    //else if (numerosIndex.includes(219))
+    //    measureLength.value = 16;
+    //else if (numerosIndex.includes(167))
+    //    measureLength.value = 12;
+    //else if (numerosIndex.includes(96) || numerosIndex.includes(110))
+    //    measureLength.value = 6;
         
     measureLength.dispatchEvent(eventoChange);
 }
