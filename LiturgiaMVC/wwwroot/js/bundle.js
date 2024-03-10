@@ -1,5 +1,5 @@
 const ritmosNomes = Object.keys(ritmosJson);
-var _ritmoSelecionado = 'aro';
+var _ritmoSelecionado;
 
 (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s })({
     1: [function (require, module, exports) {
@@ -1057,6 +1057,7 @@ var _ritmoSelecionado = 'aro';
                 prato.dispatchEvent(eventoClick);
             schedule.stop();
             schedule = new simpleTracker(ctx, scheduleAudioBeat);
+            _ritmoSelecionado = null;
         }
         gerarRitmosNomes(ritmosNomes);
         function routeGain(source) {
@@ -1102,8 +1103,14 @@ function setupBaseEvents() {
     chimbal.addEventListener('click', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
     cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
     brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
-    baixoBotao.addEventListener('click', function (e) { verificarETocarBateria('', false) });
-    violaoBotao.addEventListener('click', function (e) { verificarETocarBateria('', false) });
+    baixoBotao.addEventListener('click', function (e) {
+        if (_baixoSelecionado && !_ritmoSelecionado)
+            verificarETocarBateria('', false)
+    });
+    violaoBotao.addEventListener('click', function (e) {
+        if (_violaoSelecionado && !_ritmoSelecionado)
+            verificarETocarBateria('', false)
+    });
     pratoCravo.addEventListener('click', function (e) {
         if (_configurandoTeclas) {
             capturarTeclaConfiguracaoTeclas(prato);
