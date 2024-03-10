@@ -8,10 +8,10 @@
 
 		if (textoCifrasFrame.style.display !== 'none')
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
-
-		//violinoDesenho.classList = 'st0';
-		//violaoDesenho.classList = 'st0';
+			
+		document.getElementById('bateria').style.display = '';
 		document.getElementById('bateria').style.color = '#000';
+		document.getElementById('textoRitmo').style.color = '#fff';
 
 		var elements = document.getElementsByClassName("nav-link");
 		for (var i = 0; i < elements.length; i++)
@@ -28,9 +28,6 @@
 
 		if (textoCifrasFrame.style.display !== 'none')
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#fff';
-
-		//violinoDesenho.classList = 'st1';
-		//violaoDesenho.classList = 'st1';
 				
 		var elements = document.getElementsByClassName("nav-link");
 		for (var i = 0; i < elements.length; i++)
