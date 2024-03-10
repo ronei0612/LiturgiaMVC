@@ -741,7 +741,8 @@ function montarAcordeNotas(acorde) {
 		_acordeNotas = notasAcordesJson[acorde];
 		//_acordeSelecionado.sort();
 	}
-	_acordeSelecionado = (_acordeAntesSelecionado === acorde) ? '' : acorde;
+	//_acordeSelecionado = (_acordeAntesSelecionado === acorde) ? '' : acorde;
+	_acordeSelecionado = acorde;
 }
 
 function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
