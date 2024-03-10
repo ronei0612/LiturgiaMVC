@@ -11,6 +11,7 @@
 
 		//violinoDesenho.classList = 'st0';
 		//violaoDesenho.classList = 'st0';
+		document.getElementById('bateria').style.color = '#000';
 
 		var elements = document.getElementsByClassName("nav-link");
 		for (var i = 0; i < elements.length; i++)
