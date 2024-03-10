@@ -144,6 +144,7 @@ const caixa = document.getElementById('caixa');
 const cravo = document.getElementById('cravo');
 const pratoCravo = document.getElementById('pratoCravo');
 const brushCravo = document.getElementById('brushCravo');
+const stringsBotao = document.getElementById('stringsBotao');
 const violaoBotao = document.getElementById('violaoBotao');
 const pianoBotao = document.getElementById('pianoBotao');
 const baixoBotao = document.getElementById('baixoBotao');
@@ -246,6 +247,7 @@ const elementos = {
 	cravo: cravo,
 	brushCravo: brushCravo,
 	pratoCravo: pratoCravo,
+	stringsBotao: stringsBotao,
 	violaoBotao: violaoBotao,
 	pianoBotao: pianoBotao,
 	baixoBotao: baixoBotao,
