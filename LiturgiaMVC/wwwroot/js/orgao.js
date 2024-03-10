@@ -573,15 +573,6 @@ function ocultarBotoesRitmo(ocultar = true) {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = '';
 	}
-
-	//if (_cravoSelecionado) {
-	//	cravo.style.display = '';
-	//	violaoBotao.style.display = 'none';
-	//}
-	//else {
-	//	cravo.style.display = 'none';
-	//	violaoBotao.style.display = '';
-	//}
 }
 
 function pressionarBotaoCravo() {
