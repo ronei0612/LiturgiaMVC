@@ -596,7 +596,7 @@ function escolherAcorde(acorde, botao) {
 		return;
 	}
 
-	montarAcordeNotas(acorde);
+	montarAcordeNotas(botao.value);
 
 	if (_cifraId > 0) {
 		_cifraParado = true;
@@ -614,7 +614,7 @@ function escolherAcorde(acorde, botao) {
 			ocultarBotaoRec(false);
 	}
 	else {
-		tocarAcorde(acorde, botao);
+		tocarAcorde(botao.value, botao);
 
 		if (botao)
 			ocultarBotaoRec();
