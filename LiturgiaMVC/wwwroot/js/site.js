@@ -9,9 +9,9 @@
 		if (textoCifrasFrame.style.display !== 'none')
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
 			
-		document.getElementById('bateria').style.display = '';
-		document.getElementById('bateria').style.color = '#000';
-		document.getElementById('textoRitmo').style.color = '#fff';
+		//document.getElementById('bateria').style.display = '';
+		//document.getElementById('bateria').style.color = '#000';
+		//document.getElementById('textoRitmo').style.color = '#fff';
 
 		var elements = document.getElementsByClassName("nav-link");
 		for (var i = 0; i < elements.length; i++)
