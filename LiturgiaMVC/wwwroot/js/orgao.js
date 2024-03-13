@@ -808,20 +808,20 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 		pararOsAcordes(true);
 
 	_acordeAntesSelecionado = acorde;
-
-	if (_instrumentoSelecionado === 'epiano' && !_epianoSelecionado)
-		return;
-
-	_grupoNotas = verificarGrupoNotasInstanciado(_instrumentoSelecionado === 'strings' ? _grupoNotasStrings : _grupoNotas);
-	let instrumento = _instrumentoSelecionado === 'strings' ? 'stringsSolo' : _instrumentoSelecionado;
-	if (_stringsSelecionado && instrumento !== 'strings') {
-		if (!_stringsParado || _grupoNotas.sounds.length < 10) {
-			_stringsParado = false;
-			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
-			montarAcorde(acorde, _grupoNotasStrings, 'strings').play();
-		}
+	
+	if (_stringsSelecionado) {
+		_stringsParado = false;
+		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
+		montarAcorde(acorde, _grupoNotasStrings, 'strings').play();
 	}
-	montarAcorde(acorde, _grupoNotas, instrumento).play();
+	if (_epianoSelecionado && _instrumentoSelecionado === 'epiano') {
+		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+		montarAcorde(acorde, _grupoNotas, 'epiano').play();
+	}
+	else if (_instrumentoSelecionado === 'orgao') {
+		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+		montarAcorde(acorde, _grupoNotas, _instrumentoSelecionado).play();
+	}
 }
 
 function pararOsAcordes(removerSons = false, continuarStrings = false) {
