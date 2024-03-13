@@ -1055,8 +1055,11 @@ var _ritmoSelecionado;
         function stopBateria() {
             if (_autoMudarRitmo && schedule.running)
                 prato.dispatchEvent(eventoClick);
-            schedule.stop();
-            schedule = new simpleTracker(ctx, scheduleAudioBeat);
+                
+            mudarRitmo('');
+            //schedule.stop();
+            //schedule = new simpleTracker(ctx, scheduleAudioBeat);
+
             _ritmoSelecionado = null;
         }
         gerarRitmosNomes(ritmosNomes);
