@@ -10,7 +10,7 @@ function setBeats(ritmoMatrix) {//compasso
 }
 
 function selecionarRitmo(ritmo, virada = false) {
-    if (_trocarRitmo) {
+    if (_trocarRitmo && ritmo) {
         _viradaRitmo = fazerViradaBateria(_ritmoSelecionado);
 
         if (virada === false)
@@ -20,21 +20,23 @@ function selecionarRitmo(ritmo, virada = false) {
         if (ritmo.includes('_'))
             ritmoMatrix = ritmo.split('_')[0];
 
-        setBeats(ritmoMatrix);
+        if (ritmoMatrix != 'null') {
+            setBeats(ritmoMatrix);
 
-        var tabelaBateria = document.getElementById('tracker-table');
-        var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+            var tabelaBateria = document.getElementById('tracker-table');
+            var tdsAtivados = document.getElementsByClassName('tracker-enabled');
 
-        Array.from(tdsAtivados).forEach((tdAtivado) => {
-            tdAtivado.classList.remove('tracker-enabled');
-        });
+            Array.from(tdsAtivados).forEach((tdAtivado) => {
+                tdAtivado.classList.remove('tracker-enabled');
+            });
 
-        var tdsAtivar = tabelaBateria.getElementsByTagName('td');
-        var numerosIndex = ritmosJson[ritmo];
+            var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+            var numerosIndex = ritmosJson[ritmo];
 
-        numerosIndex.forEach((numeroIndex) => {
-            tdsAtivar[numeroIndex].classList.add('tracker-enabled');
-        });
+            numerosIndex.forEach((numeroIndex) => {
+                tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+            });
+        }
     }
 }
 
