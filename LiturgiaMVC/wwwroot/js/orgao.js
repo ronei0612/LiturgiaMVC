@@ -794,7 +794,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 		}
 
 		else {
-			if (instrumento !== 'epiano')
+			if (instrumento === 'strings' && _instrumentoSelecionado === 'orgao')
 				grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
 
 			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0] + '_baixo']);
