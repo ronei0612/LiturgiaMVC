@@ -835,7 +835,10 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 	}
 	else if (_instrumentoSelecionado === 'orgao') {
 		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		montarAcorde(acorde, _grupoNotas, _instrumentoSelecionado).play();
+		let tocar = montarAcorde(acorde, _grupoNotas, _instrumentoSelecionado);
+		setTimeout(() => {
+			tocar.play();
+		}, 60);
 	}
 }
 
