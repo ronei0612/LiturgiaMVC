@@ -1,7 +1,7 @@
 function setBeats(ritmoMatrix) {//compasso
     if (ritmoMatrix === '6/8')
         measureLength.value = 24;
-    else if (ritmoMatrix === '3/4')
+    else if (ritmoMatrix === '3/4' || ritmoMatrix === 'Valsa')
         measureLength.value = 12;
     else
         measureLength.value = 16;
