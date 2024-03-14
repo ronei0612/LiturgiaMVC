@@ -757,48 +757,57 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 		}
 
 		else if (_instrumentoSelecionado === 'orgao') {
-			for (var i = 0, len = _acordeNotas.length; i < len; i++) {
-				if (_acompanhamentoSelecionado === 'full') {
-					if (i === 0) {
-						grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
-						grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_baixo']);
-						grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo]);
-					}
-					else {
-						grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i] + '_baixo']);
-						grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i]]);
-					}
-				}
+			if (_acompanhamentoSelecionado === 'full') {
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
 
-				else if (_acompanhamentoSelecionado === 'baixo') {
-					if (i === 0) {
-						grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
-						grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_baixo']);
-					}
-					else {
-						grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i] + '_baixo']);
-					}
-				}
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2] + '_baixo']);
 
-				if (_acompanhamentoSelecionado === 'mao') {
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0]]);
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1]]);
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2]]);
+
+				for (var i = 2, len = _acordeNotas.length; i < len; i++)
 					grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i]]);
-				}
 			}
+			else if (_acompanhamentoSelecionado === 'baixo') {
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
+
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2] + '_baixo']);
+
+				for (var i = 2, len = _acordeNotas.length; i < len; i++)
+					grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i] + '_baixo']);
+			}
+			else {
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo]);
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1]]);
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2]]);
+
+				for (var i = 2, len = _acordeNotas.length; i < len; i++)
+					grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i]]);
+			}
+
 			grupoNotas.attack = 0.1;
 		}
 
-		else
-			for (var i = 0, len = _acordeNotas.length; i < len; i++) {
-				if (i === 0) {
-					grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
-					grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_baixo']);
-					grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo]);
-				}
-				else {
-					grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i] + '_baixo']);
-					grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i]]);
-				}
-			}
+		else {
+			if (instrumento !== 'epiano')
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
+
+			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0] + '_baixo']);
+			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1] + '_baixo']);
+			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2] + '_baixo']);
+
+			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0]]);
+			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1]]);
+			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2]]);
+
+			for (var i = 2, len = _acordeNotas.length; i < len; i++)
+				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i]]);
+		}
 	}
 
 	return grupoNotas;
@@ -823,6 +832,7 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 		pararOsAcordes(true);
 
 	_acordeAntesSelecionado = acorde;
+	montarAcordeNotas(acorde);
 	
 	if (_stringsSelecionado) {
 		_stringsParado = false;
