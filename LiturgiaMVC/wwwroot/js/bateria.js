@@ -90,12 +90,26 @@ function mudarRitmo(ritmo) {
 }
 
 function gerarRitmosNomes(ritmosNomes) {
-    for (var i = 0, len = ritmosNomes.length; i < len; i++) {
-        if (ritmosNomes[i].includes('_') === false) {
-            let opt = document.createElement('option');
-            opt.value = ritmosNomes[i];
-            opt.textContent += ritmosNomes[i];
-            selectRitmo.appendChild(opt);
+    selectRitmo.innerHTML = "";
+
+    if (instrumentoSelect.value.includes('rg')) {
+        for (var i = 0, len = ritmosNomes.length; i < len; i++) {
+            if (ritmosNomes[i].includes('/') && !ritmosNomes[i].includes('_')) {
+                let opt = document.createElement('option');
+                opt.value = ritmosNomes[i];
+                opt.textContent += ritmosNomes[i];
+                selectRitmo.appendChild(opt);
+            }
+        }
+    }
+    else {
+        for (var i = 0, len = ritmosNomes.length; i < len; i++) {
+            if (!ritmosNomes[i].includes('_')) {
+                let opt = document.createElement('option');
+                opt.value = ritmosNomes[i];
+                opt.textContent += ritmosNomes[i];
+                selectRitmo.appendChild(opt);
+            }
         }
     }
 }

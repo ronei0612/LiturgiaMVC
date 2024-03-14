@@ -932,7 +932,11 @@ var _ritmoSelecionado;
             initializeSampleSet(ctx, defaultTrack.settings.sampleSet, defaultTrack); //carrega e inicializa tracks
             setupBaseEvents();
         };
+
         var instrumentData = {};
+        var schedule = new simpleTracker(ctx, scheduleAudioBeat);
+        gerarRitmosNomes(ritmosNomes);
+
         function setupTrackerHtml(data, measureLength) {
             instrumentData = data;
             instrumentData.title = instrumentData.filename;
@@ -1046,8 +1050,8 @@ var _ritmoSelecionado;
                 play(instrument);
                 guardarChimbalAberto(instrumentName, instrument);
             }
-        }        
-        var schedule = new simpleTracker(ctx, scheduleAudioBeat);        
+        }
+
         function playBateria() {
             schedule.stop();
             schedule.runSchedule(getSetAudioOptions.options.bpm);
@@ -1065,7 +1069,7 @@ var _ritmoSelecionado;
 
             _ritmoSelecionado = null;
         }
-        gerarRitmosNomes(ritmosNomes);
+
         function routeGain(source) {
             let gain = new adsrGainNode(ctx);
             gain.mode = 'linearRampToValueAtTime';
@@ -1188,6 +1192,11 @@ function setupBaseEvents() {
         schedule.loadTrackerValues(track);
         schedule.setupEvents();
     });
+
+    instrumentoSelect.addEventListener('change', (e) => {
+        gerarRitmosNomes(ritmosNomes);
+    });
+
     $('.base').on('change', function () {
         getSetAudioOptions.setTrackerControls();
     });
