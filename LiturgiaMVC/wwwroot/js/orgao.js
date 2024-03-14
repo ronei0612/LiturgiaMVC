@@ -172,7 +172,6 @@ const exitfullscreen = document.getElementById('exitfullscreen');
 const fullscreenDiv = document.getElementById('fullscreenDiv');
 const botaoFullscreen = document.getElementById('botaoFullscreen');
 const trackerControls = document.getElementById('trackerControls');
-const divBateriaSwitch = document.getElementById('divBateriaSwitch');
 const bateria = document.getElementById('bateria');
 const linhaSelectTom = document.getElementById('linhaSelectTom');
 const navBar = document.getElementById('navBar');
@@ -275,7 +274,6 @@ const elementos = {
 	fullscreenDiv: fullscreenDiv,
 	botaoFullscreen: botaoFullscreen,
 	trackerControls: trackerControls,
-	divBateriaSwitch: divBateriaSwitch,
 	bateria: bateria,
 	linhaSelectTom: linhaSelectTom,
 	navBar: navBar,
@@ -1260,8 +1258,7 @@ function voltarParaOrgao() {
 function mudarParaFullscreen() {
 	exitfullscreen.style.display = 'flex';
 	botaoFullscreen.style.display = 'none';
-
-	divBateriaSwitch.style.display = 'none';
+	
 	bateria.style.display = 'none';
 	switchDarkDiv.style.display = 'none';
 	muteDiv.style.display = '';
