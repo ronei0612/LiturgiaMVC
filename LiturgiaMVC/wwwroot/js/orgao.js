@@ -831,22 +831,24 @@ function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
 
 	_acordeAntesSelecionado = acorde;
 	montarAcordeNotas(acorde);
-	
-	if (_stringsSelecionado) {
-		_stringsParado = false;
-		_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
-		montarAcorde(acorde, _grupoNotasStrings, 'strings').play();
-	}
-	if (_epianoSelecionado && _instrumentoSelecionado === 'epiano') {
-		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		montarAcorde(acorde, _grupoNotas, 'epiano').play();
-	}
-	else if (_instrumentoSelecionado === 'orgao') {
-		_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-		let tocar = montarAcorde(acorde, _grupoNotas, _instrumentoSelecionado);
-		setTimeout(() => {
-			tocar.play();
-		}, 60);
+
+	if (iconVolumeMute.style.display === 'none') {
+		if (_stringsSelecionado) {
+			_stringsParado = false;
+			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
+			montarAcorde(acorde, _grupoNotasStrings, 'strings').play();
+		}
+		if (_epianoSelecionado && _instrumentoSelecionado === 'epiano') {
+			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+			montarAcorde(acorde, _grupoNotas, 'epiano').play();
+		}
+		else if (_instrumentoSelecionado === 'orgao') {
+			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
+			let tocar = montarAcorde(acorde, _grupoNotas, _instrumentoSelecionado);
+			setTimeout(() => {
+				tocar.play();
+			}, 60);
+		}
 	}
 }
 
