@@ -399,8 +399,11 @@
                             textoCifras.style.display = '';
                             musicaAcordesTextArea.style.fontSize = '13px';
                             musicaAcordesTextArea.value = textoCifras.contentDocument.body.innerText;
+
                             if (formFile.value)
                                 textoCifras.style.display = 'none';
+                            // else
+                            //     textoCifras.style.display = '';
                         }
                     }
                     break;
@@ -724,18 +727,14 @@
 
                 iniciarCifra();
 
-                partituraFrame.style.zIndex = '';
+                partituraFrame.style.display = '';
                 textoCifras.style.display = 'none';
+            }
+            else {
+                partituraFrame.style.display = 'none';
 
-                // let reader = new FileReader();
-
-                // reader.onload = (evt) => {
-                //     var texto = evt.target.result;
-
-                //     mostrarTextoCifrasCarregado(texto);
-                // };
-
-                // reader.readAsText(arquivos[0]);
+                //if (textoCifras.contentDocument.body.innerText !== '')
+                    textoCifras.style.display = '';
             }
         }
 
