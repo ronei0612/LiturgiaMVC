@@ -56,6 +56,7 @@
 
         public static Dictionary<string, string> acidentesCorrespondentes = new()
         {
+            { "Cb", "B" },
             { "C", "C" },
             { "C#", "C#" },
             { "Db", "C#" },
@@ -63,19 +64,19 @@
             { "D#", "D#" },
             { "Eb", "D#" },
             { "E", "E" },
+            { "E#", "F" },
             { "Fb", "E" },
             { "F", "F" },
-            { "E#", "F" },
             { "F#", "F#" },
+            { "Gb", "F#" },
             { "G", "G" },
             { "G#", "G#" },
-            { "Ab", "G#" },            
+            { "Ab", "G#" },
             { "A", "A" },
             { "A#", "A#" },
             { "Bb", "A#" },
             { "B", "B" },
-            { "B#", "C" },
-            { "Cb", "B" }
+            { "B#", "C" }
         };
 
         public static readonly Dictionary<string, string[]> acordes = new()
