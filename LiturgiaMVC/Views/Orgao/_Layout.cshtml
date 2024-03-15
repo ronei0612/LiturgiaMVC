@@ -264,9 +264,9 @@
                         <textarea class="form-control" id="musicaAcordesTextArea" rows="9" style="font-size: 13pt; font-family: 'Roboto Mono','Courier New','Courier',monospace; line-height: 1.6; tab-size: 8"></textarea>
                     </div>
                     <br />
-                    @*<label for="formFile" class="form-label">Importar arquivo:</label>
+                    <label for="formFile" class="form-label">Importar arquivo:</label>
                     <input class="form-control" type="file" id="formFile" onchange="escolherArquivo(event)">
-                    <br />*@
+                    <br />
 
                     <button id="botaoIniciar" class="btn btn-primary" type="button" onclick="iniciarCifra()">
                         Iniciar
@@ -396,8 +396,11 @@
                         selectConfiguracao.style.display = 'none';
 
                         if (textoCifrasFrame.style.display !== 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
+                            textoCifras.style.display = '';
                             musicaAcordesTextArea.style.fontSize = '13px';
                             musicaAcordesTextArea.value = textoCifras.contentDocument.body.innerText;
+                            if (formFile.value)
+                                textoCifras.style.display = 'none';
                         }
                     }
                     break;
@@ -698,15 +701,41 @@
 
             if (arquivos.length > 0) {
                 modal01.style.display = 'none';
-                let reader = new FileReader();
 
-                reader.onload = (evt) => {
-                    var texto = evt.target.result;
+                var formFile = document.getElementById('formFile');
+                var file = formFile.files[0];
 
-                    mostrarTextoCifrasCarregado(texto);
-                };
+                const fileType = file.type;
 
-                reader.readAsText(arquivos[0]);
+                if (fileType !== 'application/pdf' && fileType !== 'image/png' && fileType !== 'image/jpg' && fileType !== 'image/jpeg') {
+                    alert('Selecione apenas arquivos PDF, JPG ou PNG');
+                    return;
+                }
+
+                var fileURL = URL.createObjectURL(file);
+
+                let partituraFrame = document.getElementById('partituraFrame');
+
+                partituraFrame.src = fileURL;
+
+                if (textoCifrasFrame.style.display === 'none') {
+                    mudarParaTelaFrame();
+                }
+
+                iniciarCifra();
+
+                partituraFrame.style.zIndex = '';
+                textoCifras.style.display = 'none';
+
+                // let reader = new FileReader();
+
+                // reader.onload = (evt) => {
+                //     var texto = evt.target.result;
+
+                //     mostrarTextoCifrasCarregado(texto);
+                // };
+
+                // reader.readAsText(arquivos[0]);
             }
         }
 
