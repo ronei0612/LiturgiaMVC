@@ -1054,7 +1054,7 @@ var _ritmoSelecionado;
 
         function playBateria() {
             schedule.stop();
-            schedule.runSchedule(getSetAudioOptions.options.bpm);
+            schedule.runSchedule(_tempo);
         }        
         function stopBateria() {
             if (_autoMudarRitmo && schedule.running)
@@ -1099,6 +1099,16 @@ function setupBaseEvents() {
             mudarRitmo(mudarRitmoNome);
         }
     }
+
+    function setTempoRitmo() {
+        getSetAudioOptions.setTrackerControls();
+
+        if (schedule.running) {
+            schedule.stop();
+            schedule.runSchedule(_tempo);
+        }
+    }
+
     selectRitmo.addEventListener('change', function (e) {
         var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
         if (ritmoSelecionado.length > 0)
@@ -1157,34 +1167,26 @@ function setupBaseEvents() {
         tocarBateria();
     });
     bpm.addEventListener('change', function (e) {
-        var bpmRange_valor = bpmRange.value;
-        bpmRange_valor = 60000 / bpmRange_valor;
-        var measureLength_valor = measureLength.value;
-        if (measureLength_valor == 24)
+        _tempo = parseInt(bpmRange.value);
+        let bpmRange_valor = 60000 / _tempo;
+
+        if (measureLength.value == 24)
             bpmRange_valor = bpmRange_valor / 2;
         lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
-        getSetAudioOptions.options.bpm = bpmRange.value;
-        getSetAudioOptions.setTrackerControls();
-        if (schedule.running) {
-            schedule.stop();
-            schedule.runSchedule(getSetAudioOptions.options.bpm);
-        }
+
+        setTempoRitmo();
     });
     bpmRange.addEventListener('input', function (e) {
-        bpm.value = bpmRange.value;
+        bpm.value = parseInt(bpmRange.value);
+        _tempo = bpmRange.value;
     });
-            bpmRange.addEventListener('change', function (e) {
-                getSetAudioOptions.options.bpm = bpmRange.value;
-                getSetAudioOptions.setTrackerControls();
-                if (schedule.running) {
-                    schedule.stop();
-                    schedule.runSchedule(getSetAudioOptions.options.bpm);
-                }
-            });
+    bpmRange.addEventListener('change', function (e) {
+        setTempoRitmo();
+    });
     measureLength.addEventListener('change', (e) => {
-        let value = document.getElementById('measureLength').value;
-        let length = parseInt(value);
+        let length = parseInt(measureLength.value);
         if (length < 1) return;
+
         schedule.measureLength = length;
         let track = schedule.getTrackerValues();
         setupTrackerHtml(currentSampleData, length);

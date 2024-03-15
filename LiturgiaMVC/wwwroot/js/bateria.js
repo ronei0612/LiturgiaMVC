@@ -1,3 +1,5 @@
+var _tempo = 92;
+
 function setBeats(ritmoMatrix) {//compasso
     if (ritmoMatrix === '6/8')
         measureLength.value = 24;
