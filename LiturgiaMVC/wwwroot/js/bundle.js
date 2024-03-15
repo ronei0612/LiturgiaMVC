@@ -1056,16 +1056,18 @@ var _ritmoSelecionado;
             schedule.stop();
             schedule.runSchedule(_tempo);
         }        
-        function stopBateria() {
-            if (_autoMudarRitmo && schedule.running)
+        function stopBateria(trocandoInstrumento) {
+            if (schedule.running) {
+                if (_autoMudarRitmo)
                 prato.dispatchEvent(eventoClick);
 
-            if (_cravoSelecionado) {
+                if (_cravoSelecionado || trocandoInstrumento) {
                 schedule.stop();
                 schedule = new simpleTracker(ctx, scheduleAudioBeat);
             }
             else
                 mudarRitmo('');
+            }
 
             _ritmoSelecionado = null;
         }
@@ -1199,6 +1201,8 @@ function setupBaseEvents() {
     });
 
     instrumentoSelect.addEventListener('change', (e) => {
+        stopBateria(true);
+        pararOsAcordes();
         gerarRitmosNomes(ritmosNomes);
     });
 
