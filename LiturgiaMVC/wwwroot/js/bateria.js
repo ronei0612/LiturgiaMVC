@@ -12,7 +12,7 @@ function setBeats(ritmoMatrix) {//compasso
 }
 
 function selecionarRitmo(ritmo, virada = false) {
-    if (_trocarRitmo && ritmo) {
+    if (_trocarRitmo && ritmo && ritmo !== undefined) {
         _viradaRitmo = fazerViradaBateria(_ritmoSelecionado);
 
         if (virada === false)
