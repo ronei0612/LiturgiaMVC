@@ -821,9 +821,9 @@ function verificarGrupoNotasInstanciado(grupoNotas) {
 	return grupoNotas;
 }
 
-function verificarAcompanhamentoEtocar(acorde, esperar = 0) {
+function verificarAcompanhamentoEtocar(acorde, continuarStrings = null) {
 	if (_acordeAntesSelecionado === acorde) {
-		pararOsAcordes(true, _stringsSelecionado);
+		pararOsAcordes(true, continuarStrings != null ? continuarStrings : _stringsSelecionado);
 		esperar = 50;
 	}
 	else
@@ -891,7 +891,7 @@ function pressionarBotaoAcompanhamento(botao) {
 	if (botaoAcompPressionado(botao) === false) {
 		if (_acordeAntesSelecionado !== '')
 			if (_instrumentoSelecionado !== 'epiano')
-				verificarAcompanhamentoEtocar(_acordeAntesSelecionado);
+				verificarAcompanhamentoEtocar(_acordeAntesSelecionado, false);
 
 		levantarBotoesAcompanhamento();
 		pressionarBotaoAcomp(botao);
