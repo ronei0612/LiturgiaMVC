@@ -926,7 +926,7 @@ function setupBaseEvents() {
     selectRitmo.addEventListener('change', function (e) {
         var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
 
-        selecionarRitmo(document.activeElement);
+        selecionarRitmo(selectRitmo.value);
 
         if (ritmoSelecionado.length > 0)
             ritmoSelecionado[0].dispatchEvent(eventoClick);
