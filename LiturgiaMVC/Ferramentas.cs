@@ -593,10 +593,10 @@ namespace LiturgiaMVC
 
         public static string[] GetAcorde(string possivelAcorde)
         {
+            possivelAcorde = possivelAcorde.Replace("(9)", "9").Replace("m(5-)", "°").Replace("m7(5-)", "°7").Replace('º', '°');
+
             var cifraFormatada = possivelAcorde;
             var cifraAcordeAlteracoes = "";
-
-            possivelAcorde = possivelAcorde.Replace("(9)", "9").Replace("m(5-)", "°").Replace("m7(5-)", "°7").Replace('º', '°');
 
             // Retira acordes compostos mais complexos como C7(9)
             if (possivelAcorde.Contains('('))
