@@ -348,8 +348,8 @@ document.addEventListener('keydown', function (event) {
 });
 
 window.onerror = function (message, source, lineno, colno, error) {
-	if (isMobileDevice())
-		alert("Erro!\n" + message);
+	//if (isMobileDevice())
+	alert("Erro!\n" + message + '\nArquivo: ' + source + '\nLinha: ' + lineno);
 };
 
 selectRitmo.addEventListener('change', function (e) {
