@@ -1111,10 +1111,13 @@ function setupBaseEvents() {
 
     selectRitmo.addEventListener('change', function (e) {
         var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
+
+        selecionarRitmo(document.activeElement);
+
         if (ritmoSelecionado.length > 0)
-            ritmoSelecionado[0].classList.toggle('selecionadoDrum', false);
-        var botao = document.activeElement;
-        selecionarRitmo(botao.value);
+            ritmoSelecionado[0].dispatchEvent(eventoClick);
+        else if (_baixoSelecionado || _violaoSelecionado)
+            verificarETocarBateria('', false);
     });
     aro.addEventListener('click', function (e) { verificarETocarBateria('aro', false) });
     meiaLua.addEventListener('click', function (e) { verificarETocarBateria('meiaLua', true, 'stringsSolo') });
