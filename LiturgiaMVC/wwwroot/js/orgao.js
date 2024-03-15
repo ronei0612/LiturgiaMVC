@@ -349,7 +349,7 @@ document.addEventListener('keydown', function (event) {
 
 window.onerror = function (message, source, lineno, colno, error) {
 	//if (isMobileDevice())
-	alert("Erro!\n" + message + '\nArquivo: ' + source + '\nLinha: ' + lineno);
+	alert("Erro!\n" + message + '\nArquivo: ' + source + '\nLinha: ' + lineno + '\nPosicao: ' + colno);
 };
 
 selectRitmo.addEventListener('change', function (e) {
