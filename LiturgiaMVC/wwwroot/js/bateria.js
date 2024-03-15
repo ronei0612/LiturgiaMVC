@@ -18,27 +18,29 @@ function selecionarRitmo(ritmo, virada = false) {
         if (virada === false)
             _trocarRitmo = false;
 
-        var ritmoMatrix = ritmo;
-        if (ritmo.includes('_'))
-            ritmoMatrix = ritmo.split('_')[0];
+        try {
+            var ritmoMatrix = ritmo;
+            if (ritmo.includes('_'))
+                ritmoMatrix = ritmo.split('_')[0];
 
-        if (ritmoMatrix != 'null') {
-            setBeats(ritmoMatrix);
+            if (ritmoMatrix != 'null') {
+                setBeats(ritmoMatrix);
 
-            var tabelaBateria = document.getElementById('tracker-table');
-            var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+                var tabelaBateria = document.getElementById('tracker-table');
+                var tdsAtivados = document.getElementsByClassName('tracker-enabled');
 
-            Array.from(tdsAtivados).forEach((tdAtivado) => {
-                tdAtivado.classList.remove('tracker-enabled');
-            });
+                Array.from(tdsAtivados).forEach((tdAtivado) => {
+                    tdAtivado.classList.remove('tracker-enabled');
+                });
 
-            var tdsAtivar = tabelaBateria.getElementsByTagName('td');
-            var numerosIndex = ritmosJson[ritmo];
+                var tdsAtivar = tabelaBateria.getElementsByTagName('td');
+                var numerosIndex = ritmosJson[ritmo];
 
-            numerosIndex.forEach((numeroIndex) => {
-                tdsAtivar[numeroIndex].classList.add('tracker-enabled');
-            });
-        }
+                numerosIndex.forEach((numeroIndex) => {
+                    tdsAtivar[numeroIndex].classList.add('tracker-enabled');
+                });
+            }
+        } catch { }
     }
 }
 
