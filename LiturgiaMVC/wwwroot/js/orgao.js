@@ -1342,6 +1342,8 @@ function carregarConfiguracoesDoStorage() {
 		var semacentos = instrumentoSelect.value.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
 		_instrumentoSelecionado = semacentos.toLowerCase().replace('banda', 'epiano');
 	}
+
+	selecionarRitmo(document.activeElement);
 }
 
 function selecionarTomMenor(selecionadoMenor) {
