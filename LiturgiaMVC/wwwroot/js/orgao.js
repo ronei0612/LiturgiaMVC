@@ -685,10 +685,11 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				violaoBotao.classList.toggle('instrumentoSelecionado', false);
 				_violaoSelecionado = false;
 
-				stringsBotao.classList.toggle('instrumentoSelecionado', true);
-				_stringsSelecionado = true;
-				if (_acordeSelecionado)
+				stringsBotao.classList.toggle('instrumentoSelecionado', true);				
+				if (_acordeSelecionado && !_stringsSelecionado) {
+					_stringsSelecionado = true;
 					verificarAcompanhamentoEtocar(_acordeSelecionado);
+				}
 
 				_guitarraSelecionado = false;
 				stopGuitarra();
@@ -732,9 +733,10 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_violaoSelecionado = true;
 
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
-				_stringsSelecionado = true;
-				if (_acordeSelecionado)
+				if (_acordeSelecionado && !_stringsSelecionado) {
+					_stringsSelecionado = true;
 					verificarAcompanhamentoEtocar(_acordeSelecionado);
+				}
 
 				_guitarraSelecionado = false;
 				stopGuitarra();
@@ -748,9 +750,10 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_violaoSelecionado = true;
 
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
-				_stringsSelecionado = true;
-				_guitarraSelecionado = true;
-				if (_acordeSelecionado) {
+
+				if (_acordeSelecionado && !_stringsSelecionado) {
+					_stringsSelecionado = true;
+					_guitarraSelecionado = true;
 					verificarAcompanhamentoEtocar(_acordeSelecionado);
 					playGuitarra();
 				}
@@ -948,7 +951,7 @@ function verificarGrupoNotasInstanciado(grupoNotas) {
 	return grupoNotas;
 }
 
-function verificarAcompanhamentoEtocar(acorde, continuarStrings = null) {
+function verificarAcompanhamentoEtocar(acorde, continuarStrings = null, soStrings = false) {
 	if (_acordeAntesSelecionado === acorde) {
 		pararOsAcordes(true, continuarStrings != null ? continuarStrings : _stringsSelecionado);
 		esperar = 50;
