@@ -670,14 +670,14 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 		if (bateria) {
 			if (elementBotao.id === 'brush') {
 				//if (!pianoBotao.classList.contains('instrumentoSelecionado'))
-				pianoBotao.classList.toggle('instrumentoSelecionado', true);
-				_epianoSelecionado = true;
+				pianoBotao.classList.toggle('instrumentoSelecionado', false);
+				_epianoSelecionado = false;
 				baixoBotao.classList.toggle('instrumentoSelecionado', false);
 				_baixoSelecionado = false;
 				violaoBotao.classList.toggle('instrumentoSelecionado', false);
 				_violaoSelecionado = false;
-				stringsBotao.classList.toggle('instrumentoSelecionado', false);
-				_stringsSelecionado = false;
+				stringsBotao.classList.toggle('instrumentoSelecionado', true);
+				_stringsSelecionado = true;
 
 				_guitarraSelecionado = false;
 				stopGuitarra();
