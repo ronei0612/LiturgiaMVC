@@ -933,11 +933,22 @@ function setupBaseEvents() {
         else if (_baixoSelecionado || _violaoSelecionado)
             verificarETocarBateria('', false);
     });
-    aro.addEventListener('click', function (e) { verificarETocarBateria('aro', false) });
-    meiaLua.addEventListener('click', function (e) { verificarETocarBateria('meiaLua', true, 'stringsSolo') });
-    caixa.addEventListener('click', function (e) { verificarETocarBateria('caixa', false) });
-    brush.addEventListener('click', function (e) { verificarETocarBateria('brush', false) });
-    chimbal.addEventListener('click', function (e) { verificarETocarBateria('chimbal', true, 'stringsSolo') });
+    aro.addEventListener('click', function (e) {
+        verificarETocarBateria('aro', false);
+        autoMudarRitmo(aro, true);
+    });
+    meiaLua.addEventListener('click', function (e) {
+        verificarETocarBateria('meiaLua', true, 'stringsSolo');
+        autoMudarRitmo(meiaLua, true); });
+    caixa.addEventListener('click', function (e) {
+        verificarETocarBateria('caixa', false);
+        autoMudarRitmo(caixa, true); });
+    brush.addEventListener('click', function (e) {
+        verificarETocarBateria('brush', false);
+        autoMudarRitmo(brush, true); });
+    chimbal.addEventListener('click', function (e) {
+        verificarETocarBateria('chimbal', true, 'stringsSolo');
+        autoMudarRitmo(chimbal, true); });
     cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
     brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
     baixoBotao.addEventListener('click', function (e) {
@@ -1013,6 +1024,10 @@ function setupBaseEvents() {
     });
 
     instrumentoSelect.addEventListener('change', (e) => {
+        autoCheck.checked = false;
+        try {
+            autoCheck.dispatchEvent(eventoChange);
+        } catch { }
         stopBateria(true);
         pararOsAcordes();
         gerarRitmosNomes(ritmosNomes);

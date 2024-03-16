@@ -365,7 +365,7 @@ autoCheck.addEventListener('change', function (e) {
 		_autoMudarRitmo = false;
 	else {
 		_autoMudarRitmo = this.checked;
-		if (_autoMudarRitmo)
+		if (_autoMudarRitmo && _cravoSelecionado)
 			ocultarBotoesRitmo();
 		else
 			ocultarBotoesRitmo(false);
@@ -619,31 +619,91 @@ function escolherAcorde(acorde, botao) {
 	}
 }
 
-function autoMudarRitmo(elementBotao = null) {
+function autoMudarRitmo(elementBotao = null, bateria = null) {
 	if (pararBateriaBotao.style.display !== 'none' && _autoMudarRitmo) {
-		var selecionadoElement = elementBotao || document.querySelector('.selecionado');
-
-		if (_stringsSelecionado) {
-			if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				caixa.dispatchEvent(eventoClick);
-			} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-				brush.dispatchEvent(eventoClick);
-			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-				meiaLua.dispatchEvent(eventoClick);
-			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-				aro.dispatchEvent(eventoClick);
+		if (bateria) {
+			if (elementBotao.id === 'brush') {
+				//if (!pianoBotao.classList.contains('instrumentoSelecionado'))
+				pianoBotao.classList.toggle('instrumentoSelecionado', true);
+				_epianoSelecionado = true;
+				baixoBotao.classList.toggle('instrumentoSelecionado', false);
+				_baixoSelecionado = false;
+				violaoBotao.classList.toggle('instrumentoSelecionado', false);
+				_violaoSelecionado = false;
+				stringsBotao.classList.toggle('instrumentoSelecionado', false);
+				_stringsSelecionado = false;
 			}
-		} else {
-			if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-				aro.dispatchEvent(eventoClick);
-			} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-				brush.dispatchEvent(eventoClick);
-			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-				caixa.dispatchEvent(eventoClick);
-			} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-				aro.dispatchEvent(eventoClick);
+			else if (elementBotao.id === 'aro') {
+				pianoBotao.classList.toggle('instrumentoSelecionado', true);
+				_epianoSelecionado = true;
+				baixoBotao.classList.toggle('instrumentoSelecionado', true);
+				_baixoSelecionado = true;
+				violaoBotao.classList.toggle('instrumentoSelecionado', false);
+				_violaoSelecionado = false;
+				stringsBotao.classList.toggle('instrumentoSelecionado', false);
+				_stringsSelecionado = false;
+			}
+			else if (elementBotao.id === 'caixa') {
+				pianoBotao.classList.toggle('instrumentoSelecionado', true);
+				_epianoSelecionado = true;
+				baixoBotao.classList.toggle('instrumentoSelecionado', true);
+				_baixoSelecionado = true;
+				violaoBotao.classList.toggle('instrumentoSelecionado', true);
+				_violaoSelecionado = true;
+				stringsBotao.classList.toggle('instrumentoSelecionado', false);
+				_stringsSelecionado = false;
+			}
+			else if (elementBotao.id === 'chimbal') {
+				pianoBotao.classList.toggle('instrumentoSelecionado', true);
+				_epianoSelecionado = true;
+				baixoBotao.classList.toggle('instrumentoSelecionado', true);
+				_baixoSelecionado = true;
+				violaoBotao.classList.toggle('instrumentoSelecionado', true);
+				_violaoSelecionado = true;
+				stringsBotao.classList.toggle('instrumentoSelecionado', true);
+				_stringsSelecionado = true;
+			}
+			else if (elementBotao.id === 'meiaLua') {
+				pianoBotao.classList.toggle('instrumentoSelecionado', true);
+				_epianoSelecionado = true;
+				baixoBotao.classList.toggle('instrumentoSelecionado', true);
+				_baixoSelecionado = true;
+				violaoBotao.classList.toggle('instrumentoSelecionado', true);
+				_violaoSelecionado = true;
+				stringsBotao.classList.toggle('instrumentoSelecionado', true);
+				_stringsSelecionado = true;
 			}
 		}
+
+		else if (_instrumentoSelecionado === 'orgao') {
+			var selecionadoElement = elementBotao || document.querySelector('.selecionado');
+
+			if (selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao')
+				brushCravo.dispatchEvent(eventoClick);
+			else if (selecionadoElement.id === 'full')
+				cravo.dispatchEvent(eventoClick);
+		}
+		//if (_stringsSelecionado) {
+		//	if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
+		//		caixa.dispatchEvent(eventoClick);
+		//	} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
+		//		brush.dispatchEvent(eventoClick);
+		//	} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
+		//		meiaLua.dispatchEvent(eventoClick);
+		//	} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
+		//		aro.dispatchEvent(eventoClick);
+		//	}
+		//} else {
+		//	if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
+		//		aro.dispatchEvent(eventoClick);
+		//	} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
+		//		brush.dispatchEvent(eventoClick);
+		//	} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
+		//		caixa.dispatchEvent(eventoClick);
+		//	} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
+		//		aro.dispatchEvent(eventoClick);
+		//	}
+		//}
 	}
 }
 
