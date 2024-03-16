@@ -744,27 +744,6 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 			else if (selecionadoElement.id === 'full')
 				cravo.dispatchEvent(eventoClick);
 		}
-		//if (_stringsSelecionado) {
-		//	if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-		//		caixa.dispatchEvent(eventoClick);
-		//	} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-		//		brush.dispatchEvent(eventoClick);
-		//	} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-		//		meiaLua.dispatchEvent(eventoClick);
-		//	} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-		//		aro.dispatchEvent(eventoClick);
-		//	}
-		//} else {
-		//	if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'epiano') {
-		//		aro.dispatchEvent(eventoClick);
-		//	} else if ((selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao') && _instrumentoSelecionado === 'orgao') {
-		//		brush.dispatchEvent(eventoClick);
-		//	} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'epiano') {
-		//		caixa.dispatchEvent(eventoClick);
-		//	} else if (selecionadoElement.id === 'full' && _instrumentoSelecionado === 'orgao') {
-		//		aro.dispatchEvent(eventoClick);
-		//	}
-		//}
 	}
 }
 
