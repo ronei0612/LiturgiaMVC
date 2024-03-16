@@ -144,6 +144,20 @@ function verificarETocarBateria_2(tunerAcompanhamento, instrumentoAcompanhamento
     }
 }
 
+function playGuitarra() {
+    stopGuitarra();
+
+    if (_guitarraSelecionado && _acordeNotas) {
+        let notas = _acordeNotas;
+        //notas.sort();
+        primeiraGuitar.frequency = notasFrequencias[notas[0].replace('#', '_')];
+        quintaGuitar.frequency = notasFrequencias[notas[2].replace('#', '_') + '1'];
+        primeiraGuitar.play();
+        quintaGuitar.play();
+        _guitarraParado = false;
+    }
+}
+
 function stopGuitarra(forcar) {
     if (!_guitarraParado || forcar) {
         primeiraGuitar.stop();

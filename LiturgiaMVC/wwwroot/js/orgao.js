@@ -680,6 +680,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_stringsSelecionado = false;
 
 				_guitarraSelecionado = false;
+				stopGuitarra();
 			}
 			else if (elementBotao.id === 'aro') {
 				pianoBotao.classList.toggle('instrumentoSelecionado', true);
@@ -692,6 +693,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_stringsSelecionado = false;
 
 				_guitarraSelecionado = false;
+				stopGuitarra();
 			}
 			else if (elementBotao.id === 'caixa') {
 				pianoBotao.classList.toggle('instrumentoSelecionado', true);
@@ -704,6 +706,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_stringsSelecionado = false;
 
 				_guitarraSelecionado = false;
+				stopGuitarra();
 			}
 			else if (elementBotao.id === 'chimbal') {
 				pianoBotao.classList.toggle('instrumentoSelecionado', true);
@@ -716,6 +719,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_stringsSelecionado = true;
 
 				_guitarraSelecionado = false;
+				stopGuitarra();
 			}
 			else if (elementBotao.id === 'meiaLua') {
 				pianoBotao.classList.toggle('instrumentoSelecionado', true);
@@ -728,6 +732,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_stringsSelecionado = true;
 
 				_guitarraSelecionado = true;
+				playGuitarra();
 			}
 		}
 
@@ -862,6 +867,9 @@ function montarAcordeNotas(acorde) {
 function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 	if (instrumento === 'stringsSolo' && _stringsSelecionado)
 		instrumento = 'strings';
+
+	if (_guitarraSelecionado)
+		playGuitarra();
 
 	if (grupoNotas) {
 		if (instrumento === 'stringsSolo') {

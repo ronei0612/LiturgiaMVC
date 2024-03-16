@@ -790,25 +790,11 @@ var _ritmoSelecionado;
                 }
             }
 
-            function playGuitarra() {
-                stopGuitarra();
-
-                if (_guitarraSelecionado) {
-                    let notas = _acordeNotas;
-                    //notas.sort();
-                    primeiraGuitar.frequency = notasFrequencias[notas[0].replace('#', '_')];
-                    quintaGuitar.frequency = notasFrequencias[notas[2].replace('#', '_') + '1'];
-                    primeiraGuitar.play();
-                    quintaGuitar.play();
-                    _guitarraParado = false;
-                }                
-            }
-
             function playViolao() {
                 if (_violaoSelecionado && (instrumentoSelect.value === 'Banda') &&
                     (instrumentName === '0' || instrumentName === '1' || instrumentName === '2')) {
                     setTimeout(function () {
-                        playGuitarra();
+                        //playGuitarra();
                         let violaoAudio;
                         if (instrumentName === '2') {
                             violaoAudio = buffers['violao_'].get();
