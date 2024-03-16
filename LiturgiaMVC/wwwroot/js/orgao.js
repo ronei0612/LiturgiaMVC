@@ -1065,7 +1065,7 @@ function mudarTomCifra(aumentar, quant) {
 		success: function (data) {
 			if (data.success) {
 				textoCifras.contentDocument.body.innerHTML = data.message;
-				addEventCifras(textoCifras);
+				addEventCifras(textoCifras, _cifraId - 1);
 			}
 			else
 				alert(data.message);
@@ -1220,7 +1220,7 @@ function mudarParaTelaFrame() {
 		ocultarNavBar();
 }
 
-function addEventCifras(frame) {
+function addEventCifras(frame, mudarTomCifraId) {
 	var elements = frame.contentDocument.getElementsByTagName("b");
 
 	for (var i = 0; i < elements.length; i++) {
@@ -1234,6 +1234,12 @@ function addEventCifras(frame) {
 			e.target.scrollIntoView();
 			parent.tocarCifraManualmente(e.target);
 		});
+	}
+
+	if (mudarTomCifraId) {
+		let cifra = elements[mudarTomCifraId];
+		cifra.classList.add('cifraSelecionada');
+		verificarAcompanhamentoEtocar(cifra.innerText);
 	}
 }
 
