@@ -688,7 +688,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);				
 				if (_acordeSelecionado && !_stringsSelecionado) {
 					_stringsSelecionado = true;
-					verificarAcompanhamentoEtocar(_acordeSelecionado);
+					verificarAcompanhamentoEtocar(_acordeSelecionado, null, true);
 				}
 
 				_guitarraSelecionado = false;
@@ -735,7 +735,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
 				if (_acordeSelecionado && !_stringsSelecionado) {
 					_stringsSelecionado = true;
-					verificarAcompanhamentoEtocar(_acordeSelecionado);
+					verificarAcompanhamentoEtocar(_acordeSelecionado, null, true);
 				}
 
 				_guitarraSelecionado = false;
@@ -754,7 +754,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				if (_acordeSelecionado && !_stringsSelecionado) {
 					_stringsSelecionado = true;
 					_guitarraSelecionado = true;
-					verificarAcompanhamentoEtocar(_acordeSelecionado);
+					verificarAcompanhamentoEtocar(_acordeSelecionado, null, true);
 					playGuitarra();
 				}
 			}
@@ -973,7 +973,7 @@ function verificarAcompanhamentoEtocar(acorde, continuarStrings = null, soString
 			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
 			montarAcorde(acorde, _grupoNotasStrings, 'strings').play();
 		}
-		if (_epianoSelecionado && _instrumentoSelecionado === 'epiano') {
+		if (_epianoSelecionado && _instrumentoSelecionado === 'epiano' && !soStrings) {
 			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
 			montarAcorde(acorde, _grupoNotas, 'epiano').play();
 		}
