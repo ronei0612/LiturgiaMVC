@@ -684,8 +684,11 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_baixoSelecionado = false;
 				violaoBotao.classList.toggle('instrumentoSelecionado', false);
 				_violaoSelecionado = false;
+
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
 				_stringsSelecionado = true;
+				if (_acordeSelecionado)
+					verificarAcompanhamentoEtocar(_acordeSelecionado);
 
 				_guitarraSelecionado = false;
 				stopGuitarra();
@@ -697,8 +700,10 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_baixoSelecionado = true;
 				violaoBotao.classList.toggle('instrumentoSelecionado', false);
 				_violaoSelecionado = false;
+
 				stringsBotao.classList.toggle('instrumentoSelecionado', false);
 				_stringsSelecionado = false;
+				pararOsAcordes(false, false);
 
 				_guitarraSelecionado = false;
 				stopGuitarra();
@@ -710,8 +715,10 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_baixoSelecionado = true;
 				violaoBotao.classList.toggle('instrumentoSelecionado', true);
 				_violaoSelecionado = true;
+
 				stringsBotao.classList.toggle('instrumentoSelecionado', false);
 				_stringsSelecionado = false;
+				pararOsAcordes(false, false);
 
 				_guitarraSelecionado = false;
 				stopGuitarra();
@@ -723,8 +730,11 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_baixoSelecionado = true;
 				violaoBotao.classList.toggle('instrumentoSelecionado', true);
 				_violaoSelecionado = true;
+
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
 				_stringsSelecionado = true;
+				if (_acordeSelecionado)
+					verificarAcompanhamentoEtocar(_acordeSelecionado);
 
 				_guitarraSelecionado = false;
 				stopGuitarra();
@@ -736,11 +746,14 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_baixoSelecionado = true;
 				violaoBotao.classList.toggle('instrumentoSelecionado', true);
 				_violaoSelecionado = true;
+
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
 				_stringsSelecionado = true;
-
 				_guitarraSelecionado = true;
-				playGuitarra();
+				if (_acordeSelecionado) {
+					verificarAcompanhamentoEtocar(_acordeSelecionado);
+					playGuitarra();
+				}
 			}
 		}
 
@@ -862,7 +875,7 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 		playGuitarra();
 
 	if (grupoNotas) {
-		if (instrumento === 'stringsSolo') {
+		if (instrumento === 'strings' && _instrumentoSelecionado === 'epiano' && _stringsSelecionado && !_violaoSelecionado && !_baixoSelecionado && !_epianoSelecionado && !_autoMudarRitmo) {
 			grupoNotas.addSound(acordes['strings_' + _acordeNotas[0]]);
 			grupoNotas.addSound(acordes['strings_' + _acordeNotas[0] + '_baixo']);
 			grupoNotas.addSound(acordes['strings_' + _acordeNotas[0] + '_grave']);
