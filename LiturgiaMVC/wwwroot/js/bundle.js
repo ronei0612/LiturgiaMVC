@@ -853,7 +853,7 @@ var _ritmoSelecionado;
         }        
         function stopBateria(trocandoInstrumento) {
             if (schedule.running) {
-                if (_autoMudarRitmo)
+                if (_autoMudarRitmo && !trocandoInstrumento)
                     prato.dispatchEvent(eventoClick);
 
                 if (_cravoSelecionado || trocandoInstrumento) {
