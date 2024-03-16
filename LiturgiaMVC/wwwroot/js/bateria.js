@@ -1,4 +1,5 @@
 var _tempo = 92;
+const ritmosNomes = Object.keys(ritmosJson);
 
 function setBeats(ritmoMatrix) {//compasso
     if (ritmoMatrix === '6/8')
@@ -96,7 +97,7 @@ function mudarRitmo(ritmo) {
 function gerarRitmosNomes(ritmosNomes) {
     selectRitmo.innerHTML = "";
 
-    if (instrumentoSelect.value.includes('rg')) {
+    if (_instrumentoSelecionado === 'orgao') {
         for (var i = 0, len = ritmosNomes.length; i < len; i++) {
             if (ritmosNomes[i].includes('/') && !ritmosNomes[i].includes('_')) {
                 let opt = document.createElement('option');
@@ -143,8 +144,8 @@ function verificarETocarBateria_2(tunerAcompanhamento, instrumentoAcompanhamento
     }
 }
 
-function stopGuitarra() {
-    if (!_guitarraParado) {
+function stopGuitarra(forcar) {
+    if (!_guitarraParado || forcar) {
         primeiraGuitar.stop();
         quintaGuitar.stop();
         _guitarraParado = true;

@@ -991,7 +991,7 @@ function pararOsAcordes(removerSons = false, continuarStrings = false) {
 			}
 		}
 
-	stopGuitarra();
+	stopGuitarra(true);
 }
 
 function levantarBotoesAcordes() {
@@ -1461,7 +1461,8 @@ function carregarConfiguracoesDoStorage() {
 		_instrumentoSelecionado = semacentos.toLowerCase().replace('banda', 'epiano');
 	}
 
-	selecionarRitmo(document.activeElement);
+	gerarRitmosNomes(ritmosNomes);
+	selecionarRitmo(selectRitmo.value);
 }
 
 function selecionarTomMenor(selecionadoMenor) {
