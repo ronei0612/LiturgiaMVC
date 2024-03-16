@@ -1208,10 +1208,12 @@ function mudarParaTelaFrame() {
 	tdVolume.setAttribute('rowspan', '');
 	tdVolume.setAttribute('colspan', 5);
 	volumeDiv.style.display = 'block';
-	textoVolume.style.display = 'none';
+	//textoVolume.style.display = 'none';
+	textoVolume.classList.remove('textoVertical');
 	volumeInput.setAttribute('orient', '');
 
 	$('#tdVolume').appendTo('#orgaoTable');
+	$('#textoVolume').prependTo('#volumeDiv');
 	$('#orgaoTable').prependTo('#bateriaBox');
 
 	if (_orientacaoCelularPe === false)
@@ -1373,9 +1375,11 @@ function voltarParaOrgao() {
 	tdVolume.setAttribute('colspan', '');
 	volumeDiv.style.display = 'flex';
 	textoVolume.style.display = '';
+	textoVolume.classList.add('textoVertical');
 	volumeInput.setAttribute('orient', 'vertical');
 
 	$('#tdVolume').appendTo('#orgaoControle');
+	$('#textoVolume').appendTo('#volumeDiv');
 	$('#orgaoTable').appendTo('#orgaoBox');
 
 	mostrarNavBar();
