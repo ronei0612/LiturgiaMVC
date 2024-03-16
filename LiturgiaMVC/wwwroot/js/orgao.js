@@ -11,27 +11,27 @@
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
-	c1: 130.81,
-	c_1: 138.59,
-	d1: 146.83,
-	d_1: 155.56,
-	e1: 164.81,
-	f1: 174.61,
-	f_1: 185.00,
-	g1: 196.00,
-	g_1: 207.65,
+	c: 130.81,
+	c_: 138.59,
+	d: 146.83,
+	d_: 155.56,
+	e: 164.81,
+	f: 174.61,
+	f_: 185.00,
+	g: 196.00,
+	g_: 207.65,
 	a1: 220.00,
 	a_1: 233.08,
 	b1: 246.94,
-	c2: 261.63,
-	c_2: 277.18,
-	d2: 293.67,
-	d_2: 311.13,
-	//e2: 329.63,
-	//f2: 349.23,
-	//f_2: 369.99,
-	//g2: 392.00,
-	//g_2: 415.30,
+	c1: 261.63,
+	c_1: 277.18,
+	d1: 293.67,
+	d_1: 311.13,
+	e1: 329.63,
+	f1: 349.23,
+	f_1: 369.99,
+	g1: 392.00,
+	g_1: 415.30,
 	//a2: 440.00,
 	//a_2: 466.16,
 	//b2: 493.88
@@ -42,9 +42,9 @@ const primeiraGuitar = new Pizzicato.Sound({
 	options: {
 		type: 'sawtooth',
 		frequency: notasFrequencias.c1,
-		release: 1,
+		release: 3,
 		attack: 0.4,
-		volume: 0.05
+		volume: 0.01
 	}
 });
 
@@ -53,9 +53,9 @@ const quintaGuitar = new Pizzicato.Sound({
 	options: {
 		type: 'sawtooth',
 		frequency: notasFrequencias.g1,
-		release: 1,
+		release: 3,
 		attack: 0.4,
-		volume: 0.05
+		volume: 0.01
 	}
 });
 
@@ -64,9 +64,53 @@ const distortion = new Pizzicato.Effects.Distortion({
 	mix: 0.5
 });
 
+var flanger = new Pizzicato.Effects.Flanger({
+	time: 0.45,
+	speed: 0.2,
+	depth: 0.1,
+	feedback: 0.1,
+	mix: 0.5
+});
+
+var reverb = new Pizzicato.Effects.Reverb({
+	time: 2,
+	decay: 2,
+	reverse: false,
+	mix: 0.5
+});
 
 primeiraGuitar.addEffect(distortion);
+primeiraGuitar.addEffect(flanger);
+primeiraGuitar.addEffect(reverb);
 quintaGuitar.addEffect(distortion);
+quintaGuitar.addEffect(flanger);
+quintaGuitar.addEffect(reverb);
+
+//function fadeOut(sound, duration) {
+//	const initialVolume = sound.volume;
+//	const fadeSteps = 10;
+//	const fadeInterval = duration / fadeSteps;
+//	let currentStep = 0;
+
+//	const fadeOutInterval = setInterval(() => {
+//		currentStep++;
+//		const volumeDelta = initialVolume / fadeSteps;
+//		const newVolume = Math.max(0, initialVolume - (volumeDelta * currentStep));
+//		sound.volume = newVolume;
+
+//		if (newVolume === 0 || currentStep >= fadeSteps) {
+//			clearInterval(fadeOutInterval);
+//			sound.stop();
+//		}
+//	}, fadeInterval);
+//}
+
+//primeiraGuitar.play();
+//quintaGuitar.play();
+
+
+//fadeOut(primeiraGuitar, 6000);
+//fadeOut(quintaGuitar, 6000);
 
 
 var _acordeSelecionado = '';
@@ -83,6 +127,8 @@ var _stringsSelecionado = false;
 var _baixoSelecionado = false;
 var _violaoSelecionado = false;
 var _epianoSelecionado = false;
+var _guitarraSelecionado = false;
+var _guitarraParado = true;
 var _stringsParado = true;
 var _autoMudarRitmo = false;
 var _orientacaoCelularPe = true;
@@ -632,6 +678,8 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_violaoSelecionado = false;
 				stringsBotao.classList.toggle('instrumentoSelecionado', false);
 				_stringsSelecionado = false;
+
+				_guitarraSelecionado = false;
 			}
 			else if (elementBotao.id === 'aro') {
 				pianoBotao.classList.toggle('instrumentoSelecionado', true);
@@ -642,6 +690,8 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_violaoSelecionado = false;
 				stringsBotao.classList.toggle('instrumentoSelecionado', false);
 				_stringsSelecionado = false;
+
+				_guitarraSelecionado = false;
 			}
 			else if (elementBotao.id === 'caixa') {
 				pianoBotao.classList.toggle('instrumentoSelecionado', true);
@@ -652,6 +702,8 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_violaoSelecionado = true;
 				stringsBotao.classList.toggle('instrumentoSelecionado', false);
 				_stringsSelecionado = false;
+
+				_guitarraSelecionado = false;
 			}
 			else if (elementBotao.id === 'chimbal') {
 				pianoBotao.classList.toggle('instrumentoSelecionado', true);
@@ -662,6 +714,8 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_violaoSelecionado = true;
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
 				_stringsSelecionado = true;
+
+				_guitarraSelecionado = false;
 			}
 			else if (elementBotao.id === 'meiaLua') {
 				pianoBotao.classList.toggle('instrumentoSelecionado', true);
@@ -672,6 +726,8 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_violaoSelecionado = true;
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
 				_stringsSelecionado = true;
+
+				_guitarraSelecionado = true;
 			}
 		}
 
@@ -934,6 +990,8 @@ function pararOsAcordes(removerSons = false, continuarStrings = false) {
 					_grupoNotasStrings.removeSound(_grupoNotasStrings.sounds[i]);
 			}
 		}
+
+	stopGuitarra();
 }
 
 function levantarBotoesAcordes() {

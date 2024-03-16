@@ -142,3 +142,11 @@ function verificarETocarBateria_2(tunerAcompanhamento, instrumentoAcompanhamento
         return true;
     }
 }
+
+function stopGuitarra() {
+    if (!_guitarraParado) {
+        primeiraGuitar.stop();
+        quintaGuitar.stop();
+        _guitarraParado = true;
+    }
+}
