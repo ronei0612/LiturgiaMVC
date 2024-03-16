@@ -716,25 +716,25 @@
 
                 const fileType = file.type;
 
-                if (fileType !== 'application/pdf' && fileType !== 'image/png' && fileType !== 'image/jpg' && fileType !== 'image/jpeg') {
-                    alert('Selecione apenas arquivos PDF, JPG ou PNG');
-                    return;
+                if (fileType !== 'image/png' && fileType !== 'image/jpg' && fileType !== 'image/jpeg') {
+                    alert('Selecione apenas arquivos de imagem');
                 }
+                else {
+                    var fileURL = URL.createObjectURL(file);
 
-                var fileURL = URL.createObjectURL(file);
+                    let partituraFrame = document.getElementById('partituraFrame');
 
-                let partituraFrame = document.getElementById('partituraFrame');
+                    partituraFrame.src = fileURL;
 
-                partituraFrame.src = fileURL;
+                    if (textoCifrasFrame.style.display === 'none') {
+                        mudarParaTelaFrame();
+                    }
 
-                if (textoCifrasFrame.style.display === 'none') {
-                    mudarParaTelaFrame();
+                    iniciarCifra();
+
+                    partituraFrame.style.display = '';
+                    textoCifras.style.display = 'none';
                 }
-
-                iniciarCifra();
-
-                partituraFrame.style.display = '';
-                textoCifras.style.display = 'none';
             }
             else {
                 partituraFrame.style.display = 'none';
