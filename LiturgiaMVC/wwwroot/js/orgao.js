@@ -273,7 +273,7 @@ const tomMenorSwitch = document.getElementById('tomMenorSwitch');
 const tituloConfiguracaoTeclas = document.getElementById('tituloConfiguracaoTeclas');
 const textoConfiguracao = document.getElementById('textoConfiguracao');
 const tecladoTeclasDiv = document.getElementById('tecladoTeclasDiv');
-const inputTecla = document.getElementById('inputTecla');
+const inputTeclaLabel = document.getElementById('inputTeclaLabel');
 
 const elementos = {
 	instrumentoSelect: instrumentoSelect,
@@ -375,7 +375,7 @@ const elementos = {
 	tituloConfiguracaoTeclas: tituloConfiguracaoTeclas,
 	textoConfiguracao: textoConfiguracao,
 	tecladoTeclasDiv: tecladoTeclasDiv,
-	inputTecla: inputTecla
+	inputTeclaLabel: inputTeclaLabel
 };
 
 deixarAcompanhamentoSelecionado('full');
@@ -429,7 +429,7 @@ window.addEventListener("orientationchange", (event) => {
 
 function capturarTeclaPressionada(tecla) {
 	if (_configurandoTeclas)
-		armazenarTeclaConfiguracaoTeclas(tecla);
+		mostrarTeclaConfiguracaoTeclas(tecla); //armazenarTeclaConfiguracaoTeclas(tecla);
 	else if (_teclasConfiguracao[tecla]) {
 		const elemento = elementos[_teclasConfiguracao[tecla][0]];
 		const evento = eventos[_teclasConfiguracao[tecla][1]];
@@ -475,7 +475,7 @@ function capturarTeclaConfiguracaoTeclas(elementoCapturado) {
 	_configuracaoElemento = elementoCapturado.id;
 	selectOpcoes.style.display = 'none';
 	tecladoTeclasDiv.style.display = '';
-	inputTecla.focus();
+	//inputTeclaLabel.focus();
 }
 
 function verificarSeTemValor(dicionario, elementoProcurar) {
@@ -485,10 +485,18 @@ function verificarSeTemValor(dicionario, elementoProcurar) {
 	}
 }
 
-function armazenarTeclaConfiguracaoTeclas(tecla) {
+function mostrarTeclaConfiguracaoTeclas(tecla) {
+	inputTeclaLabel.innerText = tecla;
+	botaoOkTecla.disabled = false;
+}
+
+function armazenarTeclaConfiguracaoTeclas() {
 	verificarSeTemValor(_teclasConfiguracao, _configuracaoElemento);
+	let tecla = inputTeclaLabel.innerText;
 	let array = [_configuracaoElemento, _configuracaoEvento];
 	_teclasConfiguracao[tecla] = array;
+	botaoOkTecla.disabled = true;
+	inputTeclaLabel.innerText = '';
 	ocultarModal();
 }
 
