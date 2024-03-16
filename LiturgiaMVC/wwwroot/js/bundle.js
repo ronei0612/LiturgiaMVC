@@ -887,10 +887,6 @@ var _ritmoSelecionado;
         }
 function setupBaseEvents() {
     function verificarETocarBateria(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento) {
-        if (_configurandoTeclas) {
-            capturarTeclaConfiguracaoTeclas(document.activeElement);
-            return;
-        }
         if (verificarETocarBateria_2(tunerAcompanhamento, instrumentoAcompanhamento)) {
             tocarBateria(document.activeElement);
             mudarRitmo(mudarRitmoNome);
@@ -917,34 +913,74 @@ function setupBaseEvents() {
             verificarETocarBateria('', false);
     });
     aro.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(aro);
+            return;
+        }
         verificarETocarBateria('aro', false);
         autoMudarRitmo(aro, true);
     });
     meiaLua.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(meiaLua);
+            return;
+        }
         verificarETocarBateria('meiaLua', true, 'stringsSolo');
         autoMudarRitmo(meiaLua, true); });
     caixa.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(caixa);
+            return;
+        }
         verificarETocarBateria('caixa', false);
         autoMudarRitmo(caixa, true); });
     brush.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(brush);
+            return;
+        }
         verificarETocarBateria('brush', false);
         autoMudarRitmo(brush, true); });
     chimbal.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(chimbal);
+            return;
+        }
         verificarETocarBateria('chimbal', true, 'stringsSolo');
         autoMudarRitmo(chimbal, true); });
-    cravo.addEventListener('click', function (e) { verificarETocarBateria('cravo', true, 'stringsSolo') });
-    brushCravo.addEventListener('click', function (e) { verificarETocarBateria('brushCravo', true, 'stringsSolo') });
+    cravo.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(cravo);
+            return;
+        }
+        verificarETocarBateria('cravo', true, 'stringsSolo');
+    });
+    brushCravo.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(brushCravo);
+            return;
+        }
+        verificarETocarBateria('brushCravo', true, 'stringsSolo');
+    });
     baixoBotao.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(baixoBotao);
+            return;
+        }
         if (_baixoSelecionado && !_ritmoSelecionado)
             verificarETocarBateria('', false)
     });
     violaoBotao.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            capturarTeclaConfiguracaoTeclas(violaoBotao);
+            return;
+        }
         if (_violaoSelecionado && !_ritmoSelecionado)
             verificarETocarBateria('', false)
     });
     pratoCravo.addEventListener('click', function (e) {
         if (_configurandoTeclas) {
-            capturarTeclaConfiguracaoTeclas(prato);
+            capturarTeclaConfiguracaoTeclas(pratoCravo);
             return;
         }
         if (iconVolumeMute.style.display == 'none') {
