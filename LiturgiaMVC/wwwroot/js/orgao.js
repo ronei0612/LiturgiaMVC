@@ -770,6 +770,9 @@ function escolherAcompanhamentoBateria(botao, variavel) {
 	else {
 		eval(variavel + ' = ' + JSON.stringify(false));
 		botao.classList.toggle('instrumentoSelecionado', false);
+
+		if (_instrumentoSelecionado === 'epiano' && variavel === '_stringsSelecionado' && !_stringsSelecionado)
+			pararOsAcordes();
 	}
 }
 
