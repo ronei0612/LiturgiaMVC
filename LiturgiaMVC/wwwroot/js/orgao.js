@@ -956,6 +956,11 @@ function verificarAcompanhamentoEtocar(acorde, continuarStrings = null) {
 	_acordeAntesSelecionado = acorde;
 	montarAcordeNotas(acorde);
 
+	if (_instrumentoSelecionado === 'epiano' && !_violaoSelecionado && !_epianoSelecionado && !_baixoSelecionado && !_stringsSelecionado) {
+		stringsBotao.classList.toggle('instrumentoSelecionado', true);
+		_stringsSelecionado = true;
+	}
+
 	if (iconVolumeMute.style.display === 'none') {
 		if (_stringsSelecionado) {
 			_stringsParado = false;
