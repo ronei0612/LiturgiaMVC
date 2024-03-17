@@ -1338,17 +1338,6 @@ function avancarCifra(avancar_retroceder, botao) {
 	}
 }
 
-function mudarTempoCompasso() {
-	var bpmValor = bpm.value;
-	bpmValor = 60000 / bpmValor;
-
-	if (selectRitmo.value === '6/8')
-		bpmValor = bpmValor / 2;
-
-	lightCompasso.style.animation = 'blink ' + bpmValor + 'ms infinite';
-	bpmRange.value = bpm.value;
-}
-
 function mudarTamanhoFrameCifras(aumentar) {
 	textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
 
