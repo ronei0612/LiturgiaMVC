@@ -737,7 +737,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 					_stringsSelecionado = true;
 					verificarAcompanhamentoEtocar(_acordeSelecionado, null, true);
 				}
-
+				_stringsSelecionado = true;
 				_guitarraSelecionado = false;
 				stopGuitarra();
 			}
@@ -750,13 +750,14 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				_violaoSelecionado = true;
 
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
-
 				if (_acordeSelecionado && !_stringsSelecionado) {
 					_stringsSelecionado = true;
 					_guitarraSelecionado = true;
 					verificarAcompanhamentoEtocar(_acordeSelecionado, null, true);
 					playGuitarra();
 				}
+				_stringsSelecionado = true;
+				_guitarraSelecionado = true;
 			}
 		}
 
