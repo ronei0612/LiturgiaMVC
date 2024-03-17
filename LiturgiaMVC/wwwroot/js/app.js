@@ -28,7 +28,7 @@ Application.prototype.start = function () {
         }
     };
 
-    instrumentoSelect.addEventListener("change", () => {
+    document.getElementById('instrumentoSelect').addEventListener("change", () => {
         if (instrumentoSelect.value === 'Bateria') {
             self.tuner.init();
             self.frequencyData = new Uint8Array(self.tuner.analyser.frequencyBinCount);
