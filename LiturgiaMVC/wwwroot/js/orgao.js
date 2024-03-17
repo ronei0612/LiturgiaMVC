@@ -1,13 +1,4 @@
 ﻿const notasFrequencias = {
-	//c: 65.406,
-	//c_: 69.296,
-	//d: 73.416,
-	//d_: 77.782,
-	//e: 82.407,
-	//f: 87.307,
-	//f_: 92.499,
-	//g: 97.999,
-	//g_: 103.83,
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -32,9 +23,6 @@
 	f_1: 369.99,
 	g1: 392.00,
 	g_1: 415.30,
-	//a2: 440.00,
-	//a_2: 466.16,
-	//b2: 493.88
 }
 
 const primeiraGuitar = new Pizzicato.Sound({
@@ -86,33 +74,6 @@ quintaGuitar.addEffect(distortion);
 quintaGuitar.addEffect(flanger);
 quintaGuitar.addEffect(reverb);
 
-//function fadeOut(sound, duration) {
-//	const initialVolume = sound.volume;
-//	const fadeSteps = 10;
-//	const fadeInterval = duration / fadeSteps;
-//	let currentStep = 0;
-
-//	const fadeOutInterval = setInterval(() => {
-//		currentStep++;
-//		const volumeDelta = initialVolume / fadeSteps;
-//		const newVolume = Math.max(0, initialVolume - (volumeDelta * currentStep));
-//		sound.volume = newVolume;
-
-//		if (newVolume === 0 || currentStep >= fadeSteps) {
-//			clearInterval(fadeOutInterval);
-//			sound.stop();
-//		}
-//	}, fadeInterval);
-//}
-
-//primeiraGuitar.play();
-//quintaGuitar.play();
-
-
-//fadeOut(primeiraGuitar, 6000);
-//fadeOut(quintaGuitar, 6000);
-
-
 var _acordeSelecionado = '';
 var _acordeAntesSelecionado = '';
 var _acompanhamentoSelecionado = '';
@@ -139,6 +100,7 @@ var _cifraId = 0;
 var _cifraParado = true;
 var _acordeBaixo;
 var _acordeNotas;
+var _notasSolo;
 
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
@@ -1270,6 +1232,21 @@ function tocarCifraManualmente(cifraElem) {
 		avancarCifra('avancar', cifraAvancar);
 }
 
+function tocarSolo(solo) {
+	_notasSolo = solo.split('.');
+	_acordeSelecionado = _notasSolo[0];
+	tocarAcorde(_notasSolo[0], null);
+	_notasSolo.shift();
+	//for (var i = 0; i < notas.length; i++) {
+	//	let nota = notas[i];
+	//	if (nota.charAt(0) === nota.toUpperCase())
+	//		tocarAcorde(nota, null);
+	//	else if (nota) {
+	//		acordes['epiano_' + nota].play();
+	//	}
+	//}
+}
+
 function avancarCifra(avancar_retroceder, botao) {
 	if (_configurandoTeclas) {
 		capturarTeclaConfiguracaoTeclas(botao);
@@ -1298,9 +1275,13 @@ function avancarCifra(avancar_retroceder, botao) {
 
 				_cifraParado = false;
 
-				var cifraElem = elements_b[_cifraId];
+				let cifraElem = elements_b[_cifraId];
+				let cifra = cifraElem.innerHTML.trim();
 
-				tocarAcorde(cifraElem.innerHTML.trim(), null);
+				if (cifra.includes('.'))
+					tocarSolo(cifra);
+				else
+					tocarAcorde(cifra, null);
 
 				if (cifraRetroceder.classList.contains('pressionado'))
 					cifraRetroceder.classList.remove('pressionado');

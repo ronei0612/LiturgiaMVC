@@ -514,7 +514,8 @@ namespace LiturgiaMVC
         public static string SearchAcordes(string cifraTexto) {
             var linhasTexto = cifraTexto.Split('\n');
             var texto = new List<string>();
-            var somenteAcordes = @"^[A-G0-9m#bsus°º+/()| ]*$";
+            var somenteAcordes = @"^[A-Ga-g0-9m#bsus°º+/()| \.]*$";
+            var linhaIniciandoComAcorde = @"\b[A-G()]";
             var acordeId = 1;
 
             texto.Add("<style>.cifraSelecionada{background-color:#ff0}pre{line-height:1.6;font-size:14px}</style><pre>");
@@ -529,28 +530,40 @@ namespace LiturgiaMVC
 
                     for (int i = 0; i < acordes.Length; i++)
                     {
-                        if (!string.IsNullOrEmpty(acordes[i]) && Regex.IsMatch(acordes[i], somenteAcordes) && Regex.IsMatch(acordes[i], @"\b[A-G()]"))
+                        if (!string.IsNullOrEmpty(acordes[i]) && Regex.IsMatch(acordes[i], somenteAcordes) && Regex.IsMatch(acordes[i], linhaIniciandoComAcorde))
                         {
                             //System.Diagnostics.Debug.WriteLine(acordes[i]);
+                            var acorde = acordes[i];
+                            var solo = "";
+
+                            if (acorde.Contains('.'))
+                            {
+                                string[] parts = acorde.Split('.', 2); // Dividir a string em duas partes usando o ponto como delimitador
+
+                                acorde = parts[0]; // Armazenar o texto antes do primeiro ponto
+                                solo = parts.Length > 1 ? "." + parts[1] : ""; // Armazenar o texto depois do primeiro ponto
+                                //solo = solo[0] == '.' ? solo : "";
+                            }
+
                             string[] retorno;
-                            if (acordes[i][0] == '(') {
+                            if (acorde[0] == '(') {
                                 texto.Add("(");
-                                retorno = GetAcorde(acordes[i].Split('(')[1].Replace("|", ""));
+                                retorno = GetAcorde(acorde.Split('(')[1].Replace("|", ""));
                             }
-                            else if (acordes[i][0] == ')') {
+                            else if (acorde[0] == ')') {
                                 texto.Add(")");
-                                retorno = GetAcorde(acordes[i].Split(')')[1].Replace("|", ""));
+                                retorno = GetAcorde(acorde.Split(')')[1].Replace("|", ""));
                             }
-                            else if (acordes[i].EndsWith(')')) {
+                            else if (acorde.EndsWith(')')) {
                                 texto.Add(")");
-                                retorno = GetAcorde(acordes[i].Split(')')[0].Replace("|", ""));
+                                retorno = GetAcorde(acorde.Split(')')[0].Replace("|", ""));
                             }
-                            else if (acordes[i].EndsWith('(')) {
+                            else if (acorde.EndsWith('(')) {
                                 texto.Add("(");
-                                retorno = GetAcorde(acordes[i].Split('(')[0].Replace("|", ""));
+                                retorno = GetAcorde(acorde.Split('(')[0].Replace("|", ""));
                             }
                             else
-                                retorno = GetAcorde(acordes[i].Replace("|", ""));
+                                retorno = GetAcorde(acorde.Replace("|", ""));
 
                             var cifraSomenteNota = retorno[0];
                             var cifraAcordeAlteracoes = retorno[1];
@@ -558,15 +571,15 @@ namespace LiturgiaMVC
 
                             // Vai removendo os últimos caracateres até chegar num que conheça como C#7sus encontra C#7
                             var cifraProcurar = cifraFormatada;
-                            if (acordes[i].Contains('/'))
+                            if (acorde.Contains('/'))
                                 cifraProcurar = cifraProcurar.Split('/')[0];
 
-                            while (Variaveis.notasAcordes.ContainsKey(cifraProcurar) == false)
+                            while (!Variaveis.notasAcordes.ContainsKey(cifraProcurar))
                                 cifraFormatada = cifraFormatada.Remove(cifraFormatada.Length - 1);
 
-                            if (string.IsNullOrEmpty(cifraFormatada) == false)
+                            if (!string.IsNullOrEmpty(cifraFormatada))
                             {
-                                cifraFormatada = ">" + cifraFormatada + "</b>";
+                                cifraFormatada = ">" + cifraFormatada + solo + "</b>";
                                 texto.Add("<b id=\"cifra" + acordeId + "\"" + cifraFormatada);
 
                                 if (i != acordes.Length - 1)
