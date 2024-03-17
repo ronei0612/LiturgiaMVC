@@ -1244,6 +1244,8 @@ function addEventCifras(frame, mudarTomCifraId) {
 			e.target.classList.add('cifraSelecionada');
 			e.target.scrollIntoView();
 			parent.tocarCifraManualmente(e.target);
+			
+			parent.focus(); //Foca fora para funcionar o teclado físico
 		});
 	}
 
