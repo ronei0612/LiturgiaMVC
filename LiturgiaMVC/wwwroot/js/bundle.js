@@ -1014,12 +1014,14 @@ function setupBaseEvents() {
         tocarBateria();
     });
     bpm.addEventListener('change', function (e) {
-        _tempo = parseInt(bpmRange.value);
-        let bpmRange_valor = 60000 / _tempo;
+        //_tempo = parseInt(bpmRange.value);
+        //let bpmRange_valor = 60000 / _tempo;
 
-        if (measureLength.value == 24)
-            bpmRange_valor = bpmRange_valor / 2;
-        lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
+        //if (measureLength.value == 24)
+        //    bpmRange_valor = bpmRange_valor / 2;
+        //lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
+
+        mudarTempoCompasso();
 
         setTempoRitmo();
     });
