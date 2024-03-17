@@ -49,8 +49,8 @@ function selecionarRitmo(ritmo, virada = false) {
 
 
 function mudarTempoCompasso() {
-    var bpmValor = parseInt(bpm.value);
-    bpmValor = 60000 / bpmValor;
+    _tempo = parseInt(bpmRange.value);
+    let bpmValor = 60000 / _tempo;
 
     if (selectRitmo.value === '6/8')
         bpmValor = bpmValor / 2;
