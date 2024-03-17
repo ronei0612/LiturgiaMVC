@@ -588,6 +588,8 @@
                     selectSalvamento.innerHTML = "";
 
                     var salvamentos = salvamentosStorage.split(',');
+                    salvamentos.sort();
+
                     for (var i = 0; i < salvamentos.length; i++) {
                         var option = document.createElement("option");
                         option.text = salvamentos[i];
