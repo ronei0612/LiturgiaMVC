@@ -430,7 +430,7 @@ window.addEventListener("orientationchange", (event) => {
 function capturarTeclaPressionada(tecla) {
 	if (_configurandoTeclas)
 		mostrarTeclaConfiguracaoTeclas(tecla); //armazenarTeclaConfiguracaoTeclas(tecla);
-	else if (_teclasConfiguracao[tecla]) {
+	else if (_teclasConfiguracao[tecla] && modal01.style.display === 'none') {
 		const elemento = elementos[_teclasConfiguracao[tecla][0]];
 		const evento = eventos[_teclasConfiguracao[tecla][1]];
 
