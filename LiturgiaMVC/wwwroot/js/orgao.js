@@ -1247,10 +1247,16 @@ function addEventCifras(frame, mudarTomCifraId) {
 		});
 	}
 
-	if (mudarTomCifraId) {
+	if (mudarTomCifraId === -1)
+		mudarTomCifraId = 0;
+
+	if (mudarTomCifraId >= 0) {
 		let cifra = elements[mudarTomCifraId];
-		cifra.classList.add('cifraSelecionada');
-		verificarAcompanhamentoEtocar(cifra.innerText);
+		if (cifra || cifra >= 0) {
+			cifra.classList.add('cifraSelecionada');
+			if (!_cifraParado)
+				verificarAcompanhamentoEtocar(cifra.innerText);
+		}
 	}
 }
 
