@@ -141,7 +141,7 @@ function verificarETocarBateria_2(tunerAcompanhamento, instrumentoAcompanhamento
                     autoTunerCheck.checked = true;
 
                 _instrumentoSelecionado = instrumentoAcompanhamento;
-                verificarAcompanhamentoEtocar(notaTuner.innerText);
+                _acordeAntesSelecionado = verificarAcompanhamentoEtocar(notaTuner.innerText, _acordeAntesSelecionado);
 
                 autoTunerCheck.dispatchEvent(eventoChange);
             }

@@ -47,7 +47,7 @@ Application.prototype.update = function (note) {
         try {
             if (autoTunerCheck.checked && _acordeSelecionado !== nota) {
                 _acordeSelecionado = nota;
-                verificarAcompanhamentoEtocar(nota);
+                _acordeAntesSelecionado = verificarAcompanhamentoEtocar(nota, _acordeAntesSelecionado);
             }
         } catch { }
     //}

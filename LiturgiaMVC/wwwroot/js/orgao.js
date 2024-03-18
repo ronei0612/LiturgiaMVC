@@ -356,7 +356,6 @@ document.addEventListener('keydown', function (event) {
 });
 
 window.onerror = function (message, source, lineno, colno, error) {
-	//if (isMobileDevice())
 	alert("Erro!\n" + message + '\nArquivo: ' + source + '\nLinha: ' + lineno + '\nPosicao: ' + colno);
 };
 
@@ -553,7 +552,7 @@ function ocultarBotoesCravo(ocultar = true) {
 			cravoBotoes[i].style.display = 'none';
 
 		autoCheckDiv.style.display = '';
-		//acompCheckDiv.style.display = 'none';
+		
 		baixo.style.display = 'none';
 		mao.style.display = 'none';
 		full.style.display = 'none';
@@ -566,7 +565,7 @@ function ocultarBotoesCravo(ocultar = true) {
 			cravoBotoes[i].style.display = '';
 
 		autoCheckDiv.style.display = 'none';
-		//acompCheckDiv.style.display = '';
+		
 		baixo.style.display = '';
 		mao.style.display = '';
 		full.style.display = '';
@@ -639,7 +638,6 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 	if (pararBateriaBotao.style.display !== 'none' && _autoMudarRitmo) {
 		if (bateria) {
 			if (elementBotao.id === 'brush') {
-				//if (!pianoBotao.classList.contains('instrumentoSelecionado'))
 				pianoBotao.classList.toggle('instrumentoSelecionado', false);
 				_epianoSelecionado = false;
 				baixoBotao.classList.toggle('instrumentoSelecionado', false);
@@ -650,7 +648,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);				
 				if (_acordeSelecionado && !_stringsSelecionado) {
 					_stringsSelecionado = true;
-					verificarAcompanhamentoEtocar(_acordeSelecionado, null, true);
+					_acordeAntesSelecionado = verificarAcompanhamentoEtocar(_acordeSelecionado, _acordeAntesSelecionado, null, true);
 				}
 
 				_guitarraSelecionado = false;
@@ -697,7 +695,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				stringsBotao.classList.toggle('instrumentoSelecionado', true);
 				if (_acordeSelecionado && !_stringsSelecionado) {
 					_stringsSelecionado = true;
-					verificarAcompanhamentoEtocar(_acordeSelecionado, null, true);
+					_acordeAntesSelecionado = verificarAcompanhamentoEtocar(_acordeSelecionado, _acordeAntesSelecionado, null, true);
 				}
 				_stringsSelecionado = true;
 				_guitarraSelecionado = false;
@@ -715,7 +713,7 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 				if (_acordeSelecionado && !_stringsSelecionado) {
 					_stringsSelecionado = true;
 					_guitarraSelecionado = true;
-					verificarAcompanhamentoEtocar(_acordeSelecionado, null, true);
+					_acordeAntesSelecionado = verificarAcompanhamentoEtocar(_acordeSelecionado, _acordeAntesSelecionado, null, true);
 					playGuitarra();
 				}
 				_stringsSelecionado = true;
@@ -748,7 +746,7 @@ function escolherAcompanhamentoBateria(botao, variavel) {
 			if (_acordeAntesSelecionado !== '') {
 				_stringsParado = false;
 				_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
-				_grupoNotasStrings = montarAcorde(_acordeAntesSelecionado, _grupoNotasStrings, 'strings');
+				_grupoNotasStrings = montarAcorde(_acordeNotas, _acordeBaixo, _grupoNotasStrings, 'strings');
 				_grupoNotasStrings.play();
 			}
 
@@ -776,7 +774,7 @@ function escolherAcompanhamentoOrgao(funcao, botao) {
 
 function tocarAcorde(acorde, botao) {
 	const valor = botao ? botao.value : acorde;
-	verificarAcompanhamentoEtocar(valor);
+	_acordeAntesSelecionado = verificarAcompanhamentoEtocar(valor, _acordeAntesSelecionado);
 	if (botao)
 		botao.classList.add('pressionado');
 }
@@ -790,21 +788,9 @@ function refinarAcorde(acorde) {
 		const soNota = acorde.slice(0, 2);
 		return acorde.replace(soNota, acidentesCorrespondentesJson[soNota]);
 	}
-	//_acordeSelecionado = acorde;
+	
 	return acorde;
 }
-
-//function getNotaBaixo(acorde) {
-//	if (acorde.includes('/')) {
-//		const notas = acorde.split('/');
-//		const notaBaixo = refinarAcorde(notas[1]);
-//		acorde = refinarAcorde(notas[0]);
-//		return [acorde, notasAcordesJson[notaBaixo][0]];
-//	} else {
-//		acorde = refinarAcorde(acorde);
-//		return [acorde, notasAcordesJson[acorde][0]];
-//	}
-//}
 
 function getNotaBaixo(acorde) {
 	let notaBaixo;
@@ -827,13 +813,12 @@ function montarAcordeNotas(acorde) {
 		acorde = retorno[0];
 		_acordeBaixo = retorno[1];
 		_acordeNotas = notasAcordesJson[acorde];
-		//_acordeSelecionado.sort();
 	}
-	//_acordeSelecionado = (_acordeAntesSelecionado === acorde) ? '' : acorde;
+	
 	_acordeSelecionado = acorde;
 }
 
-function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
+function montarAcorde(acordeNotas, acordeBaixo, grupoNotas, instrumento = 'orgao') {
 	if (instrumento === 'stringsSolo' && _stringsSelecionado)
 		instrumento = 'strings';
 
@@ -842,43 +827,43 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 
 	if (grupoNotas) {
 		if (instrumento === 'strings' && _instrumentoSelecionado === 'epiano' && _stringsSelecionado && !_violaoSelecionado && !_baixoSelecionado && !_epianoSelecionado && !_autoMudarRitmo) {
-			grupoNotas.addSound(acordes['strings_' + _acordeNotas[0]]);
-			grupoNotas.addSound(acordes['strings_' + _acordeNotas[0] + '_baixo']);
-			grupoNotas.addSound(acordes['strings_' + _acordeNotas[0] + '_grave']);
+			grupoNotas.addSound(acordes['strings_' + acordeNotas[0]]);
+			grupoNotas.addSound(acordes['strings_' + acordeNotas[0] + '_baixo']);
+			grupoNotas.addSound(acordes['strings_' + acordeNotas[0] + '_grave']);
 		}
 
 		else if (_instrumentoSelecionado === 'orgao') {
 			if (_acompanhamentoSelecionado === 'full') {
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeBaixo + '_grave']);
 
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0] + '_baixo']);
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1] + '_baixo']);
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[0] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[1] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[2] + '_baixo']);
 
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0]]);
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1]]);
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2]]);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[0]]);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[1]]);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[2]]);
 
-				for (var i = 2, len = _acordeNotas.length; i < len; i++)
-					grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i]]);
+				for (var i = 2, len = acordeNotas.length; i < len; i++)
+					grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[i]]);
 			}
 			else if (_acompanhamentoSelecionado === 'baixo') {
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeBaixo + '_grave']);
 
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0] + '_baixo']);
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1] + '_baixo']);
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[0] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[1] + '_baixo']);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[2] + '_baixo']);
 
-				for (var i = 2, len = _acordeNotas.length; i < len; i++)
-					grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i] + '_baixo']);
+				for (var i = 2, len = acordeNotas.length; i < len; i++)
+					grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[i] + '_baixo']);
 			}
 			else {
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo]);
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1]]);
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2]]);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeBaixo]);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[1]]);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[2]]);
 
-				for (var i = 2, len = _acordeNotas.length; i < len; i++)
-					grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i]]);
+				for (var i = 2, len = acordeNotas.length; i < len; i++)
+					grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[i]]);
 			}
 
 			grupoNotas.attack = 0.1;
@@ -886,18 +871,18 @@ function montarAcorde(acorde, grupoNotas, instrumento = 'orgao') {
 
 		else {
 			if (instrumento === 'strings' && _instrumentoSelecionado === 'orgao')
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeBaixo + '_grave']);
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeBaixo + '_grave']);
 
-			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0] + '_baixo']);
-			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1] + '_baixo']);
-			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2] + '_baixo']);
+			grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[0] + '_baixo']);
+			grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[1] + '_baixo']);
+			grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[2] + '_baixo']);
 
-			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[0]]);
-			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[1]]);
-			grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[2]]);
+			grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[0]]);
+			grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[1]]);
+			grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[2]]);
 
-			for (var i = 2, len = _acordeNotas.length; i < len; i++)
-				grupoNotas.addSound(acordes[instrumento + '_' + _acordeNotas[i]]);
+			for (var i = 2, len = acordeNotas.length; i < len; i++)
+				grupoNotas.addSound(acordes[instrumento + '_' + acordeNotas[i]]);
 		}
 	}
 
@@ -914,15 +899,15 @@ function verificarGrupoNotasInstanciado(grupoNotas) {
 	return grupoNotas;
 }
 
-function verificarAcompanhamentoEtocar(acorde, continuarStrings = null, soStrings = false) {
-	if (_acordeAntesSelecionado === acorde) {
+function verificarAcompanhamentoEtocar(acorde, acordeAntesSelecionado, continuarStrings = null, soStrings = false) {
+	if (acordeAntesSelecionado === acorde) {
 		pararOsAcordes(true, continuarStrings != null ? continuarStrings : _stringsSelecionado);
 		esperar = 50;
 	}
 	else
 		pararOsAcordes(true);
 
-	_acordeAntesSelecionado = acorde;
+	acordeAntesSelecionado = acorde;
 	montarAcordeNotas(acorde);
 
 	if (_instrumentoSelecionado === 'epiano' && !_violaoSelecionado && !_epianoSelecionado && !_baixoSelecionado && !_stringsSelecionado) {
@@ -934,20 +919,22 @@ function verificarAcompanhamentoEtocar(acorde, continuarStrings = null, soString
 		if (_stringsSelecionado) {
 			_stringsParado = false;
 			_grupoNotasStrings = verificarGrupoNotasInstanciado(_grupoNotasStrings);
-			montarAcorde(acorde, _grupoNotasStrings, 'strings').play();
+			montarAcorde(_acordeNotas, _acordeBaixo, _grupoNotasStrings, 'strings').play();
 		}
 		if (_epianoSelecionado && _instrumentoSelecionado === 'epiano' && !soStrings) {
 			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-			montarAcorde(acorde, _grupoNotas, 'epiano').play();
+			montarAcorde(_acordeNotas, _acordeBaixo, _grupoNotas, 'epiano').play();
 		}
 		else if (_instrumentoSelecionado === 'orgao') {
 			_grupoNotas = verificarGrupoNotasInstanciado(_grupoNotas);
-			let tocar = montarAcorde(acorde, _grupoNotas, _instrumentoSelecionado);
+			let tocar = montarAcorde(_acordeNotas, _acordeBaixo, _grupoNotas, _instrumentoSelecionado);
 			setTimeout(() => {
 				tocar.play();
 			}, 60);
 		}
 	}
+
+	return acordeAntesSelecionado;
 }
 
 function pararOsAcordes(removerSons = false, continuarStrings = false) {
@@ -991,7 +978,7 @@ function pressionarBotaoAcompanhamento(botao) {
 	if (botaoAcompPressionado(botao) === false) {
 		if (_acordeAntesSelecionado !== '')
 			if (_instrumentoSelecionado !== 'epiano')
-				verificarAcompanhamentoEtocar(_acordeAntesSelecionado, false);
+				_acordeAntesSelecionado = verificarAcompanhamentoEtocar(_acordeAntesSelecionado, _acordeAntesSelecionado, false);
 
 		levantarBotoesAcompanhamento();
 		pressionarBotaoAcomp(botao);
@@ -1182,7 +1169,7 @@ function mudarParaTelaFrame() {
 	tdVolume.setAttribute('rowspan', '');
 	tdVolume.setAttribute('colspan', 5);
 	volumeDiv.style.display = 'block';
-	//textoVolume.style.display = 'none';
+	
 	textoVolume.classList.remove('textoVertical');
 	volumeInput.setAttribute('orient', '');
 
@@ -1220,7 +1207,7 @@ function addEventCifras(frame, mudarTomCifraId) {
 		if (cifra || cifra >= 0) {
 			cifra.classList.add('cifraSelecionada');
 			if (!_cifraParado)
-				verificarAcompanhamentoEtocar(cifra.innerText);
+				_acordeAntesSelecionado = verificarAcompanhamentoEtocar(cifra.innerText, _acordeAntesSelecionado);
 		}
 	}
 }
@@ -1260,7 +1247,7 @@ function avancarCifra(avancar_retroceder, botao) {
 
 	else if (avancar_retroceder === 'repetir') {
 		if (_cifraParado === false)
-			verificarAcompanhamentoEtocar(_acordeAntesSelecionado, 50);
+			_acordeAntesSelecionado = verificarAcompanhamentoEtocar(_acordeAntesSelecionado, _acordeAntesSelecionado, 50);
 	}
 
 	else {
@@ -1559,8 +1546,3 @@ function pegarTomCifra(tomSelecionado) {
 	else
 		_tomIndex = tonsMaiores.indexOf(tomSelecionado);
 }
-
-
-//[Deprecation] Listener added for a synchronous 'DOMNodeInserted' DOM Mutation Event.This event type is deprecated (https://w3c.github.io/uievents/#legacy-event-types) and work is underway to remove it from this browser. Usage of this event listener will cause performance issues today, and represents a risk of future incompatibility. Consider using MutationObserver instead.
-
-//som do órgão no lmms até o número 5 exporta para ogg bits 160 e depois abre o audacity e  remove o começo do som do órgão até o 0,500130
