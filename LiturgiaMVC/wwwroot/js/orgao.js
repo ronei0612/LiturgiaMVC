@@ -819,8 +819,8 @@ function montarAcordeNotas(acorde) {
 }
 
 function montarAcorde(acordeNotas, acordeBaixo, grupoNotas, instrumento = 'orgao') {
-	if (instrumento === 'stringsSolo' && _stringsSelecionado)
-		instrumento = 'strings';
+	//if (instrumento === 'stringsSolo' && _stringsSelecionado)
+	//	instrumento = 'strings';
 
 	if (_guitarraSelecionado)
 		playGuitarra();
@@ -1053,7 +1053,8 @@ function mudarTom(tomSelecionado) {
 
 	mudarTomMenor(tomSelect.selectedIndex);
 
-	localStorage.setItem('tomSelecionadoIndex', tomSelect.selectedIndex)
+	if (textoCifrasFrame === 'none')
+		localStorage.setItem('tomSelecionadoIndex', tomSelect.selectedIndex)
 }
 
 function mudarTomMenor(acordeIndex) {
@@ -1309,17 +1310,6 @@ function avancarCifra(avancar_retroceder, botao) {
 
 function mudarTamanhoFrameCifras(aumentar) {
 	textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
-
-	//if (textoCifrasFrame.style.display != 'none') {
-	//	var altura = parseInt(textoCifras.style.height);
-	//	if (aumentar)
-	//		altura = altura * 1.5;
-	//	else
-	//		altura = altura / 1.5;
-
-	//	textoCifras.style.height = altura + 'px';
-	//	textoCifrasFrame.style.height = altura + 'px';
-	//}
 }
 
 function rolagemTelaOracaoEucaristica(guardar = true) {
@@ -1367,6 +1357,7 @@ function voltarParaOrgao() {
 
 	mostrarNavBar();
 
+	adicionarTonsSelect('tomSelect', 0, true);
 	ultimoTomSelecionadoStorage();
 }
 
@@ -1437,6 +1428,7 @@ function ultimoTomSelecionadoStorage() {
 
 function carregarConfiguracoesDoStorage() {
 	darkModeLocalStorage();
+	adicionarTonsSelect('tomSelect', 0, true);
 	ultimoTomSelecionadoStorage();
 
 	let storage = localStorage.getItem('acompCheck');

@@ -620,6 +620,7 @@
                         salvar += '\n' + 'tomMenorSwitch,' + tomMenorSwitch.checked;
 
                     if (textoCifrasFrame.style.display !== 'none') {
+                        localStorage.setItem(salvamentoSelecionado + '_frameTom', tomSelect.value);
                         localStorage.setItem(salvamentoSelecionado + '_frameCifra', textoCifras.contentDocument.body.innerHTML);
 
                         selectFonte.style.display = '';
@@ -645,13 +646,17 @@
 
             var salvamentoSelecionado = selectSalvamento.value;
             var storageCifra = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
+            var storageTomSelecionadoCifra = localStorage.getItem(salvamentoSelecionado + '_frameTom');
             var eventoChange_tomSelect = true;
 
             if (storageCifra) {
                 eventoChange_tomSelect = false;
                 escreverCifraTextArea.style.display = 'block';
 
-                var tom = tomSelect.value;
+                let tom = tomSelect.value;
+                if (storageTomSelecionadoCifra)
+                    tom = storageTomSelecionadoCifra;
+                
                 mostrarTextoCifrasCarregado(tom, storageCifra);
 
                 textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
@@ -701,10 +706,6 @@
                             }
                         }
                     }
-
-                    //setTempoRitmo();
-                    //bpmRange.dispatchEvent(eventoInput);
-                    //mudarTempoCompasso();
                 }
             }
         }
