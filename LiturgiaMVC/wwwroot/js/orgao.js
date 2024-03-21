@@ -372,10 +372,18 @@ autoCheck.addEventListener('change', function (e) {
 		_autoMudarRitmo = false;
 	else {
 		_autoMudarRitmo = this.checked;
-		if (_autoMudarRitmo && _cravoSelecionado)
+
+		if (_autoMudarRitmo && _cravoSelecionado) {
 			ocultarBotoesRitmo();
-		else
-			ocultarBotoesRitmo(false);
+		}
+		else {
+			if (_autoMudarRitmo)
+				ocultarBotoesAcompanhamentosRitmo();
+			else
+				ocultarBotoesAcompanhamentosRitmo(false);
+
+			ocultarBotoesRitmo(false);			
+		}		
 	}
 });
 
@@ -585,6 +593,18 @@ function ocultarBotoesRitmo(ocultar = true) {
 	else {
 		for (let i = 0; i < bateriaBotoes.length; i++)
 			bateriaBotoes[i].style.display = '';
+	}
+}
+function ocultarBotoesAcompanhamentosRitmo(ocultar = true) {
+	let botoesAcompanhamentosRitmo = document.getElementsByClassName('botoesAcompanhamentosRitmo')[0];
+
+	if (ocultar) {
+		botoesAcompanhamentosRitmo.style.display = 'none';
+		tdVolume.style.display = 'none';
+	}
+	else {
+		botoesAcompanhamentosRitmo.style.display = '';
+		tdVolume.style.display = '';
 	}
 }
 
