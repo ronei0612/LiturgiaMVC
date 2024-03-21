@@ -1326,6 +1326,20 @@ function rolagemTelaOracaoEucaristica(guardar = true) {
 	}
 }
 
+function posicaoBotaoFecharModal(elemento, fixado) {
+	if (fixado) {
+		let rect = document.getElementById('spanBotaoFecharModal').getBoundingClientRect();
+		elemento.style.position = 'fixed';
+		elemento.style.top = rect.top + 'px';
+		elemento.style.left = rect.right + 'px';
+	}
+	else {
+		elemento.style.position = '';
+		elemento.style.top = '';
+		elemento.style.left = '';
+	}
+}
+
 function voltarParaOrgao() {
 	voltar.style.display = 'none';
 	botaoFonte.style.display = 'none';

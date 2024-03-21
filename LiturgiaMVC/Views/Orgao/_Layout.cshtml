@@ -102,12 +102,15 @@
     <div id="modal01" class="w3-modal">
         <div class="w3-modal-content">
             <div class="w3-container">
-                <span onclick="document.getElementById('modal01').style.display='none'" class="w3-button w3-display-topright">
-                    <button class="btn btn-close" type="button" onclick="ocultarModal()">
-                    </button>
-                </span>
+                <div id="botaoFecharModal">
+                    <span onclick="document.getElementById('modal01').style.display='none'" class="w3-button w3-display-topright" id="spanBotaoFecharModal">
+                        <button class="btn btn-close" type="button" onclick="ocultarModal()">
+                        </button>
+                    </span>
+                </div>
 
                 <div id="oracoesEucaristicasDiv" style="display:none">
+                    <br />
                     <partial name="~/Views/Liturgia/OracaoEucaristicaII.cshtml" />
                 </div>
 
@@ -357,6 +360,7 @@
             oracoesEucaristicasDiv.style.display = 'none';
             liturgiaDiariaDiv.style.display = 'none';
             sobreDiv.style.display = 'none';
+            posicaoBotaoFecharModal(document.getElementById('botaoFecharModal'), false);
         }
 
         function mostrarModal(nome) {
@@ -431,6 +435,7 @@
                     oracoesEucaristicasDiv.style.display = '';
                     selectOpcoes.style.display = 'none';
                     rolagemTelaOracaoEucaristica(false);
+                    posicaoBotaoFecharModal(document.getElementById('botaoFecharModal'), true);
                     break;
                 case 'liturgiaDiaria':
                     liturgiaDiariaDiv.style.display = '';
