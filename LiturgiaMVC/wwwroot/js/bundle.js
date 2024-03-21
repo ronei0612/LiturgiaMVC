@@ -1025,9 +1025,10 @@ function setupBaseEvents() {
             capturarTeclaConfiguracaoTeclas(play_pause_bateria);
             return;
         }
-        if (tunerDiv.style.display !== 'none') {
+        if (tunerDiv.style.display !== 'none' || _autoMudarRitmo) {
             autoTunerCheck.checked = false;
-            pararOsAcordes();
+            //pararOsAcordes();
+            play_pause.dispatchEvent(eventoClick);
         }
         tocarBateria();
     });
