@@ -1,5 +1,6 @@
 var _ritmoSelecionado;
 var _notasSoloIndex = 0;
+var _brushSelecionado = false;
 
 (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s })({
     1: [function (require, module, exports) {
@@ -867,7 +868,7 @@ var _notasSoloIndex = 0;
         }        
         function stopBateria(trocandoInstrumento) {
             if (schedule.running) {
-                if (_autoMudarRitmo && !trocandoInstrumento)
+                if (_autoMudarRitmo && !trocandoInstrumento && !_brushSelecionado)
                     prato.dispatchEvent(eventoClick);
 
                 if (_cravoSelecionado || trocandoInstrumento) {
@@ -876,6 +877,8 @@ var _notasSoloIndex = 0;
                 }
                 else
                     mudarRitmo('');
+
+                _brushSelecionado = false;
             }
 
             _ritmoSelecionado = null;
@@ -953,6 +956,7 @@ function setupBaseEvents() {
             capturarTeclaConfiguracaoTeclas(brush);
             return;
         }
+        _brushSelecionado = true;
         verificarETocarBateria('brush', false);
         autoMudarRitmo(brush, true); });
     chimbal.addEventListener('click', function (e) {
