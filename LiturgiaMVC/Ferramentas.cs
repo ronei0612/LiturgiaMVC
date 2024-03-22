@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace LiturgiaMVC
@@ -599,7 +600,9 @@ namespace LiturgiaMVC
                     texto.Add(linha + Environment.NewLine);
             }
 
-            texto.Add("</pre>");
+            texto.RemoveAt(texto.Count - 1);
+
+			texto.Add("</pre>");
 
             return string.Join("", texto);
         }
