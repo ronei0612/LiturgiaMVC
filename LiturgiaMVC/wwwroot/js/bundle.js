@@ -868,7 +868,7 @@ var _brushSelecionado = false;
         }        
         function stopBateria(trocandoInstrumento) {
             if (schedule.running) {
-                if (_autoMudarRitmo && !trocandoInstrumento && !_brushSelecionado)
+                if (_autoMudarRitmo && !trocandoInstrumento && !_brushSelecionado && !_cravoSelecionado)
                     prato.dispatchEvent(eventoClick);
 
                 if (_cravoSelecionado || trocandoInstrumento) {
