@@ -132,7 +132,7 @@ const eventos = {
 const notasAcordes = Object.keys(notasAcordesJson);
 
 const selectConfiguracao = document.getElementById('selectConfiguracao');
-
+const tableRitmo = document.getElementById('tableRitmo');
 const instrumentoSelect = document.getElementById('instrumentoSelect');
 const autoCheck = document.getElementById('autoCheck');
 const autoCheckDiv = document.getElementById('autoCheckDiv');
@@ -378,7 +378,9 @@ autoCheck.addEventListener('change', function (e) {
 		else {
 			ocultarBotoesAcompanhamentosRitmo();
 		}
-		orgaoTable.style.marginLeft = '5px';
+
+		if (textoCifrasFrame.style.display === 'none')
+			orgaoTable.style.marginLeft = '5px';
 	}
 	else {
 		if (_cravoSelecionado) {
@@ -389,6 +391,8 @@ autoCheck.addEventListener('change', function (e) {
 			ocultarBotoesAcompanhamentosRitmo(false);
 			//ocultarBotoesRitmo(false);
 		}
+
+		if (textoCifrasFrame.style.display === 'none')
 		orgaoTable.style.marginLeft = '';
 	}
 
@@ -1197,6 +1201,8 @@ function mostrarTextoCifrasCarregado(tom = null, texto = null) {
 
 	addEventCifras(textoCifras);
 	mudarTamanhoFrameCifras(_orientacaoCelularPe);
+
+	tableRitmo.style.marginLeft = '';
 }
 
 function selecionarCifraId() {
@@ -1430,6 +1436,8 @@ function voltarParaOrgao() {
 
 	adicionarTonsSelect('tomSelect', 0, true);
 	ultimoTomSelecionadoStorage();
+
+	tableRitmo.style.marginLeft = '-12px';
 }
 
 function mudarParaFullscreen() {
