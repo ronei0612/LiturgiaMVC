@@ -1572,3 +1572,8 @@ function pegarTomCifra(tomSelecionado) {
 	else
 		_tomIndex = tonsMaiores.indexOf(tomSelecionado);
 }
+
+function primeiraLetraMaiuscula(string) {
+	if (!string) return string;
+	return string.charAt(0).toUpperCase() + string.slice(1);
+}

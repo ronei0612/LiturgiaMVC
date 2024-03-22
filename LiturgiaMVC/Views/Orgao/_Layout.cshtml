@@ -546,6 +546,7 @@
             let nome = prompt('Nome da novo salvamento');
 
             if (nome !== '' && nome !== null) {
+                nome = primeiraLetraMaiuscula(nome);
                 var opcoesSelect = novoSalvamento.options;
                 var opcoesArray = [...opcoesSelect].map(el => el.value);
 
