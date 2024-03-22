@@ -368,23 +368,20 @@ bpm.addEventListener('change', function (e) {
 });
 
 autoCheck.addEventListener('change', function (e) {
-	//if (_cravoSelecionado)
-	//	_autoMudarRitmo = false;
-	//else {
-		_autoMudarRitmo = this.checked;
+	_autoMudarRitmo = this.checked;
 
-		if (_autoMudarRitmo && _cravoSelecionado) {
-			ocultarBotoesRitmo();
-		}
-		else {
-			if (_autoMudarRitmo)
-				ocultarBotoesAcompanhamentosRitmo();
-			else
-				ocultarBotoesAcompanhamentosRitmo(false);
+	if (_autoMudarRitmo && _cravoSelecionado) {
+		ocultarBotoesRitmo();
+	}
+	else {
+		if (_autoMudarRitmo)
+			ocultarBotoesAcompanhamentosRitmo();
+		else
+			ocultarBotoesAcompanhamentosRitmo(false);
 
+		if (!_cravoSelecionado)
 			ocultarBotoesRitmo(false);			
-		}		
-	//}
+	}
 });
 
 instrumentoSelect.addEventListener('change', (e) => {
