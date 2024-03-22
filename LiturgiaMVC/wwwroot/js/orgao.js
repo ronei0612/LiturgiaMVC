@@ -379,36 +379,22 @@ autoCheck.addEventListener('change', function (e) {
 			ocultarBotoesAcompanhamentosRitmo();
 		}
 
-		if (textoCifrasFrame.style.display === 'none')
-			orgaoTable.style.marginLeft = '5px';
+		if (textoCifrasFrame.style.display === 'none') {
+			if (isMobileDevice())
+				orgaoTable.style.marginLeft = '5px';
+			else
+				orgaoTable.style.marginLeft = '40px';				
+		}
 	}
 	else {
-		if (_cravoSelecionado) {
+		if (_cravoSelecionado)
 			ocultarBotoesAcompanhamentoCravo(false);
-			//ocultarBotoesRitmo();
-		}
-		else {
+		else
 			ocultarBotoesAcompanhamentosRitmo(false);
-			//ocultarBotoesRitmo(false);
-		}
 
 		if (textoCifrasFrame.style.display === 'none')
-		orgaoTable.style.marginLeft = '';
+			orgaoTable.style.marginLeft = '';
 	}
-
-	//if (_autoMudarRitmo && _cravoSelecionado) {
-	//	ocultarBotoesRitmo();
-	//	ocultarBotoesAcompanhamentoCravo();
-	//}
-	//else {
-	//	if (_autoMudarRitmo)
-	//		ocultarBotoesAcompanhamentosRitmo();
-	//	else
-	//		ocultarBotoesAcompanhamentosRitmo(false);
-
-	//	if (!_cravoSelecionado)
-	//		ocultarBotoesRitmo(false);
-	//}
 });
 
 instrumentoSelect.addEventListener('change', (e) => {
