@@ -368,9 +368,9 @@ bpm.addEventListener('change', function (e) {
 });
 
 autoCheck.addEventListener('change', function (e) {
-	if (_cravoSelecionado)
-		_autoMudarRitmo = false;
-	else {
+	//if (_cravoSelecionado)
+	//	_autoMudarRitmo = false;
+	//else {
 		_autoMudarRitmo = this.checked;
 
 		if (_autoMudarRitmo && _cravoSelecionado) {
@@ -384,7 +384,7 @@ autoCheck.addEventListener('change', function (e) {
 
 			ocultarBotoesRitmo(false);			
 		}		
-	}
+	//}
 });
 
 instrumentoSelect.addEventListener('change', (e) => {
@@ -559,7 +559,7 @@ function ocultarBotoesCravo(ocultar = true) {
 		for (let i = 0; i < cravoBotoes.length; i++)
 			cravoBotoes[i].style.display = 'none';
 
-		autoCheckDiv.style.display = '';
+		//autoCheckDiv.style.display = '';
 		
 		baixo.style.display = 'none';
 		mao.style.display = 'none';
@@ -572,7 +572,7 @@ function ocultarBotoesCravo(ocultar = true) {
 		for (let i = 0; i < cravoBotoes.length; i++)
 			cravoBotoes[i].style.display = '';
 
-		autoCheckDiv.style.display = 'none';
+		//autoCheckDiv.style.display = 'none';
 		
 		baixo.style.display = '';
 		mao.style.display = '';
@@ -655,7 +655,7 @@ function escolherAcorde(acorde, botao) {
 }
 
 function autoMudarRitmo(elementBotao = null, bateria = null) {
-	if (pararBateriaBotao.style.display !== 'none' && _autoMudarRitmo) {
+	if ((pararBateriaBotao.style.display !== 'none' && _autoMudarRitmo) || (_instrumentoSelecionado === 'orgao' && _autoMudarRitmo && prepararBateriaBotao.style.display === 'none')) {
 		if (bateria) {
 			if (elementBotao.id === 'brush') {
 				pianoBotao.classList.toggle('instrumentoSelecionado', false);
@@ -745,9 +745,9 @@ function autoMudarRitmo(elementBotao = null, bateria = null) {
 			var selecionadoElement = elementBotao || document.querySelector('.selecionado');
 
 			if (selecionadoElement.id === 'baixo' || selecionadoElement.id === 'mao')
-				brushCravo.dispatchEvent(eventoClick);
+				brushCravo.dispatchEvent(eventoTouchstart);
 			else if (selecionadoElement.id === 'full')
-				cravo.dispatchEvent(eventoClick);
+				cravo.dispatchEvent(eventoTouchstart);
 		}
 	}
 }
