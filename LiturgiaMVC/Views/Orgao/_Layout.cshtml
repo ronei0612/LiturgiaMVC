@@ -468,50 +468,34 @@
             titulo.innerText = instrumentoSelecionado + ' ▼';
             modal01.style.display = 'none';
 
-            // if (instrumentoSelecionado === 'Bateria') {
-            //     orgaoBox.style.display = 'none';
-            //     tunerDiv.style.display = '';
+            orgaoBox.style.display = '';
+            tunerDiv.style.display = 'none';
 
-            //     Array.from(elementos).forEach((elemento) => {
-            //         elemento.style.width = '115px';
-            //         elemento.style.height = '66px';
-            //         elemento.style.margin = '3px';
-            //     });
+            Array.from(elementos).forEach((elemento) => {
+                elemento.style.width = '77px';
+                elemento.style.height = '44px';
+                elemento.style.margin = '8px';
+            });
 
-            //     document.getElementsByClassName('centralizado-no-container')[1].style.width = '350px';
-            // }
+            document.getElementsByClassName('centralizado-no-container')[1].style.width = '300px';
 
-            // else {
-                orgaoBox.style.display = '';
-                tunerDiv.style.display = 'none';
+            if (bateria)
+                if (selectRitmo.value === '')
+                    bateriaBotoes.style.display = 'none';
+                else
+                    bateriaBotoes.style.display = 'block';
 
-                Array.from(elementos).forEach((elemento) => {
-                    elemento.style.width = '77px';
-                    elemento.style.height = '44px';
-                    elemento.style.margin = '8px';
-                });
 
-                document.getElementsByClassName('centralizado-no-container')[1].style.width = '300px';
-
-                if (bateria)
-                    if (selectRitmo.value === '')
-                        bateriaBotoes.style.display = 'none';
-                    else
-                        bateriaBotoes.style.display = 'block';
-
-                //mudarTempoCompasso();
-
-                if (instrumentoSelecionado === 'Órgão') {
-                    _cravoSelecionado = true;
-                    ocultarBotoesRitmo(true);
-                    ocultarBotoesCravo(false);
-                }
-                else {
-                    _cravoSelecionado = false;
-                    ocultarBotoesRitmo(false);
-                    ocultarBotoesCravo(true);
-                }
-            //}
+            if (instrumentoSelecionado === 'Órgão') {
+                _cravoSelecionado = true;
+                ocultarBotoesRitmo(true);
+                ocultarBotoesCravo(false);
+            }
+            else {
+                _cravoSelecionado = false;
+                ocultarBotoesRitmo(false);
+                ocultarBotoesCravo(true);
+            }
         }
 
         function iniciarCifra() {

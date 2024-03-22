@@ -370,18 +370,41 @@ bpm.addEventListener('change', function (e) {
 autoCheck.addEventListener('change', function (e) {
 	_autoMudarRitmo = this.checked;
 
-	if (_autoMudarRitmo && _cravoSelecionado) {
-		ocultarBotoesRitmo();
+	if (_autoMudarRitmo) {
+		if (_cravoSelecionado) {
+			//ocultarBotoesRitmo();
+			ocultarBotoesAcompanhamentoCravo();
+		}
+		else {
+			ocultarBotoesAcompanhamentosRitmo();
+		}
+		orgaoTable.style.marginLeft = '5px';
 	}
 	else {
-		if (_autoMudarRitmo)
-			ocultarBotoesAcompanhamentosRitmo();
-		else
+		if (_cravoSelecionado) {
+			ocultarBotoesAcompanhamentoCravo(false);
+			//ocultarBotoesRitmo();
+		}
+		else {
 			ocultarBotoesAcompanhamentosRitmo(false);
-
-		if (!_cravoSelecionado)
-			ocultarBotoesRitmo(false);			
+			//ocultarBotoesRitmo(false);
+		}
+		orgaoTable.style.marginLeft = '';
 	}
+
+	//if (_autoMudarRitmo && _cravoSelecionado) {
+	//	ocultarBotoesRitmo();
+	//	ocultarBotoesAcompanhamentoCravo();
+	//}
+	//else {
+	//	if (_autoMudarRitmo)
+	//		ocultarBotoesAcompanhamentosRitmo();
+	//	else
+	//		ocultarBotoesAcompanhamentosRitmo(false);
+
+	//	if (!_cravoSelecionado)
+	//		ocultarBotoesRitmo(false);
+	//}
 });
 
 instrumentoSelect.addEventListener('change', (e) => {
@@ -549,14 +572,29 @@ function mostrarBateria(mostrar = true) {
 	localStorage.setItem('acompCheck', acompCheck.checked);
 }
 
-function ocultarBotoesCravo(ocultar = true) {
+function ocultarBotoesAcompanhamentoCravo(ocultar = true) {
 	let cravoBotoes = document.getElementsByClassName('trCravoBotoes');
 
 	if (ocultar) {
 		for (let i = 0; i < cravoBotoes.length; i++)
 			cravoBotoes[i].style.display = 'none';
 
-		//autoCheckDiv.style.display = '';
+		tdVolume.style.display = 'none';
+	}
+	else {
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = '';
+
+		tdVolume.style.display = '';
+	}
+}
+
+function ocultarBotoesCravo(ocultar = true) {
+	let cravoBotoes = document.getElementsByClassName('trCravoBotoes');
+
+	if (ocultar) {
+		for (let i = 0; i < cravoBotoes.length; i++)
+			cravoBotoes[i].style.display = 'none';
 		
 		baixo.style.display = 'none';
 		mao.style.display = 'none';
@@ -569,14 +607,16 @@ function ocultarBotoesCravo(ocultar = true) {
 		for (let i = 0; i < cravoBotoes.length; i++)
 			cravoBotoes[i].style.display = '';
 
-		//autoCheckDiv.style.display = 'none';
-		
-		baixo.style.display = '';
-		mao.style.display = '';
-		full.style.display = '';
+		let trCravoBotoes = document.getElementsByClassName('botoesAcompanhamentosRitmo');
+		for (let i = 0; i < trCravoBotoes.length; i++)
+			trCravoBotoes[i].style.display = '';
+
 		violaoBotao.style.display = 'none';
 		pianoBotao.style.display = 'none';
 		baixoBotao.style.display = 'none';
+		baixo.style.display = '';
+		mao.style.display = '';
+		full.style.display = '';
 	}
 }
 
