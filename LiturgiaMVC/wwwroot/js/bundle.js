@@ -767,7 +767,7 @@ var _tocandoBateria = false;
                 node.connect(ctx.destination);
                 fecharChimbal(instrumentName, _sourceChimbalAberto, triggerTime);
                 source.start(triggerTime);
-                console.log(triggerTime);
+                //console.log(triggerTime);
             }
 
             function routeGain(source) {
@@ -785,7 +785,7 @@ var _tocandoBateria = false;
 
             function playSolo() {
                 if (_notasSolo) {
-                    console.log('_notasSolo: ' + _notasSolo);
+                    //console.log('_notasSolo: ' + _notasSolo);
                     if (_notasSolo[_notasSoloIndex] !== '')
                         acordes['epiano_' + _notasSolo[_notasSoloIndex]].play();
                     if (_notasSoloIndex === _notasSolo.length - 1) {
