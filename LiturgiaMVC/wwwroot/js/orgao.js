@@ -425,6 +425,15 @@ function limparConfiguracaoTeclas() {
 		localStorage.removeItem('teclasConfiguracao');
 }
 
+function limparConfiguracaoTodas() {
+	if (confirm('Tem certeza? Isso excluirá os salvamentos também')) {
+		localStorage.clear();
+		sessionStorage.clear();
+		caches.delete();
+		location.reload();
+	}
+}
+
 function mostrarSalvarConfiguracaoTeclas() {
 	_configurandoTeclas = true;
 	modal01.style.display = 'none';
