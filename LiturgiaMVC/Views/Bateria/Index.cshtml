@@ -305,20 +305,20 @@
 		var botaoPressionadoAntes = document.getElementsByClassName('selecionadoDrum');
 		var botaoPressionado = botaoPressionadoAntes.length > 0 ? botaoPressionadoAntes[0] : null;
 
-		if (botao.id !== 'prato' && botao.id !== 'pratoCravo') {
-			if (botao === play_pause_bateria) {
-				if (prepararBateriaBotao.style.display !== 'none') {
-					prepararBateriaBotao.style.display = 'none';
-					pararBateriaBotao.style.display = '';
-				} else {
-					prepararBateriaBotao.style.display = '';
-					pararBateriaBotao.style.display = 'none';
-				}
-			} else {
-				prepararBateriaBotao.style.display = 'none';
-				pararBateriaBotao.style.display = '';
-			}
-		}
+		// if (botao.id !== 'prato' && botao.id !== 'pratoCravo') {
+		// 	if (botao === play_pause_bateria) {
+		// 		if (prepararBateriaBotao.style.display !== 'none') {
+		// 			prepararBateriaBotao.style.display = 'none';
+		// 			pararBateriaBotao.style.display = '';
+		// 		} else {
+		// 			prepararBateriaBotao.style.display = '';
+		// 			pararBateriaBotao.style.display = 'none';
+		// 		}
+		// 	} else {
+		// 		prepararBateriaBotao.style.display = 'none';
+		// 		pararBateriaBotao.style.display = '';
+		// 	}
+		// }
 
 		if (levantarBotoes && botaoPressionado) {
 			if (botao === botaoPressionado) {
