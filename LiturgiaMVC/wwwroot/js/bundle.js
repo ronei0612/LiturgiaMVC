@@ -1,6 +1,7 @@
 var _ritmoSelecionado;
 var _notasSoloIndex = 0;
 var _brushSelecionado = false;
+var _tocandoBateria = false;
 
 (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s })({
     1: [function (require, module, exports) {
@@ -766,6 +767,7 @@ var _brushSelecionado = false;
                 node.connect(ctx.destination);
                 fecharChimbal(instrumentName, _sourceChimbalAberto, triggerTime);
                 source.start(triggerTime);
+                console.log(triggerTime);
             }
 
             function routeGain(source) {
@@ -783,6 +785,7 @@ var _brushSelecionado = false;
 
             function playSolo() {
                 if (_notasSolo) {
+                    console.log('_notasSolo: ' + _notasSolo);
                     if (_notasSolo[_notasSoloIndex] !== '')
                         acordes['epiano_' + _notasSolo[_notasSoloIndex]].play();
                     if (_notasSoloIndex === _notasSolo.length - 1) {
@@ -865,7 +868,10 @@ var _brushSelecionado = false;
         function playBateria() {
             schedule.stop();
             schedule.runSchedule(_tempo);
-        }        
+
+            prepararBateriaBotao.style.display = 'none';
+            pararBateriaBotao.style.display = '';
+        }
         function stopBateria(trocandoInstrumento) {
             if (schedule.running) {
                 if (_autoMudarRitmo && !trocandoInstrumento && !_brushSelecionado && !_cravoSelecionado)
@@ -874,9 +880,25 @@ var _brushSelecionado = false;
                 if (_cravoSelecionado || trocandoInstrumento) {
                     schedule.stop();
                     schedule = new simpleTracker(ctx, scheduleAudioBeat);
+
+                    _violaoSelecionado = false;
+                    _epianoSelecionado = false;
+                    _baixoSelecionado = false;
+                    _tocandoBateria = false;
+
+                    let botoesAcompanhamento = document.getElementsByClassName('instrumentoSelecionado');
+                    Array.from(botoesAcompanhamento).forEach((elemento) => {
+                        if (elemento.id !== 'stringsBotao')
+                            elemento.classList.remove('instrumentoSelecionado');
+                    });
+
+                    prepararBateriaBotao.style.display = '';
+                    pararBateriaBotao.style.display = 'none';
                 }
-                else
+                else {
+                    _tocandoBateria = false;
                     mudarRitmo('');
+                }
 
                 _brushSelecionado = false;
             }
@@ -898,6 +920,8 @@ var _brushSelecionado = false;
             if (botao) {
                 if (!schedule.running)
                     playBateria();
+                else
+                    stopBateria();
             }
             else
                 stopBateria();
@@ -921,6 +945,7 @@ function setupBaseEvents() {
 
     selectRitmo.addEventListener('change', function (e) {
         var ritmoSelecionado = document.getElementsByClassName('selecionadoDrum');
+        _trocarRitmo = true;
 
         selecionarRitmo(selectRitmo.value);
 
@@ -936,6 +961,7 @@ function setupBaseEvents() {
         }
         verificarETocarBateria('aro', false);
         autoMudarRitmo(aro, true);
+        _tocandoBateria = true;
     });
     meiaLua.addEventListener('click', function (e) {
         if (_configurandoTeclas) {
@@ -943,14 +969,18 @@ function setupBaseEvents() {
             return;
         }
         verificarETocarBateria('meiaLua', true, 'stringsSolo');
-        autoMudarRitmo(meiaLua, true); });
+        autoMudarRitmo(meiaLua, true);
+        _tocandoBateria = true;
+    });
     caixa.addEventListener('click', function (e) {
         if (_configurandoTeclas) {
             capturarTeclaConfiguracaoTeclas(caixa);
             return;
         }
         verificarETocarBateria('caixa', false);
-        autoMudarRitmo(caixa, true); });
+        autoMudarRitmo(caixa, true);
+        _tocandoBateria = true;
+    });
     brush.addEventListener('click', function (e) {
         if (_configurandoTeclas) {
             capturarTeclaConfiguracaoTeclas(brush);
@@ -958,14 +988,18 @@ function setupBaseEvents() {
         }
         _brushSelecionado = true;
         verificarETocarBateria('brush', false);
-        autoMudarRitmo(brush, true); });
+        autoMudarRitmo(brush, true);
+        _tocandoBateria = true;
+    });
     chimbal.addEventListener('click', function (e) {
         if (_configurandoTeclas) {
             capturarTeclaConfiguracaoTeclas(chimbal);
             return;
         }
         verificarETocarBateria('chimbal', true, 'stringsSolo');
-        autoMudarRitmo(chimbal, true); });
+        autoMudarRitmo(chimbal, true);
+        _tocandoBateria = true;
+    });
     cravo.addEventListener('click', function (e) {
         if (_configurandoTeclas) {
             capturarTeclaConfiguracaoTeclas(cravo);
@@ -1030,7 +1064,11 @@ function setupBaseEvents() {
             //pararOsAcordes();
             play_pause.dispatchEvent(eventoClick);
         }
-        tocarBateria();
+
+        if (pararBateriaBotao.style.display !== 'none' && _tocandoBateria === false)
+            stopBateria(true);
+        else
+            tocarBateria();
     });
     bpm.addEventListener('change', function (e) {
         //_tempo = parseInt(bpmRange.value);
