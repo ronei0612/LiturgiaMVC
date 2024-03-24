@@ -1071,23 +1071,32 @@ function mudarTomCifra(aumentar, quant) {
 	_tomSelectedIndexCifra = tomSelect.selectedIndex;
 	var texto = textoCifras.contentDocument.body.innerHTML;
 
-	$.ajax({
-		type: "post",
-		url: "Orgao/AlterarTom",
-		data: {
-			texto: texto,
-			aumentar: aumentar,
-			quant: quant
-		},
-		success: function (data) {
-			if (data.success) {
-				textoCifras.contentDocument.body.innerHTML = data.message;
-				addEventCifras(textoCifras, _cifraId - 1);
-			}
-			else
-				alert(data.message);
-		}
-	});
+	let retorno = AlterarTom(texto, aumentar, quant);
+
+	if (retorno.success) {
+		textoCifras.contentDocument.body.innerHTML = retorno.message;
+		addEventCifras(textoCifras, _cifraId - 1);
+	}
+	else
+		alert(retorno.message);
+
+	//$.ajax({
+	//	type: "post",
+	//	url: "Orgao/AlterarTom",
+	//	data: {
+	//		texto: texto,
+	//		aumentar: aumentar,
+	//		quant: quant
+	//	},
+	//	success: function (data) {
+	//		if (data.success) {
+	//			textoCifras.contentDocument.body.innerHTML = data.message;
+	//			addEventCifras(textoCifras, _cifraId - 1);
+	//		}
+	//		else
+	//			alert(data.message);
+	//	}
+	//});
 }
 
 function mudarTom(tomSelecionado) {
@@ -1616,4 +1625,205 @@ function pegarTomCifra(tomSelecionado) {
 function primeiraLetraMaiuscula(string) {
 	if (!string) return string;
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function isPar(numero) {
+	return numero % 2 === 0;
+}
+
+function AlterarTom(texto, aumentar, quant) {
+	try {
+		if (!aumentar)
+			quant = -1 * quant;
+
+		var cifraTexto = GetAcordes(texto, quant);
+
+		return {
+			success: true,
+			message: cifraTexto
+		};
+	} catch (ex) {
+		return {
+			success: false,
+			message: ex.message
+		};
+	}
+}
+
+function GetAcordes(cifraTexto, tom = 0) {
+	if (!cifraTexto.includes("<b"))
+		return SearchAcordes(cifraTexto);
+
+	var notas = cifraTexto.split("<b");
+	var texto = [];
+
+	for (var i = 0; i < notas.length; i++) {
+		if (i === 0)
+			texto.push(notas[i]);
+		else {
+			var cifra = notas[i].split('>')[1].split('<')[0];
+			var linhaRestante = notas[i].split('<')[1];
+
+			var cifraFormatada = cifra;
+			var retorno = GetAcorde(cifraFormatada);
+			var cifraSomenteNota = retorno[0];
+			var cifraAcordeAlteracoes = retorno[1];
+			cifraFormatada = cifraSomenteNota;
+
+			if (!cifraAcordeAlteracoes.includes('/'))
+				cifraFormatada += cifraAcordeAlteracoes;
+
+			while (!notasAcordes.includes(cifraFormatada))
+				cifraFormatada = cifraFormatada.substring(0, cifraFormatada.length - 1);
+
+			if (cifraAcordeAlteracoes.includes('/'))
+				cifraFormatada += cifraAcordeAlteracoes;
+
+			if (cifraFormatada !== "") {
+				if (tom !== 0) {
+					cifraFormatada = MudarCifraTom(tom, cifraSomenteNota);
+
+					if (cifraAcordeAlteracoes.includes('/'))
+						cifraAcordeAlteracoes = "/" + MudarCifraTom(tom, cifraAcordeAlteracoes.split('/')[1]);
+
+					cifraFormatada += cifraAcordeAlteracoes;
+				}
+
+				cifraFormatada = ">" + cifraFormatada + "<" + linhaRestante;
+				texto.push("<b id=\"cifra" + i + "\"" + cifraFormatada);
+			} else {
+				texto.push("       " + linhaRestante);
+			}
+		}
+	}
+
+	return texto.join("");
+}
+
+function GetAcorde(possivelAcorde) {
+	possivelAcorde = possivelAcorde.replace("(9)", "9").replace("m(5-)", "°").replace("m7(5-)", "°7").replace('º', '°');
+
+	var cifraFormatada = possivelAcorde;
+	var cifraAcordeAlteracoes = "";
+
+	if (possivelAcorde.includes('('))
+		cifraFormatada = possivelAcorde.split('(')[0];
+
+	if (possivelAcorde.includes('/') && !possivelAcorde.includes('(')) {
+		cifraFormatada = possivelAcorde.split('/')[0];
+		var retorno = GetAcorde(possivelAcorde.split('/')[1]);
+		cifraAcordeAlteracoes = "/" + retorno[0];
+	}
+
+	var cifraSomenteNota = cifraFormatada;
+
+	if (cifraSomenteNota.length > 1) {
+		if (cifraSomenteNota[1] === '#')
+			cifraSomenteNota = cifraSomenteNota[0] + "#";
+		else if (cifraSomenteNota[1] === 'b')
+			cifraSomenteNota = cifraSomenteNota[0] + "b";
+		else
+			cifraSomenteNota = cifraSomenteNota[0];
+
+		if (cifraAcordeAlteracoes === "")
+			cifraAcordeAlteracoes = cifraFormatada.split(cifraSomenteNota)[1];
+
+		cifraSomenteNota = acidentesCorrespondentesJson[cifraSomenteNota];
+	}
+
+	return [cifraSomenteNota, cifraAcordeAlteracoes];
+}
+
+function MudarCifraTom(tom, cifraSomenteNota) {
+	var acordeIndex = tonsMaiores.indexOf(cifraSomenteNota);
+	acordeIndex += tom;
+
+	if (acordeIndex > 11)
+		acordeIndex -= 12;
+	else if (acordeIndex < 0)
+		acordeIndex += 12;
+
+	return tonsMaiores[acordeIndex];
+}
+
+function SearchAcordes(cifraTexto) {
+	var linhasTexto = cifraTexto.split('\n');
+	var texto = [];
+	var somenteAcordes = /^[A-Ga-g0-9m#bsus°º+/()| \.]*$/;
+	var linhaIniciandoComAcorde = /\b[A-G()]/;
+	var acordeId = 1;
+
+	texto.push("<style>.cifraSelecionada{background-color:#ff0}pre{line-height:1.6;font-size:14px}</style><pre>");
+
+	linhasTexto.forEach(function (linha) {
+		var linhaFormatada = linha.replace("[Intro]", "").replace("[Solo]", "").replace("[Final]", "");
+
+		if (linha && somenteAcordes.test(linhaFormatada)) {
+			var acordes = linha.split(' ');
+
+			acordes.forEach(function (acorde) {
+				if (acorde && somenteAcordes.test(acorde) && linhaIniciandoComAcorde.test(acorde)) {
+					var solo = "";
+					if (acorde.includes('.')) {
+						var parts = acorde.split('.', 2);
+						acorde = parts[0];
+						solo = parts.length > 1 ? "." + parts[1] : "";
+					}
+
+					var retorno;
+					if (acorde[0] === '(') {
+						texto.push("(");
+						retorno = GetAcorde(acorde.split('(')[1].replace("|", ""));
+					} else if (acorde[0] === ')') {
+						texto.push(")");
+						retorno = GetAcorde(acorde.split(')')[1].replace("|", ""));
+					} else if (acorde.endsWith(')')) {
+						texto.push(")");
+						retorno = GetAcorde(acorde.split(')')[0].replace("|", ""));
+					} else if (acorde.endsWith('(')) {
+						texto.push("(");
+						retorno = GetAcorde(acorde.split('(')[0].replace("|", ""));
+					} else {
+						retorno = GetAcorde(acorde.replace("|", ""));
+					}
+
+					var cifraSomenteNota = retorno[0];
+					var cifraAcordeAlteracoes = retorno[1];
+					var cifraFormatada = cifraSomenteNota + cifraAcordeAlteracoes;
+
+					var cifraProcurar = cifraFormatada;
+					if (acorde.includes('/')) {
+						cifraProcurar = cifraProcurar.split('/')[0];
+					}
+
+					while (!notasAcordes.includes(cifraProcurar)) {
+						cifraFormatada = cifraFormatada.substring(0, cifraFormatada.length - 1);
+					}
+
+					if (cifraFormatada) {
+						cifraFormatada = ">" + cifraFormatada + solo + "</b>";
+						texto.push("<b id=\"cifra" + acordeId + "\"" + cifraFormatada);
+
+						if (acorde !== acordes[acordes.length - 1]) {
+							texto.push(" ");
+						}
+
+						acordeId++;
+					} else {
+						texto.push("");
+					}
+				} else {
+					texto.push(acorde + " ");
+				}
+			});
+			texto.push("\n");
+		} else {
+			texto.push(linha + "\n");
+		}
+	});
+
+	texto.pop();
+	texto.push("</pre>");
+
+	return texto.join("");
 }
