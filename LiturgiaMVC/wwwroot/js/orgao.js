@@ -1123,8 +1123,8 @@ function mudarTom(tomSelecionado) {
 
 	mudarTomMenor(tomSelect.selectedIndex);
 
-	if (textoCifrasFrame === 'none')
-		localStorage.setItem('tomSelecionadoIndex', tomSelect.selectedIndex)
+	if (textoCifrasFrame.style.display === 'none')
+		localStorage.setItem('tomSelecionadoIndex', tomSelect.selectedIndex);
 }
 
 function mudarTomMenor(acordeIndex) {
