@@ -1184,6 +1184,7 @@ function adicionarTonsSelect(element, index, maior) {
 	};
 
 	selectElem.selectedIndex = index;
+	textoAcordeMenor.innerText = tonsMenores[index];
 }
 
 function mostrarTextoCifrasCarregado(tom = null, texto = null) {
