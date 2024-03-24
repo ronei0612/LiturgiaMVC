@@ -504,24 +504,34 @@
                 modal01.style.display = 'none';
                 modal_loading.style.display = 'block';
 
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "Orgao/EditarCifra",
-                    data: {
-                        texto: musicaAcordesTextArea.value,
-                    },
-                    success: function (data) {
-                        if (data.success) {
-                            musicaAcordesTextArea.value = '';
-                            mudarParaTelaCifras(data);
-                        }
-                        else
-                            alert(data.message);
+                let retorno = EditarCifra(musicaAcordesTextArea.value);
+                if (retorno.success) {
+                    musicaAcordesTextArea.value = '';
+                    mudarParaTelaCifras(retorno);
+                }
+                else
+                    alert(retorno.message);
 
-                        modal_loading.style.display = 'none';
-                    }
-                });
+                modal_loading.style.display = 'none';
+
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "Orgao/EditarCifra",
+                //     data: {
+                //         texto: musicaAcordesTextArea.value,
+                //     },
+                //     success: function (data) {
+                //         if (data.success) {
+                //             musicaAcordesTextArea.value = '';
+                //             mudarParaTelaCifras(data);
+                //         }
+                //         else
+                //             alert(data.message);
+
+                //         modal_loading.style.display = 'none';
+                //     }
+                // });
             }
         }
 

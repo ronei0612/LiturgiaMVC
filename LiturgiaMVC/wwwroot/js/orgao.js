@@ -1655,6 +1655,22 @@ function AlterarTom(texto, aumentar, quant) {
 	}
 }
 
+function EditarCifra(texto) {
+	try {
+		var cifraTexto = SearchAcordes(texto);
+
+		return {
+			success: true,
+			message: cifraTexto
+		};
+	} catch (ex) {
+		return {
+			success: false,
+			message: ex.message
+		};
+	}
+}
+
 function GetAcordes(cifraTexto, tom = 0) {
 	if (!cifraTexto.includes("<b"))
 		return SearchAcordes(cifraTexto);
