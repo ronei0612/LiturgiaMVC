@@ -2,6 +2,7 @@ var _ritmoSelecionado;
 var _notasSoloIndex = 0;
 var _brushSelecionado = false;
 var _tocandoBateria = false;
+var _colId;
 
 (function e(t, n, r) { function s(o, u) { if (!n[o]) { if (!t[o]) { var a = typeof require == "function" && require; if (!u && a) return a(o, !0); if (i) return i(o, !0); var f = new Error("Cannot find module '" + o + "'"); throw f.code = "MODULE_NOT_FOUND", f } var l = n[o] = { exports: {} }; t[o][0].call(l.exports, function (e) { var n = t[o][1][e]; return s(n ? n : e) }, l, l.exports, e, t, n, r) } return n[o].exports } var i = typeof require == "function" && require; for (var o = 0; o < r.length; o++)s(r[o]); return s })({
     1: [function (require, module, exports) {
@@ -783,20 +784,6 @@ var _tocandoBateria = false;
                 return gainNode;
             }
 
-            function playSolo() {
-                if (_notasSolo) {
-                    //console.log('_notasSolo: ' + _notasSolo);
-                    if (_notasSolo[_notasSoloIndex] !== '')
-                        acordes['epiano_' + _notasSolo[_notasSoloIndex]].play();
-                    if (_notasSoloIndex === _notasSolo.length - 1) {
-                        _notasSolo = null;
-                        _notasSoloIndex = 0;
-                    }
-                    else
-                        _notasSoloIndex++;
-                }
-            }
-
             function playBaixo() {
                 if (instrumentName === '-' && instrumentoSelect.value === 'Banda' && _baixoSelecionado) {
                     setTimeout(function () {
@@ -862,7 +849,7 @@ var _tocandoBateria = false;
                 play(instrument);
                 guardarChimbalAberto(instrumentName, instrument);
             }
-            playSolo();
+            //playSolo(beat.colId);
         }
 
         function playBateria() {
@@ -1241,6 +1228,22 @@ function tracker(ctx, scheduleAudioBeat) {
         return values;
     };
 
+    function playSolo(colId) {
+        if (colId !== _colId && _notasSolo) {
+            if (_notasSolo[_notasSoloIndex] !== '') {
+                acordes['epiano_' + _notasSolo[_notasSoloIndex]].stop();
+                acordes['epiano_' + _notasSolo[_notasSoloIndex]].play();
+            }
+            if (_notasSoloIndex === _notasSolo.length - 1) {
+                _notasSolo = null;
+                _notasSoloIndex = 0;
+            }
+            else
+                _notasSoloIndex++;
+        }
+        _colId = colId;
+    }
+
     /**
      * Mudando as colunas beats
      */
@@ -1255,6 +1258,9 @@ function tracker(ctx, scheduleAudioBeat) {
     this.scheduleBeat = function (beat, now) { //tocar os beats
         let triggerTime = now + this.scheduleForward;
         this.scheduleMap[beat.colId] = triggerTime;
+
+        playSolo(beat.colId);
+
         if (beat.enabled) {
             if (_viradaRitmo !== '') {
             _trocarRitmo = true;
