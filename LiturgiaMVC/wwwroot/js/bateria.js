@@ -1,5 +1,6 @@
 var _tempo = 92;
 const ritmosNomes = Object.keys(ritmosJson);
+var _somSolo;
 
 function setBeats(ritmoMatrix) {//compasso
     if (ritmoMatrix === '6/8')

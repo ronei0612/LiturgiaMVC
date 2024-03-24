@@ -849,7 +849,6 @@ var _colId;
                 play(instrument);
                 guardarChimbalAberto(instrumentName, instrument);
             }
-            //playSolo(beat.colId);
         }
 
         function playBateria() {
@@ -1231,10 +1230,17 @@ function tracker(ctx, scheduleAudioBeat) {
     function playSolo(colId) {
         if (colId !== _colId && _notasSolo) {
             if (_notasSolo[_notasSoloIndex] !== '') {
-                acordes['epiano_' + _notasSolo[_notasSoloIndex]].stop();
-                acordes['epiano_' + _notasSolo[_notasSoloIndex]].play();
+                if (_somSolo)
+                    _somSolo.stop();
+
+                _somSolo = acordes['epiano_' + _notasSolo[_notasSoloIndex]];
+                _somSolo.play();
             }
             if (_notasSoloIndex === _notasSolo.length - 1) {
+                if (_somSolo)
+                    _somSolo.stop();
+
+                _somSolo = null;
                 _notasSolo = null;
                 _notasSoloIndex = 0;
             }
