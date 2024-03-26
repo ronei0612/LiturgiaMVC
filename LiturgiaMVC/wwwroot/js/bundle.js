@@ -1045,6 +1045,9 @@ function setupBaseEvents() {
             capturarTeclaConfiguracaoTeclas(play_pause_bateria);
             return;
         }
+
+        ativarBotao(play_pause_bateria);
+
         if (tunerDiv.style.display !== 'none' || _autoMudarRitmo) {
             autoTunerCheck.checked = false;
             //pararOsAcordes();

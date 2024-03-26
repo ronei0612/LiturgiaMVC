@@ -1546,10 +1546,43 @@ function carregarConfiguracoesDoStorage() {
 }
 
 var _chimesPressionado = false;
+
+prato.addEventListener('mousedown', function () {
+	ativarBotao(prato)
+});
+prato.addEventListener('touchstart', function () {
+	ativarBotao(prato)
+});
+pratoCravo.addEventListener('mousedown', function () {
+	ativarBotao(prato)
+});
+pratoCravo.addEventListener('touchstart', function () {
+	ativarBotao(prato)
+});
+
+play_pause_bateria.addEventListener('touchstart', function () {
+	ativarBotao(play_pause_bateria)
+});
+play_pause_bateria.addEventListener('mouseup', function () {
+	desativarBotao(play_pause_bateria)
+});
+play_pause_bateria.addEventListener('touchend', function () {
+	desativarBotao(play_pause_bateria)
+});
+
 prato.addEventListener('mouseup', voltarIconeOriginal);
 prato.addEventListener('touchend', voltarIconeOriginal);
+
 pratoCravo.addEventListener('mouseup', voltarIconeOriginal);
 pratoCravo.addEventListener('touchend', voltarIconeOriginal);
+
+function ativarBotao(botao) {
+	botao.classList.add('ativado');
+}
+
+function desativarBotao(botao) {
+	botao.classList.remove('ativado');
+}
 
 function voltarIconeOriginal() {
 	_chimesPressionado = false;
@@ -1559,6 +1592,9 @@ function voltarIconeOriginal() {
 	iconPratoCravo.style.display = 'none';
 	iconChimes.style.display = '';
 	iconChimesCravo.style.display = '';
+
+	desativarBotao(prato);
+	desativarBotao(pratoCravo);
 }
 
 function mudarIconeAposTempo() {
