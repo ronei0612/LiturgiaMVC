@@ -442,6 +442,7 @@ function mostrarSalvarConfiguracaoTeclas() {
 	_configurandoTeclas = true;
 	modal01.style.display = 'none';
 	tituloConfiguracaoTeclas.style.display = '';
+	document.getElementById('linhaVermelha').style.display = '';
 	titulo.style.display = 'none';
 	botaoGravar.style.display = 'none';
 	play_pause.style.display = '';
@@ -452,6 +453,8 @@ function mostrarSalvarConfiguracaoTeclas() {
 function ocultarSalvarConfiguracaoTeclas() {
 	_configurandoTeclas = false;
 	tituloConfiguracaoTeclas.style.display = 'none';
+	document.getElementById('tituloGravacaoCifras').style.display = 'none';
+	document.getElementById('linhaVermelha').style.display = 'none';
 	titulo.style.display = '';
 	tecladoTeclasDiv.style.display = 'none';
 	botaoGravar.style.display = '';
