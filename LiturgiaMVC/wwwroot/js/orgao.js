@@ -1938,9 +1938,9 @@ function SearchAcordes(cifraTexto) {
 						cifraFormatada = ">" + cifraFormatada + solo + "</b>";
 						texto.push("<b id=\"cifra" + acordeId + "\"" + cifraFormatada);
 
-						if (acorde !== acordes[acordes.length - 1]) {
+						//if (acorde !== acordes[acordes.length - 1]) {
 							texto.push(" ");
-						}
+						//}
 
 						acordeId++;
 					} else {
@@ -1956,7 +1956,8 @@ function SearchAcordes(cifraTexto) {
 		}
 	});
 
-	texto.pop();
+	texto.pop(); //Remove o último '\n'
+	texto.pop(); //Remove o último ' '
 	texto.push("</pre>");
 
 	return texto.join("");
