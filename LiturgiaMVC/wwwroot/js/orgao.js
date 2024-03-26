@@ -1545,6 +1545,43 @@ function carregarConfiguracoesDoStorage() {
 	selecionarRitmo(selectRitmo.value);
 }
 
+var _chimesPressionado = false;
+prato.addEventListener('mouseup', voltarIconeOriginal);
+prato.addEventListener('touchend', voltarIconeOriginal);
+pratoCravo.addEventListener('mouseup', voltarIconeOriginal);
+pratoCravo.addEventListener('touchend', voltarIconeOriginal);
+
+function voltarIconeOriginal() {
+	_chimesPressionado = false;
+	clearTimeout(timer);
+
+	iconPrato.style.display = 'none';
+	iconPratoCravo.style.display = 'none';
+	iconChimes.style.display = '';
+	iconChimesCravo.style.display = '';
+}
+
+function mudarIconeAposTempo() {
+	if (_chimesPressionado) {
+		iconChimes.style.display = 'none';
+		iconChimesCravo.style.display = 'none';
+		iconPrato.style.display = '';
+		iconPratoCravo.style.display = '';
+
+		chimesSound.stop();
+		pratoSound.play();
+	}
+}
+
+function mudarIconeChimesPrato() {
+	setTimeout(function () {
+		_chimesPressionado = true;
+		chimesSound.play();
+	}, 180);
+
+	timer = setTimeout(mudarIconeAposTempo, 180);
+}
+
 function selecionarTomMenor(selecionadoMenor) {
 	if (selecionadoMenor) {
 		textoAcordeMenor.style.color = 'black';
