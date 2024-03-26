@@ -534,7 +534,10 @@ function carregarConfiguracaoTeclas() {
 
 function capturarTeclaGravacaoCifras(botao) {
 	let textoGravarCifras = document.getElementById('textoGravarCifras');
-	textoGravarCifras.innerText = textoGravarCifras.innerText + botao.value;
+	if (textoGravarCifras.value)
+		textoGravarCifras.value = textoGravarCifras.value + ' ' + botao.value;
+	else
+		textoGravarCifras.value = botao.value;
 }
 
 function handleTouchStart(event, element, bateria = false) {
