@@ -457,8 +457,10 @@ function ocultarGravarCifras() {
 	_gravarCifras = false;
 	document.getElementById('tituloGravacaoCifras').style.display = 'none';
 	document.getElementById('linhaVermelha').style.display = 'none';
-	orgaoControle.style.display = '';
+	botaoGravar.style.display = '';
+	play_pause.style.display = 'none';
 	gravarCifrasControle.style.display = 'none';
+	titulo.style.display = '';
 
 	ocultarBotoesAcompanhamentosRitmo(false);
 	voltarParaOrgao();
@@ -528,6 +530,11 @@ function carregarConfiguracaoTeclas() {
 	const dadosStorage = localStorage.getItem('teclasConfiguracao');
 	if (dadosStorage)
 		_teclasConfiguracao = JSON.parse(dadosStorage);	
+}
+
+function capturarTeclaGravacaoCifras(botao) {
+	let textoGravarCifras = document.getElementById('textoGravarCifras');
+	textoGravarCifras.innerText = textoGravarCifras.innerText + botao.value;
 }
 
 function handleTouchStart(event, element, bateria = false) {
@@ -688,6 +695,10 @@ function escolherAcorde(acorde, botao) {
 	if (_configurandoTeclas) {
 		capturarTeclaConfiguracaoTeclas(botao);
 		return;
+	}
+	if (_gravarCifras) {
+		capturarTeclaGravacaoCifras(botao);
+		//return;
 	}
 
 	montarAcordeNotas(botao.value);

@@ -524,7 +524,11 @@
             modal01.style.display = 'none';
             mostrarBateria(false);
             acompCheckDiv.style.display = 'none';
-            orgaoControle.style.display = 'none';
+            botaoGravar.style.display = 'none';
+            play_pause.style.display = '';
+            instrumentoSelect.selectedIndex = 0;
+            instrumentoSelect.dispatchEvent(eventoChange);
+            titulo.style.display = 'none';
             gravarCifrasControle.style.display = '';
             orgaoCifrasBotoes.style.display = '';
             ocultarBotoesAcompanhamentosRitmo();
