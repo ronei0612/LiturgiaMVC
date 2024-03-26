@@ -272,7 +272,11 @@
                     </div>
                     <br />
                     <label for="formFile" class="form-label">Importar arquivo:</label>
-                    <input class="form-control" type="file" id="formFile" onchange="escolherArquivo(event)">
+                    <div class="d-flex align-items-center">
+                        <input class="form-control" type="file" id="formFile" onchange="escolherArquivo(event)">
+                        &nbsp;
+                        <button b-c3rtqodnk9="" class="btn btn-close" type="button" onclick="document.getElementById('formFile').value = ''"></button>
+                    </div>
                     <br />
 
                     <button id="botaoIniciar" class="btn btn-primary" type="button" onclick="iniciarCifra()">
@@ -724,6 +728,7 @@
 
                 if (fileType !== 'image/png' && fileType !== 'image/jpg' && fileType !== 'image/jpeg') {
                     alert('Selecione apenas arquivos de imagem');
+                    formFile.value = '';
                 }
                 else {
                     var fileURL = URL.createObjectURL(file);
