@@ -59,6 +59,10 @@
                     Configuração
                 </h4>
 
+                <h4 id="tituloGravacaoCifras" style="display:none">
+                    Gravação
+                </h4>
+
                 <button type="button" id="botaoSalvar" class="input-group-text" onclick="mostrarModal('salvar')">
                     <svg width="19" height="19" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
                         <path d="M11 2H9v3h2z" />
@@ -280,9 +284,16 @@
                     </div>
                     <br />
 
-                    <button id="botaoIniciar" class="btn btn-primary" type="button" onclick="iniciarCifra()">
-                        Iniciar
-                    </button>
+                    <div class="d-flex align-items-center">
+                        <button id="botaoIniciar" class="btn btn-primary" type="button" onclick="iniciarCifra()">
+                            Iniciar
+                        </button>
+                            &nbsp;
+                        <button class="btn btn-secondary" type="button" onclick="gravarCifra()">
+                            Escrever cifras
+                        </button>
+                    </div>
+
                     <br /><br />
                 </div>
             </div>
@@ -502,6 +513,12 @@
                 ocultarBotoesRitmo(false);
                 ocultarBotoesCravo(true);
             }
+        }
+
+        function gravarCifra(){
+            document.getElementById('tituloGravacaoCifras').style.display = '';
+            document.getElementById('linhaVermelha').style.display = '';
+            modal01.style.display = 'none';
         }
 
         function iniciarCifra() {
