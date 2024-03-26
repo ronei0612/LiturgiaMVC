@@ -860,8 +860,8 @@ var _colId;
         }
         function stopBateria(trocandoInstrumento) {
             if (schedule.running) {
-                if (_autoMudarRitmo && !trocandoInstrumento && !_brushSelecionado && !_cravoSelecionado)
-                    prato.dispatchEvent(eventoClick);
+                //if (_autoMudarRitmo && !trocandoInstrumento && !_brushSelecionado && !_cravoSelecionado)
+                //    prato.dispatchEvent(eventoClick);
 
                 if (_cravoSelecionado || trocandoInstrumento) {
                     schedule.stop();
