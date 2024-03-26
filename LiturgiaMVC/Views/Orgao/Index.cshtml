@@ -241,8 +241,11 @@
 		'strings_g#_grave': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["strings_g#_grave"])', loop: true, release: 0.5, attack: 0.1 } }),
 		'strings_a_grave': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["strings_a_grave"])', loop: true, release: 0.5, attack: 0.1 } }),
 		'strings_a#_grave': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["strings_a#_grave"])', loop: true, release: 0.5, attack: 0.1 } }),
-		'strings_b_grave': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["strings_b_grave"])', loop: true, release: 0.5, attack: 0.1 } }),
+		'strings_b_grave': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["strings_b_grave"])', loop: true, release: 0.5, attack: 0.1 } })
 	};
+
+	var pratoSound = new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["prato"])' } });
+	var chimesSound = new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["chimes"])' } });
 
 
 	function esperarAudios(tempoMiliseg, esperar_audios) {

@@ -6,8 +6,9 @@
         public static string pastaSons = "./Sons/";
         public static string pastaSonsOrgao = "./Sons/Orgao/";
         public static string pastaSonsStrings = "./Sons/Strings/";
+		public static string pastaSonsPercussao = "./Sons/Percussao/";
 
-        static string links = "Links.txt";
+		static string links = "Links.txt";
         static string IPs = "IPs.csv";
         static string acordesLinksCsv = "AcordesLinks.txt";
         static string notasLinksCsv = "NotasLinks.txt";

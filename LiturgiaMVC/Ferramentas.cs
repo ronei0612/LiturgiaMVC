@@ -224,8 +224,11 @@ namespace LiturgiaMVC
                     "strings_g#_baixo, " + Variaveis.pastaSonsStrings + "strings sol_ baixo.ogg" + Environment.NewLine +
                     "strings_a_baixo, " + Variaveis.pastaSonsStrings + "strings la baixo.ogg" + Environment.NewLine +
                     "strings_a#_baixo, " + Variaveis.pastaSonsStrings + "strings la_ baixo.ogg" + Environment.NewLine +
-                    "strings_b_baixo, " + Variaveis.pastaSonsStrings + "strings si baixo.ogg" + Environment.NewLine
-                );
+                    "strings_b_baixo, " + Variaveis.pastaSonsStrings + "strings si baixo.ogg" + Environment.NewLine +
+					Environment.NewLine +
+					"chimes, " + Variaveis.pastaSonsPercussao + "chimes.ogg" + Environment.NewLine +
+					"prato, " + Variaveis.pastaSonsPercussao + "prato.ogg" + Environment.NewLine
+				);
             }
 
             var linhas = File.ReadAllLines(Variaveis.arquivoNotasLinks);

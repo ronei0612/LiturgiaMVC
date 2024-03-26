@@ -114,3 +114,6 @@ strings_g#_grave, ./Sons/Strings/strings sol_ grave.ogg
 strings_a_grave, ./Sons/Strings/strings la grave.ogg
 strings_a#_grave, ./Sons/Strings/strings la_ grave.ogg
 strings_b_grave, ./Sons/Strings/strings si grave.ogg
+
+chimes, ./Sons/Percussao/chimes.ogg
+prato, ./Sons/Percussao/prato.ogg
