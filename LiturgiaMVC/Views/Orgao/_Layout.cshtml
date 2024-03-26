@@ -387,6 +387,8 @@
                 case 'opcoes':
                     if (_configurandoTeclas)
                         ocultarSalvarConfiguracaoTeclas();
+                    else if (_gravarCifras)
+                        ocultarGravarCifras();
 
                     selectInstrumento.style.display = 'none';
                     modalGravar.style.display = 'none';
@@ -516,9 +518,16 @@
         }
 
         function gravarCifra(){
+            _gravarCifras = true;
             document.getElementById('tituloGravacaoCifras').style.display = '';
             document.getElementById('linhaVermelha').style.display = '';
             modal01.style.display = 'none';
+            mostrarBateria(false);
+            acompCheckDiv.style.display = 'none';
+            orgaoControle.style.display = 'none';
+            gravarCifrasControle.style.display = '';
+            orgaoCifrasBotoes.style.display = '';
+            ocultarBotoesAcompanhamentosRitmo();
         }
 
         function iniciarCifra() {

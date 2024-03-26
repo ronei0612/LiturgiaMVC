@@ -112,6 +112,7 @@ var _configurandoTeclas = false;
 var _configuracaoElemento;
 var _configuracaoEvento;
 var _teclasConfiguracao = {};
+var _gravarCifras = false;
 
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
@@ -441,8 +442,10 @@ function limparConfiguracaoTodas() {
 function mostrarSalvarConfiguracaoTeclas() {
 	_configurandoTeclas = true;
 	modal01.style.display = 'none';
+
 	tituloConfiguracaoTeclas.style.display = '';
 	document.getElementById('linhaVermelha').style.display = '';
+
 	titulo.style.display = 'none';
 	botaoGravar.style.display = 'none';
 	play_pause.style.display = '';
@@ -450,11 +453,26 @@ function mostrarSalvarConfiguracaoTeclas() {
 	pararBateriaBotao.style.display = '';
 }
 
-function ocultarSalvarConfiguracaoTeclas() {
-	_configurandoTeclas = false;
-	tituloConfiguracaoTeclas.style.display = 'none';
+function ocultarGravarCifras() {
+	_gravarCifras = false;
 	document.getElementById('tituloGravacaoCifras').style.display = 'none';
 	document.getElementById('linhaVermelha').style.display = 'none';
+	orgaoControle.style.display = '';
+	gravarCifrasControle.style.display = 'none';
+
+	ocultarBotoesAcompanhamentosRitmo(false);
+	voltarParaOrgao();
+
+	acompCheckDiv.style.display = '';
+	if (acompCheck.checked)
+		mostrarBateria();
+}
+
+function ocultarSalvarConfiguracaoTeclas() {
+	ocultarGravarCifras();
+
+	_configurandoTeclas = false;
+	tituloConfiguracaoTeclas.style.display = 'none';
 	titulo.style.display = '';
 	tecladoTeclasDiv.style.display = 'none';
 	botaoGravar.style.display = '';
