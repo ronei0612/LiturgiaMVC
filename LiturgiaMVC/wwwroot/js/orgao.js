@@ -141,7 +141,7 @@ const acompCheck = document.getElementById('acompCheck');
 const acompCheckDiv = document.getElementById('acompCheckDiv');
 const bpm = document.getElementById('bpm');
 const selectRitmo = document.getElementById('selectRitmo');
-const botaobotaoGravar = document.getElementById('botaoGravar');
+const botaoBuscar = document.getElementById('botaoBuscar');
 const play_pause = document.getElementById('play_pause');
 const bpmRange = document.getElementById('bpmRange');
 const chimbal = document.getElementById('chimbal');
@@ -247,7 +247,7 @@ const elementos = {
 	autoCheck: autoCheck,
 	bpm: bpm,
 	selectRitmo: selectRitmo,
-	botaobotaoGravar: botaobotaoGravar,
+	botaoBuscar: botaoBuscar,
 	play_pause: play_pause,
 	bpmRange: bpmRange,
 	chimbal: chimbal,
@@ -447,7 +447,7 @@ function mostrarSalvarConfiguracaoTeclas() {
 	document.getElementById('linhaVermelha').style.display = '';
 
 	titulo.style.display = 'none';
-	botaoGravar.style.display = 'none';
+	botaoBuscar.style.display = 'none';
 	play_pause.style.display = '';
 	prepararBateriaBotao.style.display = 'none';
 	pararBateriaBotao.style.display = '';
@@ -457,7 +457,7 @@ function ocultarGravarCifras() {
 	_gravarCifras = false;
 	document.getElementById('tituloGravacaoCifras').style.display = 'none';
 	document.getElementById('linhaVermelha').style.display = 'none';
-	botaoGravar.style.display = '';
+	botaoBuscar.style.display = '';
 	play_pause.style.display = 'none';
 	gravarCifrasControle.style.display = 'none';
 	titulo.style.display = '';
@@ -477,7 +477,7 @@ function ocultarSalvarConfiguracaoTeclas() {
 	tituloConfiguracaoTeclas.style.display = 'none';
 	titulo.style.display = '';
 	tecladoTeclasDiv.style.display = 'none';
-	botaoGravar.style.display = '';
+	botaoBuscar.style.display = '';
 	play_pause.style.display = 'none';
 	prepararBateriaBotao.style.display = '';
 	pararBateriaBotao.style.display = 'none';
@@ -690,7 +690,7 @@ function deixarAcompanhamentoSelecionado(funcao) {
 }
 
 function ocultarBotaoRec(ocultar = true) {
-	botaoGravar.style.display = ocultar ? 'none' : 'block';
+	botaoBuscar.style.display = ocultar ? 'none' : 'block';
 	play_pause.style.display = ocultar ? 'block' : 'none';
 }
 
@@ -1354,7 +1354,7 @@ function avancarCifra(avancar_retroceder, botao) {
 	}
 	if (avancar_retroceder === '') {
 		escolherAcorde('', botao);
-		botaoGravar.style.display = 'block';
+		botaoBuscar.style.display = 'block';
 		play_pause.style.display = 'none';
 	}
 
@@ -1415,7 +1415,7 @@ function avancarCifra(avancar_retroceder, botao) {
 			}
 		}
 
-		botaoGravar.style.display = 'none';
+		botaoBuscar.style.display = 'none';
 		play_pause.style.display = 'block';
 	}
 }
