@@ -1956,8 +1956,10 @@ function SearchAcordes(cifraTexto) {
 		}
 	});
 
-	texto.pop(); //Remove o último '\n'
-	texto.pop(); //Remove o último ' '
+	if (texto[texto.length - 1] === '\n')
+		texto.pop(); //Remove o último '\n'
+	if (texto[texto.length - 1] === ' ')
+		texto.pop(); //Remove o último ' '
 	texto.push("</pre>");
 
 	return texto.join("");
