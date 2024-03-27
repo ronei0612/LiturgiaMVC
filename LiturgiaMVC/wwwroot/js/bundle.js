@@ -902,11 +902,11 @@ var _colId;
             source.connect(gainNode);
             return gainNode;
         }
-        function tocarBateria(botao = null) {
+        function tocarBateria(botao = null, tocar) {
             if (botao) {
                 if (!schedule.running)
                     playBateria();
-                else
+                else if (!tocar)
                     stopBateria();
             }
             else
@@ -915,7 +915,7 @@ var _colId;
 function setupBaseEvents() {
     function verificarETocarBateria(mudarRitmoNome, tunerAcompanhamento, instrumentoAcompanhamento) {
         if (verificarETocarBateria_2(tunerAcompanhamento, instrumentoAcompanhamento)) {
-            tocarBateria(document.activeElement);
+            tocarBateria(document.activeElement, mudarRitmoNome === 'cravo' || mudarRitmoNome === 'brushCravo');
             mudarRitmo(mudarRitmoNome);
         }
     }
