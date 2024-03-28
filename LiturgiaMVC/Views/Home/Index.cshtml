@@ -1,29 +1,415 @@
-﻿@model LinksModel
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Drive Folder Access</title>
+</head>
+<body>
+    <button onclick="authorizeGoogle()">Autorizar e Compartilhar</button>
 
-@{
-    ViewData["Title"] = "Liturgia";
-}
+    <br />
+    <button onclick="editarArquivo()">Atualizar</button>
 
-<div class="">
+    <script>
+        //Autorizar google api: https://console.developers.google.com/apis/api/drive.googleapis.com/overview?project=982717214287
 
-    @if (Model.LinksDict != null)
-    {
-        if (Model.LinksDict.Count > 0)
-        {
-            foreach (var linha in Model.LinksDict)
-            {
-                <a href="@linha.Value">
-                    <img class="rounded" src="@linha.Key" />
-                </a>
+        // ID da pasta compartilhada no Google Drive
+        //const folderId = '1sA7VzOjxeFuF3fx7Ttf0GPqBQAop6G88';
+
+        // Configurações de OAuth2
+        const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com';
+        const redirectUri = 'https://localhost:7188/home'; // URL de redirecionamento após a autorização
+        const scope = 'https://www.googleapis.com/auth/drive';
+
+        // Função para iniciar a autorização com o Google
+        function authorizeGoogle() {
+            //const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(folderId)}`;
+            const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${encodeURIComponent(scope)}`;
+            window.location.href = authUrl;
+        }
+
+        // Função para processar o token de acesso e compartilhar a pasta
+        function processToken() {
+            const urlParams = new URLSearchParams(window.location.hash.substr(1));
+            const accessToken = urlParams.get('access_token');
+            const state = urlParams.get('state');
+
+            if (accessToken && state) {
+                localStorage.setItem('accessToken', accessToken);
+                //shareFolder(state, accessToken);
+                console.log('Token de acesso obtido com sucesso:', accessToken);
+            } else {
+                console.error('Erro ao obter o token de acesso ou ID da pasta.');
             }
         }
 
-        else
-        {
-            <input type="button"
-                   value="Não há links configurados, clique aqui para configurar"
-                   onclick="location.href='@Url.Action("Index", "Links")'" />
-        }
-    }
+        // // Função para compartilhar a pasta com o usuário
+        // function shareFolder(folderId, accessToken) {
+        //     const shareUrl = `https://www.googleapis.com/drive/v3/files/${folderId}/permissions`;
+        //     const requestBody = {
+        //         role: 'reader', // Define a permissão como leitura (reader)
+        //         type: 'anyone', // Compartilha com qualquer pessoa que tenha o link
+        //         allowFileDiscovery: false // Evita que os arquivos sejam visíveis nos resultados de pesquisa
+        //     };
 
-</div>
+        //     fetch(shareUrl, {
+        //         method: 'POST',
+        //         headers: {
+        //             'Authorization': `Bearer ${accessToken}`,
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(requestBody)
+        //     })
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log('Pasta compartilhada com sucesso:', data);
+        //         })
+        //         .catch(error => {
+        //             console.error('Erro ao compartilhar a pasta:', error);
+        //         });
+        // }
+
+        // Verificar se a página foi carregada com um token de acesso
+        window.onload = function () {
+            if (window.location.hash) {
+                processToken();
+            }
+        };
+
+        // function uploadFile() {
+        //     const fileInput = document.getElementById('fileInput');
+        //     const file = fileInput.files[0];
+        //     const arquivoId = '1dfdDjTaIjxLxdmsBsz-Qc5WLnyH1zSoE'; // Substitua pelo ID do arquivo que você deseja substituir
+        //     const metadata = {
+        //         name: file.name,
+        //     };
+        //     const reader = new FileReader();
+        //     var url = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=media';
+        //     url = `https://www.googleapis.com/upload/drive/v3/files/${arquivoId}?uploadType=media`;
+
+        //     reader.onload = function (e) {
+        //         const content = e.target.result;
+        //         const accessToken = 'ya29.a0Ad52N3_imuHZ0pdQjPYLNRQv0TTz2cstFBBkvJJNQXa44KjB7wwU6cHupYP1Y2b0lHdkjVTGc1gGQaVUhIimD3vpXHUVYdHOF2I77x1V_t41hM0q4UbHbk-Af0uAd8vYInq4buuZryvFYxd97p2D3isdyu_dXaVHZwaCgYKASESARASFQHGX2MiCDR6FN5ePCQKU96Y1H4yIQ0169';
+        //         const headers = new Headers();
+        //         headers.append('Authorization', 'Bearer ' + accessToken);
+        //         headers.append('Content-Type', file.type);
+
+        //         fetch(url, {
+        //             method: 'POST',
+        //             headers: headers,
+        //             body: content,
+        //         }).then(response => {
+        //             return response.json(); // Parse the response as JSON
+        //         }).then(data => {
+        //             const fileId = data.id; // Extract file ID from the response
+        //             const fileLink = `https://drive.google.com/file/d/${fileId}/view`; // Construct file link
+        //             localStorage.setItem('gDriveID', fileId);
+
+        //             console.log('File uploaded successfully, id:', fileId);
+        //             console.log('File uploaded link:', fileLink);
+        //             // You can now use 'fileLink' for further processing or display
+        //         }).catch(error => {
+        //             console.error('Error uploading file:', error);
+        //         });
+        //     };
+        //     reader.readAsArrayBuffer(file);
+        // }
+
+        // Função para criar um arquivo no Google Drive
+        function criarArquivo(texto) {
+            const accessToken = localStorage.getItem('accessToken');
+
+            if (!accessToken) {
+                console.error('Token de acesso não encontrado.');
+                return;
+            }
+
+            fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'text/plain' // Especifica o tipo de conteúdo como texto plano
+                },
+                body: texto
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const fileId = data.id;
+                    const fileLink = `https://drive.google.com/file/d/${fileId}/view`; // Construct file link
+
+                    console.log('Arquivo criado com sucesso. ID do arquivo:', fileId);
+                    console.log('File uploaded link:', fileLink);
+
+                    localStorage.setItem('fileId', fileId); // Armazena o ID do arquivo no localStorage
+                })
+                .catch(error => {
+                    console.error('Erro ao criar o arquivo:', error);
+                });
+        }
+
+        function editarArquivo(texto) {
+            const accessToken = localStorage.getItem('accessToken');
+            if (!accessToken) {
+                console.error('Token de acesso não encontrado.');
+                return;
+            }
+
+            const arquivoId = localStorage.getItem('gDriveID');
+            if (!arquivoId) {
+                criarArquivo('bbb');
+                return;
+            }
+            
+            // URL da solicitação para editar o arquivo
+            const url = `https://www.googleapis.com/upload/drive/v3/files/${arquivoId}`;
+
+            // Fazer a solicitação PATCH para editar o arquivo
+            fetch(url, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: texto
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Arquivo editado com sucesso.');
+                    } else {
+                        console.error('Erro ao editar o arquivo:', response.statusText);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao editar o arquivo:', error);
+                });
+        }
+    </script>
+</body>
+</html>
+
+
+@* <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAuth2 Google Login</title>
+</head>
+<body>
+    <button onclick="gerarTokenCompleto()">Login com Google</button>
+    <br />
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload</button>
+
+    <script>
+        // Configurações de OAuth2
+        const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com';
+        const redirectUri = 'https://localhost:7188/home';
+        const scope = [
+            'https://www.googleapis.com/auth/drive',
+            'https://www.googleapis.com/auth/drive.file',
+        ].join(' ');
+
+        // Função para iniciar a autorização com o Google
+        function authorizeGoogle() {
+            const authUrl = 'https://accounts.google.com/o/oauth2/auth' +
+                `?client_id=${clientId}` +
+                `&redirect_uri=${redirectUri}` +
+                '&response_type=token' +
+                `&scope=${encodeURIComponent(scope)}`;
+            window.location.href = authUrl;
+        }
+
+        // Função para processar o token de acesso
+        function processToken() {
+            const urlParams = new URLSearchParams(window.location.hash.substr(1));
+            const accessToken = urlParams.get('access_token');
+            const tokenType = urlParams.get('token_type');
+            const expiresIn = urlParams.get('expires_in');
+
+            // Armazenar o token de acesso no localStorage
+            localStorage.setItem('accessToken', accessToken);
+
+            // Aqui você pode usar o token de acesso para fazer solicitações à API do Google Drive
+            console.log('Token de acesso:', accessToken);
+        }
+
+        // Função para verificar se há um token de acesso no localStorage
+        function checkStoredToken() {
+            this.storedToken = localStorage.getItem('accessToken');
+            if (this.storedToken) {
+                console.log('Token encontrado no localStorage:', storedToken);
+                // Aqui você pode usar o token de acesso armazenado para fazer solicitações à API do Google Drive
+            } else {
+                console.log('Nenhum token encontrado no localStorage');
+                // Se não houver token no localStorage, iniciar o processo de autorização
+                authorizeGoogle();
+            }
+        }
+
+        // Verificar se a página foi carregada com um token de acesso
+        window.onload = function () {
+            if (window.location.hash) {
+                processToken();
+            } else {
+                checkStoredToken();
+            }
+        };
+
+        function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const metadata = {
+                name: file.name,
+            };
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const content = e.target.result;
+                const accessToken = this.storedToken;
+                const headers = new Headers();
+                headers.append('Authorization', 'Bearer ' + accessToken);
+                headers.append('Content-Type', file.type);
+
+                fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
+                    method: 'POST',
+                    headers: headers,
+                    body: content,
+                }).then(response => {
+                    return response.json(); // Parse the response as JSON
+                }).then(data => {
+                    const fileId = data.id; // Extract file ID from the response
+                    const fileLink = `https://drive.google.com/file/d/${fileId}/view`; // Construct file link
+                    console.log('File uploaded successfully, link:', fileLink);
+                    // You can now use 'fileLink' for further processing or display
+                }).catch(error => {
+                    console.error('Error uploading file:', error);
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+
+
+
+
+
+
+
+        // const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com';
+        // const clientSecret = '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';
+        // const redirectUri = 'https://localhost:7188/home';
+
+        // async function gerarCodigoAutorizacao() {
+        //     const url = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=https://www.googleapis.com/auth/drive&access_type=offline`;
+        //     window.location.href = url;
+        // }
+
+        // async function gerarRefreshToken(code) {
+        //     //code: code=4/0AeaYSHCVDl9C8P4dzD5H4SFUQ1uVoi5C9djvF5PsmkJfN2_j9aORdy0xBh9IDVorsND6CA
+        //     //curl --request POST --data "code=code=4/0AeaYSHCVDl9C8P4dzD5H4SFUQ1uVoi5C9djvF5PsmkJfN2_j9aORdy0xBh9IDVorsND6CA&client_id=982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com&client_secret=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&redirect_uri=https://localhost:7188/home&grant_type=authorization_code" https://oauth2.googleapis.com/token
+        //     const url = 'https://oauth2.googleapis.com/token';
+        //     const body = new URLSearchParams({
+        //         code: code,
+        //         client_id: clientId,
+        //         client_secret: clientSecret,
+        //         redirect_uri: redirectUri,
+        //         grant_type: 'authorization_code'
+        //     });
+
+        //     const response = await fetch(url, {
+        //         method: 'POST',
+        //         body: body,
+        //         headers: {
+        //             'Content-Type': 'application/x-www-form-urlencoded'
+        //         }
+        //     });
+
+        //     const data = await response.json();
+        //     if (response.ok) {
+        //         return data.refresh_token;
+        //     } else {
+        //         throw new Error(data.error_description || 'Failed to generate refresh token');
+        //     }
+        // }
+
+        // async function gerarAccessToken(refreshToken) {
+        //     const url = 'https://oauth2.googleapis.com/token';
+        //     const body = new URLSearchParams({
+        //         refresh_token: refreshToken,
+        //         client_id: clientId,
+        //         client_secret: clientSecret,
+        //         grant_type: 'refresh_token'
+        //     });
+
+        //     const response = await fetch(url, {
+        //         method: 'POST',
+        //         body: body,
+        //         headers: {
+        //             'Content-Type': 'application/x-www-form-urlencoded'
+        //         }
+        //     });
+
+        //     const data = await response.json();
+        //     if (response.ok) {
+        //         return data.access_token;
+        //     } else {
+        //         throw new Error(data.error_description || 'Failed to generate access token');
+        //     }
+        // }
+
+        // async function gerarTokenCompleto() {
+        //     // try {
+        //     //     // Gerar código de autorização
+        //     //     await gerarCodigoAutorizacao();
+        //     // } catch (error) {
+        //     //     console.error('Erro ao gerar código de autorização:', error.message);
+        //     //     return;
+        //     // }
+
+        //     let codigoAutorizacao = '';
+        //     codigoAutorizacao = localStorage.getItem('Gcode');
+        //     if (!codigoAutorizacao) {
+        //         // Gerar código de autorização
+        //         await gerarCodigoAutorizacao();
+        //         // Extrair o código de autorização da URL após o redirecionamento
+        //         codigoAutorizacao = new URLSearchParams(window.location.search).get('code');
+        //         console.log(codigoAutorizacao);
+        //         localStorage.setItem('Gcode', codigoAutorizacao);
+        //     }
+
+        //     let refreshToken = '';
+        //     refreshToken = localStorage.getItem(codigoAutorizacao);
+        //     if (!refreshToken) {
+        //         refreshToken = await gerarRefreshToken(codigoAutorizacao);
+        //         console.log('Refresh Token gerado:', refreshToken);
+        //         localStorage.setItem('refreshToken', refreshToken);
+        //     }
+
+        //     // try {
+        //     //     // Gerar Refresh Token com o código de autorização
+        //     //     const refreshToken = await gerarRefreshToken(codigoAutorizacao);
+        //     //     console.log('Refresh Token gerado:', refreshToken);
+
+        //     //     // Armazenar Refresh Token no Local Storage
+        //     //     localStorage.setItem('refreshToken', refreshToken);
+
+        //     //     // Gerar Access Token com o Refresh Token
+        //     //     const accessToken = await gerarAccessToken(refreshToken);
+        //     //     console.log('Access Token gerado:', accessToken);
+
+        //     //     // Armazenar Access Token no Local Storage
+        //     //     localStorage.setItem('accessToken', accessToken);
+        //     // } catch (error) {
+        //     //     console.error('Erro ao gerar tokens:', error.message);
+        //     // }
+        // }
+
+        // // Chamar a função para gerar todos os tokens
+        // //gerarTokenCompleto();
+
+
+    </script>
+</body>
+</html>
+ *@
