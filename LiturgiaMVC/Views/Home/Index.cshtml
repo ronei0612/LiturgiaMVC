@@ -9,7 +9,7 @@
     <button onclick="authorizeGoogle()">Autorizar e Compartilhar</button>
 
     <br />
-    <button onclick="editarArquivo('aaafff')">Atualizar</button>
+    <button onclick="lerArquivo('')">Atualizar</button>
 
     <script>
         //Autorizar google api: https://console.developers.google.com/apis/api/drive.googleapis.com/overview?project=982717214287
@@ -46,10 +46,10 @@
         }
 
         // Função para ler um arquivo do Google Drive
-        function lerArquivo(storageName) {
-            storageName = 'fileId';
+        function lerArquivo(arquivoId) {
+            if (!arquivoId)
+                arquivoId = localStorage.getItem('fileId');
 
-            const arquivoId = localStorage.getItem(storageName);
             if (!arquivoId) {
                 console.log('Arquivo ainda não criado');
                 return;
