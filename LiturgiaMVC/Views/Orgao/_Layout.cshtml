@@ -187,7 +187,14 @@
 
                 <div id="salvarDiv">
                     <br />
-                    <h4>Salvamentos</h4>
+                    <h4>Salvamentos
+                        &nbsp;
+                        <button class="btn btn-secondary" type="button" onclick="compartilhar_Salvamentos()">
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+                                <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5" />
+                            </svg>
+                        </button>
+                    </h4>
                     Selecionar salvamento:
                     <br />
                     <select class="form-control" tyle="height:3m" id="selectSalvamento">
@@ -309,11 +316,13 @@
     @if (ViewContext.HttpContext.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
     {
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/google.js" asp-append-version="true"></script>
         <script src="~/js/orgao.js" asp-append-version="true"></script>
     }
     else
     {
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/google.min.js" asp-append-version="true"></script>
         <script src="~/js/orgao.min.js" asp-append-version="true"></script>
     }
 
@@ -675,6 +684,11 @@
                     modal01.style.display = 'none';
                 }
             }
+        }
+
+        function compartilhar_Salvamentos() {
+            modal01.style.display = 'none';
+            validarToken();
         }
 
         function carregar_Salvamento() {

@@ -5,7 +5,7 @@
 
 // Configurações de OAuth2
 const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com';
-const redirectUri = 'https://localhost:7188/home'; // URL de redirecionamento após a autorização
+const redirectUri = 'https://localhost:7188/orgao'; // URL de redirecionamento após a autorização
 const scope = 'https://www.googleapis.com/auth/drive';
 
 // Função para iniciar a autorização com o Google
@@ -65,13 +65,13 @@ function lerArquivo(arquivoId) {
 }
 
 // Verificar se a página foi carregada com um token de acesso
-//window.onload = function () {
-//    if (window.location.hash) {
-//        processToken();
-//    }
+window.onload = function () {
+    if (window.location.hash) {
+        processToken();
+    }
 
-//    validarToken();
-//};
+    //validarToken();
+};
 
 // Função para criar um arquivo no Google Drive
 function criarArquivoComTexto(texto) {
@@ -183,6 +183,7 @@ function validarToken() {
         .catch(error => {
             console.error(error);
             localStorage.removeItem('accessToken');
+            authorizeGoogle();
         });
 }
 
