@@ -51,6 +51,11 @@ namespace LiturgiaMVC.Controllers
             return View("Compendio");
         }
 
+        public IActionResult Santos()
+        {
+            return View("Santos");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
