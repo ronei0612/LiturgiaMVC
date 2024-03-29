@@ -36,6 +36,11 @@ namespace LiturgiaMVC.Controllers
             return View("Confissao");
         }
 
+        public IActionResult Decalogo()
+        {
+            return View("Decalogo");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

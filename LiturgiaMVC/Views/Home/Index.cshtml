@@ -5,27 +5,6 @@
 }
 
 <div class="">
-
-    @* @if (Model.LinksDict != null)
-    {
-        if (Model.LinksDict.Count > 0)
-        {
-            foreach (var linha in Model.LinksDict)
-            {
-                <a href="@linha.Value">
-                    <img class="rounded" src="@linha.Key" />
-                </a>
-            }
-        }
-
-        else
-        {
-            <input type="button"
-                   value="Não há links configurados, clique aqui para configurar"
-                   onclick="location.href='@Url.Action("Index", "Links")'" />
-        }
-    } *@
-
     <div style="text-align: center;">
         <figure style="display: inline-block;">
             <a href="https://www.youtube.com/playlist?list=PLW4XZpSEOqXWV1OD6czlaMx6eubosHABj">
@@ -36,9 +15,17 @@
 
         <figure style="display: inline-block;">
             <a asp-area="" asp-controller="Home" asp-action="Confissao">
+                @* <img class="rounded" style="object-fit:none; width:445px; height:250px"*@
                 <img class="rounded home" src="./img/confissao.webp" />
             </a>
             <figcaption style="color: black; font-size: x-large;">Manual de Confissão</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="Decalogo">
+                <img class="rounded home" src="./img/decalogo.webp" />
+            </a>
+            <figcaption style="color: black; font-size: x-large;">Dez Mandamentos</figcaption>
         </figure>
     </div>
 
