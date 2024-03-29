@@ -8,10 +8,6 @@
 
 		if (textoCifrasFrame.style.display !== 'none')
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
-			
-		//document.getElementById('bateria').style.display = '';
-		//document.getElementById('bateria').style.color = '#000';
-		//document.getElementById('textoRitmo').style.color = '#fff';
 
 		var elements = document.getElementsByClassName("nav-link");
 		for (var i = 0; i < elements.length; i++)
@@ -24,7 +20,10 @@
     else {
 		document.body.classList = "bg-dark text-light orgao-background-dark";
 		navBar.classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black box-shadow mb-3";
-		document.getElementsByClassName("w3-modal-content")[0].style.cssText = 'background-color: #505050!important';
+
+		let modal = document.getElementsByClassName("w3-modal-content");
+		if (modal)
+			modal[0].style.cssText = 'background-color: #505050!important';
 
 		if (textoCifrasFrame.style.display !== 'none')
 			textoCifras.contentWindow.document.querySelector('pre').style.color = '#fff';
