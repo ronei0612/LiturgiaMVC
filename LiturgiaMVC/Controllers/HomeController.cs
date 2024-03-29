@@ -41,6 +41,16 @@ namespace LiturgiaMVC.Controllers
             return View("Decalogo");
         }
 
+        public IActionResult Catecismo()
+        {
+            return View("Catecismo");
+        }
+
+        public IActionResult Compendio()
+        {
+            return View("Compendio");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
