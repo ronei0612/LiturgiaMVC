@@ -6,7 +6,7 @@
 
 <div class="">
 
-    @if (Model.LinksDict != null)
+    @* @if (Model.LinksDict != null)
     {
         if (Model.LinksDict.Count > 0)
         {
@@ -24,6 +24,23 @@
                    value="Não há links configurados, clique aqui para configurar"
                    onclick="location.href='@Url.Action("Index", "Links")'" />
         }
-    }
+    } *@
+
+    <div style="text-align: center;">
+        <figure style="display: inline-block;">
+            <a href="https://www.youtube.com/playlist?list=PLW4XZpSEOqXWV1OD6czlaMx6eubosHABj">
+                <img class="rounded home" src="https://r2.padrepauloricardo.org/uploads/programa/share_image/23/homilia-dia%CC%81ria-rede.jpg" />
+            </a>
+            <figcaption style="color: black; font-size: x-large;">Resposta Católica</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="Confissao">
+                @* <img class="rounded" style="object-fit:none; width:445px; height:250px" src="https://imgv2-1-f.scribdassets.com/img/document/529204645/original/e047ee14b5/1707139560?v=1" /> *@
+                <img class="rounded home" style="object-fit:none; width:445px; height:250px" src="https://s3.amazonaws.com/media.clubedeautores.com.br/cover_images/630769/big_cover_front.png" />
+            </a>
+            <figcaption style="color: black; font-size: x-large;">Manual de Confissão</figcaption>
+        </figure>
+    </div>
 
 </div>
