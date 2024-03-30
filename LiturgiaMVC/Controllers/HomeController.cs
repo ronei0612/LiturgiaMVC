@@ -66,6 +66,16 @@ namespace LiturgiaMVC.Controllers
             return View("CarloAcutis");
         }
 
+        public IActionResult CatecismoSaoPioX()
+        {
+            return View("CatecismoSaoPioX");
+        }
+
+        public IActionResult Tratado()
+        {
+            return View("Tratado");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
