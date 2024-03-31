@@ -81,6 +81,7 @@ namespace LiturgiaMVC
             var dataHoraBrasilia = DateTime.Now.AddHours(2);
             var dataHora = dataHoraBrasilia.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
             var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
+            userAgent = userAgent.Replace(';', ',');
 
             try
             {
