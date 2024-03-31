@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace LiturgiaMVC
@@ -74,15 +75,16 @@ namespace LiturgiaMVC
             var host = httpContext.Request.Host.Value;
             var path = httpContext.Request.Path.Value;
 
-            var dataHoraBrasilia = DateTime.Now.AddHours(3);
+            var dataHoraBrasilia = DateTime.Now.AddHours(2);
             var dataHora = dataHoraBrasilia.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
+            var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
 
             try
             {
                 if (File.Exists(Variaveis.arquivoIPs) == false)
-                    File.WriteAllText(Variaveis.arquivoIPs, "IP;EndPoint;Data e Hora");
+                    File.WriteAllText(Variaveis.arquivoIPs, "IP;EndPoint;UserAgent;Data e Hora");
 
-                File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
+                File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + userAgent + ";" + dataHora);
             }
             catch { }
         }
