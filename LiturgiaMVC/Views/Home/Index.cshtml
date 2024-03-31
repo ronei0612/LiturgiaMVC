@@ -1,29 +1,87 @@
-﻿@model LinksModel
-
-@{
+﻿@{
     ViewData["Title"] = "Liturgia";
 }
 
 <div class="">
+    <div style="text-align: center;">
+        <figure style="display: inline-block;">
+            <a href="https://www.youtube.com/playlist?list=PLW4XZpSEOqXWV1OD6czlaMx6eubosHABj">
+                <img class="rounded home" src="https://r2.padrepauloricardo.org/uploads/programa/share_image/23/homilia-dia%CC%81ria-rede.jpg" />
+            </a>
+            <figcaption class="tituloImagem">Resposta Católica</figcaption>
+        </figure>
 
-    @if (Model.LinksDict != null)
-    {
-        if (Model.LinksDict.Count > 0)
-        {
-            foreach (var linha in Model.LinksDict)
-            {
-                <a href="@linha.Value">
-                    <img class="rounded" src="@linha.Key" />
-                </a>
-            }
-        }
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="MilagresEucaristicos">
+            @* <a href="http://www.miracolieucaristici.org/pr/Liste/list.html"> *@
+                <img class="rounded home" src="./img/carlos.webp" />
+            </a>
+            <figcaption class="tituloImagem">Milagres Eucarísticos</figcaption>
+        </figure>
 
-        else
-        {
-            <input type="button"
-                   value="Não há links configurados, clique aqui para configurar"
-                   onclick="location.href='@Url.Action("Index", "Links")'" />
-        }
-    }
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="Santos">
+                <img class="rounded home" src="./img/santos.webp" />
+            </a>
+            <figcaption class="tituloImagem">Santos da Igreja</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="Confissao">
+                @* <img class="rounded" style="object-fit:none; width:445px; height:250px"*@
+                <img class="rounded home" src="./img/confissao.webp" />
+            </a>
+            <figcaption class="tituloImagem">Manual de Confissão</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="Decalogo">
+                <img class="rounded home" src="./img/decalogo.webp" />
+            </a>
+            <figcaption class="tituloImagem">Dez Mandamentos</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="NovoTestamento" asp-action="Index">
+                <img class="rounded home" src="./img/evangelho.webp" />
+            </a>
+            <figcaption class="tituloImagem">Novo Testamento e Apócrifos</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="Tratado">
+                <img class="rounded home" src="./img/tratado.webp" />
+            </a>
+            <figcaption class="tituloImagem">Tratado da Verdadeira Devoção</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="Catecismo">
+                <img class="rounded home" src="./img/catecismo.webp" />
+            </a>
+            <figcaption class="tituloImagem">Catecismo</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="Compendio">
+                <img class="rounded home" src="./img/compendio.webp" />
+            </a>
+            <figcaption class="tituloImagem">Compêndio</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Home" asp-action="CatecismoSaoPioX">
+                <img class="rounded home" src="./img/catecismosaopiox.webp" />
+            </a>
+            <figcaption class="tituloImagem">Catecismo São Pio X</figcaption>
+        </figure>
+
+        <figure style="display: inline-block;">
+            <a asp-area="" asp-controller="Orgao" asp-action="Index">
+                <img class="rounded home" src="./img/orgao-background.webp" />
+            </a>
+            <figcaption class="tituloImagem">Órgão</figcaption>
+        </figure>
+    </div>
 
 </div>

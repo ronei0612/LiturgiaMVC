@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" charset="utf-8">
 
-    <title>@ViewData["Title"] - Liturgia</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/LiturgiaMVC.styles.css" asp-append-version="true" />
 
@@ -74,10 +74,27 @@
         </main>
     </div>
 
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    @if (ViewContext.HttpContext.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
+    {
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    }
+    else
+    {
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    }
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function darkModeLocalStorage() {
+            var darkMode = localStorage.getItem('darkMode');
+            if (darkMode && darkMode === 'true') {
+                    switchDark.checked = true;
+                    switchDark.dispatchEvent(new Event('click'));
+            }
+        }
+        darkModeLocalStorage();
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -31,6 +31,61 @@ namespace LiturgiaMVC.Controllers
             return View();
         }
 
+        public IActionResult Confissao()
+        {
+            return View("Confissao");
+        }
+
+        public IActionResult Decalogo()
+        {
+            return View("Decalogo");
+        }
+
+        public IActionResult Catecismo()
+        {
+            return View("Catecismo");
+        }
+
+        public IActionResult Compendio()
+        {
+            return View("Compendio");
+        }
+
+        public IActionResult Santos()
+        {
+            return View("Santos");
+        }
+
+        public IActionResult PadrePio()
+        {
+            return View("PadrePio");
+        }
+
+        public IActionResult CarloAcutis()
+        {
+            return View("CarloAcutis");
+        }
+
+        public IActionResult CatecismoSaoPioX()
+        {
+            return View("CatecismoSaoPioX");
+        }
+
+        public IActionResult Tratado()
+        {
+            return View("Tratado");
+        }
+
+        public IActionResult MilagresEucaristicos()
+        {
+            return View("MilagresEucaristicos");
+        }
+
+        public IActionResult Evangelho()
+        {
+            return View("Evangelho");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

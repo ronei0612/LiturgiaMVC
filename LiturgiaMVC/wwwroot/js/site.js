@@ -1,41 +1,54 @@
 ﻿function DarkMode() {
 	localStorage.setItem('darkMode', switchDark.checked);
+	const modal = document.getElementsByClassName("w3-modal-content");
 
 	if (document.body.classList.contains("bg-dark")) {
 		document.body.classList = "bg-light text-dark orgao-background";
 		navBar.classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3";
-		document.getElementsByClassName("w3-modal-content")[0].style.cssText = 'background-color: #fff!important';
 
-		if (textoCifrasFrame.style.display !== 'none')
-			textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
-			
-		//document.getElementById('bateria').style.display = '';
-		//document.getElementById('bateria').style.color = '#000';
-		//document.getElementById('textoRitmo').style.color = '#fff';
+		if (modal.length > 0)
+			modal[0].style.cssText = 'background-color: #fff!important';
 
-		var elements = document.getElementsByClassName("nav-link");
+		if (typeof textoCifrasFrame !== 'undefined')
+			if (textoCifrasFrame.style.display !== 'none')
+				textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
+
+		var elements = document.getElementsByClassName("nav-link orgao");
 		for (var i = 0; i < elements.length; i++)
 			elements[i].style.color = '#0d6efd';
+			//elements[i].style.color = 'rgba(0, 0, 0, .55)';
 
 		elements = document.getElementsByClassName("TextoMissal");
 		for (var i = 0; i < elements.length; i++)
 			elements[i].style.color = '#9c7b3e';
+
+		elements = document.getElementsByClassName("tituloImagem");
+		for (var i = 0; i < elements.length; i++)
+			elements[i].style.color = '#000';
     }
     else {
 		document.body.classList = "bg-dark text-light orgao-background-dark";
 		navBar.classList = "navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black box-shadow mb-3";
-		document.getElementsByClassName("w3-modal-content")[0].style.cssText = 'background-color: #505050!important';
 
-		if (textoCifrasFrame.style.display !== 'none')
-			textoCifras.contentWindow.document.querySelector('pre').style.color = '#fff';
+		if (modal.length > 0)
+			modal[0].style.cssText = 'background-color: #505050!important';
+
+		if (typeof textoCifrasFrame !== 'undefined')
+			if (textoCifrasFrame.style.display !== 'none')
+				textoCifras.contentWindow.document.querySelector('pre').style.color = '#fff';
 				
-		var elements = document.getElementsByClassName("nav-link");
+		var elements = document.getElementsByClassName("nav-link orgao");
 		for (var i = 0; i < elements.length; i++)
 			elements[i].style.color = '#74acff';
+			//elements[i].style.color = rgba(0, 0, 0, .55);
 
 		elements = document.getElementsByClassName("TextoMissal");
 		for (var i = 0; i < elements.length; i++)
 			elements[i].style.color = '#b3a58a';
+
+		elements = document.getElementsByClassName("tituloImagem");
+		for (var i = 0; i < elements.length; i++)
+			elements[i].style.color = '#fff';
     }
 }
 

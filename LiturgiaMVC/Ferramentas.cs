@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
 namespace LiturgiaMVC
@@ -70,21 +72,38 @@ namespace LiturgiaMVC
 
         public static void EscreverInfoCliente(HttpContext httpContext)
         {
+#if !DEBUG
+            VerificarTamanhoMaximIps();
+
             var ip = httpContext.Connection.RemoteIpAddress?.ToString();
             var host = httpContext.Request.Host.Value;
             var path = httpContext.Request.Path.Value;
 
-            var dataHoraBrasilia = DateTime.Now.AddHours(3);
+            var dataHoraBrasilia = DateTime.Now.AddHours(2);
             var dataHora = dataHoraBrasilia.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
+            var userAgent = httpContext.Request.Headers["User-Agent"].ToString();
+            userAgent = userAgent.Replace(';', ',');
 
             try
             {
                 if (File.Exists(Variaveis.arquivoIPs) == false)
-                    File.WriteAllText(Variaveis.arquivoIPs, "IP;EndPoint;Data e Hora");
+                    File.WriteAllText(Variaveis.arquivoIPs, "IP;EndPoint;UserAgent;Data e Hora");
 
-                File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + dataHora);
+                File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + userAgent + ";" + dataHora);
             }
             catch { }
+#endif
+        }
+
+        static void VerificarTamanhoMaximIps()
+        {
+            if (File.Exists(Variaveis.arquivoIPs)) {
+                var dezMegas = 1000000;
+                var fileInfo = new FileInfo(Variaveis.arquivoIPs);
+
+                if (fileInfo.Length > dezMegas)
+                    File.Delete(Variaveis.arquivoIPs);
+            }
         }
 
         public static void LerArquivoAcordesLista()
