@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -71,6 +72,8 @@ namespace LiturgiaMVC
 
         public static void EscreverInfoCliente(HttpContext httpContext)
         {
+            VerificarTamanhoMaximIps();
+
             var ip = httpContext.Connection.RemoteIpAddress?.ToString();
             var host = httpContext.Request.Host.Value;
             var path = httpContext.Request.Path.Value;
@@ -87,6 +90,17 @@ namespace LiturgiaMVC
                 File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + userAgent + ";" + dataHora);
             }
             catch { }
+        }
+
+        static void VerificarTamanhoMaximIps()
+        {
+            if (File.Exists(Variaveis.arquivoIPs)) {
+                var dezMegas = 1000000;
+                var fileInfo = new FileInfo(Variaveis.arquivoIPs);
+
+                if (fileInfo.Length > dezMegas)
+                    File.Delete(Variaveis.arquivoIPs);
+            }
         }
 
         public static void LerArquivoAcordesLista()
