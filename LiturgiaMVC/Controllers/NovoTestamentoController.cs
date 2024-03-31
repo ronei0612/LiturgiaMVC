@@ -2,7 +2,7 @@
 
 namespace LiturgiaMVC.Controllers
 {
-    public class EvangelhosController : Controller
+    public class NovoTestamentoController : Controller
     {
         public IActionResult Index()
         {
@@ -40,6 +40,11 @@ namespace LiturgiaMVC.Controllers
         }
 
         public IActionResult Joao()
+        {
+            return View();
+        }
+
+        public IActionResult Tiago()
         {
             return View();
         }
