@@ -72,6 +72,7 @@ namespace LiturgiaMVC
 
         public static void EscreverInfoCliente(HttpContext httpContext)
         {
+#if !DEBUG
             VerificarTamanhoMaximIps();
 
             var ip = httpContext.Connection.RemoteIpAddress?.ToString();
@@ -91,6 +92,7 @@ namespace LiturgiaMVC
                 File.AppendAllText(Variaveis.arquivoIPs, Environment.NewLine + ip + ";" + host + path + ";" + userAgent + ";" + dataHora);
             }
             catch { }
+#endif
         }
 
         static void VerificarTamanhoMaximIps()
