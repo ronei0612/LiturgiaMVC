@@ -76,6 +76,11 @@ namespace LiturgiaMVC.Controllers
             return View("Tratado");
         }
 
+        public IActionResult MilagresEucaristicos()
+        {
+            return View("MilagresEucaristicos");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -1,6 +1,4 @@
-﻿@model LinksModel
-
-@{
+﻿@{
     ViewData["Title"] = "Liturgia";
 }
 
@@ -14,7 +12,8 @@
         </figure>
 
         <figure style="display: inline-block;">
-            <a href="http://www.miracolieucaristici.org/pr/Liste/list.html">
+            <a asp-area="" asp-controller="Home" asp-action="MilagresEucaristicos">
+            @* <a href="http://www.miracolieucaristici.org/pr/Liste/list.html"> *@
                 <img class="rounded home" src="./img/carlos.webp" />
             </a>
             <figcaption class="tituloImagem">Milagres Eucarísticos</figcaption>
