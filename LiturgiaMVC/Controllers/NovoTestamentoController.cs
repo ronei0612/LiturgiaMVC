@@ -44,7 +44,12 @@ namespace LiturgiaMVC.Controllers
             return View();
         }
 
-        public IActionResult Tiago()
+        public IActionResult ProtoEvangelhoTiago()
+        {
+            return View();
+        }
+
+        public IActionResult PseudoMateus()
         {
             return View();
         }
