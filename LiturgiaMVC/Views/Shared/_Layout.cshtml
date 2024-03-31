@@ -85,6 +85,16 @@
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function darkModeLocalStorage() {
+            var darkMode = localStorage.getItem('darkMode');
+            if (darkMode && darkMode === 'true') {
+                    switchDark.checked = true;
+                    switchDark.dispatchEvent(new Event('click'));
+            }
+        }
+        darkModeLocalStorage();
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
