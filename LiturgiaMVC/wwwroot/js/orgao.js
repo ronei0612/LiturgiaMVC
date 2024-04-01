@@ -2145,6 +2145,8 @@ function selecionarInstrumento(bateria = false, manualmente = false) {
 		ocultarBotoesRitmo(false);
 		ocultarBotoesCravo(true);
 	}
+
+	mudarTempoCompasso();
 }
 
 function gravarCifra() {
@@ -2304,14 +2306,12 @@ function carregar_Salvamento() {
 	modal01.style.display = 'none';
 
 	var salvamentoSelecionado = selectSalvamento.value;
-	//var storageCifra = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
 	var storageTomSelecionadoCifra = localStorage.getItem(salvamentoSelecionado + '_frameTom');
 	var eventoChange_tomSelect = true;
 
 	var storageElements = localStorage.getItem(salvamentoSelecionado);
 
 	if (storageElements) {
-		// Converter a string JSON de volta para objeto JavaScript
 		var dadosSalvos = JSON.parse(storageElements);
 
 		if (dadosSalvos.frameCifra) {
@@ -2334,16 +2334,14 @@ function carregar_Salvamento() {
 		else
 			voltarParaOrgao();
 
-		// Iterar sobre as propriedades do objeto recuperado
 		Object.keys(dadosSalvos).forEach(function (key) {
 			var value = dadosSalvos[key];
 			var element = document.getElementById(key);
 
-			// Verificar se o elemento correspondente foi encontrado no documento HTML
 			if (element) {
-				// Definir o valor do elemento com base na sua natureza
 				if (key === 'bpm') {
 					element.value = value;
+					bpmRange.value = bpm.value;
 				} else if (value === 'selecionado') {
 					escolherAcompanhamentoOrgao(element.id, element);
 				} else if (key === 'tomMenorSwitch' || key === 'autoCheck' || key === 'acompCheck') {
@@ -2352,7 +2350,6 @@ function carregar_Salvamento() {
 					element.selectedIndex = value;
 				}
 
-				// Disparar o evento 'change' se necessário
 				if (element.id === 'tomSelect') {
 					if (eventoChange_tomSelect) {
 						element.dispatchEvent(eventoChange);
@@ -2365,7 +2362,6 @@ function carregar_Salvamento() {
 			}
 		});
 	}
-
 }
 
 function escolherArquivo(event) {

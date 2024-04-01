@@ -200,7 +200,7 @@
 
 		<form class="pure-form" id="trackerControls">
 			<div class="d-flex align-items-center">
-				<label for="bpm" class="naoSelecionarTexto" ontouchstart="mostrarBateriaConfig(true)" ontouchend="mostrarBateriaConfig(false)">Temp:</label>&nbsp;<input name="bpm" id="bpm" style="width: 50px" value="92" class="form-control" onchange="mudarTempoCompasso()" onblur="mudarTempoCompasso()">
+				<label for="bpm" class="naoSelecionarTexto" ontouchstart="mostrarBateriaConfig(true)" ontouchend="mostrarBateriaConfig(false)">Temp:</label>&nbsp;<input name="bpm" id="bpm" style="width: 50px" value="92" class="form-control" onchange="mudarTempoCompasso()" onblur="mudarTempoCompasso(false)">
 				&nbsp;
 				<button class="btn btn-success" type="button" onclick="clicarUmBotaoTempo(62)">
 					62
@@ -219,7 +219,7 @@
 				</button>
 			</div>
 
-			<input id="bpmRange" type="range" class="form-range rangeVerde" max="102" min="52" step="1" value="92" onchange="mudarTempoCompasso()">
+			<input id="bpmRange" type="range" class="form-range rangeVerde" max="102" min="52" step="1" value="92" onchange="mudarTempoCompasso(true)">
 		</form>
 		<div id="bateria" style="display:none">
 			<div>
@@ -291,7 +291,7 @@
 
 		var novoEvento = new Event('change');
 		bpmElement.dispatchEvent(novoEvento);
-		mudarTempoCompasso();
+		mudarTempoCompasso(false);
 	}
 
 	function escreverRitmo() {

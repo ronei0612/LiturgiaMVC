@@ -49,15 +49,23 @@ function selecionarRitmo(ritmo, virada = false) {
 }
 
 
-function mudarTempoCompasso() {
-    _tempo = parseInt(bpmRange.value);
+function mudarTempoCompasso(alteradoRange) {
+    if (alteradoRange) {
+        _tempo = parseInt(bpmRange.value);
+        bpm.value = bpmRange.value;
+
+    }
+    else {
+        _tempo = parseInt(bpm.value);
+        bpmRange.value = bpm.value;
+    }
+
     let bpmValor = 60000 / _tempo;
 
     if (selectRitmo.value === '6/8')
         bpmValor = bpmValor / 2;
 
-    lightCompasso.style.animation = 'blink ' + bpmValor + 'ms infinite';
-    bpmRange.value = bpm.value;
+    lightCompasso.style.animation = 'blink ' + bpmValor + 'ms infinite';    
 }
 
 function fazerViradaBateria(ritmoSelecionado) {

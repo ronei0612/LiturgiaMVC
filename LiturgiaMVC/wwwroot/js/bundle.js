@@ -1067,7 +1067,7 @@ function setupBaseEvents() {
         //    bpmRange_valor = bpmRange_valor / 2;
         //lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
 
-        mudarTempoCompasso();
+        mudarTempoCompasso(false);
 
         setTempoRitmo();
     });
