@@ -19,13 +19,12 @@ function authorizeGoogle() {
 function processToken() {
     const urlParams = new URLSearchParams(window.location.hash.substr(1));
     const accessToken = urlParams.get('access_token');
-    const state = urlParams.get('state');
+    //const state = urlParams.get('state');
 
     //if (accessToken && state) {
     if (accessToken) {
         localStorage.setItem('accessToken', accessToken);
-        //shareFolder(state, accessToken);
-        console.log('Token de acesso obtido com sucesso:', accessToken);
+        localStorage.setItem('accessTokenExpiry', Date.now() + 3600000);
     } else {
         console.error('Erro ao obter o token de acesso ou ID da pasta.');
     }
@@ -41,12 +40,7 @@ function lerArquivo(arquivoId) {
         return;
     }
 
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (!accessToken) {
-        console.error('Token de acesso não encontrado.');
-        return;
-    }
+    validarToken();
 
     fetch(`https://www.googleapis.com/drive/v3/files/${arquivoId}?alt=media`, {
         method: 'GET',
@@ -75,12 +69,7 @@ window.onload = function () {
 
 // Função para criar um arquivo no Google Drive
 function criarArquivoComTexto(texto) {
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (!accessToken) {
-        console.error('Token de acesso não encontrado.');
-        return;
-    }
+    validarToken();
 
     fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
         method: 'POST',
@@ -106,11 +95,7 @@ function criarArquivoComTexto(texto) {
 }
 
 function editarArquivo(texto) {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-        console.error('Token de acesso não encontrado.');
-        return;
-    }
+    validarToken();
 
     const arquivoId = localStorage.getItem('fileId');
     if (!arquivoId) {
@@ -146,29 +131,12 @@ var accessToken;
 
 function validarToken() {
     accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
+    let accessTokenExpiry = localStorage.getItem('accessTokenExpiry');
+
+    if (!accessToken && !(Date.now() < parseInt(accessTokenExpiry))) {
         authorizeGoogle();
-        console.error('Token de acesso não encontrado.');
         return;
     }
-
-    // const url = `https://oauth2.googleapis.com/tokeninfo?id_token=${accessToken}`;
-
-    // fetch(url)
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Erro ao validar o token:', response.status);
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(data => {
-    //         console.log('Token válido. Informações do token:', data);
-    //         return 'sucesso';
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //         return error;
-    //     });
 
     fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`)
         .then(response => {
@@ -186,68 +154,3 @@ function validarToken() {
             authorizeGoogle();
         });
 }
-
-// // Função para compartilhar a pasta com o usuário
-// function shareFolder(folderId, accessToken) {
-//     const shareUrl = `https://www.googleapis.com/drive/v3/files/${folderId}/permissions`;
-//     const requestBody = {
-//         role: 'reader', // Define a permissão como leitura (reader)
-//         type: 'anyone', // Compartilha com qualquer pessoa que tenha o link
-//         allowFileDiscovery: false // Evita que os arquivos sejam visíveis nos resultados de pesquisa
-//     };
-
-//     fetch(shareUrl, {
-//         method: 'POST',
-//         headers: {
-//             'Authorization': `Bearer ${accessToken}`,
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(requestBody)
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             console.log('Pasta compartilhada com sucesso:', data);
-//         })
-//         .catch(error => {
-//             console.error('Erro ao compartilhar a pasta:', error);
-//         });
-// }
-
-// function uploadFile() {
-//     const fileInput = document.getElementById('fileInput');
-//     const file = fileInput.files[0];
-//     const arquivoId = '1dfdDjTaIjxLxdmsBsz-Qc5WLnyH1zSoE'; // Substitua pelo ID do arquivo que você deseja substituir
-//     const metadata = {
-//         name: file.name,
-//     };
-//     const reader = new FileReader();
-//     var url = 'https://www.googleapis.com/upload/drive/v3/files?uploadType=media';
-//     url = `https://www.googleapis.com/upload/drive/v3/files/${arquivoId}?uploadType=media`;
-
-//     reader.onload = function (e) {
-//         const content = e.target.result;
-//         const accessToken = 'ya29.a0Ad52N3_imuHZ0pdQjPYLNRQv0TTz2cstFBBkvJJNQXa44KjB7wwU6cHupYP1Y2b0lHdkjVTGc1gGQaVUhIimD3vpXHUVYdHOF2I77x1V_t41hM0q4UbHbk-Af0uAd8vYInq4buuZryvFYxd97p2D3isdyu_dXaVHZwaCgYKASESARASFQHGX2MiCDR6FN5ePCQKU96Y1H4yIQ0169';
-//         const headers = new Headers();
-//         headers.append('Authorization', 'Bearer ' + accessToken);
-//         headers.append('Content-Type', file.type);
-
-//         fetch(url, {
-//             method: 'POST',
-//             headers: headers,
-//             body: content,
-//         }).then(response => {
-//             return response.json(); // Parse the response as JSON
-//         }).then(data => {
-//             const fileId = data.id; // Extract file ID from the response
-//             const fileLink = `https://drive.google.com/file/d/${fileId}/view`; // Construct file link
-//             localStorage.setItem('fileId', fileId);
-
-//             console.log('File uploaded successfully, id:', fileId);
-//             console.log('File uploaded link:', fileLink);
-//             // You can now use 'fileLink' for further processing or display
-//         }).catch(error => {
-//             console.error('Error uploading file:', error);
-//         });
-//     };
-//     reader.readAsArrayBuffer(file);
-// }
