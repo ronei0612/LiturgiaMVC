@@ -2253,6 +2253,7 @@ function salvarSalvamento() {
 
 	if (salvamentoSelecionado !== '') {
 		sairDeFullscreen();
+
 		if (confirm('Deseja salvar?\n' + salvamentoSelecionado)) {
 			// Criar objeto para armazenar todas as informações
 			var dadosSalvos = {
@@ -2299,7 +2300,7 @@ function salvarSalvamento() {
 
 function compartilhar_Salvamentos() {
 	modal01.style.display = 'none';
-	validarToken();
+	criarArquivodoStorage();
 }
 
 function carregar_Salvamento() {

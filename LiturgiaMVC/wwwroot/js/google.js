@@ -8,6 +8,8 @@ const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleuserc
 const redirectUri = 'https://localhost:7188/orgao'; // URL de redirecionamento após a autorização
 const scope = 'https://www.googleapis.com/auth/drive';
 
+var accessToken;
+
 // Função para iniciar a autorização com o Google
 function authorizeGoogle() {
     //const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(folderId)}`;
@@ -58,66 +60,117 @@ function lerArquivo(arquivoId) {
         });
 }
 
+function lerArquivoCompartilhado(arquivoId) {
+    localStorage.removeItem('arquivoCompartilhado');
+    // URL do arquivo compartilhado no Google Drive
+    const url = 'https://drive.google.com/file/d/${arquivoId}/view?usp=sharing';
+
+    // Enviar solicitação GET para obter o conteúdo do arquivo
+    fetch(url)
+        .then(response => {
+            if (response.ok) {
+                return response.text(); // Se a solicitação for bem-sucedida, leia o conteúdo do arquivo como texto
+            } else {
+                throw new Error('Erro ao obter o arquivo:', response.statusText);
+            }
+        })
+        .then(data => {
+            console.log('Conteúdo do arquivo:', data); // Faça o que quiser com o conteúdo do arquivo
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+}
+
 // Verificar se a página foi carregada com um token de acesso
 window.onload = function () {
     if (window.location.hash) {
         processToken();
+        if (window.location.href.includes('#access_token'))
+            document.location.hash = '';
+            //window.location.href = window.location.href.split('#')[0];
     }
 
+    const compartilhandoId = localStorage.getItem('compartilhando');
+    if (compartilhandoId) {
+        compartilharArquivo(compartilhandoId);
+    }
+
+    const criandoArquivo = localStorage.getItem('criandoArquivo');
+    if (criandoArquivo) {
+        criarArquivodoStorage();
+    }
+
+    const arquivoCompartilhado = localStorage.getItem('arquivoCompartilhadoId');
+    if (arquivoCompartilhado) {
+        lerArquivoCompartilhado(arquivoCompartilhado);
+    }
+
+    
+    
     //validarToken();
 };
 
 // Função para criar um arquivo no Google Drive
-function criarArquivoComTexto(texto) {
+function criarArquivodoStorage() {
+    localStorage.setItem('criandoArquivo', 'true');
     validarToken();
 
-    fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'text/plain' // Especifica o tipo de conteúdo como texto plano
-        },
-        body: texto
-    })
-        .then(response => response.json())
-        .then(data => {
-            const fileId = data.id;
-            const fileLink = `https://drive.google.com/file/d/${fileId}/view`; // Construct file link
+    localStorage.removeItem('criandoArquivo');
 
-            console.log('Arquivo criado com sucesso. ID do arquivo:', fileId);
-            console.log('File uploaded link:', fileLink);
-
-            localStorage.setItem('fileId', fileId); // Armazena o ID do arquivo no localStorage
+    const texto = carregarSalvosLocalStorage();
+    if (texto) {
+        fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'text/plain' // Especifica o tipo de conteúdo como texto plano
+            },
+            body: texto
         })
-        .catch(error => {
-            console.error('Erro ao criar o arquivo:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                const fileId = data.id;
+                const fileLink = `https://drive.google.com/file/d/${fileId}/view`; // Construct file link
+
+                console.log('Arquivo criado com sucesso. ID do arquivo:', fileId);
+                console.log('File uploaded link:', fileLink);
+
+                localStorage.setItem('fileId', fileId); // Armazena o ID do arquivo no localStorage
+
+                compartilharArquivo(fileId);
+            })
+            .catch(error => {
+                console.error('Erro ao criar o arquivo:', error);
+            });
+    }
 }
 
-function editarArquivo(texto) {
+function compartilharArquivo(arquivoId) {
+    localStorage.setItem('compartilhando', arquivoId);
     validarToken();
 
-    const arquivoId = localStorage.getItem('fileId');
-    if (!arquivoId) {
-        criarArquivoComTexto('bbb');
-        return;
-    }
+    localStorage.removeItem('compartilhando');
 
-    // URL da solicitação para editar o arquivo
-    const url = `https://www.googleapis.com/upload/drive/v3/files/${arquivoId}`;
+    const permission = {
+        role: 'reader',
+        type: 'anyone',
+        allowFileDiscovery: false
+    };
 
-    // Fazer a solicitação PATCH para editar o arquivo
+    const url = `https://www.googleapis.com/drive/v3/files/${arquivoId}/permissions`;
+
     fetch(url, {
         method: 'PATCH',
         headers: {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json'
         },
-        body: texto
+        body: JSON.stringify(permission)
     })
         .then(response => {
             if (response.ok) {
-                console.log('Arquivo editado com sucesso.');
+                console.log('Arquivo compartilhado com sucesso.');
             } else {
                 console.error('Erro ao editar o arquivo:', response.statusText);
             }
@@ -127,11 +180,47 @@ function editarArquivo(texto) {
         });
 }
 
-var accessToken;
+function editarArquivo() {
+    validarToken();
+
+    const arquivoId = localStorage.getItem('fileId');
+    if (!arquivoId) {        
+        const texto = carregarSalvosLocalStorage();
+        if (texto)
+            criarArquivodoStorage(texto);
+        return;
+    }
+
+    const texto = carregarSalvosLocalStorage();
+    if (texto) {
+        // URL da solicitação para editar o arquivo
+        const url = `https://www.googleapis.com/upload/drive/v3/files/${arquivoId}`;
+
+        // Fazer a solicitação PATCH para editar o arquivo
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: texto
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Arquivo editado com sucesso.');
+                } else {
+                    console.error('Erro ao editar o arquivo:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao editar o arquivo:', error);
+            });
+    }
+}
 
 function validarToken() {
     accessToken = localStorage.getItem('accessToken');
-    let accessTokenExpiry = localStorage.getItem('accessTokenExpiry');
+    const accessTokenExpiry = localStorage.getItem('accessTokenExpiry');
 
     if (!accessToken && !(Date.now() < parseInt(accessTokenExpiry))) {
         authorizeGoogle();
@@ -153,4 +242,31 @@ function validarToken() {
             localStorage.removeItem('accessToken');
             authorizeGoogle();
         });
+}
+
+function carregarSalvosLocalStorage() {
+    const localStorageSalvamentos = localStorage.getItem('salvamentos');
+    const localStorageKeys = localStorageSalvamentos.split(',');
+    localStorageKeys.shift();
+    var retorno = '';
+
+    // Passo 2: Verificar se existem dados no localStorage
+    if (localStorageKeys && localStorageKeys.length > 0) {
+        // Passo 3: Criar um objeto para armazenar os dados
+        const dataObject = {};
+
+        // Passo 4: Iterar sobre as chaves do localStorage
+        localStorageKeys.forEach(key => {
+            // Obter os dados para cada chave
+            const data = localStorage.getItem(key);
+            // Adicionar os dados ao objeto
+            dataObject[key] = data;
+        });
+
+        // Passo 5: Converter o objeto em uma string no formato desejado (JSON)
+        const jsonData = JSON.stringify(dataObject);
+        retorno = jsonData;
+    }
+
+    return retorno;
 }
