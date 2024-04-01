@@ -2252,36 +2252,43 @@ function salvarSalvamento() {
 	if (salvamentoSelecionado !== '') {
 		sairDeFullscreen();
 		if (confirm('Deseja salvar?\n' + salvamentoSelecionado)) {
-			var salvar = 'instrumentoSelect,' + instrumentoSelect.selectedIndex;
-			salvar += '\n' + 'selectRitmo,' + selectRitmo.selectedIndex;
-			salvar += '\n' + 'tomSelect,' + tomSelect.selectedIndex;
-			salvar += '\n' + 'bpm,' + bpm.value;
-			salvar += '\n' + 'autoCheck,' + autoCheck.checked;
-			salvar += '\n' + 'acompCheck,' + acompCheck.checked;
+			// Criar objeto para armazenar todas as informações
+			var dadosSalvos = {
+				instrumentoSelect: instrumentoSelect.selectedIndex,
+				selectRitmo: selectRitmo.selectedIndex,
+				tomSelect: tomSelect.selectedIndex,
+				bpm: bpm.value,
+				autoCheck: autoCheck.checked,
+				acompCheck: acompCheck.checked
+			};
 
+			// Verificar se algum botão de mão foi selecionado e adicionar ao objeto se houver
 			var maoBotaoSelecionado = document.getElementsByClassName('selecionado');
 			if (maoBotaoSelecionado.length > 0)
-				salvar += '\n' + maoBotaoSelecionado[0].id + ',selecionado';
+				dadosSalvos[maoBotaoSelecionado[0].id] = 'selecionado';
 
+			// Adicionar informações sobre tomMenorSwitch se estiver visível
 			if (tomMenorSwitchDiv.style.display !== 'none')
-				salvar += '\n' + 'tomMenorSwitch,' + tomMenorSwitch.checked;
+				dadosSalvos.tomMenorSwitch = tomMenorSwitch.checked;
 
+			// Salvar informações do frame de texto de cifras se estiver visível
 			if (textoCifrasFrame.style.display !== 'none') {
-				localStorage.setItem(salvamentoSelecionado + '_frameTom', tomSelect.value);
-				localStorage.setItem(salvamentoSelecionado + '_frameCifra', textoCifras.contentDocument.body.innerHTML);
+				dadosSalvos.frameTom = tomSelect.value;
+				dadosSalvos.frameCifra = textoCifras.contentDocument.body.innerHTML;
 
 				selectFonte.style.display = '';
-				salvar += '\n' + 'selectFonte,' + selectFonte.selectedIndex;
+				dadosSalvos.selectFonte = selectFonte.selectedIndex;
 				selectFonte.style.display = 'none';
 				botaoFonte.style.display = '';
 
 				selectTamanhoIframe.style.display = '';
-				salvar += '\n' + 'selectTamanhoIframe,' + selectTamanhoIframe.selectedIndex;
+				dadosSalvos.selectTamanhoIframe = selectTamanhoIframe.selectedIndex;
 				selectTamanhoIframe.style.display = 'none';
 				botaoTamanhoIframe.style.display = '';
 			}
 
-			localStorage.setItem(salvamentoSelecionado, salvar);
+			// Armazenar o objeto JSON no Local Storage
+			localStorage.setItem(salvamentoSelecionado, JSON.stringify(dadosSalvos));
 
 			modal01.style.display = 'none';
 		}
@@ -2297,69 +2304,68 @@ function carregar_Salvamento() {
 	modal01.style.display = 'none';
 
 	var salvamentoSelecionado = selectSalvamento.value;
-	var storageCifra = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
+	//var storageCifra = localStorage.getItem(salvamentoSelecionado + '_frameCifra');
 	var storageTomSelecionadoCifra = localStorage.getItem(salvamentoSelecionado + '_frameTom');
 	var eventoChange_tomSelect = true;
-
-	if (storageCifra) {
-		eventoChange_tomSelect = false;
-		escreverCifraTextArea.style.display = 'block';
-
-		let tom = tomSelect.value;
-		if (storageTomSelecionadoCifra)
-			tom = storageTomSelecionadoCifra;
-
-		mostrarTextoCifrasCarregado(tom, storageCifra);
-
-		textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
-		textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
-		textoCifras.style.height = selectTamanhoIframe.value + 'px';
-		partituraFrame.style.height = selectTamanhoIframe.value + 'px';
-
-		selecionarCifraId();
-	}
-	else
-		voltarParaOrgao();
 
 	var storageElements = localStorage.getItem(salvamentoSelecionado);
 
 	if (storageElements) {
-		if (storageElements.includes('\n')) {
-			var itens = storageElements.split('\n');
+		// Converter a string JSON de volta para objeto JavaScript
+		var dadosSalvos = JSON.parse(storageElements);
 
-			for (var i = 0; i < itens.length; i++) {
-				if (itens[i].split(',')[0] !== '') {
-					var element = document.getElementById(itens[i].split(',')[0]);
+		if (dadosSalvos.frameCifra) {
+			eventoChange_tomSelect = false;
+			escreverCifraTextArea.style.display = 'block';
 
-					if (element) {
-						if (itens[i].split(',')[0] === 'bpm') {
-							element.value = itens[i].split(',')[1];
-						}
-						else if (itens[i].split(',')[1] === 'selecionado') {
-							escolherAcompanhamentoOrgao(element.id, element);
-						}
-						else if (itens[i].split(',')[0] === 'tomMenorSwitch' || itens[i].split(',')[0] === 'autoCheck' || itens[i].split(',')[0] === 'acompCheck') {
-							if (itens[i].split(',')[1] === 'true')
-								element.checked = true;
-							if (itens[i].split(',')[1] === 'false')
-								element.checked = false;
-						}
-						else
-							element.selectedIndex = itens[i].split(',')[1];
+			let tom = tomSelect.value;
+			if (storageTomSelecionadoCifra)
+				tom = storageTomSelecionadoCifra;
 
-						if (element.id === 'tomSelect') {
-							if (eventoChange_tomSelect)
-								element.dispatchEvent(eventoChange);
-							else
-								_tomSelectedIndexCifra = element.selectedIndex;
-						}
-						else
-							element.dispatchEvent(eventoChange);
+			mostrarTextoCifrasCarregado(tom, dadosSalvos.frameCifra);
+
+			textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
+			textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
+			textoCifras.style.height = selectTamanhoIframe.value + 'px';
+			partituraFrame.style.height = selectTamanhoIframe.value + 'px';
+
+			selecionarCifraId();
+		}
+		else
+			voltarParaOrgao();
+
+		// Iterar sobre as propriedades do objeto recuperado
+		Object.keys(dadosSalvos).forEach(function (key) {
+			var value = dadosSalvos[key];
+			var element = document.getElementById(key);
+
+			// Verificar se o elemento correspondente foi encontrado no documento HTML
+			if (element) {
+				// Definir o valor do elemento com base na sua natureza
+				if (key === 'bpm') {
+					element.value = value;
+				} else if (value === 'selecionado') {
+					escolherAcompanhamentoOrgao(element.id, element);
+				} else if (key === 'tomMenorSwitch' || key === 'autoCheck' || key === 'acompCheck') {
+					element.checked = value;
+				} else {
+					element.selectedIndex = value;
+				}
+
+				// Disparar o evento 'change' se necessário
+				if (element.id === 'tomSelect') {
+					if (eventoChange_tomSelect) {
+						element.dispatchEvent(eventoChange);
+					} else {
+						_tomSelectedIndexCifra = element.selectedIndex;
 					}
+				} else {
+					element.dispatchEvent(eventoChange);
 				}
 			}
-		}
+		});
 	}
+
 }
 
 function escolherArquivo(event) {
