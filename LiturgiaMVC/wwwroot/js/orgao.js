@@ -202,6 +202,7 @@ const botaoIniciar = document.getElementById('botaoIniciar');
 const escreverCifraTextArea = document.getElementById('escreverCifraTextArea');
 const selectInstrumento = document.getElementById('selectInstrumento');
 const salvarDiv = document.getElementById('salvarDiv');
+const compartilharDiv = document.getElementById('compartilharDiv');
 const selectOpcoes = document.getElementById('selectOpcoes');
 const modalGravar = document.getElementById('modalGravar');
 const musicaSearch = document.getElementById('musicaSearch');
@@ -2024,6 +2025,7 @@ function mostrarModal(nome) {
 			modalGravar.style.display = 'none';
 			selectOpcoes.style.display = 'block';
 			salvarDiv.style.display = 'none';
+			compartilharDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
 			break;
 		case 'instrumento':
@@ -2031,6 +2033,7 @@ function mostrarModal(nome) {
 			modalGravar.style.display = 'none';
 			selectInstrumento.style.display = 'block';
 			salvarDiv.style.display = 'none';
+			compartilharDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
 			break;
 		case 'gravar':
@@ -2049,6 +2052,7 @@ function mostrarModal(nome) {
 				selectInstrumento.style.display = 'none';
 				modalGravar.style.display = 'block';
 				salvarDiv.style.display = 'none';
+				compartilharDiv.style.display = 'none';
 				selectConfiguracao.style.display = 'none';
 
 				if (textoCifrasFrame.style.display !== 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
@@ -2076,9 +2080,24 @@ function mostrarModal(nome) {
 			selectInstrumento.style.display = 'none';
 			modalGravar.style.display = 'none';
 			salvarDiv.style.display = 'block';
+			compartilharDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
 
 			carregarSalvamentosList();
+			break;
+		case 'compartilhado':
+			selectOpcoes.style.display = 'none';
+			selectInstrumento.style.display = 'none';
+			modalGravar.style.display = 'none';
+			salvarDiv.style.display = 'none';
+			compartilharDiv.style.display = 'block';
+			selectConfiguracao.style.display = 'none';
+
+			const arquivoIdStorage = localStorage.getItem('fileId');
+			let url = document.location.href.replace('#', '').replace('?compartilhado=1', '');
+
+			document.getElementById('arquivoIdText').innerText = url + '?compartilhado=' + arquivoIdStorage; 
+
 			break;
 		case 'oracoesEucaristicas':
 			oracoesEucaristicasDiv.style.display = '';
@@ -2301,6 +2320,16 @@ function salvarSalvamento() {
 function compartilhar_Salvamentos() {
 	modal01.style.display = 'none';
 	criarArquivodoStorage();
+}
+
+function mostrarSalvamentoCompartilhado() {
+	if (isMobileDevice()) {
+
+	}
+	else {
+		const arquivoIdText = document.getElementById('arquivoIdText').innerText;
+		copiarTextoParaClipboard(arquivoIdText);
+	}
 }
 
 function carregar_Salvamento() {

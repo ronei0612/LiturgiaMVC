@@ -9,8 +9,9 @@ namespace LiturgiaMVC.Controllers
 {
     public class OrgaoController : Controller
     {
-        public IActionResult Index(string tom = "C")
+        public IActionResult Index(string compartilhado = "")
         {
+            var tom = "C";
             //verificar arquivo acordeslinks.txt
             //criar arquivo AcordesLinks.txt
             Ferramentas.EscreverInfoCliente(HttpContext);
@@ -31,8 +32,9 @@ namespace LiturgiaMVC.Controllers
                 TonsMenores = Variaveis.tonsMenores,
                 RitmosBateria = Variaveis.textoRitmos,
                 NotasAcordes = Variaveis.textoNotasAcordes,
-                AcidentesCorrespondentes = Ferramentas.ConvertToJson(Variaveis.acidentesCorrespondentes)
-            };
+                AcidentesCorrespondentes = Ferramentas.ConvertToJson(Variaveis.acidentesCorrespondentes),
+                Compartilhado = compartilhado
+			};
 
             return View(linksModel);
         }

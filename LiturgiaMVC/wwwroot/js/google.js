@@ -91,10 +91,10 @@ window.onload = function () {
             //window.location.href = window.location.href.split('#')[0];
     }
 
-    const compartilhandoId = localStorage.getItem('compartilhando');
-    if (compartilhandoId) {
-        compartilharArquivo(compartilhandoId);
-    }
+    //const compartilhandoId = localStorage.getItem('compartilhando');
+    //if (compartilhandoId) {
+    //    compartilharArquivo(compartilhandoId);
+    //}
 
     const criandoArquivo = localStorage.getItem('criandoArquivo');
     if (criandoArquivo) {
@@ -105,8 +105,6 @@ window.onload = function () {
     if (arquivoCompartilhado) {
         lerArquivoCompartilhado(arquivoCompartilhado);
     }
-
-    
     
     //validarToken();
 };
@@ -124,7 +122,7 @@ function criarArquivodoStorage() {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'text/plain' // Especifica o tipo de conteúdo como texto plano
+                'Content-Type': 'text/plain'
             },
             body: texto
         })
@@ -135,10 +133,13 @@ function criarArquivodoStorage() {
 
                 console.log('Arquivo criado com sucesso. ID do arquivo:', fileId);
                 console.log('File uploaded link:', fileLink);
+                //alert(document.location.href.replace('#','') + '?compartilhando=true');
 
                 localStorage.setItem('fileId', fileId); // Armazena o ID do arquivo no localStorage
 
-                compartilharArquivo(fileId);
+                window.location.href = document.location.href.replace('#', '') + '?compartilhado=1';
+
+                //compartilharArquivo(fileId);
             })
             .catch(error => {
                 console.error('Erro ao criar o arquivo:', error);
@@ -269,4 +270,23 @@ function carregarSalvosLocalStorage() {
     }
 
     return retorno;
+}
+
+function copiarTextoParaClipboard(texto) {
+    // Cria uma área de seleção para copiar o texto
+    var areaSelecao = document.createElement("textarea");
+    areaSelecao.value = texto;
+    document.body.appendChild(areaSelecao);
+
+    // Seleciona o texto na área de seleção
+    areaSelecao.select();
+
+    // Executa o comando de cópia
+    document.execCommand("copy");
+
+    // Remove a área de seleção
+    document.body.removeChild(areaSelecao);
+
+    alert("Texto copiado!");
+    ocultarModal();
 }

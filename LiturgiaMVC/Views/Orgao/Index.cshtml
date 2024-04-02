@@ -247,13 +247,13 @@
 	var pratoSound = new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["prato"])' } });
 	var chimesSound = new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["chimes"])' } });
 
-
 	function esperarAudios(tempoMiliseg, esperar_audios) {
 		if (esperar_audios == false) {
 			container.style.display = 'block';
 			document.getElementById('tracker-container').style.display = 'block';
 			navBar.style.display = '';
 			carregarConfiguracoesDoStorage();
+			mostrarCompartilhado();
 		}
 		else
 			setTimeout(function () {
@@ -261,6 +261,12 @@
 				document.getElementById('tracker-container').style.display = 'block';
 				navBar.style.display = '';
 				carregarConfiguracoesDoStorage();
+				mostrarCompartilhado();
 			}, tempoMiliseg)
+	}
+
+	function mostrarCompartilhado() {
+		if ('@Model.Compartilhado' === '1')
+			mostrarModal('compartilhado');
 	}
 </script>
