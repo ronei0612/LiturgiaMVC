@@ -18,7 +18,7 @@ function authorizeGoogle() {
 }
 
 // Função para processar o token de acesso e compartilhar a pasta
-function processToken() {
+async function processToken() {
     const urlParams = new URLSearchParams(window.location.hash.substr(1));
     const accessToken = urlParams.get('access_token');
     //const state = urlParams.get('state');
@@ -86,9 +86,9 @@ function lerArquivoCompartilhado(arquivoId) {
 window.onload = function () {
     if (window.location.hash) {
         processToken();
+
         if (window.location.href.includes('#access_token'))
             document.location.hash = '';
-            //window.location.href = window.location.href.split('#')[0];
     }
 
     //const compartilhandoId = localStorage.getItem('compartilhando');
@@ -110,14 +110,15 @@ window.onload = function () {
 };
 
 // Função para criar um arquivo no Google Drive
-function criarArquivodoStorage() {
-    localStorage.setItem('criandoArquivo', 'true');
-    validarToken();
+async function criarArquivodoStorage() {
+    const texto = verificarSeJaCompartilhado();
 
-    localStorage.removeItem('criandoArquivo');
+    if (texto !== '') {
+        localStorage.setItem('criandoArquivo', 'true');
+        validarToken();
 
-    const texto = carregarSalvosLocalStorage();
-    if (texto) {
+        localStorage.removeItem('criandoArquivo');
+
         fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
             method: 'POST',
             headers: {
@@ -138,12 +139,16 @@ function criarArquivodoStorage() {
                 localStorage.setItem('fileId', fileId); // Armazena o ID do arquivo no localStorage
 
                 window.location.href = document.location.href.replace('#', '') + '?compartilhado=1';
+                //window.location.href = window.location.origin + window.location.pathname + '?compartilhado=1';;
 
                 //compartilharArquivo(fileId);
             })
             .catch(error => {
                 console.error('Erro ao criar o arquivo:', error);
             });
+    }
+    else {
+        mostrarModal('compartilhado');
     }
 }
 
@@ -219,11 +224,15 @@ function editarArquivo() {
     }
 }
 
-function validarToken() {
+async function validarToken() {
     accessToken = localStorage.getItem('accessToken');
     const accessTokenExpiry = localStorage.getItem('accessTokenExpiry');
 
-    if (!accessToken && !(Date.now() < parseInt(accessTokenExpiry))) {
+    if (!accessToken || !accessTokenExpiry) {
+        authorizeGoogle();
+        return;
+    }
+    else if (!(Date.now() < parseInt(accessTokenExpiry))) {
         authorizeGoogle();
         return;
     }
@@ -270,6 +279,31 @@ function carregarSalvosLocalStorage() {
     }
 
     return retorno;
+}
+
+function criptografarTexto(texto) {
+    return CryptoJS.MD5(texto).toString();
+}
+
+function verificarSeJaCompartilhado() {
+    let textoDoStorage = carregarSalvosLocalStorage();
+    let textoDoStorageCriptografado = criptografarTexto(textoDoStorage);
+    const compartilhadoMD5 = localStorage.getItem('compartilhadoMD5');
+
+    if (compartilhadoMD5) {
+        if (textoDoStorageCriptografado === compartilhadoMD5) {
+            return '';
+        }
+        else {
+            localStorage.setItem('compartilhadoMD5', textoDoStorageCriptografado);
+            return textoDoStorage;
+        }            
+    }
+
+    else {
+        localStorage.setItem('compartilhadoMD5', textoDoStorageCriptografado);
+        return textoDoStorage;
+    }
 }
 
 function copiarTextoParaClipboard(texto) {

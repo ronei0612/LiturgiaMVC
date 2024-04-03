@@ -2009,6 +2009,11 @@ function ocultarModal() {
 	liturgiaDiariaDiv.style.display = 'none';
 	sobreDiv.style.display = 'none';
 	posicaoBotaoFecharModal(document.getElementById('botaoFecharModal'), false);
+
+	if (window.location.href.includes('?')) {
+		let novaURL = window.location.href.split('?')[0];
+		window.history.replaceState({}, document.title, novaURL);
+	}
 }
 
 function mostrarModal(nome) {

@@ -324,7 +324,9 @@
             @RenderBody()
         </main>
     </div>
-    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
     @if (ViewContext.HttpContext.Request.Host.Host.Equals("localhost", StringComparison.OrdinalIgnoreCase))
     {
         <script src="~/js/site.js" asp-append-version="true"></script>
