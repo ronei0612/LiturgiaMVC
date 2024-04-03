@@ -236,11 +236,14 @@ function criptografarTexto(texto) {
 }
 
 function verificarSeJaCompartilhado() {
-    let textoDoStorage = carregarSalvosLocalStorage();
+    //let textoDoStorage = carregarSalvosLocalStorage();
+    let arquivoId = localStorage.getItem('fileId');
+    let textoDoStorage = localStorage.getItem('salvamentos');
+
     let textoDoStorageCriptografado = criptografarTexto(textoDoStorage);
     const compartilhadoMD5 = localStorage.getItem('compartilhadoMD5');
 
-    if (compartilhadoMD5) {
+    if (compartilhadoMD5 && arquivoId) {
         if (textoDoStorageCriptografado === compartilhadoMD5)
             return '';
         else
