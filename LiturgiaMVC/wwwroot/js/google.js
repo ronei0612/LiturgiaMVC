@@ -2,7 +2,8 @@
 
 // Configurações de OAuth2
 const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com';
-const redirectUri = 'https://localhost:7188/orgao'; // URL de redirecionamento após a autorização
+//const redirectUri = 'https://localhost:7188/orgao'; // URL de redirecionamento após a autorização
+const redirectUri = 'https://' + 'youtubei.somee.com' + '/orgao'; // URL de redirecionamento após a autorização
 const scope = 'https://www.googleapis.com/auth/drive';
 
 var accessToken;
