@@ -60,26 +60,21 @@ function lerArquivo(arquivoId) {
         });
 }
 
-function lerArquivoCompartilhado(arquivoId) {
-    localStorage.removeItem('arquivoCompartilhado');
-    // URL do arquivo compartilhado no Google Drive
-    const url = 'https://drive.google.com/file/d/${arquivoId}/view?usp=sharing';
+async function lerArquivoCompartilhado(arquivoId) {
+    try {
+        const url = `https://drive.google.com/file/d/${arquivoId}/view?usp=sharing`;
 
-    // Enviar solicitação GET para obter o conteúdo do arquivo
-    fetch(url)
-        .then(response => {
-            if (response.ok) {
-                return response.text(); // Se a solicitação for bem-sucedida, leia o conteúdo do arquivo como texto
-            } else {
-                throw new Error('Erro ao obter o arquivo:', response.statusText);
-            }
-        })
-        .then(data => {
-            console.log('Conteúdo do arquivo:', data); // Faça o que quiser com o conteúdo do arquivo
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-        });
+        const response = await fetch(url);
+
+        if (response.ok) {
+            const data = await response.text();
+            //console.log('Conteúdo do arquivo:', data);
+        } else {
+            throw new Error('Erro ao obter o arquivo:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Erro:', error);
+    }
 }
 
 // Verificar se a página foi carregada com um token de acesso
@@ -90,58 +85,38 @@ window.onload = function () {
         if (window.location.href.includes('#access_token')) {
             document.location.hash = '';
 
-            //const criandoArquivo = localStorage.getItem('criandoArquivo');
-            //if (criandoArquivo)
             criarArquivodoStorage();
         }
     }
+    
 
-    //const compartilhandoId = localStorage.getItem('compartilhando');
-    //if (compartilhandoId) {
-    //    compartilharArquivo(compartilhandoId);
+    //const arquivoCompartilhado = localStorage.getItem('arquivoCompartilhadoId');
+    //if (arquivoCompartilhado) {
+    //    lerArquivoCompartilhado(arquivoCompartilhado);
     //}
-
-    //na primeira vez não chega aqui
-
-    
-
-    const arquivoCompartilhado = localStorage.getItem('arquivoCompartilhadoId');
-    if (arquivoCompartilhado) {
-        lerArquivoCompartilhado(arquivoCompartilhado);
-    }
-    
-    //validarToken();
 };
 
 async function criarArquivoNoGoogleDrive(texto) {
-    fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'text/plain'
-        },
-        body: texto
-    })
-        .then(response => response.json())
-        .then(data => {
-            const fileId = data.id;
-            const fileLink = `https://drive.google.com/file/d/${fileId}/view`; // Construct file link
-
-            console.log('Arquivo criado com sucesso. ID do arquivo:', fileId);
-            console.log('File uploaded link:', fileLink);
-            //alert(document.location.href.replace('#','') + '?compartilhando=true');
-
-            localStorage.setItem('fileId', fileId); // Armazena o ID do arquivo no localStorage
-            mostrarModal('compartilhado');
-
-            //window.location.href = document.location.href.replace('#', '') + '?compartilhado=1';
-            //window.location.href = window.location.origin + window.location.pathname + '?compartilhado=1';;
-
-            //compartilharArquivo(fileId);
-        })
-        .catch(error => {
-            console.error('Erro ao criar o arquivo:', error);
+    try {
+        const response = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'text/plain'
+            },
+            body: texto
         });
+
+        const data = await response.json();
+        const fileId = data.id;
+        const fileLink = `https://drive.google.com/file/d/${fileId}/view`;
+
+        localStorage.setItem('fileId', fileId);
+        mostrarModal('compartilhado');
+
+    } catch (error) {
+        console.error('Erro ao criar o arquivo:', error);
+    }
 }
 
 // Função para criar um arquivo no Google Drive
@@ -157,125 +132,76 @@ function criarArquivodoStorage() {
             localStorage.setItem('compartilhadoMD5', textoDoStorageCriptografado);
 
             criarArquivoNoGoogleDrive(texto);
-
-            //if (localStorage.getItem('accessToken')) {
-            //    debugger;
-            //    mostrarModal('compartilhado');
-            //}
         }
     }
     else {
-        debugger;
         mostrarModal('compartilhado');
     }
 }
 
-function compartilharArquivo(arquivoId) {
-    localStorage.setItem('compartilhando', arquivoId);
-    validarToken();
+//function compartilharArquivo(arquivoId) {
+//    localStorage.setItem('compartilhando', arquivoId);
+//    validarToken();
 
-    localStorage.removeItem('compartilhando');
+//    localStorage.removeItem('compartilhando');
 
-    const permission = {
-        role: 'reader',
-        type: 'anyone',
-        allowFileDiscovery: false
-    };
+//    const permission = {
+//        role: 'reader',
+//        type: 'anyone',
+//        allowFileDiscovery: false
+//    };
 
-    const url = `https://www.googleapis.com/drive/v3/files/${arquivoId}/permissions`;
+//    const url = `https://www.googleapis.com/drive/v3/files/${arquivoId}/permissions`;
 
-    fetch(url, {
-        method: 'PATCH',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(permission)
-    })
-        .then(response => {
-            if (response.ok) {
-                console.log('Arquivo compartilhado com sucesso.');
-            } else {
-                console.error('Erro ao editar o arquivo:', response.statusText);
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao editar o arquivo:', error);
-        });
-}
+//    fetch(url, {
+//        method: 'PATCH',
+//        headers: {
+//            'Authorization': `Bearer ${accessToken}`,
+//            'Content-Type': 'application/json'
+//        },
+//        body: JSON.stringify(permission)
+//    })
+//        .then(response => {
+//            if (response.ok) {
+//                console.log('Arquivo compartilhado com sucesso.');
+//            } else {
+//                console.error('Erro ao editar o arquivo:', response.statusText);
+//            }
+//        })
+//        .catch(error => {
+//            console.error('Erro ao editar o arquivo:', error);
+//        });
+//}
 
-function editarArquivo() {
-    validarToken();
-
-    const arquivoId = localStorage.getItem('fileId');
-    if (!arquivoId) {        
-        const texto = carregarSalvosLocalStorage();
-        if (texto)
-            //criarArquivodoStorage(texto);
-        return;
-    }
-
-    const texto = carregarSalvosLocalStorage();
-    if (texto) {
-        // URL da solicitação para editar o arquivo
-        const url = `https://www.googleapis.com/upload/drive/v3/files/${arquivoId}`;
-
-        // Fazer a solicitação PATCH para editar o arquivo
-        fetch(url, {
-            method: 'PATCH',
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json'
-            },
-            body: texto
-        })
-            .then(response => {
-                if (response.ok) {
-                    console.log('Arquivo editado com sucesso.');
-                } else {
-                    console.error('Erro ao editar o arquivo:', response.statusText);
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao editar o arquivo:', error);
-            });
-    }
-}
-
-function validarToken() {
+async function validarToken() {
     accessToken = localStorage.getItem('accessToken');
     const accessTokenExpiry = localStorage.getItem('accessTokenExpiry');
 
-    if (accessToken)
-        if (accessTokenExpiry)
-            if (!(Date.now() < parseInt(accessTokenExpiry)))
+    if (accessToken) {
+        if (accessTokenExpiry) {
+            if (!(Date.now() < parseInt(accessTokenExpiry))) {
                 localStorage.removeItem('accessToken');
+            }
+        }
 
-    
-    //const accessTokenExpiry = localStorage.getItem('accessTokenExpiry');
-
-    if (!accessToken) {
+        try {
+            const response = await fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`);
+            if (!response.ok) {
+                throw new Error('Erro ao validar o token:', response.status);
+            }
+            const data = await response.json();
+            //console.log('Informações do token:', data);
+        } catch (error) {
+            console.error(error);
+            localStorage.removeItem('accessToken');
+            authorizeGoogle();
+        }
+    } else {
         authorizeGoogle();
         return false;
     }
 
     return true;
-
-    //fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`)
-    //    .then(response => {
-    //        if (!response.ok) {
-    //            throw new Error('Erro ao validar o token:', response.status);
-    //        }
-    //        return response.json();
-    //    })
-    //    .then(data => {
-    //        console.log('Informações do token:', data);
-    //    })
-    //    .catch(error => {
-    //        console.error(error);
-    //        localStorage.removeItem('accessToken');
-    //        authorizeGoogle();
-    //    });
 }
 
 function carregarSalvosLocalStorage() {
@@ -315,13 +241,10 @@ function verificarSeJaCompartilhado() {
     const compartilhadoMD5 = localStorage.getItem('compartilhadoMD5');
 
     if (compartilhadoMD5) {
-        if (textoDoStorageCriptografado === compartilhadoMD5) {
+        if (textoDoStorageCriptografado === compartilhadoMD5)
             return '';
-        }
-        else {
-            //localStorage.setItem('compartilhadoMD5', textoDoStorageCriptografado);
+        else
             return textoDoStorage;
-        }            
     }
     else
         return textoDoStorage;
