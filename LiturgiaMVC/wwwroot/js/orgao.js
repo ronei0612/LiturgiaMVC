@@ -2217,28 +2217,29 @@ function iniciarCifra() {
 		modal_loading.style.display = 'none';
 	}
 }
-
 function novoSalvamento() {
 	sairDeFullscreen();
+
 	var novoSalvamento = selectSalvamento;
-	let nome = prompt('Nome da novo salvamento');
+	let nome = prompt('Nome do novo salvamento');
 
 	if (nome !== '' && nome !== null) {
 		nome = primeiraLetraMaiuscula(nome);
 		var opcoesSelect = novoSalvamento.options;
 		var opcoesArray = [...opcoesSelect].map(el => el.value);
 
-		if (opcoesArray.includes(nome))
+		if (opcoesArray.includes(nome)) {
 			alert('Salvamento ' + nome + ' já existe!');
-
-		else {
+		} else {
 			var option = document.createElement("option");
 
 			option.text = nome;
 			novoSalvamento.add(option);
 			novoSalvamento.selectedIndex = novoSalvamento.length - 1;
 
-			salvarOptionsNoStorage('salvamentos');
+			salvarSalvamento(novoSalvamento.value);
+			// Salvar options no localStorage
+			//salvarOptionsNoStorage('salvamentos');
 		}
 	}
 }
@@ -2248,12 +2249,18 @@ function deletarSalvamento() {
 
 	if (gravacaoSelecionada.value !== '') {
 		sairDeFullscreen();
+
 		if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
-			localStorage.removeItem(gravacaoSelecionada.value);
-			localStorage.removeItem(gravacaoSelecionada.value + '_frameCifra');
+			localStorage.removeItem('salvamentos');
+			// Remover o item do JSON de salvamentos
+			var salvamentos = getSalvamentos();
+			var index = salvamentos.indexOf(gravacaoSelecionada.value);
+			if (index !== -1) {
+				salvamentos.splice(index, 1);
+				localStorage.setItem('salvamentos', JSON.stringify(salvamentos));
+			}
 
 			gravacaoSelecionada.remove(gravacaoSelecionada.selectedIndex);
-			salvarOptionsNoStorage('salvamentos');
 		}
 	}
 }
@@ -2261,77 +2268,126 @@ function deletarSalvamento() {
 function salvarOptionsNoStorage(nomeStorage) {
 	opcoesSelect = selectSalvamento.options;
 	opcoesArray = [...opcoesSelect].map(el => el.value);
-	localStorage.setItem(nomeStorage, opcoesArray);
+	opcoesArray.shift(); //Remover o primeiro que é '' (em branco)
+
+	localStorage.setItem(nomeStorage, JSON.stringify(opcoesArray));
+}
+
+function getSalvamentos() {
+	var salvamentos = localStorage.getItem('salvamentos');
+	return salvamentos ? JSON.parse(salvamentos) : {};
+	//return salvamentos ? Object.keys(salvamentos) : [];
 }
 
 function carregarSalvamentosList() {
-	var salvamentosStorage = localStorage.getItem('salvamentos');
+	var salvamentos = getSalvamentos();
 
-	if (salvamentosStorage) {
-		if (salvamentosStorage.length > 0) {
-			selectSalvamento.innerHTML = "";
+	if (salvamentos) {
+		selectSalvamento.innerHTML = "";
 
-			var salvamentos = salvamentosStorage.split(',');
-			salvamentos.sort();
+		// Adiciona um option com texto vazio
+		var optionVazio = document.createElement("option");
+		optionVazio.text = "";
+		selectSalvamento.add(optionVazio);
 
-			for (var i = 0; i < salvamentos.length; i++) {
-				var option = document.createElement("option");
-				option.text = salvamentos[i];
-				selectSalvamento.add(option);
-			}
-		}
+		// Ordena os salvamentos
+		var keys = Object.keys(salvamentos).sort();
+
+		// Adicionar no elemento select
+		keys.forEach(function (key) {
+			var option = document.createElement("option");
+			option.text = key;
+			selectSalvamento.add(option);
+		});
 	}
 }
 
-function salvarSalvamento() {
-	var salvamentoSelecionado = selectSalvamento.value;
+function salvarSalvamentoNoStorage(salvamentoNome) {
+	// Criar objeto para armazenar todas as informações
+	var dadosSalvos = {
+		instrumentoSelect: instrumentoSelect.selectedIndex,
+		selectRitmo: selectRitmo.selectedIndex,
+		tomSelect: tomSelect.selectedIndex,
+		bpm: bpm.value,
+		autoCheck: autoCheck.checked,
+		acompCheck: acompCheck.checked
+	};
 
+	// Verificar se algum botão de mão foi selecionado e adicionar ao objeto se houver
+	var maoBotaoSelecionado = document.getElementsByClassName('selecionado');
+	if (maoBotaoSelecionado.length > 0)
+		dadosSalvos[maoBotaoSelecionado[0].id] = 'selecionado';
+
+	// Adicionar informações sobre tomMenorSwitch se estiver visível
+	if (tomMenorSwitchDiv.style.display !== 'none')
+		dadosSalvos.tomMenorSwitch = tomMenorSwitch.checked;
+
+	// Salvar informações do frame de texto de cifras se estiver visível
+	if (textoCifrasFrame.style.display !== 'none') {
+		dadosSalvos.frameTom = tomSelect.value;
+		dadosSalvos.frameCifra = textoCifras.contentDocument.body.innerHTML;
+	}
+
+	// Obter dados salvos anteriores
+	var salvamentos = JSON.parse(localStorage.getItem('salvamentos')) || {};
+	// Adicionar ou atualizar dados do salvamento selecionado
+	salvamentos[salvamentoNome] = dadosSalvos;
+	// Salvar no localStorage
+	localStorage.setItem('salvamentos', JSON.stringify(salvamentos));
+
+	modal01.style.display = 'none';
+}
+
+function salvarSalvamento(salvamentoSelecionado = '') {
 	if (salvamentoSelecionado !== '') {
+		salvarSalvamentoNoStorage(salvamentoSelecionado);
+	}
+	
+	else if (selectSalvamento.value !== '') {
 		sairDeFullscreen();
 
-		if (confirm('Deseja salvar?\n' + salvamentoSelecionado)) {
-			// Criar objeto para armazenar todas as informações
-			var dadosSalvos = {
-				instrumentoSelect: instrumentoSelect.selectedIndex,
-				selectRitmo: selectRitmo.selectedIndex,
-				tomSelect: tomSelect.selectedIndex,
-				bpm: bpm.value,
-				autoCheck: autoCheck.checked,
-				acompCheck: acompCheck.checked
-			};
+		salvamentoSelecionado = selectSalvamento.value;
+		if (confirm('Deseja salvar?\n' + salvamentoSelecionado))
+			salvarSalvamentoNoStorage(salvamentoSelecionado);
+	}
+}
 
-			// Verificar se algum botão de mão foi selecionado e adicionar ao objeto se houver
-			var maoBotaoSelecionado = document.getElementsByClassName('selecionado');
-			if (maoBotaoSelecionado.length > 0)
-				dadosSalvos[maoBotaoSelecionado[0].id] = 'selecionado';
+function carregar_Salvamento() {
+	modal01.style.display = 'none';
 
-			// Adicionar informações sobre tomMenorSwitch se estiver visível
-			if (tomMenorSwitchDiv.style.display !== 'none')
-				dadosSalvos.tomMenorSwitch = tomMenorSwitch.checked;
+	var salvamentoSelecionado = selectSalvamento.value;
 
-			// Salvar informações do frame de texto de cifras se estiver visível
-			if (textoCifrasFrame.style.display !== 'none') {
-				dadosSalvos.frameTom = tomSelect.value;
-				dadosSalvos.frameCifra = textoCifras.contentDocument.body.innerHTML;
+	if (salvamentoSelecionado) {
+		var dadosSalvos = JSON.parse(localStorage.getItem('salvamentos'))[salvamentoSelecionado];
 
-				selectFonte.style.display = '';
-				dadosSalvos.selectFonte = selectFonte.selectedIndex;
-				selectFonte.style.display = 'none';
-				botaoFonte.style.display = '';
+		if (dadosSalvos) {
+			Object.keys(dadosSalvos).forEach(function (key) {
+				var value = dadosSalvos[key];
+				var element = document.getElementById(key);
 
-				selectTamanhoIframe.style.display = '';
-				dadosSalvos.selectTamanhoIframe = selectTamanhoIframe.selectedIndex;
-				selectTamanhoIframe.style.display = 'none';
-				botaoTamanhoIframe.style.display = '';
-			}
+				if (element) {
+					if (key === 'bpm') {
+						element.value = value;
+						bpmRange.value = bpm.value;
+					} else if (value === 'selecionado') {
+						escolherAcompanhamentoOrgao(element.id, element);
+					} else if (key === 'tomMenorSwitch' || key === 'autoCheck' || key === 'acompCheck') {
+						element.checked = value;
+					} else {
+						element.selectedIndex = value;
+					}
 
-			// Armazenar o objeto JSON no Local Storage
-			localStorage.setItem(salvamentoSelecionado, JSON.stringify(dadosSalvos));
-
-			modal01.style.display = 'none';
+					if (element.id === 'tomSelect') {
+						element.dispatchEvent(new Event('change'));
+					} else {
+						element.dispatchEvent(new Event('change'));
+					}
+				}
+			});
 		}
 	}
 }
+
 
 function compartilhar_Salvamentos() {
 	modal01.style.display = 'none';
@@ -2345,68 +2401,6 @@ function mostrarSalvamentoCompartilhado() {
 	else {
 		const arquivoIdText = document.getElementById('arquivoIdText').innerText;
 		copiarTextoParaClipboard(arquivoIdText);
-	}
-}
-
-function carregar_Salvamento() {
-	modal01.style.display = 'none';
-
-	var salvamentoSelecionado = selectSalvamento.value;
-	var storageTomSelecionadoCifra = localStorage.getItem(salvamentoSelecionado + '_frameTom');
-	var eventoChange_tomSelect = true;
-
-	var storageElements = localStorage.getItem(salvamentoSelecionado);
-
-	if (storageElements) {
-		var dadosSalvos = JSON.parse(storageElements);
-
-		if (dadosSalvos.frameCifra) {
-			eventoChange_tomSelect = false;
-			escreverCifraTextArea.style.display = 'block';
-
-			let tom = tomSelect.value;
-			if (storageTomSelecionadoCifra)
-				tom = storageTomSelecionadoCifra;
-
-			mostrarTextoCifrasCarregado(tom, dadosSalvos.frameCifra);
-
-			textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
-			textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
-			textoCifras.style.height = selectTamanhoIframe.value + 'px';
-			partituraFrame.style.height = selectTamanhoIframe.value + 'px';
-
-			selecionarCifraId();
-		}
-		else
-			voltarParaOrgao();
-
-		Object.keys(dadosSalvos).forEach(function (key) {
-			var value = dadosSalvos[key];
-			var element = document.getElementById(key);
-
-			if (element) {
-				if (key === 'bpm') {
-					element.value = value;
-					bpmRange.value = bpm.value;
-				} else if (value === 'selecionado') {
-					escolherAcompanhamentoOrgao(element.id, element);
-				} else if (key === 'tomMenorSwitch' || key === 'autoCheck' || key === 'acompCheck') {
-					element.checked = value;
-				} else {
-					element.selectedIndex = value;
-				}
-
-				if (element.id === 'tomSelect') {
-					if (eventoChange_tomSelect) {
-						element.dispatchEvent(eventoChange);
-					} else {
-						_tomSelectedIndexCifra = element.selectedIndex;
-					}
-				} else {
-					element.dispatchEvent(eventoChange);
-				}
-			}
-		});
 	}
 }
 
