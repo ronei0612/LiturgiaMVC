@@ -2000,6 +2000,18 @@ function mutarVolume(mute = true) {
 	}
 }
 
+function limparUrl() {
+	let novaURL = window.location.href;
+	if (window.location.href.includes('#')) {
+		novaURL = window.location.href.split('#')[0];
+	}
+	if (window.location.href.includes('?')) {
+		novaURL = window.location.href.split('?')[0];
+	}
+
+	window.history.replaceState({}, document.title, novaURL);
+}
+
 function ocultarModal() {
 	rolagemTelaOracaoEucaristica();
 	liturgiaDiariaFrame.style.height = '';
@@ -2012,10 +2024,7 @@ function ocultarModal() {
 	sobreDiv.style.display = 'none';
 	posicaoBotaoFecharModal(document.getElementById('botaoFecharModal'), false);
 
-	if (window.location.href.includes('?')) {
-		let novaURL = window.location.href.split('?')[0];
-		window.history.replaceState({}, document.title, novaURL);
-	}
+	limparUrl();
 }
 
 function mostrarModal(nome) {
