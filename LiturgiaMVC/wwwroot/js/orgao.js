@@ -2390,8 +2390,12 @@ function carregar_Salvamento() {
 
 
 function compartilhar_Salvamentos() {
-	modal01.style.display = 'none';
-	criarArquivodoStorage();
+	if (localStorage.getItem('salvamentos')) {
+		modal01.style.display = 'none';
+		criarArquivodoStorage();
+	}
+	else
+		alert('Crie pelo menos um Salvamento');
 }
 
 function mostrarSalvamentoCompartilhado() {
