@@ -565,11 +565,11 @@ function darkModeLocalStorage() {
 
 function manterTelaLigada_v2() {
 	if (isMobileDevice()) {
-	let wakeLock = null;
-	try {
-		wakeLock = navigator.wakeLock.request("screen");
-	} catch { }
-}
+		let wakeLock = null;
+		try {
+			wakeLock = navigator.wakeLock.request("screen");
+		} catch { }
+	}
 }
 
 function verificarOrientacaoCelular() {
