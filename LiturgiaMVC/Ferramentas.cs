@@ -107,8 +107,6 @@ namespace LiturgiaMVC
 			    {
                     paginaHtml = webClient.DownloadString(url);
 			    }
-
-                paginaHtml = paginaHtml.Replace("\\\"", "\"");
 			}
 			catch { }
 

@@ -267,7 +267,7 @@
 
 	function mostrarCompartilhado() {
 		if ('@Model.Compartilhado' !== '') {
-			lerDadosCompartilhado('@Html.Raw(@Model.Compartilhado)');
+			localStorage.setItem('compartilhados', JSON.stringify(@Html.Raw(@Model.Compartilhado)));
 			limparUrl();
 		}
 	}

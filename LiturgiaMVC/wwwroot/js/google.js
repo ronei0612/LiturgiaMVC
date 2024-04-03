@@ -28,10 +28,6 @@ async function processToken() {
     }
 }
 
-function lerDadosCompartilhado(data) {
-    localStorage.setItem('compartilhados', data);
-}
-
 // Verificar se a página foi carregada com um token de acesso
 window.onload = function () {
     if (window.location.hash) {

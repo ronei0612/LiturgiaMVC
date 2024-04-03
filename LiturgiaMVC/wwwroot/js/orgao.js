@@ -2133,6 +2133,13 @@ function mostrarModal(nome) {
 			document.getElementById('arquivoIdText').innerText = url + '?compartilhado=' + arquivoIdStorage; 
 
 			break;
+		case 'conjuntoSalvamentos':
+			compartilhadoDiv.style.display = 'none';
+			salvarDiv.style.display = 'block';
+
+			let conjuntoSalvamentosSelecionado = document.getElementById('selectConjuntoSalvamento').value;
+			carregarSalvamentosList(conjuntoSalvamentosSelecionado);
+			break;
 		case 'oracoesEucaristicas':
 			oracoesEucaristicasDiv.style.display = '';
 			selectOpcoes.style.display = 'none';
