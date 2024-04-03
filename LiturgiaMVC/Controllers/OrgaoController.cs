@@ -20,7 +20,10 @@ namespace LiturgiaMVC.Controllers
             if (result != null)
                 return View("Error", result);
 
-            var linksModel = new LinksModel
+            if (compartilhado != "")
+				compartilhado = Ferramentas.LerArquivoGoogleDrive(compartilhado);
+
+			var linksModel = new LinksModel
             {
                 AcordesCampoHarmonico = Ferramentas.ConvertToJson(Variaveis.acordes),
                 Acordes = Variaveis.acordes[tom],

@@ -267,7 +267,7 @@
 
 	function mostrarCompartilhado() {
 		if ('@Model.Compartilhado' !== '') {
-			lerArquivoCompartilhado('@Model.Compartilhado');
+			lerDadosCompartilhado('@Html.Raw(@Model.Compartilhado)');
 			limparUrl();
 		}
 	}

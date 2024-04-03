@@ -1,9 +1,11 @@
 ﻿using LiturgiaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -95,7 +97,25 @@ namespace LiturgiaMVC
 #endif
         }
 
-        static void VerificarTamanhoMaximIps()
+		public static string LerArquivoGoogleDrive(string arquivoId)
+        {			
+			var url = "https://drive.google.com/uc?export=download&id=" + arquivoId;
+			var paginaHtml = string.Empty;
+			try
+			{
+				using (var webClient = new WebClient())
+			    {
+                    paginaHtml = webClient.DownloadString(url);
+			    }
+
+                paginaHtml = paginaHtml.Replace("\\\"", "\"");
+			}
+			catch { }
+
+			return paginaHtml;
+		}
+
+		static void VerificarTamanhoMaximIps()
         {
             if (File.Exists(Variaveis.arquivoIPs)) {
                 var dezMegas = 1000000;

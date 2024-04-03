@@ -202,6 +202,7 @@ const botaoIniciar = document.getElementById('botaoIniciar');
 const escreverCifraTextArea = document.getElementById('escreverCifraTextArea');
 const selectInstrumento = document.getElementById('selectInstrumento');
 const salvarDiv = document.getElementById('salvarDiv');
+const compartilhadoDiv = document.getElementById('compartilhadoDiv');
 const compartilharDiv = document.getElementById('compartilharDiv');
 const selectOpcoes = document.getElementById('selectOpcoes');
 const modalGravar = document.getElementById('modalGravar');
@@ -2042,6 +2043,7 @@ function mostrarModal(nome) {
 			selectOpcoes.style.display = 'block';
 			salvarDiv.style.display = 'none';
 			compartilharDiv.style.display = 'none';
+			compartilhadoDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
 			break;
 		case 'instrumento':
@@ -2050,6 +2052,7 @@ function mostrarModal(nome) {
 			selectInstrumento.style.display = 'block';
 			salvarDiv.style.display = 'none';
 			compartilharDiv.style.display = 'none';
+			compartilhadoDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
 			break;
 		case 'gravar':
@@ -2069,6 +2072,7 @@ function mostrarModal(nome) {
 				modalGravar.style.display = 'block';
 				salvarDiv.style.display = 'none';
 				compartilharDiv.style.display = 'none';
+				compartilhadoDiv.style.display = 'none';
 				selectConfiguracao.style.display = 'none';
 
 				if (textoCifrasFrame.style.display !== 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
@@ -2095,11 +2099,24 @@ function mostrarModal(nome) {
 			selectOpcoes.style.display = 'none';
 			selectInstrumento.style.display = 'none';
 			modalGravar.style.display = 'none';
-			salvarDiv.style.display = 'block';
 			compartilharDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
 
-			carregarSalvamentosList();
+			let salvamentosStorage = localStorage.getItem('salvamentos');
+			let compartilhadosStorage = localStorage.getItem('compartilhados');
+			if (salvamentosStorage && compartilhadosStorage) {
+				compartilhadoDiv.style.display = 'block';
+				salvarDiv.style.display = 'none';
+			}
+			else {
+				compartilhadoDiv.style.display = 'none';
+				salvarDiv.style.display = 'block';
+			}
+
+			if (salvamentosStorage)
+				carregarSalvamentosList('salvamentos');
+			else if (compartilhadosStorage)
+				carregarSalvamentosList('compartilhados');
 			break;
 		case 'compartilhado':
 			selectOpcoes.style.display = 'none';
@@ -2107,6 +2124,7 @@ function mostrarModal(nome) {
 			modalGravar.style.display = 'none';
 			salvarDiv.style.display = 'none';
 			compartilharDiv.style.display = 'block';
+			compartilhadoDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
 
 			const arquivoIdStorage = localStorage.getItem('fileId');
@@ -2273,14 +2291,14 @@ function salvarOptionsNoStorage(nomeStorage) {
 	localStorage.setItem(nomeStorage, JSON.stringify(opcoesArray));
 }
 
-function getSalvamentos() {
-	var salvamentos = localStorage.getItem('salvamentos');
+function getSalvamentos(salvamentoStorage) {
+	var salvamentos = localStorage.getItem(salvamentoStorage);
 	return salvamentos ? JSON.parse(salvamentos) : {};
 	//return salvamentos ? Object.keys(salvamentos) : [];
 }
 
-function carregarSalvamentosList() {
-	var salvamentos = getSalvamentos();
+function carregarSalvamentosList(salvamentoStorage) {
+	var salvamentos = getSalvamentos(salvamentoStorage);
 
 	if (salvamentos) {
 		selectSalvamento.innerHTML = "";
@@ -2399,13 +2417,12 @@ function compartilhar_Salvamentos() {
 }
 
 function mostrarSalvamentoCompartilhado() {
-	if (isMobileDevice()) {
+	const arquivoIdText = document.getElementById('arquivoIdText').innerText;
 
-	}
-	else {
-		const arquivoIdText = document.getElementById('arquivoIdText').innerText;
+	if (isMobileDevice())
+		compartilharMobile(arquivoIdText);
+	else
 		copiarTextoParaClipboard(arquivoIdText);
-	}
 }
 
 function escolherArquivo(event) {

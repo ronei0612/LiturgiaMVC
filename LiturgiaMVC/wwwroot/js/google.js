@@ -28,48 +28,8 @@ async function processToken() {
     }
 }
 
-function lerArquivo(arquivoId) {
-    if (!arquivoId)
-        arquivoId = localStorage.getItem('fileId');
-
-    if (!arquivoId) {
-        console.log('Arquivo ainda não criado');
-        return;
-    }
-
-    validarToken();
-
-    fetch(`https://www.googleapis.com/drive/v3/files/${arquivoId}?alt=media`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-        }
-    })
-        .then(response => response.text())
-        .then(data => {
-            console.log('Conteúdo do arquivo:', data);
-            // Faça o que precisar com o conteúdo do arquivo aqui
-        })
-        .catch(error => {
-            console.error('Erro ao ler o arquivo:', error);
-        });
-}
-
-async function lerArquivoCompartilhado(arquivoId) {
-    try {
-        const url = `https://drive.google.com/file/d/${arquivoId}/view?usp=sharing`;
-
-        const response = await fetch(url);
-
-        if (response.ok) {
-            const data = await response.text();
-            //console.log('Conteúdo do arquivo:', data);
-        } else {
-            throw new Error('Erro ao obter o arquivo:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Erro:', error);
-    }
+function lerDadosCompartilhado(data) {
+    localStorage.setItem('compartilhados', data);
 }
 
 // Verificar se a página foi carregada com um token de acesso
@@ -259,4 +219,20 @@ function copiarTextoParaClipboard(texto) {
 
     alert("Texto copiado!");
     ocultarModal();
+}
+
+function compartilharMobile(texto) {
+    // Verifica se o navegador suporta a Web Share API
+    if (navigator.share) {
+        navigator.share({
+            title: 'Compartilhar',
+            text: texto,
+        })
+            .then(() => console.log('Conteúdo compartilhado com sucesso!'))
+            .catch((error) => console.error('Erro ao compartilhar:', error));
+    } else {
+        // Caso o navegador não suporte a Web Share API, redireciona para a página de compartilhamento padrão
+        //window.location.href = 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fseusite.com';
+        window.location.href = 'https://api.whatsapp.com/send?text=' + texto;
+    }
 }

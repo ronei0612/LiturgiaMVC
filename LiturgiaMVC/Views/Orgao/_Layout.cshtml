@@ -185,6 +185,23 @@
                     <br /><br />
                 </div>
 
+                <div id="compartilhadoDiv" style="display:none">
+                    <br />
+                    <h4>Salvamentos</h4>
+                    <br />
+                    Carregar conjunto de salvamentos:
+                    <br />
+                    <select class="form-control" tyle="height:3m" id="selectConjuntoSalvamento">
+                        <option selected value="salvamentos">Nesse dispositivo</option>
+                        <option selected value="compartilhados">Compartilhado</option>
+                    </select>
+                    <button class="btn btn-primary" type="button" onclick="carregarSalvamentosList(document.getElementById('selectConjuntoSalvamento').value)">
+                        Ok
+                    </button>
+                    <br />
+                    <br />
+                </div>
+
                 <div id="compartilharDiv">
                     <br />
                     <h4>Compartilhar Salvamentos</h4>
