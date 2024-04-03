@@ -1,8 +1,5 @@
 //Autorizar google api: https://console.developers.google.com/apis/api/drive.googleapis.com/overview?project=982717214287
 
-// ID da pasta compartilhada no Google Drive
-//const folderId = '1sA7VzOjxeFuF3fx7Ttf0GPqBQAop6G88';
-
 // Configurações de OAuth2
 const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com';
 const redirectUri = 'https://localhost:7188/orgao'; // URL de redirecionamento após a autorização
@@ -17,7 +14,6 @@ function authorizeGoogle() {
     window.location.href = authUrl;
 }
 
-// Função para processar o token de acesso e compartilhar a pasta
 async function processToken() {
     const urlParams = new URLSearchParams(window.location.hash.substr(1));
     const accessToken = urlParams.get('access_token');
@@ -32,7 +28,6 @@ async function processToken() {
     }
 }
 
-// Função para ler um arquivo do Google Drive
 function lerArquivo(arquivoId) {
     if (!arquivoId)
         arquivoId = localStorage.getItem('fileId');
@@ -88,12 +83,6 @@ window.onload = function () {
             criarArquivodoStorage();
         }
     }
-    
-
-    //const arquivoCompartilhado = localStorage.getItem('arquivoCompartilhadoId');
-    //if (arquivoCompartilhado) {
-    //    lerArquivoCompartilhado(arquivoCompartilhado);
-    //}
 };
 
 async function criarArquivoNoGoogleDrive(texto) {
