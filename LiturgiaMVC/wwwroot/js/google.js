@@ -30,7 +30,7 @@ async function processToken() {
 }
 
 // Verificar se a página foi carregada com um token de acesso
-window.onload = function () {
+function verificarSeObtendoTokenGoogle() {
     if (window.location.hash) {
         processToken();
 
@@ -40,7 +40,7 @@ window.onload = function () {
             criarArquivodoStorage();
         }
     }
-};
+}
 
 async function criarArquivoNoGoogleDrive(texto) {
     try {

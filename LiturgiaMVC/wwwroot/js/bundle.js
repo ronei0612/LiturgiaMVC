@@ -742,6 +742,8 @@ var _colId;
         }
 
         window.onload = function () {
+            verificarSeObtendoTokenGoogle();
+
             getSetAudioOptions.setTrackerControls(defaultTrack.settings);
 
             initializeSampleSet(ctx, defaultTrack.settings.sampleSet, defaultTrack); //carrega e inicializa tracks
