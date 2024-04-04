@@ -1513,6 +1513,8 @@ function mudarParaFullscreen() {
 }
 
 function sairDeFullscreen() {
+	const antes = exitfullscreen.style.display !== 'none';
+
 	if (exitfullscreen.style.display !== 'none') {
 		if (textoCifrasFrame.style.display === 'none')
 			mostrarNavBar();
@@ -1527,6 +1529,8 @@ function sairDeFullscreen() {
 
 		mutarVolume(false);
 	}
+
+	return antes;
 }
 
 function mostrarNavBar() {
@@ -2245,6 +2249,8 @@ function iniciarCifra() {
 function novoSalvamento() {
 	sairDeFullscreen();
 
+	const antesEstavaFull = sairDeFullscreen();
+
 	var novoSalvamento = selectSalvamento;
 	let nome = prompt('Nome do novo salvamento');
 
@@ -2267,13 +2273,20 @@ function novoSalvamento() {
 			//salvarOptionsNoStorage('salvamentos');
 		}
 	}
+
+	if (antesEstavaFull)
+		botaoFullscreen.dispatchEvent(eventoClick);
 }
 
 function deletarSalvamento() {
+	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
+	if (!nomeStorage)
+		nomeStorage = 'salvamentos';
+
 	var gravacaoSelecionada = selectSalvamento;
 
 	if (gravacaoSelecionada.value !== '') {
-		sairDeFullscreen();
+		const antesEstavaFull = sairDeFullscreen();
 
 		if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
 			var salvamentos = getSalvamentos(nomeStorage);
@@ -2282,8 +2295,10 @@ function deletarSalvamento() {
 			localStorage.setItem(nomeStorage, JSON.stringify(salvamentos));
 			}
 
-			gravacaoSelecionada.remove(gravacaoSelecionada.selectedIndex);
-		}
+		if (antesEstavaFull)
+			botaoFullscreen.dispatchEvent(eventoClick);
+
+		carregarSalvamentosList(nomeStorage);
 	}
 }
 
@@ -2366,11 +2381,14 @@ function salvarSalvamento(salvamentoSelecionado = '') {
 	}
 	
 	else if (selectSalvamento.value !== '') {
-		sairDeFullscreen();
+		const antesEstavaFull = sairDeFullscreen();
 
 		salvamentoSelecionado = selectSalvamento.value;
 		if (confirm('Deseja salvar?\n' + salvamentoSelecionado))
-			salvarSalvamentoNoStorage(salvamentoSelecionado);
+			salvarSalvamentoNoStorage(salvamentoSelecionado, nomeStorage);
+
+		if (antesEstavaFull)
+			botaoFullscreen.dispatchEvent(eventoClick);
 	}
 }
 
