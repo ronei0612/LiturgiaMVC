@@ -2276,13 +2276,10 @@ function deletarSalvamento() {
 		sairDeFullscreen();
 
 		if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
-			localStorage.removeItem('salvamentos');
-			// Remover o item do JSON de salvamentos
-			var salvamentos = getSalvamentos();
-			var index = salvamentos.indexOf(gravacaoSelecionada.value);
-			if (index !== -1) {
-				salvamentos.splice(index, 1);
-				localStorage.setItem('salvamentos', JSON.stringify(salvamentos));
+			var salvamentos = getSalvamentos(nomeStorage);
+			delete salvamentos[gravacaoSelecionada.value];
+
+			localStorage.setItem(nomeStorage, JSON.stringify(salvamentos));
 			}
 
 			gravacaoSelecionada.remove(gravacaoSelecionada.selectedIndex);
