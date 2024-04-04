@@ -2306,6 +2306,41 @@ function deletarSalvamento() {
 	}
 }
 
+function editarSalvamento() {
+	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
+	if (!nomeStorage)
+		nomeStorage = 'salvamentos';
+
+	var gravacaoSelecionada = selectSalvamento;
+
+	if (gravacaoSelecionada.value !== '') {
+		const antesEstavaFull = sairDeFullscreen();
+
+		let novoNome = prompt('Novo nome do salvamento\n' + gravacaoSelecionada.value);
+
+		if (novoNome !== '' && novoNome !== null) {
+			novoNome = primeiraLetraMaiuscula(novoNome.trim());
+			var opcoesSelect = gravacaoSelecionada.options;
+			var opcoesArray = [...opcoesSelect].map(el => el.value);
+
+			if (opcoesArray.includes(novoNome)) {
+				alert('Salvamento ' + novoNome + ' já existe!');
+			} else {
+				var salvamentos = getSalvamentos(nomeStorage);
+				salvamentos[novoNome] = salvamentos[gravacaoSelecionada.value];
+				delete salvamentos[gravacaoSelecionada.value];
+
+				localStorage.setItem(nomeStorage, JSON.stringify(salvamentos));
+				carregarSalvamentosList(nomeStorage);
+				gravacaoSelecionada.selectedIndex = gravacaoSelecionada.length - 1;
+			}
+		}
+
+		if (antesEstavaFull)
+			botaoFullscreen.dispatchEvent(eventoClick);
+	}
+}
+
 function salvarOptionsNoStorage(nomeStorage) {
 	opcoesSelect = selectSalvamento.options;
 	opcoesArray = [...opcoesSelect].map(el => el.value);
