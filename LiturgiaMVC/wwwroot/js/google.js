@@ -234,8 +234,10 @@ function compartilharMobile(texto) {
     }
 }
 
-function verificarSewww() {    
-    // Necessário www no mobile para funcionar api, e como o certificado é www então precisa para computador também
-    if (!window.location.href.includes('https://www.'))
-        window.location.href = 'https://www.' + window.location.host.replace('www.', '') + window.location.pathname;
+function verificarSewww() {
+    if (!window.location.href.includes('localhost')) {
+        // Necessário www no mobile para funcionar api, e como o certificado é www então precisa para computador também
+        if (!window.location.href.includes('https://www.'))
+            window.location.href = 'https://www.' + window.location.host.replace('www.', '') + window.location.pathname;
+    }
 }
