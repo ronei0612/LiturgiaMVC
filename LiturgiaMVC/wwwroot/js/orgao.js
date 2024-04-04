@@ -2093,11 +2093,15 @@ function mostrarModal(nome) {
 			break;
 		case 'salvar':
 			if (_configurandoTeclas) {
-				sairDeFullscreen();
+				const antesEstavaFull = sairDeFullscreen();
+
 				if (confirm('Salvar Configuração de Teclas?')) {
 					salvarConfiguracaoTeclas();
 				}
 				ocultarModal();
+
+				if (antesEstavaFull)
+					botaoFullscreen.dispatchEvent(eventoClick);
 				break;
 			}
 			selectOpcoes.style.display = 'none';
@@ -2247,7 +2251,9 @@ function iniciarCifra() {
 	}
 }
 function novoSalvamento() {
-	sairDeFullscreen();
+	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
+	if (!nomeStorage)
+		nomeStorage = 'salvamentos';
 
 	const antesEstavaFull = sairDeFullscreen();
 
@@ -2268,9 +2274,7 @@ function novoSalvamento() {
 			novoSalvamento.add(option);
 			novoSalvamento.selectedIndex = novoSalvamento.length - 1;
 
-			salvarSalvamento(novoSalvamento.value);
-			// Salvar options no localStorage
-			//salvarOptionsNoStorage('salvamentos');
+			salvarSalvamento(novoSalvamento.value, nomeStorage);
 		}
 	}
 
@@ -2293,7 +2297,7 @@ function deletarSalvamento() {
 			delete salvamentos[gravacaoSelecionada.value];
 
 			localStorage.setItem(nomeStorage, JSON.stringify(salvamentos));
-			}
+		}
 
 		if (antesEstavaFull)
 			botaoFullscreen.dispatchEvent(eventoClick);
@@ -2313,7 +2317,6 @@ function salvarOptionsNoStorage(nomeStorage) {
 function getSalvamentos(salvamentoStorage) {
 	var salvamentos = localStorage.getItem(salvamentoStorage);
 	return salvamentos ? JSON.parse(salvamentos) : {};
-	//return salvamentos ? Object.keys(salvamentos) : [];
 }
 
 function carregarSalvamentosList(salvamentoStorage) {
@@ -2339,7 +2342,7 @@ function carregarSalvamentosList(salvamentoStorage) {
 	}
 }
 
-function salvarSalvamentoNoStorage(salvamentoNome) {
+function salvarSalvamentoNoStorage(salvamentoNome, nomeStorage) {
 	// Criar objeto para armazenar todas as informações
 	var dadosSalvos = {
 		instrumentoSelect: instrumentoSelect.selectedIndex,
@@ -2366,18 +2369,24 @@ function salvarSalvamentoNoStorage(salvamentoNome) {
 	}
 
 	// Obter dados salvos anteriores
-	var salvamentos = JSON.parse(localStorage.getItem('salvamentos')) || {};
+	var salvamentos = JSON.parse(localStorage.getItem(nomeStorage)) || {};
 	// Adicionar ou atualizar dados do salvamento selecionado
 	salvamentos[salvamentoNome] = dadosSalvos;
 	// Salvar no localStorage
-	localStorage.setItem('salvamentos', JSON.stringify(salvamentos));
+	localStorage.setItem(nomeStorage, JSON.stringify(salvamentos));
 
 	modal01.style.display = 'none';
 }
 
-function salvarSalvamento(salvamentoSelecionado = '') {
+function salvarSalvamento(salvamentoSelecionado = '', nomeStorage) {
+	if (!nomeStorage) {
+		nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
+		if (!nomeStorage)
+			nomeStorage = 'salvamentos';
+	}
+
 	if (salvamentoSelecionado !== '') {
-		salvarSalvamentoNoStorage(salvamentoSelecionado);
+		salvarSalvamentoNoStorage(salvamentoSelecionado, nomeStorage);
 	}
 	
 	else if (selectSalvamento.value !== '') {
