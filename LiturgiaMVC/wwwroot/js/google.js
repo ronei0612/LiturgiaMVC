@@ -234,8 +234,8 @@ function compartilharMobile(texto) {
     }
 }
 
-function verificarSewww() {
-    // Necessário www no mobile para funcionar api
-    if (isMobileDevice() && !window.location.hostname.startsWith('www.')) {
-        window.location.href = 'https://www.' + window.location.hostname + window.location.pathname;
-    }
+function verificarSewww() {    
+    // Necessário www no mobile para funcionar api, e como o certificado é www então precisa para computador também
+    if (!window.location.href.includes('https://www.'))
+        window.location.href = 'https://www.' + window.location.host.replace('www.', '') + window.location.pathname;
+}
