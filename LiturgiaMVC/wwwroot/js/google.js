@@ -233,3 +233,9 @@ function compartilharMobile(texto) {
         window.location.href = 'https://api.whatsapp.com/send?text=' + texto;
     }
 }
+
+function verificarSewww() {
+    // Necessário www no mobile para funcionar api
+    if (isMobileDevice() && !window.location.hostname.startsWith('www.')) {
+        window.location.href = 'https://www.' + window.location.hostname + window.location.pathname;
+    }
