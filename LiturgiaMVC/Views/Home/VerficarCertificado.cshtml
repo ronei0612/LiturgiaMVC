@@ -1,0 +1,100 @@
+﻿@model LiturgiaModel
+
+@{
+    ViewData["Title"] = "Liturgia";
+}
+<br />
+
+<div id="regerarCertificado">
+    <h1>Regerar Certificado SSL</h1>
+
+    <p>O certificado de <span class="host"></span> está expirando. (Vence dia: @Model.ValidadeCertificado)</p>
+    <p>Se você é um ADMINISTRADOR desse site, favor renovar o certificado conforme link abaixo:</p>
+    <br />
+    <a href="https://docs.google.com/document/d/1yLMuFaNI5OdVHW-aAg3TrZjxW7SUiHtocWcR0MCAgtw">https://docs.google.com/document/d/1yLMuFaNI5OdVHW-aAg3TrZjxW7SUiHtocWcR0MCAgtw</a>
+
+
+    @* <h1>Gerar e baixar Certificado</h1>
+
+    <p>Preencha os campos e clique no botão abaixo para baixar o certificado SSL e a chave:</p>
+
+    <br />
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email:</label>
+        <input type="email" class="form-control" id="emailSsl" aria-describedby="emailHelp" placeholder="">
+        <small id="emailHelp" class="form-text text-muted">E-mail que ficará registrado.</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Site</label>
+        <input type="password" class="form-control" id="siteSsl" placeholder="">
+    </div>
+
+    <button class="btn btn-primary" onclick="baixarCertificado()">Baixar Certificado</button>
+
+    <script>
+        document.getElementById('siteSsl').innerText = window.location.host; // Exemplo: www.liturgia.somee.com
+
+        function baixarCertificado() {
+            <a href="/GerarCertificadoSite?site=exemplo.com&email=seuemail@example.com" download>
+        }
+    </script> *@
+
+    <br />
+
+    <form action="~/Home/AtualizarDataValidadeCertificado" id="formAtualizarData" method="post">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3 class="mb-3">Nova data de validade:</h3>
+                    <div class="form-group">
+                        <input type="date" class="form-control" id="dataValidade" name="dataValidade" required>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" class="form-control" id="senha" name="senha" style="width: 32%;" required>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+    </form>
+</div>
+
+<div id="certificadoOk">
+    <h1>Certificado OK!</h1>
+
+    <p>Tudo OK com o certificado ssl do site <span class="host"></span>. (Vence dia: @Model.ValidadeCertificado)</p>
+    <p>Se você é um ADMINISTRADOR desse site, aqui estão as informações para conferir:</p>
+    <br />
+    <a href="https://docs.google.com/document/d/1yLMuFaNI5OdVHW-aAg3TrZjxW7SUiHtocWcR0MCAgtw">https://docs.google.com/document/d/1yLMuFaNI5OdVHW-aAg3TrZjxW7SUiHtocWcR0MCAgtw</a>
+</div>
+
+<script>
+    async function atualizarDataCertificado() {
+        var url = window.location.origin + "/Home/AtualizarDataValidadeCertificado?url=" + window.location.host;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                }
+            })
+            .catch(error => console.error("Erro ao escrever a validade do certificado:", error));
+    }
+
+    var hosts = document.getElementsByClassName('host');
+    hosts[0].innerText = window.location.host;
+    hosts[1].innerText = window.location.host;
+
+    if ('@Model.CertificadoVencendo' === 'True') {
+        document.getElementById('regerarCertificado').style.display = '';
+        document.getElementById('certificadoOk').style.display = 'none';
+    }
+    else {
+        document.getElementById('regerarCertificado').style.display = 'none';
+        document.getElementById('certificadoOk').style.display = '';
+    }
+</script>

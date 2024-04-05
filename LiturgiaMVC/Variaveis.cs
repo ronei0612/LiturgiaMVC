@@ -2,6 +2,8 @@
 {
     public class Variaveis
     {
+        public static string Senha = "asdf890-asdf";
+
         public static string pastaArquivos = "Arquivos";
         public static string pastaSons = "./Sons/";
         public static string pastaSonsOrgao = "./Sons/Orgao/";
@@ -15,6 +17,7 @@
         static string acordesListaCsv = "AcordesLista.txt";
         static string ritmosBateriaJson = "RitmosLista.txt";
         static string notasAcordesJson = "NotasAcordes.txt";
+        static string certificadosInfo = "CertificadosInfo.txt";
 
         public static string arquivoLinks = Path.Combine(pastaArquivos, links);
         public static string arquivoIPs = Path.Combine(pastaArquivos, IPs);
@@ -23,9 +26,11 @@
         public static string arquivoAcordesLista = Path.Combine(pastaArquivos, acordesListaCsv);
         public static string arquivoRitmosBateria = Path.Combine(pastaArquivos, ritmosBateriaJson);
         public static string arquivonotasAcordes = Path.Combine(pastaArquivos, notasAcordesJson);
+        public static string arquivoCertificadosInfo = Path.Combine(pastaArquivos, certificadosInfo);
 
         public static readonly string[] acidentes = { "5+", "6", "7", "7+", "9", "11" };
         public static string[] tonsMaiores, tonsMenores;
+        public static bool certificadoVencendo = false;
 
         public static string textoRitmos = "";
         public static string textoNotasAcordes = "";

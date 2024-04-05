@@ -70,6 +70,19 @@ window.addEventListener('DOMContentLoaded', function () {
 	}
 });
 
+async function verificarCertificadoVencendo() {
+	var url = window.location.origin + "/Home/ObterDataValidadeCertificado";
+
+	fetch(url)
+		.then(response => response.json())
+		.then(data => {
+			if (!data.success) {
+				console.error("O certificado está próximo de expirar!!!");
+			}
+		})
+		.catch(error => console.error("Erro ao verificar a validade do certificado:", error));
+}
+
 function removerComercial() {
 	setTimeout(function () {
 		$("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
@@ -80,3 +93,5 @@ function removerComercial() {
 }
 
 document.body.addEventListener('click', removerComercial);
+
+verificarCertificadoVencendo();

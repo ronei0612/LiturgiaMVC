@@ -1,13 +1,12 @@
 ﻿using LiturgiaMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
 using System.Globalization;
-using System.IO;
-using System.Linq;
+using System;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+//using Certes;
+//using Certes.Acme;
 
 namespace LiturgiaMVC
 {
@@ -97,7 +96,43 @@ namespace LiturgiaMVC
 #endif
         }
 
-		public static string LerArquivoGoogleDrive(string arquivoId)
+        public static string VerificarValidadeCertificado(HttpContext httpContext)
+        {
+            Variaveis.certificadoVencendo = false;
+
+            var url = httpContext.Request.Host.Value;
+
+            var linhasCertificado = Ferramentas.LerArquivoCertificado();
+            var dataHoraBrasilia = DateTime.Now.AddHours(2);
+            //var dataHoraAtual = dataHoraBrasilia.ToString(CultureInfo.CreateSpecificCulture("pt-BR"));
+
+            if (linhasCertificado != null)
+            {
+                foreach (var linha in linhasCertificado)
+                {
+                    if (linha.Contains('='))
+                    {
+                        if (linha.Split('=')[0] == url)
+                        {
+                            var possivelData = linha.Split('=')[1];
+                            if (DateTime.TryParseExact(possivelData, "dd/MM/yyyy", null, DateTimeStyles.None, out DateTime dataExpiracao))
+                            {
+                                // Verifique se faltam 20 dias para a expiração do certificado
+                                if (dataExpiracao.Subtract(dataHoraBrasilia).Days <= 20)
+                                    Variaveis.certificadoVencendo = true;
+
+                                return possivelData;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return "Erro ao ler o arquivo " + Variaveis.arquivoCertificadosInfo;
+        }
+
+
+        public static string LerArquivoGoogleDrive(string arquivoId)
         {			
 			var url = "https://drive.google.com/uc?export=download&id=" + arquivoId;
 			var paginaHtml = string.Empty;
@@ -681,6 +716,55 @@ namespace LiturgiaMVC
             }
 
             return new string[] { cifraSomenteNota, cifraAcordeAlteracoes };
+        }
+
+        //public static async Task<(string certPem, string keyPem)> GenerateCertificate(string[] domains, string email)
+        //{
+        //    var acme = new AcmeContext(WellKnownServers.LetsEncryptStagingV2);
+
+        //    var account = await acme.NewAccount(email, true);
+        //    account = (IAccountContext)await account.Update(agreeTermsOfService: true);
+
+        //    var order = await acme.NewOrder(domains);
+
+        //    var authz = await order.Authorizations();
+
+        //    foreach (var auth in authz)
+        //    {
+        //        var httpChallenge = await auth.Http();
+        //        var keyAuthz = httpChallenge.KeyAuthz;
+        //        // Configure your web server to serve the keyAuthz at httpChallenge.FilePath
+        //        await httpChallenge.Validate();
+        //    }
+
+        //    var privateKey = KeyFactory.NewKey(KeyAlgorithm.ES256);
+        //    var cert = await order.Generate(new CsrInfo
+        //    {
+        //        CountryName = "BR",
+        //        State = "MG",
+        //        Locality = "Borda da Mata",
+        //        Organization = "Ronei",
+        //        OrganizationUnit = "TI",
+        //        CommonName = domains[0]
+        //    }, privateKey);
+
+
+        //    // Save the certificate and private key somewhere
+        //    var certPem = cert.ToPem();
+        //    var keyPem = privateKey.ToPem();
+
+        //    return (certPem, keyPem);
+        //}
+
+        public static string[]? LerArquivoCertificado(string escrever = "")
+        {
+            if (!File.Exists(Variaveis.arquivoCertificadosInfo) || !string.IsNullOrEmpty(escrever))
+            {
+                File.WriteAllText(Variaveis.arquivoCertificadosInfo, escrever);
+                return null;
+            }
+            else
+                return File.ReadAllLines(Variaveis.arquivoCertificadosInfo);
         }
     }
 }
