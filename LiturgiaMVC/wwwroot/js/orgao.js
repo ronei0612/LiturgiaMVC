@@ -2450,7 +2450,29 @@ function carregar_Salvamento() {
 		var dadosSalvos = JSON.parse(storage)[salvamentoSelecionado];
 
 		if (dadosSalvos) {
-			Object.keys(dadosSalvos).forEach(function (key) {
+			var keys = Object.keys(dadosSalvos);
+
+			if (keys.includes('frameCifra')) {
+				let tom = dadosSalvos['frameTom'];
+				tomSelect.value = tom;
+
+				let cifraTexto = dadosSalvos['frameCifra'];
+				eventoChange_tomSelect = false;
+				escreverCifraTextArea.style.display = 'block';
+
+				mostrarTextoCifrasCarregado(tom, cifraTexto);
+
+				textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
+				textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
+				textoCifras.style.height = selectTamanhoIframe.value + 'px';
+				partituraFrame.style.height = selectTamanhoIframe.value + 'px';
+
+				selecionarCifraId();
+			}
+			else
+				voltarParaOrgao();
+
+			keys.forEach(function (key) {
 				var value = dadosSalvos[key];
 				var element = document.getElementById(key);
 
