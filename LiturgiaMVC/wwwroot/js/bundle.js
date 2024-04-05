@@ -871,6 +871,7 @@ var _colId;
                     _violaoSelecionado = false;
                     _epianoSelecionado = false;
                     _baixoSelecionado = false;
+                    _guitarraSelecionado = false;
                     _tocandoBateria = false;
 
                     let botoesAcompanhamento = document.getElementsByClassName('instrumentoSelecionado');
