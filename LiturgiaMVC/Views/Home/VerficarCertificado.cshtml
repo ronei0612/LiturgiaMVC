@@ -40,27 +40,6 @@
         }
     </script> *@
 
-    <br />
-
-    <form action="~/Home/AtualizarDataValidadeCertificado" id="formAtualizarData" method="post">
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-4">
-                    <h3 class="mb-3">Nova data de validade:</h3>
-                    <div class="form-group">
-                        <input type="date" class="form-control" id="dataValidade" name="dataValidade" required>
-                    </div>
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                <label for="senha">Senha:</label>
-                <input type="password" class="form-control" id="senha" name="senha" style="width: 32%;" required>
-            </div>
-            <br />
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </div>
-    </form>
 </div>
 
 <div id="certificadoOk">
@@ -68,9 +47,32 @@
 
     <p>Tudo OK com o certificado ssl do site <span class="host"></span>. (Vence dia: @Model.ValidadeCertificado)</p>
     <p>Se você é um ADMINISTRADOR desse site, aqui estão as informações para conferir:</p>
-    <br />
     <a href="https://docs.google.com/document/d/1yLMuFaNI5OdVHW-aAg3TrZjxW7SUiHtocWcR0MCAgtw">https://docs.google.com/document/d/1yLMuFaNI5OdVHW-aAg3TrZjxW7SUiHtocWcR0MCAgtw</a>
 </div>
+
+<br />
+<br />
+
+<h3>Atualizar dados do Certificado</h3>
+<form action="~/Home/AtualizarDataValidadeCertificado" id="formAtualizarData" method="post">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <h4 class="mb-3">Nova data de validade:</h4>
+                <div class="form-group">
+                    <input type="date" class="form-control" id="dataValidade" name="dataValidade" required>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" class="form-control" id="senha" name="senha" style="width: 32%;" required>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+</form>
 
 <script>
     async function atualizarDataCertificado() {

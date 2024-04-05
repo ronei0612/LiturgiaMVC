@@ -139,7 +139,9 @@ namespace LiturgiaMVC.Controllers
         [HttpPost]
         public string AtualizarDataValidadeCertificado(string dataValidade, string senha)
         {
-            if (senha == Variaveis.Senha)
+            var senhaVerdadeira = Ferramentas.LerArquivoSenha();
+
+            if (senha == senhaVerdadeira)
             {
                 if (DateTime.TryParseExact(dataValidade, "yyyy-MM-dd", null, DateTimeStyles.None, out DateTime dataExpiracao))
                 {

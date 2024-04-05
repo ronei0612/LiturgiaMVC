@@ -18,6 +18,7 @@
         static string ritmosBateriaJson = "RitmosLista.txt";
         static string notasAcordesJson = "NotasAcordes.txt";
         static string certificadosInfo = "CertificadosInfo.txt";
+        static string senha = "Senha.txt";
 
         public static string arquivoLinks = Path.Combine(pastaArquivos, links);
         public static string arquivoIPs = Path.Combine(pastaArquivos, IPs);
@@ -27,6 +28,7 @@
         public static string arquivoRitmosBateria = Path.Combine(pastaArquivos, ritmosBateriaJson);
         public static string arquivonotasAcordes = Path.Combine(pastaArquivos, notasAcordesJson);
         public static string arquivoCertificadosInfo = Path.Combine(pastaArquivos, certificadosInfo);
+        public static string arquivoSenha = Path.Combine(pastaArquivos, senha);
 
         public static readonly string[] acidentes = { "5+", "6", "7", "7+", "9", "11" };
         public static string[] tonsMaiores, tonsMenores;

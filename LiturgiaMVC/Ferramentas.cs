@@ -766,5 +766,22 @@ namespace LiturgiaMVC
             else
                 return File.ReadAllLines(Variaveis.arquivoCertificadosInfo);
         }
+
+        public static string? LerArquivoSenha()
+        {
+            if (File.Exists(Variaveis.arquivoSenha))
+            {
+                var senhaTexto = File.ReadAllText(Variaveis.arquivoSenha);
+                if (string.IsNullOrEmpty(senhaTexto))
+                    senhaTexto = Variaveis.Senha;
+                return senhaTexto;
+            }
+
+            else
+            {
+                File.WriteAllText(Variaveis.arquivoSenha, Variaveis.Senha);
+                return Variaveis.Senha;
+            }
+        }
     }
 }
