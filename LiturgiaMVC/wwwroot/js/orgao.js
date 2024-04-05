@@ -2416,9 +2416,14 @@ function salvarSalvamentoNoStorage(salvamentoNome, nomeStorage) {
 
 function salvarSalvamento(salvamentoSelecionado = '', nomeStorage) {
 	if (!nomeStorage) {
-		nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
-		if (!nomeStorage)
+		let salvamentosStorage = localStorage.getItem('salvamentosv2');
+		let compartilhadosStorage = localStorage.getItem('compartilhados');
+		if (salvamentosStorage && compartilhadosStorage)
+			nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
+		else if (salvamentosStorage)
 			nomeStorage = 'salvamentosv2';
+		else if (compartilhadosStorage)
+			nomeStorage = 'compartilhados';
 	}
 
 	if (salvamentoSelecionado !== '') {
@@ -2440,10 +2445,22 @@ function salvarSalvamento(salvamentoSelecionado = '', nomeStorage) {
 function carregar_Salvamento() {
 	modal01.style.display = 'none';
 
+	let salvamentosStorage = localStorage.getItem('salvamentosv2');
+	let compartilhadosStorage = localStorage.getItem('compartilhados');
+	let storage = salvamentosStorage;
+
+	if (salvamentosStorage && compartilhadosStorage) {
+		nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
+		if (nomeStorage === 'compartilhados')
+			storage = compartilhadosStorage;
+	}
+	else if (compartilhadosStorage)
+		storage = compartilhadosStorage;
+
 	var salvamentoSelecionado = selectSalvamento.value;
 
 	if (salvamentoSelecionado) {
-		var dadosSalvos = JSON.parse(localStorage.getItem('salvamentosv2'))[salvamentoSelecionado];
+		var dadosSalvos = JSON.parse(storage)[salvamentoSelecionado];
 
 		if (dadosSalvos) {
 			Object.keys(dadosSalvos).forEach(function (key) {
