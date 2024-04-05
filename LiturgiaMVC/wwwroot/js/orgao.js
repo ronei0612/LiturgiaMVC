@@ -1127,24 +1127,6 @@ function mudarTomCifra(aumentar, quant) {
 	}
 	else
 		alert(retorno.message);
-
-	//$.ajax({
-	//	type: "post",
-	//	url: "Orgao/AlterarTom",
-	//	data: {
-	//		texto: texto,
-	//		aumentar: aumentar,
-	//		quant: quant
-	//	},
-	//	success: function (data) {
-	//		if (data.success) {
-	//			textoCifras.contentDocument.body.innerHTML = data.message;
-	//			addEventCifras(textoCifras, _cifraId - 1);
-	//		}
-	//		else
-	//			alert(data.message);
-	//	}
-	//});
 }
 
 function mudarTom(tomSelecionado) {
