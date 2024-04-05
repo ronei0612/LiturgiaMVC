@@ -837,8 +837,6 @@ var _colId;
                         play(buffers['cravo_' + nota].get());
                     }, 100);
                 }
-                else
-                    play(instrument);
             }
 
             if (_acordeSelecionado) {
@@ -848,10 +846,10 @@ var _colId;
 
             if (_cravoSelecionado)
                 playCravo();
-            else {
-                play(instrument);
+            else
                 guardarChimbalAberto(instrumentName, instrument);
-            }
+
+            play(instrument);
         }
 
         function playBateria() {
