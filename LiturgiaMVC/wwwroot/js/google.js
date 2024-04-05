@@ -147,7 +147,7 @@ async function validarToken() {
 }
 
 function carregarSalvosLocalStorage() {
-    const localStorageSalvamentos = localStorage.getItem('salvamentos');
+    const localStorageSalvamentos = localStorage.getItem('salvamentosv2');
     const localStorageKeys = localStorageSalvamentos.split(',');
     localStorageKeys.shift();
     var retorno = '';
@@ -183,7 +183,7 @@ function verificarSeJaCompartilhado() {
     if (arquivoId === 'undefined')
         localStorage.removeItem('compartilhadoMD5');
 
-    let textoDoStorage = localStorage.getItem('salvamentos');
+    let textoDoStorage = localStorage.getItem('salvamentosv2');
 
     let textoDoStorageCriptografado = criptografarTexto(textoDoStorage);
     const compartilhadoMD5 = localStorage.getItem('compartilhadoMD5');

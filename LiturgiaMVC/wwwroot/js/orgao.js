@@ -2110,7 +2110,7 @@ function mostrarModal(nome) {
 			compartilharDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
 
-			let salvamentosStorage = localStorage.getItem('salvamentos');
+			let salvamentosStorage = localStorage.getItem('salvamentosv2');
 			let compartilhadosStorage = localStorage.getItem('compartilhados');
 			if (salvamentosStorage && compartilhadosStorage) {
 				compartilhadoDiv.style.display = 'block';
@@ -2122,7 +2122,7 @@ function mostrarModal(nome) {
 			}
 
 			if (salvamentosStorage)
-				carregarSalvamentosList('salvamentos');
+				carregarSalvamentosList('salvamentosv2');
 			else if (compartilhadosStorage)
 				carregarSalvamentosList('compartilhados');
 			break;
@@ -2254,7 +2254,7 @@ function iniciarCifra() {
 function novoSalvamento() {
 	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
 	if (!nomeStorage)
-		nomeStorage = 'salvamentos';
+		nomeStorage = 'salvamentosv2';
 
 	const antesEstavaFull = sairDeFullscreen();
 
@@ -2286,7 +2286,7 @@ function novoSalvamento() {
 function deletarSalvamento() {
 	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
 	if (!nomeStorage)
-		nomeStorage = 'salvamentos';
+		nomeStorage = 'salvamentosv2';
 
 	var gravacaoSelecionada = selectSalvamento;
 
@@ -2310,7 +2310,7 @@ function deletarSalvamento() {
 function editarSalvamento() {
 	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
 	if (!nomeStorage)
-		nomeStorage = 'salvamentos';
+		nomeStorage = 'salvamentosv2';
 
 	var gravacaoSelecionada = selectSalvamento;
 
@@ -2418,7 +2418,7 @@ function salvarSalvamento(salvamentoSelecionado = '', nomeStorage) {
 	if (!nomeStorage) {
 		nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
 		if (!nomeStorage)
-			nomeStorage = 'salvamentos';
+			nomeStorage = 'salvamentosv2';
 	}
 
 	if (salvamentoSelecionado !== '') {
@@ -2443,7 +2443,7 @@ function carregar_Salvamento() {
 	var salvamentoSelecionado = selectSalvamento.value;
 
 	if (salvamentoSelecionado) {
-		var dadosSalvos = JSON.parse(localStorage.getItem('salvamentos'))[salvamentoSelecionado];
+		var dadosSalvos = JSON.parse(localStorage.getItem('salvamentosv2'))[salvamentoSelecionado];
 
 		if (dadosSalvos) {
 			Object.keys(dadosSalvos).forEach(function (key) {
@@ -2475,7 +2475,7 @@ function carregar_Salvamento() {
 
 
 function compartilhar_Salvamentos() {
-	if (localStorage.getItem('salvamentos')) {
+	if (localStorage.getItem('salvamentosv2')) {
 		modal01.style.display = 'none';
 		criarArquivodoStorage();
 	}
