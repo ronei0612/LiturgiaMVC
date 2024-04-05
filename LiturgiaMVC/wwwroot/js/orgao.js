@@ -2127,18 +2127,19 @@ function mostrarModal(nome) {
 				carregarSalvamentosList('compartilhados');
 			break;
 		case 'compartilhado':
-			selectOpcoes.style.display = 'none';
-			selectInstrumento.style.display = 'none';
-			modalGravar.style.display = 'none';
-			salvarDiv.style.display = 'none';
-			compartilharDiv.style.display = 'block';
-			compartilhadoDiv.style.display = 'none';
-			selectConfiguracao.style.display = 'none';
-
 			const arquivoIdStorage = localStorage.getItem('fileId');
-			let url = document.location.href.replace('#', '').replace('?compartilhado=1', '');
-
-			document.getElementById('arquivoIdText').innerText = url + '?compartilhado=' + arquivoIdStorage; 
+			if (arquivoIdStorage && arquivoIdStorage !== 'undefined') {
+				selectOpcoes.style.display = 'none';
+				selectInstrumento.style.display = 'none';
+				modalGravar.style.display = 'none';
+				salvarDiv.style.display = 'none';
+				compartilharDiv.style.display = 'block';
+				compartilhadoDiv.style.display = 'none';
+				selectConfiguracao.style.display = 'none';
+			
+				let url = document.location.href.replace('#', '').replace('?compartilhado=1', '');
+				document.getElementById('arquivoIdText').innerText = url + '?compartilhado=' + arquivoIdStorage;
+			}
 
 			break;
 		case 'conjuntoSalvamentos':

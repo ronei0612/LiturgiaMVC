@@ -3,7 +3,7 @@
 // Configurações de OAuth2
 const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com';
 //const redirectUri = 'https://localhost:7188/orgao'; // URL de redirecionamento após a autorização
-const redirectUri = 'https://' + 'youtubei.somee.com' + '/orgao'; // URL de redirecionamento após a autorização
+const redirectUri = 'https://' + window.location.host + '/orgao'; // URL de redirecionamento após a autorização
 const scope = 'https://www.googleapis.com/auth/drive';
 
 var accessToken;
@@ -31,13 +31,11 @@ async function processToken() {
 
 // Verificar se a página foi carregada com um token de acesso
 function verificarSeObtendoTokenGoogle() {
-    if (window.location.hash) {
+    if (window.location.href.includes('#access_token')) {
         processToken();
 
-        if (window.location.href.includes('#access_token')) {
+        if (localStorage.getItem('accessToken')) {
             document.location.hash = '';
-
-            criarArquivodoStorage();
         }
     }
 }
@@ -58,7 +56,8 @@ async function criarArquivoNoGoogleDrive(texto) {
         const fileLink = `https://drive.google.com/file/d/${fileId}/view`;
 
         localStorage.setItem('fileId', fileId);
-        mostrarModal('compartilhado');
+
+        mostrarModal('compartilhado');        
 
     } catch (error) {
         console.error('Erro ao criar o arquivo:', error);
@@ -70,10 +69,7 @@ function criarArquivodoStorage() {
     const texto = verificarSeJaCompartilhado();
 
     if (texto !== '') {
-        localStorage.setItem('criandoArquivo', 'true');
-
         if (validarToken()) {
-            localStorage.removeItem('criandoArquivo');
             let textoDoStorageCriptografado = criptografarTexto(texto);
             localStorage.setItem('compartilhadoMD5', textoDoStorageCriptografado);
 
@@ -184,6 +180,9 @@ function criptografarTexto(texto) {
 function verificarSeJaCompartilhado() {
     //let textoDoStorage = carregarSalvosLocalStorage();
     let arquivoId = localStorage.getItem('fileId');
+    if (arquivoId === 'undefined')
+        localStorage.removeItem('compartilhadoMD5');
+
     let textoDoStorage = localStorage.getItem('salvamentos');
 
     let textoDoStorageCriptografado = criptografarTexto(textoDoStorage);
