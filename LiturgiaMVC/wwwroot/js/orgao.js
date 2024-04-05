@@ -1130,6 +1130,11 @@ function mudarTomCifra(aumentar, quant) {
 }
 
 function mudarTom(tomSelecionado) {
+	if (!tomSelecionado) {
+		tomSelect.value = acorde_0.value;
+		return;
+	}
+
 	var acordesCampoHarmonico = acordesCampoHarmonicoJson[tomSelecionado];
 	var acordesElements = document.getElementsByClassName('acorde');
 
