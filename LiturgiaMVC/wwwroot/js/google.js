@@ -234,7 +234,7 @@ function copiarTextoParaClipboard(texto) {
     // Remove a área de seleção
     document.body.removeChild(areaSelecao);
 
-    alert("Texto copiado!");
+    alert("Texto copiado! Cole onde quiser.");
     ocultarModal();
 }
 
