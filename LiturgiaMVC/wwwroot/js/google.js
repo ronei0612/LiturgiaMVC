@@ -46,9 +46,14 @@ async function criarArquivoNoGoogleDrive(nome, texto) {
 
     try {
         // Construir o corpo da solicitação como um objeto JSON
+        //const requestBody = {
+        //    name: nome,
+        //    mimeType: 'application/vnd.google-apps.document'
+        //};
+
         const requestBody = {
             name: nome,
-            mimeType: 'application/vnd.google-apps.document'
+            mimeType: 'text/txt'
         };
 
         // Fazer a solicitação POST para criar o arquivo

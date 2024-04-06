@@ -5,6 +5,8 @@ using System.Globalization;
 using System;
 using System.Net;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
+using Google.Apis.Drive.v3;
 //using Certes;
 //using Certes.Acme;
 
@@ -132,20 +134,40 @@ namespace LiturgiaMVC
         }
 
 
-        public static string LerArquivoGoogleDrive(string arquivoId)
-        {			
-			var url = "https://drive.google.com/uc?export=download&id=" + arquivoId;
-			var paginaHtml = string.Empty;
+        public static (string NomeArquivo, string ConteudoArquivo) LerArquivoGoogleDrive(string arquivoId)
+        {
+            var url = "https://drive.google.com/uc?export=download&id=" + arquivoId;
+            //var url = "https://www.googleapis.com/drive/v3/files/" + arquivoId + "?fields=name";
+            //var url = "https://drive.google.com/file/d/" + arquivoId + "/view";
+			var nomeArquivo = string.Empty;
+			var conteudoArquivo = string.Empty;
+
 			try
 			{
-				using (var webClient = new WebClient())
-			    {
-                    paginaHtml = webClient.DownloadString(url);
-			    }
-			}
-			catch { }
+                using (var webClient = new WebClient())
+                {
+                    conteudoArquivo = webClient.DownloadString(url);
+                    nomeArquivo = "Compartilhado";
+                }
 
-			return paginaHtml;
+                //using (var webClient = new WebClient())
+                //{
+                //    var response = webClient.DownloadString(url);
+                //    var jsonResponse = JObject.Parse(response);
+
+                //    nomeArquivo = jsonResponse["name"].ToString();
+
+                //    var urlDownload = "https://drive.google.com/uc?export=download&id=" + arquivoId;
+                //    conteudoArquivo = webClient.DownloadString(urlDownload);
+
+                //    //paginaHtml = webClient.DownloadString(url);
+                //}
+            }
+			catch (Exception ex) {
+				return ("Erro", ex.Message);
+			}
+
+			return (nomeArquivo, conteudoArquivo);
 		}
 
 		static void VerificarTamanhoMaximIps()

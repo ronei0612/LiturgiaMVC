@@ -20,8 +20,11 @@ namespace LiturgiaMVC.Controllers
             if (result != null)
                 return View("Error", result);
 
-            if (compartilhado != "")
-				compartilhado = Ferramentas.LerArquivoGoogleDrive(compartilhado);
+			var nomeArquivo = string.Empty;
+			var conteudoArquivo = string.Empty;
+
+			if (compartilhado != "")
+				(nomeArquivo, conteudoArquivo) = Ferramentas.LerArquivoGoogleDrive(compartilhado);
 
 			var linksModel = new LinksModel
             {
@@ -36,7 +39,8 @@ namespace LiturgiaMVC.Controllers
                 RitmosBateria = Variaveis.textoRitmos,
                 NotasAcordes = Variaveis.textoNotasAcordes,
                 AcidentesCorrespondentes = Ferramentas.ConvertToJson(Variaveis.acidentesCorrespondentes),
-                Compartilhado = compartilhado
+				CompartilhadoNome = nomeArquivo,
+				CompartilhadoConteudo = conteudoArquivo
 			};
 
             return View(linksModel);

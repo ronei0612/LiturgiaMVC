@@ -269,9 +269,43 @@
 	}
 
 	function mostrarCompartilhado() {
-		if ('@Model.Compartilhado' !== '') {
-			localStorage.setItem('compartilhados', JSON.stringify(@Html.Raw(@Model.Compartilhado)));
+		if ('@Model.CompartilhadoNome' !== '') {
+			if ('@Model.CompartilhadoNome' === 'Erro')
+				alert('Ocorreu um erro! tente novamente.');
+			else {
+				localStorage.setItem('compartilhados', JSON.stringify(@Html.Raw(@Model.CompartilhadoConteudo)));				
+				mostrarModal('salvar');
+			}
+		}
+
+		if (window.location.href.includes('compartilhado'))
 			limparUrl();
+	}
+
+	function baixar() {
+		const url = 'https://drive.google.com/uc?id=' + '@Model.CompartilhadoNome' + '&export=download';
+		getTextFromGoogleDrive(url)
+			.then(text => {
+				if (text !== null) {
+					console.log(text);
+					console.log(JSON.stringify(text));
+
+					console.log('Texto do arquivo:', text);
+					// Faça algo com o texto aqui
+				} else {
+					console.log('Falha ao obter o texto do arquivo.');
+				}
+			});
+	}
+
+	async function getTextFromGoogleDrive(url) {
+		try {
+			const response = await fetch(url);
+			const text = await response.text();
+			return text;
+		} catch (error) {
+			console.error('Erro ao buscar o texto do arquivo:', error);
+			return null;
 		}
 	}
 </script>
