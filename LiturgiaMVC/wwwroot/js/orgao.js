@@ -2293,7 +2293,10 @@ function deletarSalvamento() {
 			var salvamentos = getSalvamentos(nomeStorage);
 			delete salvamentos[gravacaoSelecionada.value];
 
-			localStorage.setItem(nomeStorage, JSON.stringify(salvamentos));
+			if (Object.keys(salvamentos).length === 0)
+				localStorage.removeItem(nomeStorage);
+			else
+				localStorage.setItem(nomeStorage, JSON.stringify(salvamentos));
 		}
 
 		if (antesEstavaFull)
