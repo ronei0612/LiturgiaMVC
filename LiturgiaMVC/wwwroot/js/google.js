@@ -40,29 +40,79 @@ function verificarSeObtendoTokenGoogle() {
     }
 }
 
-async function criarArquivoNoGoogleDrive(texto) {
+async function criarArquivoNoGoogleDrive(nome, texto) {
+    // URL para criar um novo arquivo no Google Drive
+    const url = 'https://www.googleapis.com/drive/v3/files';
+
     try {
-        const response = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=media', {
+        // Construir o corpo da solicitação como um objeto JSON
+        const requestBody = {
+            name: nome,
+            mimeType: 'application/vnd.google-apps.document'
+        };
+
+        // Fazer a solicitação POST para criar o arquivo
+        let response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'text/plain'
+                'Content-Type': 'application/json' // O tipo de conteúdo do corpo da solicitação é JSON
             },
-            body: texto
+            body: JSON.stringify(requestBody) // Converter o objeto JavaScript em uma string JSON
         });
 
-        const data = await response.json();
-        const fileId = data.id;
-        const fileLink = `https://drive.google.com/file/d/${fileId}/view`;
+        // Verificar se a solicitação foi bem-sucedida
+        if (response.ok) {
+            const data = await response.json();
 
-        localStorage.setItem('fileId', fileId);
+            // Adicionar texto ao arquivo
+            const fileId = data.id;
+            const updateUrl = `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`;
 
-        mostrarModal('compartilhado');        
+            response = await fetch(updateUrl, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'text/plain'
+                },
+                body: texto
+            });
 
+            if (response.ok) {
+                // Compartilhar o arquivo para que qualquer pessoa com o link possa ler
+                const permissionUrl = `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`;
+                const permissionBody = {
+                    role: 'reader',
+                    type: 'anyone'
+                };
+
+                response = await fetch(permissionUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(permissionBody)
+                });
+
+                if (response.ok) {
+                    localStorage.setItem('fileId', fileId);
+                    mostrarModal('compartilhado');
+
+                } else {
+                    console.error('Erro ao compartilhar o arquivo:', response.statusText);
+                }
+            } else {
+                console.error('Erro ao adicionar texto ao arquivo:', response.statusText);
+            }
+        } else {
+            console.error('Erro ao criar o arquivo:', response.statusText);
+        }
     } catch (error) {
         console.error('Erro ao criar o arquivo:', error);
     }
 }
+
 
 // Função para criar um arquivo no Google Drive
 function criarArquivodoStorage() {
@@ -73,47 +123,16 @@ function criarArquivodoStorage() {
             let textoDoStorageCriptografado = criptografarTexto(texto);
             localStorage.setItem('compartilhadoMD5', textoDoStorageCriptografado);
 
-            criarArquivoNoGoogleDrive(texto);
+            let nome = prompt('Nome do compartilhamento');
+            if (nome !== '' && nome !== null) {
+                criarArquivoNoGoogleDrive(nome, texto);
+            }
         }
     }
     else {
         mostrarModal('compartilhado');
     }
 }
-
-//function compartilharArquivo(arquivoId) {
-//    localStorage.setItem('compartilhando', arquivoId);
-//    validarToken();
-
-//    localStorage.removeItem('compartilhando');
-
-//    const permission = {
-//        role: 'reader',
-//        type: 'anyone',
-//        allowFileDiscovery: false
-//    };
-
-//    const url = `https://www.googleapis.com/drive/v3/files/${arquivoId}/permissions`;
-
-//    fetch(url, {
-//        method: 'PATCH',
-//        headers: {
-//            'Authorization': `Bearer ${accessToken}`,
-//            'Content-Type': 'application/json'
-//        },
-//        body: JSON.stringify(permission)
-//    })
-//        .then(response => {
-//            if (response.ok) {
-//                console.log('Arquivo compartilhado com sucesso.');
-//            } else {
-//                console.error('Erro ao editar o arquivo:', response.statusText);
-//            }
-//        })
-//        .catch(error => {
-//            console.error('Erro ao editar o arquivo:', error);
-//        });
-//}
 
 async function validarToken() {
     accessToken = localStorage.getItem('accessToken');

@@ -2501,7 +2501,15 @@ function carregar_Salvamento() {
 
 
 function compartilhar_Salvamentos() {
-	if (localStorage.getItem('salvamentosv2')) {
+	let compartilhados = localStorage.getItem('compartilhados');
+	let salvamentosv2 = localStorage.getItem('salvamentosv2');
+
+	if (salvamentosv2) {
+		modal01.style.display = 'none';
+		criarArquivodoStorage();
+	}
+	else if (compartilhados) {
+		localStorage.setItem('salvamentosv2', compartilhados);
 		modal01.style.display = 'none';
 		criarArquivodoStorage();
 	}
