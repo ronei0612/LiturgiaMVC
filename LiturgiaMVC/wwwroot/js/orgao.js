@@ -386,12 +386,12 @@ autoCheck.addEventListener('change', function (e) {
 			ocultarBotoesAcompanhamentosRitmo();
 		}
 
-		if (textoCifrasFrame.style.display === 'none') {
-			if (isMobileDevice())
-				orgaoTable.style.marginLeft = '5px';
-			else
-				orgaoTable.style.marginLeft = '40px';				
-		}
+		//if (textoCifrasFrame.style.display === 'none') {
+		//	if (isMobileDevice())
+		//		orgaoTable.style.marginLeft = '5px';
+		//	else
+		//		orgaoTable.style.marginLeft = '40px';				
+		//}
 	}
 	else {
 		if (_cravoSelecionado)
@@ -399,8 +399,8 @@ autoCheck.addEventListener('change', function (e) {
 		else
 			ocultarBotoesAcompanhamentosRitmo(false);
 
-		if (textoCifrasFrame.style.display === 'none')
-			orgaoTable.style.marginLeft = '';
+		//if (textoCifrasFrame.style.display === 'none')
+		//	orgaoTable.style.marginLeft = '';
 	}
 });
 

@@ -100,11 +100,14 @@
 				<iframe id="partituraFrame" style="width:100%; display:none"></iframe>
 			</div>
 
-			<table id="orgaoTable">
-				<partial name="~/Views/Orgao/Controles.cshtml" />
-				<partial name="~/Views/Orgao/Botoes.cshtml" />
-				<partial name="~/Views/Orgao/Loading.cshtml" />
-			</table>
+			<div class="d-flex align-items-center centralizado-no-container" id="orgaoTable">
+				@* <table id="orgaoTable" style="margin-left: -12px"> *@
+				<table>
+					<partial name="~/Views/Orgao/Controles.cshtml" />
+					<partial name="~/Views/Orgao/Botoes.cshtml" />
+					<partial name="~/Views/Orgao/Loading.cshtml" />
+				</table>
+			</div>
 		</div>
 
 		<div class="box d-sm-flex" id="bateriaBox">
