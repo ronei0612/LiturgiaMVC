@@ -2115,6 +2115,8 @@ function mostrarModal(nome) {
 			break;
 		case 'compartilhado':
 			const arquivoIdStorage = localStorage.getItem('fileId');
+			const nomeCompartilhamentoStorage = localStorage.getItem('nomeCompartilhamento');
+			
 			if (arquivoIdStorage && arquivoIdStorage !== 'undefined') {
 				selectOpcoes.style.display = 'none';
 				selectInstrumento.style.display = 'none';
@@ -2124,8 +2126,15 @@ function mostrarModal(nome) {
 				compartilhadoDiv.style.display = 'none';
 				selectConfiguracao.style.display = 'none';
 			
-				let url = document.location.href.replace('#', '').replace('?compartilhado=1', '');
+				const url = document.location.href.replace('#', '').replace('?compartilhado=1', '');
+				const fileLink = `https://drive.google.com/file/d/${arquivoIdStorage}/view`;
+
 				document.getElementById('arquivoIdText').innerText = url + '?compartilhado=' + arquivoIdStorage;
+				document.getElementById('arquivoIdLink').innerText = fileLink;
+				document.getElementById('arquivoIdLink').href = fileLink;
+
+				if (nomeCompartilhamentoStorage)
+					document.getElementById('nomeCompartilhamentoSpan').innerText = '"' + nomeCompartilhamentoStorage + '":';
 			}
 
 			break;

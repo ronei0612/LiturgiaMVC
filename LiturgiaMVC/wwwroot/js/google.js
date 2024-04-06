@@ -97,6 +97,8 @@ async function criarArquivoNoGoogleDrive(nome, texto) {
 
                 if (response.ok) {
                     localStorage.setItem('fileId', fileId);
+                    localStorage.setItem('nomeCompartilhamento', nome);
+                    
                     mostrarModal('compartilhado');
 
                 } else {

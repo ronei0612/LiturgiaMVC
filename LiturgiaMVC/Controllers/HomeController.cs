@@ -97,12 +97,6 @@ namespace LiturgiaMVC.Controllers
             return View("VerficarCertificado", liturgiaModel);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         [HttpGet]
         public JsonResult ObterDataValidadeCertificado()
         {
@@ -152,46 +146,52 @@ namespace LiturgiaMVC.Controllers
             }
 
             return "Erro.";
-        }
+		}
 
-        //[HttpPost]
-        //public async Task<IActionResult> GerarCertificadoSite(string site, string email)
-        //{
-        //    string[] sites = { site };
-        //    try
-        //    {
-        //        // Chama o método GenerateCertificate para gerar os certificados
-        //        var (certPem, keyPem) = await Ferramentas.GenerateCertificate(domains: sites, email);
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
 
-        //        // Cria um arquivo ZIP na memória para armazenar os certificados e chaves
-        //        using (var memoryStream = new MemoryStream())
-        //        {
-        //            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
-        //            {
-        //                // Adiciona o certificado e a chave ao arquivo ZIP
-        //                var certEntry = archive.CreateEntry("certificate.pem");
-        //                using (var certStream = certEntry.Open())
-        //                using (var writer = new StreamWriter(certStream))
-        //                {
-        //                    await writer.WriteAsync(certPem);
-        //                }
+		//[HttpPost]
+		//public async Task<IActionResult> GerarCertificadoSite(string site, string email)
+		//{
+		//    string[] sites = { site };
+		//    try
+		//    {
+		//        // Chama o método GenerateCertificate para gerar os certificados
+		//        var (certPem, keyPem) = await Ferramentas.GenerateCertificate(domains: sites, email);
 
-        //                var keyEntry = archive.CreateEntry("private-key.pem");
-        //                using (var keyStream = keyEntry.Open())
-        //                using (var writer = new StreamWriter(keyStream))
-        //                {
-        //                    await writer.WriteAsync(keyPem);
-        //                }
-        //            }
+		//        // Cria um arquivo ZIP na memória para armazenar os certificados e chaves
+		//        using (var memoryStream = new MemoryStream())
+		//        {
+		//            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
+		//            {
+		//                // Adiciona o certificado e a chave ao arquivo ZIP
+		//                var certEntry = archive.CreateEntry("certificate.pem");
+		//                using (var certStream = certEntry.Open())
+		//                using (var writer = new StreamWriter(certStream))
+		//                {
+		//                    await writer.WriteAsync(certPem);
+		//                }
 
-        //            // Retorna o arquivo ZIP como um download para o cliente
-        //            return File(memoryStream.ToArray(), "application/zip", "certificado.zip");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Erro ao gerar o certificado: {ex.Message}");
-        //    }
-        //}
-    }
+		//                var keyEntry = archive.CreateEntry("private-key.pem");
+		//                using (var keyStream = keyEntry.Open())
+		//                using (var writer = new StreamWriter(keyStream))
+		//                {
+		//                    await writer.WriteAsync(keyPem);
+		//                }
+		//            }
+
+		//            // Retorna o arquivo ZIP como um download para o cliente
+		//            return File(memoryStream.ToArray(), "application/zip", "certificado.zip");
+		//        }
+		//    }
+		//    catch (Exception ex)
+		//    {
+		//        return StatusCode(500, $"Erro ao gerar o certificado: {ex.Message}");
+		//    }
+		//}
+	}
 }
