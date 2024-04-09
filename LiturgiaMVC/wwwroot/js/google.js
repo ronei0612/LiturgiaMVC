@@ -9,7 +9,6 @@ const scope = 'https://www.googleapis.com/auth/drive';
 var accessToken;
 
 function authorizeGoogle() {
-    //const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(folderId)}`;
     const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${encodeURIComponent(scope)}`;
     window.location.href = authUrl;
 }
@@ -149,10 +148,16 @@ async function validarToken() {
         } catch (error) {
             console.error(error);
             localStorage.removeItem('accessToken');
-            authorizeGoogle();
+
+            if (confirm('Conectando à conta Google para obter autorização'))
+                authorizeGoogle();
+
+            return false;
         }
     } else {
-        authorizeGoogle();
+        if (confirm('Conectando à conta Google para obter autorização'))
+            authorizeGoogle();
+
         return false;
     }
 
