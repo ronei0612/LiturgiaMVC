@@ -1,14 +1,13 @@
 //Autorizar google api: https://console.developers.google.com/apis/api/drive.googleapis.com/overview?project=982717214287
 
-// Configura��es de OAuth2
+// Configurações de OAuth2
 const clientId = '982717214287-u57uddj8lrd7dq0n5i4fquuvci8umd60.apps.googleusercontent.com';
-//const redirectUri = 'https://localhost:7188/orgao'; // URL de redirecionamento ap�s a autoriza��o
-const redirectUri = 'https://' + window.location.host + '/orgao'; // URL de redirecionamento ap�s a autoriza��o
+//const redirectUri = 'https://localhost:7188/orgao'; // URL de redirecionamento após a autorização
+const redirectUri = 'https://' + window.location.host + '/orgao'; // URL de redirecionamento aps a autorização
 const scope = 'https://www.googleapis.com/auth/drive';
 
 var accessToken;
 
-// Fun��o para iniciar a autoriza��o com o Google
 function authorizeGoogle() {
     //const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(folderId)}`;
     const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&scope=${encodeURIComponent(scope)}`;
@@ -29,7 +28,6 @@ async function processToken() {
     }
 }
 
-// Verificar se a p�gina foi carregada com um token de acesso
 function verificarSeObtendoTokenGoogle() {
     if (window.location.href.includes('#access_token')) {
         processToken();
@@ -45,28 +43,20 @@ async function criarArquivoNoGoogleDrive(nome, texto) {
     const url = 'https://www.googleapis.com/drive/v3/files';
 
     try {
-        // Construir o corpo da solicita��o como um objeto JSON
-        //const requestBody = {
-        //    name: nome,
-        //    mimeType: 'application/vnd.google-apps.document'
-        //};
-
         const requestBody = {
             name: nome,
             mimeType: 'text/txt'
         };
 
-        // Fazer a solicita��o POST para criar o arquivo
         let response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
-                'Content-Type': 'application/json' // O tipo de conte�do do corpo da solicita��o � JSON
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(requestBody) // Converter o objeto JavaScript em uma string JSON
+            body: JSON.stringify(requestBody)
         });
 
-        // Verificar se a solicita��o foi bem-sucedida
         if (response.ok) {
             const data = await response.json();
 
@@ -156,7 +146,6 @@ async function validarToken() {
                 throw new Error('Erro ao validar o token:', response.status);
             }
             const data = await response.json();
-            //console.log('Informa��es do token:', data);
         } catch (error) {
             console.error(error);
             localStorage.removeItem('accessToken');
@@ -223,18 +212,15 @@ function verificarSeJaCompartilhado() {
 }
 
 function copiarTextoParaClipboard(texto) {
-    // Cria uma �rea de sele��o para copiar o texto
+    // Cria uma área de seleção para copiar o texto
     var areaSelecao = document.createElement("textarea");
     areaSelecao.value = texto;
     document.body.appendChild(areaSelecao);
 
-    // Seleciona o texto na �rea de sele��o
     areaSelecao.select();
-
-    // Executa o comando de c�pia
     document.execCommand("copy");
 
-    // Remove a �rea de sele��o
+    // Remove a área de seleção
     document.body.removeChild(areaSelecao);
 
     alert("Texto copiado! Cole onde quiser.");
@@ -248,18 +234,16 @@ function compartilharMobile(texto) {
             title: 'Compartilhar',
             text: texto,
         })
-            .then(() => console.log('Conte�do compartilhado com sucesso!'))
+            .then(() => console.log('Conteúdo compartilhado!'))
             .catch((error) => console.error('Erro ao compartilhar:', error));
     } else {
-        // Caso o navegador n�o suporte a Web Share API, redireciona para a p�gina de compartilhamento padr�o
-        //window.location.href = 'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fseusite.com';
         window.location.href = 'https://api.whatsapp.com/send?text=' + texto;
     }
 }
 
 function verificarSewww() {
     if (!window.location.href.includes('localhost')) {
-        // Necess�rio www no mobile para funcionar api, e como o certificado � www ent�o precisa para computador tamb�m
+        // Necessário www no mobile para funcionar api, e como o certificado é www então precisa para computador também
         if (!window.location.href.includes('https://www.'))
             window.location.href = 'https://www.' + window.location.host.replace('www.', '') + window.location.pathname;
     }
