@@ -743,7 +743,7 @@ var _colId;
 
         window.onload = function () {
             verificarSeObtendoTokenGoogle();
-            verificarSewww();
+            //verificarSewww();
 
             getSetAudioOptions.setTrackerControls(defaultTrack.settings);
 
