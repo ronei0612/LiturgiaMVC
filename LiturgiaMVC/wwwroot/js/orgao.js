@@ -1,4 +1,4 @@
-﻿const notasFrequencias = {
+const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -2470,7 +2470,7 @@ function carregar_Salvamento() {
 				//tomSelect.value = tom;
 
 				let cifraTexto = dadosSalvos['frameCifra'];
-				eventoChange_tomSelect = false;
+				//eventoChange_tomSelect = false;
 				escreverCifraTextArea.style.display = 'block';
 
 				mostrarTextoCifrasCarregado(tom, cifraTexto);
