@@ -1,4 +1,4 @@
-const notasFrequencias = {
+﻿const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -2489,7 +2489,7 @@ function carregar_Salvamento() {
 				var value = dadosSalvos[key];
 				var element = document.getElementById(key);
 
-				if (element && element.id !== 'frameCifra' && element.id !== 'frameTom') {
+				if (element && element.id !== 'frameCifra' && element.id !== 'frameTom' && element.id !== 'tomSelect') {
 					if (key === 'bpm') {
 						element.value = value;
 						bpmRange.value = bpm.value;
