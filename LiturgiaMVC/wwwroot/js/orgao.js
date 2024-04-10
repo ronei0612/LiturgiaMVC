@@ -2466,7 +2466,7 @@ function carregar_Salvamento() {
 
 			if (keys.includes('frameCifra')) {
 				let tom = dadosSalvos['frameTom'];
-				tomSelect.value = tom;
+				//tomSelect.value = tom;
 
 				let cifraTexto = dadosSalvos['frameCifra'];
 				eventoChange_tomSelect = false;
@@ -2488,7 +2488,7 @@ function carregar_Salvamento() {
 				var value = dadosSalvos[key];
 				var element = document.getElementById(key);
 
-				if (element) {
+				if (element && element.id !== 'frameCifra' && element.id !== 'frameTom') {
 					if (key === 'bpm') {
 						element.value = value;
 						bpmRange.value = bpm.value;
