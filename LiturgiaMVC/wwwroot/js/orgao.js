@@ -1550,6 +1550,7 @@ function ultimoTomSelecionadoStorage() {
 }
 
 function carregarConfiguracoesDoStorage() {
+	selecionarInstrumento();
 	darkModeLocalStorage();
 	adicionarTonsSelect('tomSelect', 0, true);
 	ultimoTomSelecionadoStorage();
