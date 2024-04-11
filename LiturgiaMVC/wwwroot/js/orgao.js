@@ -1248,8 +1248,12 @@ function mostrarTextoCifrasCarregado(tom = null, texto = null) {
 function selecionarCifraId() {
 	var cifraElems = textoCifras.contentDocument.getElementsByClassName('cifraSelecionada');
 
-	if (cifraElems.length > 0)
+	if (cifraElems.length > 0) {
 		_cifraId = cifraElems[0].id.split('cifra')[1] - 1;
+		return cifraElems[0];
+	}
+
+	return;
 }
 
 function mudarParaTelaFrame() {
@@ -2480,7 +2484,8 @@ function carregar_Salvamento() {
 				textoCifras.style.height = selectTamanhoIframe.value + 'px';
 				partituraFrame.style.height = selectTamanhoIframe.value + 'px';
 
-				selecionarCifraId();
+				let cifraElem = selecionarCifraId();
+				cifraElem.scrollIntoView();
 			}
 			else
 				voltarParaOrgao();
