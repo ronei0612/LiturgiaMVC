@@ -1340,7 +1340,8 @@ function tocarSolo(solo) {
 	_notasSolo = solo.split('.');
 	_acordeSelecionado = _notasSolo[0];
 	tocarAcorde(_notasSolo[0], null);
-	_notasSolo.shift();
+	if (_notasSolo)
+		_notasSolo.shift();
 	//for (var i = 0; i < notas.length; i++) {
 	//	let nota = notas[i];
 	//	if (nota.charAt(0) === nota.toUpperCase())
