@@ -255,7 +255,9 @@
 			container.style.display = 'block';
 			document.getElementById('tracker-container').style.display = 'block';
 			navBar.style.display = '';
-			carregarConfiguracoesDoStorage();
+			try {
+				carregarConfiguracoesDoStorage();
+			} catch { }
 			mostrarCompartilhado();
 		}
 		else
@@ -263,7 +265,9 @@
 				container.style.display = 'block';
 				document.getElementById('tracker-container').style.display = 'block';
 				navBar.style.display = '';
-				carregarConfiguracoesDoStorage();
+				try {
+					carregarConfiguracoesDoStorage();
+				} catch { }
 				mostrarCompartilhado();
 			}, tempoMiliseg)
 	}
