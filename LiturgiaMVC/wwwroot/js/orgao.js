@@ -2303,9 +2303,15 @@ function iniciarCifra() {
 	}
 }
 function novoSalvamento() {
-	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
-	if (!nomeStorage)
+	let nomeStorage;
+	let salvamentosStorage = localStorage.getItem('salvamentosv2');
+	let compartilhadosStorage = localStorage.getItem('compartilhados');
+	if (salvamentosStorage && compartilhadosStorage)
+		nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
+	else if (salvamentosStorage)
 		nomeStorage = 'salvamentosv2';
+	else if (compartilhadosStorage)
+		nomeStorage = 'compartilhados';
 
 	const antesEstavaFull = sairDeFullscreen();
 
