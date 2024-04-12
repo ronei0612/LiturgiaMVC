@@ -2535,7 +2535,8 @@ function carregar_Salvamento() {
 				partituraFrame.style.height = selectTamanhoIframe.value + 'px';
 
 				let cifraElem = selecionarCifraId();
-				cifraElem.scrollIntoView();
+				if (cifraElem)
+					cifraElem.scrollIntoView();
 			}
 			else
 				voltarParaOrgao();
