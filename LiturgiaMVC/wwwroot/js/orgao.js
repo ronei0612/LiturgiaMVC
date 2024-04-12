@@ -30,7 +30,7 @@ const primeiraGuitar = new Pizzicato.Sound({
 	options: {
 		type: 'sawtooth',
 		frequency: notasFrequencias.c1,
-		release: 3,
+		release: 2.5,
 		attack: 0.4,
 		volume: 0.01
 	}
@@ -41,7 +41,7 @@ const quintaGuitar = new Pizzicato.Sound({
 	options: {
 		type: 'sawtooth',
 		frequency: notasFrequencias.g1,
-		release: 3,
+		release: 2.5,
 		attack: 0.4,
 		volume: 0.01
 	}
@@ -115,12 +115,12 @@ var _teclasConfiguracao = {};
 var _gravarCifras = false;
 var _chimesPressionado = false;
 
-var notasAcordesJson;
-var acordesCampoHarmonicoJson;
-var acidentesCorrespondentesJson;
-var acordesTons;
-var tonsMaiores;
-var tonsMenores;
+var _notasAcordesJson;
+var _acordesCampoHarmonicoJson;
+var _acidentesCorrespondentesJson;
+var _acordesTons;
+var _tonsMaiores;
+var _tonsMenores;
 
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
@@ -138,7 +138,7 @@ const eventos = {
 	eventoInput: eventoInput
 };
 
-const notasAcordes = Object.keys(notasAcordesJson);
+var notasAcordes = Object.keys(notasAcordesJson);
 
 const selectConfiguracao = document.getElementById('selectConfiguracao');
 const tableRitmo = document.getElementById('tableRitmo');
@@ -1567,23 +1567,35 @@ function recuperarDadosStorage(dadosStorage) {
 
 	if (dadosCompletosJson) {
 		const dadosCompletos = JSON.parse(dadosCompletosJson);
-		acordesCampoHarmonicoJson = JSON.stringify(dadosCompletos.acordesCampoHarmonicoJson);
-		acidentesCorrespondentesJson = JSON.stringify(dadosCompletos.acidentesCorrespondentesJson);
-		notasAcordesJson = JSON.stringify(dadosCompletos.notasAcordesJson);
-		acordesTons = JSON.stringify(dadosCompletos.acordesTons);
-		tonsMaiores = JSON.stringify(dadosCompletos.tonsMaiores);
-		tonsMenores = JSON.stringify(dadosCompletos.tonsMenores);
+		_acordesCampoHarmonicoJson = JSON.stringify(dadosCompletos.acordesCampoHarmonicoJson);
+		_acidentesCorrespondentesJson = JSON.stringify(dadosCompletos.acidentesCorrespondentesJson);
+		_notasAcordesJson = JSON.stringify(dadosCompletos.notasAcordesJson);
+		_notasAcordes = dadosCompletos.notasAcordesJson;
+		_acordesTons = dadosCompletos.acordesTons;
+		_tonsMaiores = dadosCompletos.tonsMaiores;
+		_tonsMenores = dadosCompletos.tonsMenores;
 	}
 }
 
 function salvarDadosStorage(dadosStorage) {
+	if (tonsMaiores) {
+		_acordesCampoHarmonicoJson = acordesCampoHarmonicoJson;
+		_acidentesCorrespondentesJson = acidentesCorrespondentesJson;
+		_notasAcordesJson = notasAcordesJson;
+		_notasAcordes = notasAcordes;
+		_acordesTons = acordesTons;
+		_tonsMaiores = tonsMaiores;
+		_tonsMenores = tonsMenores;
+	}
+
 	const dadosCompletos = {
-		acordesCampoHarmonicoJson: acordesCampoHarmonicoJson,
-		acidentesCorrespondentesJson: acidentesCorrespondentesJson,
-		notasAcordesJson: notasAcordesJson,
-		acordesTons: acordesTons,
-		tonsMaiores: tonsMaiores,
-		tonsMenores: tonsMenores
+		acordesCampoHarmonicoJson: _acordesCampoHarmonicoJson,
+		acidentesCorrespondentesJson: _acidentesCorrespondentesJson,
+		notasAcordesJson: _notasAcordesJson,
+		notasAcordes: notasAcordes,
+		acordesTons: _acordesTons,
+		tonsMaiores: _tonsMaiores,
+		tonsMenores: _tonsMenores
 	};
 
 	const dadosCompletosJson = JSON.stringify(dadosCompletos);

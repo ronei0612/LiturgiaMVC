@@ -119,12 +119,12 @@
 <script src="~/js/Pizzicato.min.js" asp-append-version="true"></script>
 
 <script>
-	notasAcordesJson = JSON.parse('@Html.Raw(@Model.NotasAcordes)');
-	acordesCampoHarmonicoJson = JSON.parse('@Html.Raw(@Model.AcordesCampoHarmonico)');
-	acidentesCorrespondentesJson = JSON.parse('@Html.Raw(@Model.AcidentesCorrespondentes)');
-	acordesTons = Object.keys(acordesCampoHarmonicoJson);
-	tonsMaiores = '@Html.Raw(@Model.TonsMaioresString)'.split(', ');
-	tonsMenores = '@Html.Raw(@Model.TonsMenoresString)'.split(', ');
+	const notasAcordesJson = JSON.parse('@Html.Raw(@Model.NotasAcordes)');
+	const acordesCampoHarmonicoJson = JSON.parse('@Html.Raw(@Model.AcordesCampoHarmonico)');
+	const acidentesCorrespondentesJson = JSON.parse('@Html.Raw(@Model.AcidentesCorrespondentes)');
+	const acordesTons = Object.keys(acordesCampoHarmonicoJson);
+	const tonsMaiores = '@Html.Raw(@Model.TonsMaioresString)'.split(', ');
+	const tonsMenores = '@Html.Raw(@Model.TonsMenoresString)'.split(', ');
 	
 	esperarAudios(3000, true);
 
