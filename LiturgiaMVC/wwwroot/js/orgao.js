@@ -1931,7 +1931,7 @@ function MudarCifraTom(tom, cifraSomenteNota) {
 function SearchAcordes(cifraTexto) {
 	var linhasTexto = cifraTexto.split('\n');
 	var texto = [];
-	var somenteAcordes = /^[A-Ga-g0-9m#bsus°º+/()| \.]*$/;
+	var somenteAcordes = /^[A-Ga-g0-9mM#bsus°º+/()| \.]*$/;
 	var linhaIniciandoComAcorde = /\b[A-G()]/;
 	var acordeId = 1;
 
