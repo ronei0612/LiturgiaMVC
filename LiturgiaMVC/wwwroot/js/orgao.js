@@ -113,6 +113,14 @@ var _configuracaoElemento;
 var _configuracaoEvento;
 var _teclasConfiguracao = {};
 var _gravarCifras = false;
+var _chimesPressionado = false;
+
+var notasAcordesJson;
+var acordesCampoHarmonicoJson;
+var acidentesCorrespondentesJson;
+var acordesTons;
+var tonsMaiores;
+var tonsMenores;
 
 const eventoClick = new Event('click');
 const eventoChange = new Event('change');
@@ -351,6 +359,7 @@ deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
 manterTelaLigada_v2();
 carregarConfiguracaoTeclas();
+recuperarDadosStorage();
 
 document.addEventListener("visibilitychange", function () {
 	if (isMobileDevice())
@@ -1553,6 +1562,34 @@ function ultimoTomSelecionadoStorage() {
 	}
 }
 
+function recuperarDadosStorage(dadosStorage) {
+	const dadosCompletosJson = localStorage.getItem(dadosStorage);
+
+	if (dadosCompletosJson) {
+		const dadosCompletos = JSON.parse(dadosCompletosJson);
+		acordesCampoHarmonicoJson = JSON.stringify(dadosCompletos.acordesCampoHarmonicoJson);
+		acidentesCorrespondentesJson = JSON.stringify(dadosCompletos.acidentesCorrespondentesJson);
+		notasAcordesJson = JSON.stringify(dadosCompletos.notasAcordesJson);
+		acordesTons = JSON.stringify(dadosCompletos.acordesTons);
+		tonsMaiores = JSON.stringify(dadosCompletos.tonsMaiores);
+		tonsMenores = JSON.stringify(dadosCompletos.tonsMenores);
+	}
+}
+
+function salvarDadosStorage(dadosStorage) {
+	const dadosCompletos = {
+		acordesCampoHarmonicoJson: acordesCampoHarmonicoJson,
+		acidentesCorrespondentesJson: acidentesCorrespondentesJson,
+		notasAcordesJson: notasAcordesJson,
+		acordesTons: acordesTons,
+		tonsMaiores: tonsMaiores,
+		tonsMenores: tonsMenores
+	};
+
+	const dadosCompletosJson = JSON.stringify(dadosCompletos);
+	localStorage.setItem(dadosStorage, dadosCompletosJson);
+}
+
 function carregarConfiguracoesDoStorage() {
 	selecionarInstrumento();
 	darkModeLocalStorage();
@@ -1578,9 +1615,8 @@ function carregarConfiguracoesDoStorage() {
 
 	gerarRitmosNomes(ritmosNomes);
 	selecionarRitmo(selectRitmo.value);
+	salvarDadosStorage();
 }
-
-var _chimesPressionado = false;
 
 prato.addEventListener('mousedown', function () {
 	ativarBotao(prato)
