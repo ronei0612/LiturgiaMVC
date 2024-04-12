@@ -1930,7 +1930,6 @@ function MudarCifraTom(tom, cifraSomenteNota) {
 }
 
 function SearchNotasSolo(linhaSolo){
-	debugger;
 	let acorde = linhaSolo;
 	let soloArray = [];
 	if (linhaSolo.includes('.')) {
