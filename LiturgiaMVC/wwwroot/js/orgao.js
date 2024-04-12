@@ -1980,6 +1980,8 @@ function SearchAcordes(cifraTexto) {
 
 					while (!notasAcordes.includes(cifraProcurar)) {
 						cifraFormatada = cifraFormatada.substring(0, cifraFormatada.length - 1);
+						if (cifraFormatada === '')
+							break;
 					}
 
 					if (cifraFormatada) {
