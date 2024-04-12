@@ -1940,7 +1940,8 @@ function SearchNotasSolo(linhaSolo){
 		
 		if (partsSolo.length >= 1) {
 			partsSolo.forEach(function (partSolo) {
-				let soloNota = _acidentesCorrespondentesJson[partSolo.toUpperCase()];
+				let possivelNota = partSolo.length > 1 ? partSolo[1] === 'b' ? partSolo[0].toUpperCase() + 'b' : partSolo.toUpperCase() : partSolo.toUpperCase();
+				let soloNota = _acidentesCorrespondentesJson[possivelNota];
 				soloArray.push(soloNota ? soloNota.toLowerCase() : '');
 			});
 		}
