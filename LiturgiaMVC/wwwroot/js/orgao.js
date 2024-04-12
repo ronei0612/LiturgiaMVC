@@ -1887,6 +1887,7 @@ function GetAcorde(possivelAcorde) {
 
 	var cifraFormatada = possivelAcorde;
 	var cifraAcordeAlteracoes = "";
+	var cifraAcordeBaixo = "";
 
 	if (possivelAcorde.includes('('))
 		cifraFormatada = possivelAcorde.split('(')[0];
@@ -1894,7 +1895,7 @@ function GetAcorde(possivelAcorde) {
 	if (possivelAcorde.includes('/') && !possivelAcorde.includes('(')) {
 		cifraFormatada = possivelAcorde.split('/')[0];
 		var retorno = GetAcorde(possivelAcorde.split('/')[1]);
-		cifraAcordeAlteracoes = "/" + retorno[0];
+		cifraAcordeBaixo = "/" + retorno[0];
 	}
 
 	var cifraSomenteNota = cifraFormatada;
@@ -1913,7 +1914,7 @@ function GetAcorde(possivelAcorde) {
 		cifraSomenteNota = acidentesCorrespondentesJson[cifraSomenteNota];
 	}
 
-	return [cifraSomenteNota, cifraAcordeAlteracoes];
+	return [cifraSomenteNota, cifraAcordeAlteracoes + cifraAcordeBaixo];
 }
 
 function MudarCifraTom(tom, cifraSomenteNota) {
