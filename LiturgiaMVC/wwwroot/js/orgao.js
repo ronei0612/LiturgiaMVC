@@ -1946,11 +1946,12 @@ function SearchAcordes(cifraTexto) {
 
 			acordes.forEach(function (acorde) {
 				if (acorde && somenteAcordes.test(acorde) && linhaIniciandoComAcorde.test(acorde)) {
-					var solo = "";
+					var solo = '';
 					if (acorde.includes('.')) {
-						var parts = acorde.split('.', 2);
-						acorde = parts[0];
-						solo = parts.length > 1 ? "." + parts[1] : "";
+						let partsSolo = acorde.split('.');
+						acorde = partsSolo[0];
+						partsSolo.shift();
+						solo = partsSolo.length > 1 ? '.' + partsSolo.join(".") : '';
 					}
 
 					var retorno;
