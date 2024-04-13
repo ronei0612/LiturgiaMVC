@@ -1,4 +1,4 @@
-﻿const notasFrequencias = {
+const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -1960,7 +1960,7 @@ function SearchNotasSolo(linhaSolo) {
 	if (linhaSolo.includes('.')) {
 		let partsSolo = linhaSolo.split('.');
 		acorde = partsSolo[0];
-		partsSolo.shift();
+		partsSolo[0] = '';
 		
 		if (partsSolo.length >= 1) {
 			partsSolo.forEach(function (partSolo) {
@@ -1973,7 +1973,8 @@ function SearchNotasSolo(linhaSolo) {
 		}
 	}
 
-	return [acorde, soloArray ? '.' + soloArray.join(".") : ''];
+	//return [acorde, soloArray ? '.' + soloArray.join(".") : ''];
+	return [acorde, soloArray ? soloArray.join(".") : ''];
 }
 
 function SearchAcordes(cifraTexto) {
