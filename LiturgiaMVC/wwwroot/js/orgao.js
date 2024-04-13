@@ -1954,7 +1954,7 @@ function MudarCifraTom(tom, cifraSomenteNota) {
 	return tonsMaiores[acordeIndex];
 }
 
-function SearchNotasSolo(linhaSolo){
+function SearchNotasSolo(linhaSolo) {
 	let acorde = linhaSolo;
 	let soloArray = [];
 	if (linhaSolo.includes('.')) {
@@ -1964,9 +1964,11 @@ function SearchNotasSolo(linhaSolo){
 		
 		if (partsSolo.length >= 1) {
 			partsSolo.forEach(function (partSolo) {
-				let possivelNota = partSolo.length > 1 ? partSolo[1] === 'b' ? partSolo[0].toUpperCase() + 'b' : partSolo.toUpperCase() : partSolo.toUpperCase();
+				let oitava = partSolo.includes('0') ? '0' : partSolo.includes('-1') ? '-1' : '';
+				let possivelNota = oitava ? partSolo.split(oitava)[0] : partSolo;
+				possivelNota = possivelNota.length > 1 ? possivelNota[1] === 'b' ? possivelNota[0].toUpperCase() + 'b' : possivelNota.toUpperCase() : possivelNota.toUpperCase();
 				let soloNota = _acidentesCorrespondentesJson[possivelNota];
-				soloArray.push(soloNota ? soloNota.toLowerCase() : '');
+				soloArray.push(soloNota ? soloNota.toLowerCase() + oitava : '');
 			});
 		}
 	}
