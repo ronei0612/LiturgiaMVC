@@ -125,8 +125,6 @@
 	const acordesTons = Object.keys(acordesCampoHarmonicoJson);
 	const tonsMaiores = '@Html.Raw(@Model.TonsMaioresString)'.split(', ');
 	const tonsMenores = '@Html.Raw(@Model.TonsMenoresString)'.split(', ');
-	
-	esperarAudios(3000, true);
 
 	var acordes = {
 		'orgao_c': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_c"])', loop: true, release: 0.5, attack: 0.1 } }),
@@ -249,28 +247,6 @@
 
 	var pratoSound = new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["prato"])' } });
 	var chimesSound = new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["chimes"])' } });
-
-	function esperarAudios(tempoMiliseg, esperar_audios) {
-		if (esperar_audios == false) {
-			container.style.display = 'block';
-			document.getElementById('tracker-container').style.display = 'block';
-			navBar.style.display = '';
-			try {
-				carregarConfiguracoesDoStorage();
-			} catch { }
-			mostrarCompartilhado();
-		}
-		else
-			setTimeout(function () {
-				container.style.display = 'block';
-				document.getElementById('tracker-container').style.display = 'block';
-				navBar.style.display = '';
-				try {
-					carregarConfiguracoesDoStorage();
-				} catch { }
-				mostrarCompartilhado();
-			}, tempoMiliseg)
-	}
 
 	function mostrarCompartilhado() {
 		if ('@Model.CompartilhadoNome' !== '') {

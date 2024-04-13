@@ -422,6 +422,30 @@ window.addEventListener("orientationchange", (event) => {
 	orientacaoCelularAlterado(event);
 });
 
+esperarAudios(3000, true);
+
+function esperarAudios(tempoMiliseg, esperar_audios) {
+	if (esperar_audios == false) {
+		container.style.display = 'block';
+		document.getElementById('tracker-container').style.display = 'block';
+		navBar.style.display = '';
+		try {
+			carregarConfiguracoesDoStorage();
+		} catch { }
+		mostrarCompartilhado();
+	}
+	else
+		setTimeout(function () {
+			container.style.display = 'block';
+			document.getElementById('tracker-container').style.display = 'block';
+			navBar.style.display = '';
+			try {
+				carregarConfiguracoesDoStorage();
+			} catch { }
+			mostrarCompartilhado();
+		}, tempoMiliseg)
+}
+
 function capturarTeclaPressionada(tecla) {
 	if (_configurandoTeclas)
 		mostrarTeclaConfiguracaoTeclas(tecla); //armazenarTeclaConfiguracaoTeclas(tecla);
