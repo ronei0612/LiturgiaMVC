@@ -1240,8 +1240,8 @@ function tracker(ctx, scheduleAudioBeat) {
             if (_notasSolo[_notasSoloIndex] !== '') {
                 if (_somSolo)
                     _somSolo.stop();
-
-                _somSolo = acordes['epiano_' + _notasSolo[_notasSoloIndex]];
+                
+                _somSolo = acordes['epiano_' + _notasSolo[_notasSoloIndex].replace('0', '_baixo').replace('-1', '_grave')];
                 _somSolo.play();
             }
             if (_notasSoloIndex === _notasSolo.length - 1) {
