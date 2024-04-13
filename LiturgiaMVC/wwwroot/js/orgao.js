@@ -422,6 +422,10 @@ window.addEventListener("orientationchange", (event) => {
 	orientacaoCelularAlterado(event);
 });
 
+musicaSearch.addEventListener('focus', function() {
+    this.select();
+});
+
 esperarAudios(3000, true);
 
 function esperarAudios(tempoMiliseg, esperar_audios) {
@@ -2150,7 +2154,7 @@ function mostrarModal(nome) {
 			if (textoCifrasFrame.style.display === 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
 				escreverCifraTextArea.style.display = 'block';
 				linksCifraClubList.style.display = 'none';
-				musicaSearch.value = "";
+				//musicaSearch.value = "";
 				modal01.style.display = 'none';
 
 				mostrarTextoCifrasCarregado();
@@ -2749,7 +2753,7 @@ function mudarParaTelaCifras(data) {
 	escreverCifraTextArea.style.display = 'block';
 	linksCifraClubList.style.display = 'none';
 	botaoIniciar.style.display = '';
-	musicaSearch.value = "";
+	//musicaSearch.value = "";
 	modal01.style.display = 'none';
 
 	mostrarTextoCifrasCarregado(data.tom, data.message);
