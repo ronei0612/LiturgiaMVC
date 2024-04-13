@@ -1340,7 +1340,8 @@ function tocarSolo(solo) {
 	_notasSolo = solo.split('.');
 	_acordeSelecionado = _notasSolo[0];
 	tocarAcorde(_notasSolo[0], null);
-	_notasSolo.shift();
+	if (_notasSolo)
+		_notasSolo.shift();
 	//for (var i = 0; i < notas.length; i++) {
 	//	let nota = notas[i];
 	//	if (nota.charAt(0) === nota.toUpperCase())
@@ -1929,32 +1930,48 @@ function MudarCifraTom(tom, cifraSomenteNota) {
 	return tonsMaiores[acordeIndex];
 }
 
+function SearchNotasSolo(linhaSolo){
+	let acorde = linhaSolo;
+	let soloArray = [];
+	if (linhaSolo.includes('.')) {
+		let partsSolo = linhaSolo.split('.');
+		acorde = partsSolo[0];
+		partsSolo.shift();
+		
+		if (partsSolo.length >= 1) {
+			partsSolo.forEach(function (partSolo) {
+				let possivelNota = partSolo.length > 1 ? partSolo[1] === 'b' ? partSolo[0].toUpperCase() + 'b' : partSolo.toUpperCase() : partSolo.toUpperCase();
+				let soloNota = _acidentesCorrespondentesJson[possivelNota];
+				soloArray.push(soloNota ? soloNota.toLowerCase() : '');
+			});
+		}
+	}
+
+	return [acorde, soloArray ? '.' + soloArray.join(".") : ''];
+}
+
 function SearchAcordes(cifraTexto) {
-	var linhasTexto = cifraTexto.split('\n');
-	var texto = [];
-	var somenteAcordes = /^[A-Ga-g0-9mM#bsus°º+/()| \.]*$/;
-	var linhaIniciandoComAcorde = /\b[A-G()]/;
-	var acordeId = 1;
+	let linhasTexto = cifraTexto.split('\n');
+	let texto = [];
+	let somenteAcordes = /^[A-Ga-g0-9mM#bsus°º+/()| \.]*$/;
+	let linhaIniciandoComAcorde = /\b[A-G()]/;
+	let acordeId = 1;
 
 	texto.push("<style>.cifraSelecionada{background-color:#ff0}pre{line-height:1.6;font-size:14px}</style><pre>");
 
 	linhasTexto.forEach(function (linha) {
-		var linhaFormatada = linha.replace("[Intro]", "").replace("[Solo]", "").replace("[Final]", "");
+		let linhaFormatada = linha.replace("[Intro]", "").replace("[Solo]", "").replace("[Final]", "");
 
 		if (linha && somenteAcordes.test(linhaFormatada)) {
-			var acordes = linha.split(' ');
+			let acordes = linha.split(' ');
 
 			acordes.forEach(function (acorde) {
 				if (acorde && somenteAcordes.test(acorde) && linhaIniciandoComAcorde.test(acorde)) {
-					var solo = '';
-					if (acorde.includes('.')) {
-						let partsSolo = acorde.split('.');
-						acorde = partsSolo[0];
-						partsSolo.shift();
-						solo = partsSolo.length > 1 ? '.' + partsSolo.join(".") : '';
-					}
+					let retornoSolo = SearchNotasSolo(acorde);
+					acorde = retornoSolo[0];
+					let solo = retornoSolo[1];
 
-					var retorno;
+					let retorno;
 					if (acorde[0] === '(') {
 						texto.push("(");
 						retorno = GetAcorde(acorde.split('(')[1].replace("|", ""));
@@ -1971,11 +1988,11 @@ function SearchAcordes(cifraTexto) {
 						retorno = GetAcorde(acorde.replace("|", ""));
 					}
 
-					var cifraSomenteNota = retorno[0];
-					var cifraAcordeAlteracoes = retorno[1];
-					var cifraFormatada = cifraSomenteNota + cifraAcordeAlteracoes;
+					let cifraSomenteNota = retorno[0];
+					let cifraAcordeAlteracoes = retorno[1];
+					let cifraFormatada = cifraSomenteNota + cifraAcordeAlteracoes;
 
-					var cifraProcurar = cifraFormatada;
+					let cifraProcurar = cifraFormatada;
 					if (acorde.includes('/')) {
 						cifraProcurar = cifraProcurar.split('/')[0];
 					}
