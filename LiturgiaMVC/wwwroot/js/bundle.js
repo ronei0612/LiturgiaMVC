@@ -756,10 +756,10 @@ var _colId;
         //gerarRitmosNomes(ritmosNomes);
 
         function setupTrackerHtml(data, measureLength) {
+            if (typeof data === 'undefined')
+                alert('Erro nos sons! Recarregue a página por favor.');
+
             instrumentData = data;
-            if (!instrumentData.filename)
-                location.reload();
-            
             instrumentData.title = instrumentData.filename;
             schedule.drawTracker(data.filename.length, measureLength, instrumentData);
             return;
