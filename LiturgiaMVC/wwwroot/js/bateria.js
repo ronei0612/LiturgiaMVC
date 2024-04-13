@@ -21,22 +21,22 @@ function selecionarRitmo(ritmo, virada = false) {
             _trocarRitmo = false;
 
         try {
-            var ritmoMatrix = ritmo;
+            let ritmoMatrix = ritmo;
             if (ritmo.includes('_'))
                 ritmoMatrix = ritmo.split('_')[0];
 
             if (ritmoMatrix != 'null') {
                 setBeats(ritmoMatrix);
 
-                var tabelaBateria = document.getElementById('tracker-table');
-                var tdsAtivados = document.getElementsByClassName('tracker-enabled');
+                let tabelaBateria = document.getElementById('tracker-table');
+                let tdsAtivados = document.getElementsByClassName('tracker-enabled');
 
                 Array.from(tdsAtivados).forEach((tdAtivado) => {
                     tdAtivado.classList.remove('tracker-enabled');
                 });
 
-                var tdsAtivar = tabelaBateria.getElementsByTagName('td');
-                var numerosIndex = ritmosJson[ritmo];
+                let tdsAtivar = tabelaBateria.getElementsByTagName('td');
+                let numerosIndex = ritmosJson[ritmo];
 
                 numerosIndex.forEach((numeroIndex) => {
                     tdsAtivar[numeroIndex].classList.add('tracker-enabled');
@@ -88,7 +88,7 @@ function pararBaixo(ctx) {
         //node.gain.setValueAtTime(1, ctx.currentTime);
         //node.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.1);
 
-        // Parar o áudio após o fading out
+        // Parar o ï¿½udio apï¿½s o fading out
         //_sourceBaixo.stop(ctx.currentTime + 0.1);
         //_sourceBaixo.stop(ctx.currentTime + 0.05);
         _sourceBaixo.stop();
