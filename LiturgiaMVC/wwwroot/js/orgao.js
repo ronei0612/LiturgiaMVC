@@ -1,4 +1,4 @@
-const notasFrequencias = {
+﻿const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -359,7 +359,7 @@ deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
 manterTelaLigada_v2();
 carregarConfiguracaoTeclas();
-recuperarDadosStorage('dadosLocais');
+//recuperarDadosStorage('dadosLocais');
 
 document.addEventListener("visibilitychange", function () {
 	if (isMobileDevice())
@@ -1652,7 +1652,7 @@ function carregarConfiguracoesDoStorage() {
 
 	gerarRitmosNomes(ritmosNomes);
 	selecionarRitmo(selectRitmo.value);
-	salvarDadosStorage('dadosLocais');
+	//salvarDadosStorage('dadosLocais');
 }
 
 prato.addEventListener('mousedown', function () {
