@@ -757,6 +757,9 @@ var _colId;
 
         function setupTrackerHtml(data, measureLength) {
             instrumentData = data;
+            if (!instrumentData.filename)
+                location.reload();
+            
             instrumentData.title = instrumentData.filename;
             schedule.drawTracker(data.filename.length, measureLength, instrumentData);
             return;
