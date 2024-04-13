@@ -92,6 +92,7 @@ function removerComercial() {
 	}, 500);
 }
 
-document.body.addEventListener('click', removerComercial);
+document.addEventListener('click', removerComercial);
+document.addEventListener('touchstart', removerComercial);
 
 verificarCertificadoVencendo();
