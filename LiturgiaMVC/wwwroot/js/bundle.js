@@ -1021,30 +1021,14 @@ function setupBaseEvents() {
         if (_violaoSelecionado && !_ritmoSelecionado)
             verificarETocarBateria('', false)
     });
-    //pratoCravo.addEventListener('click', function (e) {
-    //    if (_configurandoTeclas) {
-    //        capturarTeclaConfiguracaoTeclas(pratoCravo);
-    //        return;
-    //    }
-    //    if (iconVolumeMute.style.display == 'none') {
-    //        let pratoAtaque1 = buffers['prato1'].get();
-    //        let node = routeGain(pratoAtaque1);
-    //        node.connect(ctx.destination);
-    //        pratoAtaque1.start();
-    //    }
-    //});
-    //prato.addEventListener('click', function (e) {
-    //    if (_configurandoTeclas) {
-    //        capturarTeclaConfiguracaoTeclas(prato);
-    //        return;
-    //    }
-    //    if (iconVolumeMute.style.display == 'none') {
-    //        let pratoAtaque1 = buffers['prato1'].get();
-    //        let node = routeGain(pratoAtaque1);
-    //        node.connect(ctx.destination);
-    //        pratoAtaque1.start();
-    //    }
-    //});
+    cifraAvancar.addEventListener('click', function (e) {
+        if (_configurandoTeclas) {
+            return;
+        }
+        if (_notasSolo)
+            if (!schedule.running)
+                playBateria();
+    });
     play_pause_bateria.addEventListener('mousedown', function (e) {
         if (_configurandoTeclas) {
             capturarTeclaConfiguracaoTeclas(play_pause_bateria);
@@ -1065,15 +1049,7 @@ function setupBaseEvents() {
             tocarBateria();
     });
     bpm.addEventListener('change', function (e) {
-        //_tempo = parseInt(bpmRange.value);
-        //let bpmRange_valor = 60000 / _tempo;
-
-        //if (measureLength.value == 24)
-        //    bpmRange_valor = bpmRange_valor / 2;
-        //lightCompasso.style.animation = 'blink ' + bpmRange_valor + 'ms infinite';
-
         mudarTempoCompasso(false);
-
         setTempoRitmo();
     });
     bpmRange.addEventListener('input', function (e) {
