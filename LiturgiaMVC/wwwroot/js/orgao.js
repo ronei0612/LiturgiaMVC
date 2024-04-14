@@ -2636,12 +2636,12 @@ function compartilhar_Salvamentos() {
 
 	if (salvamentosv2) {
 		modal01.style.display = 'none';
-		criarArquivodoStorage();
+		criarArquivodoStorage('salvamentosv2');
 	}
 	else if (compartilhados) {
 		localStorage.setItem('salvamentosv2', compartilhados);
 		modal01.style.display = 'none';
-		criarArquivodoStorage();
+		criarArquivodoStorage('salvamentosv2');
 	}
 	else
 		alert('Crie pelo menos um Salvamento');

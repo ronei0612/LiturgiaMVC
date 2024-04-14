@@ -37,6 +37,31 @@ function verificarSeObtendoTokenGoogle() {
     }
 }
 
+async function editarArquivoNoGoogleDrive(arquivoId, texto) {
+    if (await validarToken()) {
+        const url = `https://www.googleapis.com/upload/drive/v3/files/${arquivoId}`;
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: texto
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Arquivo editado com sucesso.');
+            } else {
+                console.error('Erro ao editar o arquivo:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao editar o arquivo:', error);
+        });
+    }
+}
+
 async function criarArquivoNoGoogleDrive(nome, texto) {
     // URL para criar um novo arquivo no Google Drive
     const url = 'https://www.googleapis.com/drive/v3/files';
@@ -109,16 +134,15 @@ async function criarArquivoNoGoogleDrive(nome, texto) {
     }
 }
 
-async function criarArquivodoStorage() {
-    const texto = verificarSeJaCompartilhado();
+async function criarArquivodoStorage(nomeSalvamento) {
+    const texto = verificarSeJaCompartilhado(nomeSalvamento);
 
     if (texto !== '') {
         if (await validarToken()) {
-            let textoDoStorageCriptografado = criptografarTexto(texto);
-            localStorage.setItem('compartilhadoMD5', textoDoStorageCriptografado);
-
-            let nome = prompt('Nome do compartilhamento');
+            let nome = prompt('Nome do novo compartilhamento:');
             if (nome !== '' && nome !== null) {
+                let textoDoStorageCriptografado = criptografarTexto(texto);
+                localStorage.setItem('compartilhadoMD5', textoDoStorageCriptografado);
                 criarArquivoNoGoogleDrive(nome, texto);
             }
         }
@@ -195,25 +219,31 @@ function criptografarTexto(texto) {
     return CryptoJS.MD5(texto).toString();
 }
 
-function verificarSeJaCompartilhado() {
-    //let textoDoStorage = carregarSalvosLocalStorage();
+function verificarSeJaCompartilhado(nomeSalvamento) {
     let arquivoId = localStorage.getItem('fileId');
-    if (arquivoId === 'undefined')
+    if (arquivoId === 'undefined') {
         localStorage.removeItem('compartilhadoMD5');
+        arquivoId = '';
+    }
 
-    let textoDoStorage = localStorage.getItem('salvamentosv2');
-
+    let textoDoStorage = localStorage.getItem(nomeSalvamento);//'salvamentosv2'
     let textoDoStorageCriptografado = criptografarTexto(textoDoStorage);
     const compartilhadoMD5 = localStorage.getItem('compartilhadoMD5');
 
     if (compartilhadoMD5 && arquivoId) {
         if (textoDoStorageCriptografado === compartilhadoMD5)
             return '';
-        else
-            return textoDoStorage;
+        else {
+            let nomeCompartilhamento = localStorage.getItem('nomeCompartilhamento');
+            if (nomeCompartilhamento && arquivoId) {
+                if (confirm('Salvar no compartilhamento "' + nomeCompartilhamento + '"?')) {
+                    editarArquivoNoGoogleDrive(arquivoId, textoDoStorage);
+                    return '';
+                }
+            }
+        }
     }
-    else
-        return textoDoStorage;
+    return textoDoStorage;
 }
 
 function copiarTextoParaClipboard(texto) {
