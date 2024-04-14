@@ -60,8 +60,8 @@ async function editarArquivoNoGoogleDrive(arquivoId, texto) {
     }
 }
 
-async function criarArquivoNoGoogleDrive(nome, texto) {
-    // URL para criar um novo arquivo no Google Drive
+async function criarArquivoNoGoogleDrive(nome, texto) {    
+    nome = 'LiturgiaOrgao-' + nome;
     const url = 'https://www.googleapis.com/drive/v3/files';
 
     try {
