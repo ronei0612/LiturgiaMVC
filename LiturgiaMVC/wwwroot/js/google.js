@@ -50,9 +50,7 @@ async function editarArquivoNoGoogleDrive(arquivoId, texto) {
             body: texto
         })
         .then(response => {
-            if (response.ok) {
-                console.log('Arquivo editado com sucesso.');
-            } else {
+            if (!response.ok) {
                 console.error('Erro ao editar o arquivo:', response.statusText);
             }
         })
