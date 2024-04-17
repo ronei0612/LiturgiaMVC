@@ -422,6 +422,10 @@ window.addEventListener("orientationchange", (event) => {
 	orientacaoCelularAlterado(event);
 });
 
+musicaSearch.addEventListener('focus', function() {
+    this.select();
+});
+
 esperarAudios(3000, true);
 
 function esperarAudios(tempoMiliseg, esperar_audios) {
@@ -2151,7 +2155,7 @@ function mostrarModal(nome) {
 			if (textoCifrasFrame.style.display === 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
 				escreverCifraTextArea.style.display = 'block';
 				linksCifraClubList.style.display = 'none';
-				musicaSearch.value = "";
+				//musicaSearch.value = "";
 				modal01.style.display = 'none';
 
 				mostrarTextoCifrasCarregado();
@@ -2633,12 +2637,12 @@ function compartilhar_Salvamentos() {
 
 	if (salvamentosv2) {
 		modal01.style.display = 'none';
-		criarArquivodoStorage();
+		criarArquivodoStorage('salvamentosv2');
 	}
 	else if (compartilhados) {
 		localStorage.setItem('salvamentosv2', compartilhados);
 		modal01.style.display = 'none';
-		criarArquivodoStorage();
+		criarArquivodoStorage('salvamentosv2');
 	}
 	else
 		alert('Crie pelo menos um Salvamento');
@@ -2750,7 +2754,7 @@ function mudarParaTelaCifras(data) {
 	escreverCifraTextArea.style.display = 'block';
 	linksCifraClubList.style.display = 'none';
 	botaoIniciar.style.display = '';
-	musicaSearch.value = "";
+	//musicaSearch.value = "";
 	modal01.style.display = 'none';
 
 	mostrarTextoCifrasCarregado(data.tom, data.message);
