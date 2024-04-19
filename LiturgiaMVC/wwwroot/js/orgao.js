@@ -931,17 +931,21 @@ function refinarAcorde(acorde) {
 function getNotaBaixo(acorde) {
 	let notaBaixo;
 	if (acorde.includes('/')) {
-		notaBaixo = refinarAcorde(acorde.split('/')[1]);
+		let acordeBaixo = refinarAcorde(acorde.split('/')[1]);
 		acorde = refinarAcorde(acorde.split('/')[0]);
-		notaBaixo = _notasAcordesJson[notaBaixo][0];
-		// if (notaBaixo !== acorde)
-		// 	_notasAcordesJson = recuperarDadosStorage('dadosLocais');
+		notaBaixo = _notasAcordesJson[acordeBaixo][0];
+		if (notaBaixo.toUpperCase() !== acordeBaixo) {
+	    	_notasAcordesJson = recuperarDadosStorage('dadosLocais');			
+			notaBaixo = _notasAcordesJson[acordeBaixo][0];
+		}
 	}		
 	else {
 		acorde = refinarAcorde(acorde);
 		notaBaixo = _notasAcordesJson[acorde][0];
-		// if (notaBaixo !== acorde)
-		// 	_notasAcordesJson = recuperarDadosStorage('dadosLocais');
+		if (notaBaixo.toUpperCase() !== acorde[0]) {
+	    	_notasAcordesJson = recuperarDadosStorage('dadosLocais');			
+			notaBaixo = _notasAcordesJson[acorde][0];
+		}
 	}
 	
 	return [acorde, notaBaixo];
