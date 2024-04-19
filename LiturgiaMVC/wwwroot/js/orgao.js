@@ -934,7 +934,7 @@ function getNotaBaixo(acorde) {
 		let acordeBaixo = refinarAcorde(acorde.split('/')[1]);
 		acorde = refinarAcorde(acorde.split('/')[0]);
 		notaBaixo = _notasAcordesJson[acordeBaixo][0];
-		if (notaBaixo.toUpperCase() !== acordeBaixo) {
+		if (notaBaixo[0].toUpperCase() !== acordeBaixo) {
 	    	_notasAcordesJson = recuperarDadosStorage('dadosLocais');			
 			notaBaixo = _notasAcordesJson[acordeBaixo][0];
 		}
@@ -942,7 +942,7 @@ function getNotaBaixo(acorde) {
 	else {
 		acorde = refinarAcorde(acorde);
 		notaBaixo = _notasAcordesJson[acorde][0];
-		if (notaBaixo.toUpperCase() !== acorde[0]) {
+		if (notaBaixo[0].toUpperCase() !== acorde[0]) {
 	    	_notasAcordesJson = recuperarDadosStorage('dadosLocais');			
 			notaBaixo = _notasAcordesJson[acorde][0];
 		}
