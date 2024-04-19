@@ -126,6 +126,9 @@
 	const tonsMaiores = '@Html.Raw(@Model.TonsMaioresString)'.split(', ');
 	const tonsMenores = '@Html.Raw(@Model.TonsMenoresString)'.split(', ');
 
+	localStorage.setItem('notasAcordesJson', JSON.stringify(notasAcordesJson));
+
+
 	var acordes = {
 		'orgao_c': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_c"])', loop: true, release: 0.5, attack: 0.1 } }),
 		'orgao_c#': new Pizzicato.Sound({ source: 'file', options: { path: '@Html.Raw(@Model.LinksDict["orgao_c#"])', loop: true, release: 0.5, attack: 0.1 } }),

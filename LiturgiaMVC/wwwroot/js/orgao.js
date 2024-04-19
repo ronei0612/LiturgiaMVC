@@ -359,7 +359,7 @@ deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
 manterTelaLigada_v2();
 carregarConfiguracaoTeclas();
-//recuperarDadosStorage('dadosLocais');
+recuperarDadosStorage('dadosLocais');
 
 document.addEventListener("visibilitychange", function () {
 	if (isMobileDevice())
@@ -933,12 +933,17 @@ function getNotaBaixo(acorde) {
 	if (acorde.includes('/')) {
 		notaBaixo = refinarAcorde(acorde.split('/')[1]);
 		acorde = refinarAcorde(acorde.split('/')[0]);
-		notaBaixo = notasAcordesJson[notaBaixo][0];
+		notaBaixo = _notasAcordesJson[notaBaixo][0];
+		// if (notaBaixo !== acorde)
+		// 	_notasAcordesJson = recuperarDadosStorage('dadosLocais');
 	}		
 	else {
 		acorde = refinarAcorde(acorde);
-		notaBaixo = notasAcordesJson[acorde][0];
+		notaBaixo = _notasAcordesJson[acorde][0];
+		// if (notaBaixo !== acorde)
+		// 	_notasAcordesJson = recuperarDadosStorage('dadosLocais');
 	}
+	
 	return [acorde, notaBaixo];
 }
 
@@ -948,7 +953,7 @@ function montarAcordeNotas(acorde) {
 		let retorno = getNotaBaixo(acorde);
 		acorde = retorno[0];
 		_acordeBaixo = retorno[1];
-		_acordeNotas = notasAcordesJson[acorde];
+		_acordeNotas = _notasAcordesJson[acorde];
 	}
 	
 	_acordeSelecionado = acorde;
@@ -1592,42 +1597,48 @@ function ultimoTomSelecionadoStorage() {
 }
 
 function recuperarDadosStorage(dadosStorage) {
-	const dadosCompletosJson = localStorage.getItem(dadosStorage);
+	let notasAcordesJsonString = localStorage.getItem('notasAcordesJson');
+	if (notasAcordesJsonString)
+		_notasAcordesJson = JSON.parse(notasAcordesJsonString);
+	else
+		_notasAcordesJson = notasAcordesJson;
 
-	if (dadosCompletosJson) {
-		const dadosCompletos = JSON.parse(dadosCompletosJson);
-		_acordesCampoHarmonicoJson = JSON.stringify(dadosCompletos.acordesCampoHarmonicoJson);
-		_acidentesCorrespondentesJson = JSON.stringify(dadosCompletos.acidentesCorrespondentesJson);
-		_notasAcordesJson = JSON.stringify(dadosCompletos.notasAcordesJson);
-		_notasAcordes = dadosCompletos.notasAcordesJson;
-		_acordesTons = dadosCompletos.acordesTons;
-		_tonsMaiores = dadosCompletos.tonsMaiores;
-		_tonsMenores = dadosCompletos.tonsMenores;
-	}
+	// let dadosCompletosJson = localStorage.getItem(dadosStorage);
+
+	// if (dadosCompletosJson) {
+	// 	let dadosCompletos = JSON.parse(dadosCompletosJson);
+	// 	// _acordesCampoHarmonicoJson = JSON.stringify(dadosCompletos.acordesCampoHarmonicoJson);
+	// 	// _acidentesCorrespondentesJson = JSON.stringify(dadosCompletos.acidentesCorrespondentesJson);
+	// 	notasAcordesJson = JSON.stringify(dadosCompletos.notasAcordesJson);
+	// 	// _notasAcordes = dadosCompletos.notasAcordesJson;
+	// 	// _acordesTons = dadosCompletos.acordesTons;
+	// 	// _tonsMaiores = dadosCompletos.tonsMaiores;
+	// 	// _tonsMenores = dadosCompletos.tonsMenores;
+	// }
 }
 
 function salvarDadosStorage(dadosStorage) {
-	if (tonsMaiores) {
-		_acordesCampoHarmonicoJson = acordesCampoHarmonicoJson;
-		_acidentesCorrespondentesJson = acidentesCorrespondentesJson;
-		_notasAcordesJson = notasAcordesJson;
-		_notasAcordes = notasAcordes;
-		_acordesTons = acordesTons;
-		_tonsMaiores = tonsMaiores;
-		_tonsMenores = tonsMenores;
-	}
+	// if (tonsMaiores) {
+	// 	_acordesCampoHarmonicoJson = acordesCampoHarmonicoJson;
+	// 	_acidentesCorrespondentesJson = acidentesCorrespondentesJson;
+	// 	_notasAcordesJson = notasAcordesJson;
+	// 	_notasAcordes = notasAcordes;
+	// 	_acordesTons = acordesTons;
+	// 	_tonsMaiores = tonsMaiores;
+	// 	_tonsMenores = tonsMenores;
+	// }
 
-	const dadosCompletos = {
-		acordesCampoHarmonicoJson: _acordesCampoHarmonicoJson,
-		acidentesCorrespondentesJson: _acidentesCorrespondentesJson,
-		notasAcordesJson: _notasAcordesJson,
-		notasAcordes: notasAcordes,
-		acordesTons: _acordesTons,
-		tonsMaiores: _tonsMaiores,
-		tonsMenores: _tonsMenores
+	let dadosCompletos = {
+		// acordesCampoHarmonicoJson: _acordesCampoHarmonicoJson,
+		// acidentesCorrespondentesJson: _acidentesCorrespondentesJson,
+		notasAcordesJson: notasAcordesJson,
+		// notasAcordes: notasAcordes,
+		// acordesTons: _acordesTons,
+		// tonsMaiores: _tonsMaiores,
+		// tonsMenores: _tonsMenores
 	};
 
-	const dadosCompletosJson = JSON.stringify(dadosCompletos);
+	let dadosCompletosJson = JSON.stringify(dadosCompletos);
 	localStorage.setItem(dadosStorage, dadosCompletosJson);
 }
 
