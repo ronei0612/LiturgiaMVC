@@ -1,4 +1,4 @@
-﻿const notasFrequencias = {
+const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -2302,7 +2302,7 @@ function mostrarModal(nome) {
 	}
 }
 
-function mostrarAfinador(mostrar) {
+function mostrarAfinador(mostrar = true) {
 	if (mostrar) {
 		tunerDiv.style.display = '';
 
