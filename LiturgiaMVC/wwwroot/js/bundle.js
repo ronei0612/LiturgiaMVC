@@ -819,9 +819,7 @@ var _colId;
                             let matches = acordeViolao.match(/^[A-Z]#?m?/);
                             if (matches) {
                                 let nota = matches[0];
-                                console.log(nota);
                                 nota = nota.replace('#', '_');
-                                console.log(nota);
 
                                 if (instrumentName === '1')
                                     nota = nota + '1';
