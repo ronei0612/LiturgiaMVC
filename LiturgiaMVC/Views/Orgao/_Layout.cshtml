@@ -346,9 +346,17 @@
                         <button class="btn btn-secondary" type="button" onclick="gravarCifra()">
                             Escrever cifras
                         </button>
+                            &nbsp;
+                        <button class="btn btn-secondary" type="button" onclick="mostrarAfinador(true)">
+                            Afinador
+                        </button>
                     </div>
-
-                    <br /><br />
+                    
+                    <div id="tunerDiv" style="display:none">
+                        <partial name="~/Views/Orgao/Tuner.cshtml" />
+                    </div>
+                    <br />
+                    <br />
                 </div>
             </div>
         </div>

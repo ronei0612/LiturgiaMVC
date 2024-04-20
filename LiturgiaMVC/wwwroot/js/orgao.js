@@ -949,7 +949,7 @@ function getNotaBaixo(acorde) {
 	else {
 		acorde = refinarAcorde(acorde);
 		notaBaixo = _notasAcordesJson[acorde][0];
-		
+
 		if (notaBaixo[0].toUpperCase() !== acorde[0]) {
 			mostrarMensagem('notaBaixo errado: ' + notaBaixo);
 	    	_notasAcordesJson = recuperarDadosStorage('dadosLocais');			
@@ -2299,6 +2299,13 @@ function mostrarModal(nome) {
 		default:
 			break;
 	}
+}
+
+function mostrarAfinador(mostrar) {
+	if (mostrar)
+		tunerDiv.style.display = '';
+	else
+		tunerDiv.style.display = 'none';
 }
 
 function selecionarInstrumento(bateria = false, manualmente = false) {
