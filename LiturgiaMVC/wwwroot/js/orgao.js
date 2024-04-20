@@ -2302,10 +2302,17 @@ function mostrarModal(nome) {
 	}
 }
 
-function mostrarAfinador(mostrar = true) {
+function mostrarAfinador(mostrar) {
 	if (mostrar) {
 		tunerDiv.style.display = '';
-		autoTunerCheck.checked = true;
+
+		if (autoTunerCheck.checked) {
+			autoTunerCheck.checked = false;
+			tunerDiv.style.display = 'none';
+		}
+		else
+			autoTunerCheck.checked = true;
+
 		autoTunerCheck.dispatchEvent(eventoClick);
 	}
 	else {
