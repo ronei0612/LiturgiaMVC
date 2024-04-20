@@ -2146,6 +2146,7 @@ function ocultarModal() {
 	posicaoBotaoFecharModal(document.getElementById('botaoFecharModal'), false);
 
 	limparUrl();
+	mostrarAfinador(false);
 }
 
 function mostrarModal(nome) {
@@ -2301,11 +2302,17 @@ function mostrarModal(nome) {
 	}
 }
 
-function mostrarAfinador(mostrar) {
-	if (mostrar)
+function mostrarAfinador(mostrar = true) {
+	if (mostrar) {
 		tunerDiv.style.display = '';
-	else
+		autoTunerCheck.checked = true;
+		autoTunerCheck.dispatchEvent(eventoClick);
+	}
+	else {
 		tunerDiv.style.display = 'none';
+		autoTunerCheck.checked = false;
+		autoTunerCheck.dispatchEvent(eventoClick);
+	}
 }
 
 function selecionarInstrumento(bateria = false, manualmente = false) {
