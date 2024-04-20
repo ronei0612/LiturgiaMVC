@@ -811,10 +811,17 @@ var _colId;
                             play(violaoAudio);
                         }
                         else {
-                            let matches = _acordeSelecionado.match(/^[A-Z]#?m?/);
+                            let acordeViolao = _acordeSelecionado;
+                            
+                            if (acordeViolao.includes('°'))
+                                acordeViolao = _notasAcordesJson[acordeViolao][1].toUpperCase() + 'm';
+
+                            let matches = acordeViolao.match(/^[A-Z]#?m?/);
                             if (matches) {
                                 let nota = matches[0];
+                                console.log(nota);
                                 nota = nota.replace('#', '_');
+                                console.log(nota);
 
                                 if (instrumentName === '1')
                                     nota = nota + '1';
