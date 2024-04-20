@@ -450,6 +450,11 @@ function esperarAudios(tempoMiliseg, esperar_audios) {
 		}, tempoMiliseg)
 }
 
+function mostrarMensagem(mensagem) {
+	let mensagensElem = document.getElementById('mensagens');
+	mensagensElem.innerText = mensagensElem.innerText + '\n' + mensagem;
+}
+
 function capturarTeclaPressionada(tecla) {
 	if (_configurandoTeclas)
 		mostrarTeclaConfiguracaoTeclas(tecla); //armazenarTeclaConfiguracaoTeclas(tecla);
@@ -934,15 +939,19 @@ function getNotaBaixo(acorde) {
 		let acordeBaixo = refinarAcorde(acorde.split('/')[1]);
 		acorde = refinarAcorde(acorde.split('/')[0]);
 		notaBaixo = _notasAcordesJson[acordeBaixo][0];
+
 		if (notaBaixo[0].toUpperCase() !== acordeBaixo) {
-	    	_notasAcordesJson = recuperarDadosStorage('dadosLocais');			
+			mostrarMensagem('notaBaixo errado (/): ' + notaBaixo);
+	    	_notasAcordesJson = recuperarDadosStorage('dadosLocais');
 			notaBaixo = _notasAcordesJson[acordeBaixo][0];
 		}
 	}		
 	else {
 		acorde = refinarAcorde(acorde);
 		notaBaixo = _notasAcordesJson[acorde][0];
+		
 		if (notaBaixo[0].toUpperCase() !== acorde[0]) {
+			mostrarMensagem('notaBaixo errado: ' + notaBaixo);
 	    	_notasAcordesJson = recuperarDadosStorage('dadosLocais');			
 			notaBaixo = _notasAcordesJson[acorde][0];
 		}

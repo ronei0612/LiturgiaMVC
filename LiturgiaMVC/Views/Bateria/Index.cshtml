@@ -260,9 +260,9 @@
 			</div>
 		</div>
 
-		<div id="mensagens">
-
+		<div id="mensagens" style="display:none">
 		</div>
+		
 	</div>
 </div>
 <script>
@@ -351,7 +351,8 @@
 	function mostrarBateriaConfig(mostrar) {
 		if (mostrar) {
 			temporizador = setTimeout(function () {
-				bateria.style.display = '';
+				//bateria.style.display = '';
+				document.getElementById('mensagens').style.display = '';
 			}, 3000);
 		}
 		else 
