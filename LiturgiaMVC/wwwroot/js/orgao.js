@@ -1,4 +1,4 @@
-const notasFrequencias = {
+﻿const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -411,6 +411,8 @@ autoCheck.addEventListener('change', function (e) {
 		//if (textoCifrasFrame.style.display === 'none')
 		//	orgaoTable.style.marginLeft = '';
 	}
+
+	calcularAlturaIframe();
 });
 
 instrumentoSelect.addEventListener('change', (e) => {
@@ -641,6 +643,8 @@ function orientacaoCelularAlterado(event) {
 
 	if (exitfullscreen.style.display !== 'none')
 		mudarParaFullscreen();
+
+	calcularAlturaIframe();
 }
 
 function mostrarBateria(mostrar = true) {
@@ -1342,6 +1346,8 @@ function mudarParaTelaFrame() {
 
 	if (_orientacaoCelularPe === false)
 		ocultarNavBar();
+
+	calcularAlturaIframe();
 }
 
 function addEventCifras(frame, mudarTomCifraId) {
@@ -1797,16 +1803,16 @@ function showselectFonte(mostrar) {
 }
 
 function showselectIframe(mostrar) {
-	if (mostrar) {
-		botaoTamanhoIframe.style.display = "none";
-		selectTamanhoIframe.style.display = "";
-	}
-	else {
-		if (textoCifrasFrame.style.display !== 'none') {
-			textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
-			textoCifras.style.height = selectTamanhoIframe.value + 'px';
-		}
-	}
+	// if (mostrar) {
+	// 	botaoTamanhoIframe.style.display = "none";
+	// 	selectTamanhoIframe.style.display = "";
+	// }
+	// else {
+	// 	if (textoCifrasFrame.style.display !== 'none') {
+	// 		textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
+	// 		textoCifras.style.height = selectTamanhoIframe.value + 'px';
+	// 	}
+	// }
 }
 
 function prepararMudarTomCifra(tomSelecionado) {
@@ -2364,6 +2370,16 @@ function selecionarInstrumento(bateria = false, manualmente = false) {
 	mudarTempoCompasso();
 }
 
+function calcularAlturaIframe() {
+	var orgaoDiv = document.getElementById('bateriaBox');
+	var elementosHeight = orgaoDiv.offsetHeight + linhaSelectTom.offsetHeight;
+
+	if (navBar.style.display !== 'none')
+		elementosHeight += navBar.offsetHeight;
+	
+	document.documentElement.style.setProperty('--element-height', elementosHeight + 'px');
+}
+
 function gravarCifra() {
 	_gravarCifras = true;
 	document.getElementById('tituloGravacaoCifras').style.display = '';
@@ -2637,8 +2653,8 @@ function carregar_Salvamento() {
 				mostrarTextoCifrasCarregado(tom, cifraTexto);
 
 				textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
-				textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
-				textoCifras.style.height = selectTamanhoIframe.value + 'px';
+				//textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
+				//textoCifras.style.height = selectTamanhoIframe.value + 'px';
 				partituraFrame.style.height = selectTamanhoIframe.value + 'px';
 
 				let cifraElem = selecionarCifraId();

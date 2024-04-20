@@ -402,6 +402,16 @@ input[type=range][orient=vertical] {
 	stroke-miterlimit: 10;
 }
 
+#textoCifrasFrame {
+	/* position: static;
+	width: 100%; */
+	/* A altura do iframe é calculada dinamicamente */
+	height: calc(100vh - var(--element-height)); /* Substitua var(--element-height) pelo nome da variável CSS */
+}
+
+#textoCifras {
+	height: calc(100vh - var(--element-height)); /* Substitua var(--element-height) pelo nome da variável CSS */
+}
 /*
 	Novo blink, precisa ser implementado
 	<!DOCTYPE html>
