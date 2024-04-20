@@ -359,7 +359,7 @@ deixarAcompanhamentoSelecionado('full');
 verificarOrientacaoCelular();
 manterTelaLigada_v2();
 carregarConfiguracaoTeclas();
-recuperarDadosStorage('dadosLocais');
+_notasAcordesJson = recuperarDadosStorage('dadosLocais');
 
 document.addEventListener("visibilitychange", function () {
 	if (isMobileDevice())
@@ -944,7 +944,7 @@ function getNotaBaixo(acorde) {
 		acorde = refinarAcorde(acorde.split('/')[0]);
 		notaBaixo = _notasAcordesJson[acordeBaixo][0];
 
-		if (notaBaixo[0].toUpperCase() !== acordeBaixo) {
+		if (notaBaixo[0].toUpperCase() !== acordeBaixo[0]) {
 			mostrarMensagem('notaBaixo errado (/): ' + notaBaixo);
 	    	_notasAcordesJson = recuperarDadosStorage('dadosLocais');
 			notaBaixo = _notasAcordesJson[acordeBaixo][0];
@@ -1618,9 +1618,11 @@ function ultimoTomSelecionadoStorage() {
 function recuperarDadosStorage(dadosStorage) {
 	let notasAcordesJsonString = localStorage.getItem('notasAcordesJson');
 	if (notasAcordesJsonString)
-		_notasAcordesJson = JSON.parse(notasAcordesJsonString);
+		return JSON.parse(notasAcordesJsonString);
 	else
-		_notasAcordesJson = notasAcordesJson;
+		return notasAcordesJson;
+
+	
 
 	// let dadosCompletosJson = localStorage.getItem(dadosStorage);
 
