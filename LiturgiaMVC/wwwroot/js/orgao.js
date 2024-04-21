@@ -1331,7 +1331,7 @@ function mudarParaTelaFrame() {
 	textoVolume.classList.remove('textoVertical');
 	volumeInput.setAttribute('orient', '');
 
-	$('#tdVolume').appendTo('#orgaoTable');
+	$('#tdVolume').appendTo('#tableOrgao');
 	$('#textoVolume').prependTo('#volumeDiv');
 	$('#orgaoTable').prependTo('#bateriaBox');
 
@@ -2372,10 +2372,10 @@ function calcularAlturaIframe() {
 	var orgaoDiv = document.getElementById('bateriaBox');
 	var elementosHeight = orgaoDiv.offsetHeight + linhaSelectTom.offsetHeight;
 
-	if (navBar.style.display !== 'none')
+	if (navBar.style.display !== 'none') {
 		elementosHeight += navBar.offsetHeight;
-
-	elementosHeight += 30;
+		elementosHeight += 30;
+	}
 	
 	document.documentElement.style.setProperty('--element-height', elementosHeight + 'px');
 }
