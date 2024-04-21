@@ -2378,6 +2378,8 @@ function calcularAlturaIframe() {
 
 	if (navBar.style.display !== 'none')
 		elementosHeight += navBar.offsetHeight;
+
+	elementosHeight += 20;
 	
 	document.documentElement.style.setProperty('--element-height', elementosHeight + 'px');
 }
