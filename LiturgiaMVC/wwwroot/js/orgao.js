@@ -178,8 +178,8 @@ const container = document.getElementById('container');
 const voltar = document.getElementById('voltar');
 const botaoFonte = document.getElementById('botaoFonte');
 const selectFonte = document.getElementById('selectFonte');
-const botaoTamanhoIframe = document.getElementById('botaoTamanhoIframe');
-const selectTamanhoIframe = document.getElementById('selectTamanhoIframe');
+//const botaoTamanhoIframe = document.getElementById('botaoTamanhoIframe');
+//const selectTamanhoIframe = document.getElementById('selectTamanhoIframe');
 const tomMenorSwitchDiv = document.getElementById('tomMenorSwitchDiv');
 const orgaoCifrasBotoes = document.getElementById('orgaoCifrasBotoes');
 const tdVolume = document.getElementById('tdVolume');
@@ -282,8 +282,6 @@ const elementos = {
 	voltar: voltar,
 	botaoFonte: botaoFonte,
 	selectFonte: selectFonte,
-	botaoTamanhoIframe: botaoTamanhoIframe,
-	selectTamanhoIframe: selectTamanhoIframe,
 	tomMenorSwitchDiv: tomMenorSwitchDiv,
 	orgaoCifrasBotoes: orgaoCifrasBotoes,
 	tdVolume: tdVolume,
@@ -1319,8 +1317,8 @@ function mudarParaTelaFrame() {
 	voltar.style.display = 'block';
 	botaoFonte.style.display = 'block';
 	selectFonte.style.display = "none";
-	botaoTamanhoIframe.style.display = 'block';
-	selectTamanhoIframe.style.display = "none";
+	//botaoTamanhoIframe.style.display = 'block';
+	//selectTamanhoIframe.style.display = "none";
 	tomMenorSwitchDiv.style.display = 'none';
 	orgaoCifrasBotoes.style.display = '';
 
@@ -1504,8 +1502,8 @@ function voltarParaOrgao() {
 	voltar.style.display = 'none';
 	botaoFonte.style.display = 'none';
 	selectFonte.style.display = "none";
-	botaoTamanhoIframe.style.display = 'none';
-	selectTamanhoIframe.style.display = "none";
+	//botaoTamanhoIframe.style.display = 'none';
+	//selectTamanhoIframe.style.display = "none";
 	orgaoCifrasBotoes.style.display = 'none';
 
 	textoCifrasFrame.style.display = 'none';
@@ -2655,7 +2653,7 @@ function carregar_Salvamento() {
 				textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
 				//textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
 				//textoCifras.style.height = selectTamanhoIframe.value + 'px';
-				partituraFrame.style.height = selectTamanhoIframe.value + 'px';
+				//partituraFrame.style.height = selectTamanhoIframe.value + 'px';
 
 				let cifraElem = selecionarCifraId();
 				if (cifraElem)
