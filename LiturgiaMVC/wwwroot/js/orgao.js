@@ -1,4 +1,4 @@
-﻿const notasFrequencias = {
+const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -2384,7 +2384,7 @@ function calcularAlturaIframe() {
 	if (navBar.style.display !== 'none')
 		elementosHeight += navBar.offsetHeight;
 
-	elementosHeight += 20;
+	elementosHeight += 30;
 	
 	document.documentElement.style.setProperty('--element-height', elementosHeight + 'px');
 }
