@@ -2229,18 +2229,20 @@ function mostrarModal(nome) {
 			compartilharDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
 
-			let salvamentosStorage = localStorage.getItem('salvamentosv2');
-			let compartilhadosStorage = localStorage.getItem('compartilhados');
-			
-			if (salvamentosStorage && compartilhadosStorage)
-			 	compartilhadoDiv.style.display = 'block';
-			else
-			 	compartilhadoDiv.style.display = 'none';
+			if (selectSalvamento.value === '') {
+				let salvamentosStorage = localStorage.getItem('salvamentosv2');
+				let compartilhadosStorage = localStorage.getItem('compartilhados');
+				
+				if (salvamentosStorage && compartilhadosStorage)
+					compartilhadoDiv.style.display = 'block';
+				else
+					compartilhadoDiv.style.display = 'none';
 
-			if (salvamentosStorage)
-				carregarSalvamentosList('salvamentosv2');
-			else if (compartilhadosStorage)
-				carregarSalvamentosList('compartilhados');
+				if (salvamentosStorage)
+					carregarSalvamentosList('salvamentosv2');
+				else if (compartilhadosStorage)
+					carregarSalvamentosList('compartilhados');
+			}
 			break;
 		case 'compartilhado':
 			const arquivoIdStorage = localStorage.getItem('fileId');
@@ -2266,13 +2268,6 @@ function mostrarModal(nome) {
 					document.getElementById('nomeCompartilhamentoSpan').innerText = '"' + nomeCompartilhamentoStorage + '":';
 			}
 
-			break;
-		case 'conjuntoSalvamentos':
-			//compartilhadoDiv.style.display = 'none';
-			salvarDiv.style.display = 'block';
-
-			let conjuntoSalvamentosSelecionado = document.getElementById('selectConjuntoSalvamento').value;
-			carregarSalvamentosList(conjuntoSalvamentosSelecionado);
 			break;
 		case 'oracoesEucaristicas':
 			oracoesEucaristicasDiv.style.display = '';
