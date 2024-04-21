@@ -1,4 +1,4 @@
-const notasFrequencias = {
+﻿const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -387,20 +387,12 @@ autoCheck.addEventListener('change', function (e) {
 	_autoMudarRitmo = this.checked;
 
 	if (_autoMudarRitmo) {
-		if (_cravoSelecionado) {
-			//ocultarBotoesRitmo();
+		if (_cravoSelecionado)
 			ocultarBotoesAcompanhamentoCravo();
-		}
-		else {
+		else
 			ocultarBotoesAcompanhamentosRitmo();
-		}
 
-		//if (textoCifrasFrame.style.display === 'none') {
-		//	if (isMobileDevice())
-		//		orgaoTable.style.marginLeft = '5px';
-		//	else
-		//		orgaoTable.style.marginLeft = '40px';				
-		//}
+		document.getElementById('trackerControls').style.display = 'none';
 	}
 	else {
 		if (_cravoSelecionado)
@@ -408,8 +400,7 @@ autoCheck.addEventListener('change', function (e) {
 		else
 			ocultarBotoesAcompanhamentosRitmo(false);
 
-		//if (textoCifrasFrame.style.display === 'none')
-		//	orgaoTable.style.marginLeft = '';
+		document.getElementById('trackerControls').style.display = '';
 	}
 
 	calcularAlturaIframe();
@@ -2195,7 +2186,7 @@ function mostrarModal(nome) {
 				textoCifrasFrame.style.display = '';
 				musicaAcordesTextArea.value = textoCifras.contentDocument.body.innerText;
 				textoCifrasFrame.style.display = 'none';
-				
+
 				//mostrarTextoCifrasCarregado();
 				//tomSelect.selectedIndex = _tomSelectedIndexCifra;
 			}
