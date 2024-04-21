@@ -2189,10 +2189,15 @@ function mostrarModal(nome) {
 				escreverCifraTextArea.style.display = 'block';
 				linksCifraClubList.style.display = 'none';
 				//musicaSearch.value = "";
-				modal01.style.display = 'none';
+				//modal01.style.display = 'none';
 
-				mostrarTextoCifrasCarregado();
-				tomSelect.selectedIndex = _tomSelectedIndexCifra;
+				// Mostrar o textoCifrasFrame e depois ocultar porque textoCifras.contentDocument.body estava vindo como html
+				textoCifrasFrame.style.display = '';
+				musicaAcordesTextArea.value = textoCifras.contentDocument.body.innerText;
+				textoCifrasFrame.style.display = 'none';
+				
+				//mostrarTextoCifrasCarregado();
+				//tomSelect.selectedIndex = _tomSelectedIndexCifra;
 			}
 
 			else {
