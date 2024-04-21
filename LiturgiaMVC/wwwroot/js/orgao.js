@@ -2234,12 +2234,8 @@ function mostrarModal(nome) {
 			
 			if (salvamentosStorage && compartilhadosStorage)
 			 	compartilhadoDiv.style.display = 'block';
-			// 	salvarDiv.style.display = 'none';
-			// }
 			else
 			 	compartilhadoDiv.style.display = 'none';
-			// 	salvarDiv.style.display = 'block';
-			// }
 
 			if (salvamentosStorage)
 				carregarSalvamentosList('salvamentosv2');
@@ -2454,31 +2450,36 @@ function deletarSalvamento(todos = false) {
 	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
 
 	if (todos) {
-		
-	}
-
-	if (!nomeStorage)
-		nomeStorage = 'salvamentosv2';
-
-	var gravacaoSelecionada = selectSalvamento;
-
-	if (gravacaoSelecionada.value !== '') {
-		const antesEstavaFull = sairDeFullscreen();
-
-		if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
-			var salvamentos = getSalvamentos(nomeStorage);
-			delete salvamentos[gravacaoSelecionada.value];
-
-			if (Object.keys(salvamentos).length === 0)
+		if (nomeStorage)
+			if (confirm('Apagar TODOS os salvamentos deste conjunto?')) {
 				localStorage.removeItem(nomeStorage);
-			else
-				localStorage.setItem(nomeStorage, JSON.stringify(salvamentos));
+				ocultarModal();
+			}
+	}
+	else {
+		if (!nomeStorage)
+			nomeStorage = 'salvamentosv2';
+
+		var gravacaoSelecionada = selectSalvamento;
+
+		if (gravacaoSelecionada.value !== '') {
+			const antesEstavaFull = sairDeFullscreen();
+
+			if (confirm('Apagar salvamento?\n' + gravacaoSelecionada.value)) {
+				var salvamentos = getSalvamentos(nomeStorage);
+				delete salvamentos[gravacaoSelecionada.value];
+
+				if (Object.keys(salvamentos).length === 0)
+					localStorage.removeItem(nomeStorage);
+				else
+					localStorage.setItem(nomeStorage, JSON.stringify(salvamentos));
+			}
+
+			if (antesEstavaFull)
+				botaoFullscreen.dispatchEvent(eventoClick);
+
+			carregarSalvamentosList(nomeStorage);
 		}
-
-		if (antesEstavaFull)
-			botaoFullscreen.dispatchEvent(eventoClick);
-
-		carregarSalvamentosList(nomeStorage);
 	}
 }
 
