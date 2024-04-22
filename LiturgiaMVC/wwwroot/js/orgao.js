@@ -1519,6 +1519,10 @@ function mostrarLiturgiaDiaria(){
 	$('#textoVolume').prependTo('#volumeDiv');
 	$('#orgaoTable').prependTo('#bateriaBox');
 
+	$('#aumentarTomMais').height(41);
+	$('#tomSelect').height(41);
+	$('#diminuirTomMenos').height(41);
+	
 	calcularAlturaIframe();
 }
 
