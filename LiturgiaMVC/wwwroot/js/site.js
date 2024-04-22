@@ -9,8 +9,8 @@
 		if (modal.length > 0)
 			modal[0].style.cssText = 'background-color: #fff!important';
 
-		if (typeof textoCifrasFrame !== 'undefined')
-			if (textoCifrasFrame.style.display !== 'none')
+		if (typeof textoCifras !== 'undefined')
+			if (textoCifras.style.display !== 'none')
 				textoCifras.contentWindow.document.querySelector('pre').style.color = '#000';
 
 		var elements = document.getElementsByClassName("nav-link orgao");
@@ -33,8 +33,8 @@
 		if (modal.length > 0)
 			modal[0].style.cssText = 'background-color: #505050!important';
 
-		if (typeof textoCifrasFrame !== 'undefined')
-			if (textoCifrasFrame.style.display !== 'none')
+		if (typeof textoCifras !== 'undefined')
+			if (textoCifras.style.display !== 'none')
 				textoCifras.contentWindow.document.querySelector('pre').style.color = '#fff';
 				
 		var elements = document.getElementsByClassName("nav-link orgao");

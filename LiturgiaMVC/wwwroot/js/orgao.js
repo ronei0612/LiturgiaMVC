@@ -620,13 +620,13 @@ function orientacaoCelularAlterado(event) {
 	if (event.target.screen.orientation.angle === 0) {
 		_orientacaoCelularPe = true;
 
-		if (textoCifrasFrame.style.display !== 'none')
+		if (textoCifras.style.display !== 'none')
 			mostrarNavBar();
 	}
 	else {
 		_orientacaoCelularPe = false;
 
-		if (textoCifrasFrame.style.display !== 'none')
+		if (textoCifras.style.display !== 'none')
 			ocultarNavBar();
 	}
 
@@ -1304,8 +1304,18 @@ function selecionarCifraId() {
 	return;
 }
 
-function mudarParaTelaFrame() {
+function mudarParaTelaFrame(cifra = true) {
 	textoCifrasFrame.style.display = 'block';
+
+	if (cifra) {
+		textoCifras.style.display = '';
+		document.getElementById('liturgiaDiariaFrame').style.display = 'none';
+	}
+	else {
+		ocultarModal();
+		textoCifras.style.display = 'none';
+		document.getElementById('liturgiaDiariaFrame').style.display = '';
+	}
 
 	var elements = document.getElementsByClassName('orgaoBotoes');
 	for (var i = 0; i < elements.length; i++) {
@@ -1543,7 +1553,7 @@ function mudarParaFullscreen() {
 	switchDarkDiv.style.display = 'none';
 	muteDiv.style.display = '';
 
-	if (textoCifrasFrame.style.display !== 'none' && _orientacaoCelularPe === false && isMobileDevice())
+	if (textoCifras.style.display !== 'none' && _orientacaoCelularPe === false && isMobileDevice())
 		ocultarNavBar();
 
 	var el = document.body;
@@ -1787,7 +1797,7 @@ function showselectFonte(mostrar) {
 		selectFonte.style.display = "";
 	}
 	else {
-		if (textoCifrasFrame.style.display !== 'none') {
+		if (textoCifras.style.display !== 'none') {
 			textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
 		}
 	}
@@ -1799,7 +1809,7 @@ function showselectIframe(mostrar) {
 	// 	selectTamanhoIframe.style.display = "";
 	// }
 	// else {
-	// 	if (textoCifrasFrame.style.display !== 'none') {
+	// 	if (textoCifras.style.display !== 'none') {
 	// 		textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
 	// 		textoCifras.style.height = selectTamanhoIframe.value + 'px';
 	// 	}
@@ -2089,7 +2099,7 @@ function SearchAcordes(cifraTexto) {
 function mudarTamanhoModal(aumentar) {
 	if (aumentar) {
 		var altura = window.innerHeight / 1.15;
-		liturgiaDiariaFrame.style.height = altura + 'px';
+		document.getElementById('liturgiaDiariaFrame').style.height = altura + 'px';
 	}
 }
 
@@ -2132,13 +2142,13 @@ function limparUrl() {
 
 function ocultarModal() {
 	rolagemTelaOracaoEucaristica();
-	liturgiaDiariaFrame.style.height = '';
+	document.getElementById('liturgiaDiariaFrame').style.height = '';
 	modal01.style.display = 'none';
 	linksCifraClubList.style.display = 'none';
 	botaoIniciar.style.display = '';
 	escreverCifraTextArea.style.display = '';
 	oracoesEucaristicasDiv.style.display = 'none';
-	liturgiaDiariaDiv.style.display = 'none';
+	//liturgiaDiariaDiv.style.display = 'none';
 	sobreDiv.style.display = 'none';
 	posicaoBotaoFecharModal(document.getElementById('botaoFecharModal'), false);
 
@@ -2198,7 +2208,7 @@ function mostrarModal(nome) {
 				//compartilhadoDiv.style.display = 'none';
 				selectConfiguracao.style.display = 'none';
 
-				if (textoCifrasFrame.style.display !== 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
+				if (textoCifras.style.display !== 'none' && textoCifras.contentDocument.body.innerHTML !== '') {
 					textoCifras.style.display = '';
 					musicaAcordesTextArea.style.fontSize = '13px';
 					musicaAcordesTextArea.value = textoCifras.contentDocument.body.innerText;
@@ -2276,9 +2286,13 @@ function mostrarModal(nome) {
 			posicaoBotaoFecharModal(document.getElementById('botaoFecharModal'), true);
 			break;
 		case 'liturgiaDiaria':
-			liturgiaDiariaDiv.style.display = '';
+			//liturgiaDiariaDiv.style.display = '';
+			textoCifrasFrame.style.display = 'none';
+			textoCifras.style.display = 'none';
+			document.getElementById('liturgiaDiariaFrame').style.display = '';
 			selectOpcoes.style.display = 'none';
-			mudarTamanhoModal(true);
+			ocultarModal();
+			//mudarTamanhoModal(true);
 			break;
 		case 'sobre':
 			sobreDiv.style.display = '';
@@ -2576,7 +2590,7 @@ function salvarSalvamentoNoStorage(salvamentoNome, nomeStorage) {
 		dadosSalvos.tomMenorSwitch = tomMenorSwitch.checked;
 
 	// Salvar informações do frame de texto de cifras se estiver visível
-	if (textoCifrasFrame.style.display !== 'none') {
+	if (textoCifras.style.display !== 'none') {
 		dadosSalvos.frameTom = tomSelect.value;
 		dadosSalvos.frameCifra = textoCifras.contentDocument.body.innerHTML;
 	}
