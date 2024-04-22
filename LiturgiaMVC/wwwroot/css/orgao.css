@@ -403,14 +403,15 @@ input[type=range][orient=vertical] {
 }
 
 #textoCifrasFrame {
-	/* position: static;
-	width: 100%; */
-	/* A altura do iframe é calculada dinamicamente */
-	height: calc(100vh - var(--element-height)); /* Substitua var(--element-height) pelo nome da variável CSS */
+	height: calc(100vh - var(--element-height));
 }
 
 #textoCifras {
-	height: calc(100vh - var(--element-height)); /* Substitua var(--element-height) pelo nome da variável CSS */
+	height: calc(100vh - var(--element-height));
+}
+
+#liturgiaDiariaFrame {
+	height: calc(100vh - var(--element-height));
 }
 
 .w3-modal {
