@@ -1304,18 +1304,10 @@ function selecionarCifraId() {
 	return;
 }
 
-function mudarParaTelaFrame(cifra = true) {
+function mudarParaTelaFrame() {
 	textoCifrasFrame.style.display = 'block';
-
-	if (cifra) {
-		textoCifras.style.display = '';
-		document.getElementById('liturgiaDiariaFrame').style.display = 'none';
-	}
-	else {
-		ocultarModal();
-		textoCifras.style.display = 'none';
-		document.getElementById('liturgiaDiariaFrame').style.display = '';
-	}
+	textoCifras.style.display = '';
+	document.getElementById('liturgiaDiariaFrame').style.display = 'none';
 
 	var elements = document.getElementsByClassName('orgaoBotoes');
 	for (var i = 0; i < elements.length; i++) {
@@ -1506,6 +1498,28 @@ function posicaoBotaoFecharModal(elemento, fixado) {
 		elemento.style.top = '';
 		elemento.style.left = '';
 	}
+}
+
+function mostrarLiturgiaDiaria(){
+	debugger;
+	modal01.style.display = 'none';
+	textoCifrasFrame.style.display = 'block';
+	textoCifras.style.display = 'none';
+	document.getElementById('liturgiaDiariaFrame').style.display = '';
+
+	container.classList.remove('d-sm-flex');
+	volumeDiv.style.display = 'none';
+	voltar.style.display = 'block'; //tamanho incorreto
+	tdVolume.setAttribute('rowspan', '');
+	tdVolume.setAttribute('colspan', 5);
+	volumeDiv.style.display = 'block';
+	textoVolume.classList.remove('textoVertical');
+	volumeInput.setAttribute('orient', '');
+	$('#tdVolume').appendTo('#tableOrgao');
+	$('#textoVolume').prependTo('#volumeDiv');
+	$('#orgaoTable').prependTo('#bateriaBox');
+
+	calcularAlturaIframe();
 }
 
 function voltarParaOrgao() {
