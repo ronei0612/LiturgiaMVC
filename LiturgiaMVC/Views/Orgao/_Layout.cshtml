@@ -207,8 +207,7 @@
                 <div id="salvarDiv">
                     <br />
                     <h4>Salvamentos
-                        &nbsp;
-                        <button class="btn btn-secondary" type="button" onclick="compartilhar_Salvamentos()">
+                        <button class="btn btn-secondary me-1" type="button" onclick="compartilhar_Salvamentos()">
                             <svg width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
                                 <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5" />
                             </svg>
@@ -223,8 +222,7 @@
                                 <option selected value="salvamentosv2">Nesse dispositivo</option>
                                 <option value="compartilhados">Compartilhado</option>
                             </select>
-                            &nbsp;
-                            <button class="btn btn-danger" type="button" onclick="deletarSalvamento(true)">
+                            <button class="btn btn-danger me-1" type="button" onclick="deletarSalvamento(true)">
                                 <svg width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
                                     <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
@@ -331,21 +329,18 @@
                     <label for="formFile" class="form-label">Importar partitura (imagem):</label>
                     <div class="d-flex align-items-center">
                         <input class="form-control" type="file" id="formFile" onchange="escolherArquivo(event)">
-                        &nbsp;
-                        <button b-c3rtqodnk9="" class="btn btn-close" type="button" onclick="document.getElementById('formFile').value = ''"></button>
+                        <button b-c3rtqodnk9="" class="btn btn-close me-1" type="button" onclick="document.getElementById('formFile').value = ''"></button>
                     </div>
                     <br />
 
                     <div class="d-flex align-items-center">
-                        <button id="botaoIniciar" class="btn btn-primary" type="button" onclick="iniciarCifra()">
+                        <button id="botaoIniciar" class="btn btn-primary me-1" type="button" onclick="iniciarCifra()">
                             Iniciar
                         </button>
-                            &nbsp;
-                        <button class="btn btn-secondary" type="button" onclick="gravarCifra()">
+                        <button class="btn btn-secondary me-1" type="button" onclick="gravarCifra()">
                             Escrever cifras
                         </button>
-                            &nbsp;
-                        <button class="btn btn-secondary" type="button" id="btnAfinador" onclick="mostrarAfinador()">
+                        <button class="btn btn-secondary me-1" type="button" id="btnAfinador" onclick="mostrarAfinador()">
                             Afinador
                         </button>
                     </div>

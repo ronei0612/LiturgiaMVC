@@ -18,7 +18,7 @@
         <nav id="navBar" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 
-                <label for="theme" class="theme">
+                <label for="theme" class="theme me-1">
                     <span class="theme__toggle-wrap">
                         <input id="switchDark" class="theme__toggle" type="checkbox" role="switch" name="theme" value="dark" onclick="DarkMode()" />
                         <span class="theme__icon">
@@ -34,9 +34,7 @@
                         </span>
                     </span>
                 </label>
-                &nbsp;
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@ViewData["Title"]</a>
-                &nbsp;
+                <a class="navbar-brand me-1" asp-area="" asp-controller="Home" asp-action="Index">@ViewData["Title"]</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
