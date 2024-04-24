@@ -1501,7 +1501,6 @@ function posicaoBotaoFecharModal(elemento, fixado) {
 }
 
 function mostrarLiturgiaDiaria(){
-	debugger;
 	modal01.style.display = 'none';
 	textoCifrasFrame.style.display = 'block';
 	textoCifras.style.display = 'none';
