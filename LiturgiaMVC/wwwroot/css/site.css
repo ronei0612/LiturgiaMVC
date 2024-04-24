@@ -169,7 +169,7 @@ iframe {
 
 .theme__toggle:checked:before,
 .theme__toggle:checked ~ .theme__icon {
-    transform: translateX(3em);
+    transform: translateX(2.5em);
 }
 
 .theme__toggle:checked:before {
