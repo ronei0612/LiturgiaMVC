@@ -141,7 +141,7 @@ const eventos = {
 var notasAcordes = Object.keys(notasAcordesJson);
 
 const selectConfiguracao = document.getElementById('selectConfiguracao');
-const tableRitmo = document.getElementById('tableRitmo');
+//const tableRitmo = document.getElementById('tableRitmo');
 const instrumentoSelect = document.getElementById('instrumentoSelect');
 const autoCheck = document.getElementById('autoCheck');
 const autoCheckDiv = document.getElementById('autoCheckDiv');
@@ -1290,7 +1290,7 @@ function mostrarTextoCifrasCarregado(tom = null, texto = null) {
 	addEventCifras(textoCifras);
 	mudarTamanhoFrameCifras(_orientacaoCelularPe);
 
-	tableRitmo.style.marginLeft = '';
+	//tableRitmo.style.marginLeft = '';
 }
 
 function selecionarCifraId() {
@@ -1556,7 +1556,7 @@ function voltarParaOrgao() {
 	adicionarTonsSelect('tomSelect', 0, true);
 	ultimoTomSelecionadoStorage();
 
-	tableRitmo.style.marginLeft = '-12px';
+	//tableRitmo.style.marginLeft = '-12px';
 }
 
 function mudarParaFullscreen() {
@@ -1607,7 +1607,7 @@ function mostrarNavBar() {
 	$('#switchDarkDiv').appendTo('#linhaNavBar');
 	$('#muteDiv').appendTo('#linhaNavBar');
 	navBar.style.display = 'block';
-	linhaSelectTom.style.width = '';
+	//linhaSelectTom.style.width = '';
 }
 
 function ocultarNavBar() {
@@ -1617,7 +1617,7 @@ function ocultarNavBar() {
 	$('#botaoSalvar').appendTo('#linhaSelectTom');
 	$('#muteDiv').appendTo('#linhaSelectTom');
 	navBar.style.display = 'none';
-	linhaSelectTom.style.width = '100%';
+	//linhaSelectTom.style.width = '100%';
 }
 
 function ultimoTomSelecionadoStorage() {
