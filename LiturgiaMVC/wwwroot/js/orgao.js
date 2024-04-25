@@ -2252,6 +2252,7 @@ function mostrarModal(nome) {
 			modalGravar.style.display = 'none';
 			compartilharDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
+			salvarDiv.style.display = '';
 
 			if (selectSalvamento.value === '') {
 				let salvamentosStorage = localStorage.getItem('salvamentosv2');
