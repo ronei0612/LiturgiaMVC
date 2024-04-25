@@ -2216,7 +2216,6 @@ function mostrarModal(nome) {
 			else {
 				selectOpcoes.style.display = 'none';
 				selectInstrumento.style.display = 'none';
-				modalGravar.style.display = 'block';
 				salvarDiv.style.display = 'none';
 				compartilharDiv.style.display = 'none';
 				//compartilhadoDiv.style.display = 'none';
@@ -2233,6 +2232,7 @@ function mostrarModal(nome) {
 					//     textoCifras.style.display = '';
 				}
 			}
+			modalGravar.style.display = 'block';
 			break;
 		case 'salvar':
 			if (_configurandoTeclas) {
