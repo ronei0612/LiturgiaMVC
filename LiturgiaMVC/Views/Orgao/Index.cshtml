@@ -228,10 +228,12 @@
 	function mostrarCompartilhado() {
 		if ('@Model.CompartilhadoNome' !== '') {
 			if ('@Model.CompartilhadoNome' === 'Erro')
-				alert('Ocorreu um erro! tente novamente.');
+				alert('Ocorreu um erro ao mostrar compartilhamento! Tente novamente.');
 			else {
-				localStorage.setItem('compartilhados', JSON.stringify(@Html.Raw(@Model.CompartilhadoConteudo)));				
-				mostrarModal('salvar');
+				if (confirm('Carregar o compartilhamento?')) {
+					localStorage.setItem('compartilhados', JSON.stringify(@Html.Raw(@Model.CompartilhadoConteudo)));				
+					mostrarModal('salvar');
+				}
 			}
 		}
 
