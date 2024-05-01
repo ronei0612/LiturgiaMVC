@@ -255,3 +255,9 @@ table.dataTable thead .sorting_desc_disabled:before {
 .RespostaAssembleia {
     padding-left: 5%;
 }
+
+.oracoesEucaristicas {
+    color: #9C7B3E; font-size: 90%;
+}
+
+.hidden { display: none; }
