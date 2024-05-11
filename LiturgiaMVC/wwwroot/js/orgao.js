@@ -1241,7 +1241,7 @@ function aumentarTom(aumentar, quant, select) {
 			tomElement.value = tonsArray[tomSelecionadoIndex - quant];
 	}
 
-	if (textoCifras.style.display !== "none")
+	if (textoCifrasFrame.style.display !== "none" && liturgiaDiariaFrame.style.display === "none")
 		mudarTomCifra(aumentar, quant);
 	else
 		mudarTom(tomElement.value);
