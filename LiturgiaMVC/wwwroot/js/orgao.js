@@ -101,6 +101,7 @@ var _cifraParado = true;
 var _acordeBaixo;
 var _acordeNotas;
 var _notasSolo;
+var _spanBotaoFecharModalPositions;
 
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
@@ -1240,7 +1241,7 @@ function aumentarTom(aumentar, quant, select) {
 			tomElement.value = tonsArray[tomSelecionadoIndex - quant];
 	}
 
-	if (textoCifrasFrame.style.display === "block")
+	if (textoCifras.style.display !== "none")
 		mudarTomCifra(aumentar, quant);
 	else
 		mudarTom(tomElement.value);
@@ -1488,10 +1489,9 @@ function rolagemTelaOracaoEucaristica(guardar = true) {
 
 function posicaoBotaoFecharModal(elemento, fixado) {
 	if (fixado) {
-		let rect = document.getElementById('spanBotaoFecharModal').getBoundingClientRect();
 		elemento.style.position = 'fixed';
-		elemento.style.top = rect.top + 'px';
-		elemento.style.left = rect.right + 'px';
+		elemento.style.top = _spanBotaoFecharModalPositions.top + 'px';
+		elemento.style.left = _spanBotaoFecharModalPositions.right + 'px';
 	}
 	else {
 		elemento.style.position = '';
@@ -1500,9 +1500,9 @@ function posicaoBotaoFecharModal(elemento, fixado) {
 	}
 }
 
-function mostrarLiturgiaDiaria(){
-	debugger;
+function mostrarLiturgiaDiaria() {
 	modal01.style.display = 'none';
+	voltarParaOrgao();
 	textoCifrasFrame.style.display = 'block';
 	textoCifras.style.display = 'none';
 	document.getElementById('liturgiaDiariaFrame').style.display = '';
@@ -2162,6 +2162,7 @@ function ocultarModal() {
 	botaoIniciar.style.display = '';
 	escreverCifraTextArea.style.display = '';
 	oracoesEucaristicasDiv.style.display = 'none';
+	salvarDiv.style.display = 'none';
 	//liturgiaDiariaDiv.style.display = 'none';
 	sobreDiv.style.display = 'none';
 	posicaoBotaoFecharModal(document.getElementById('botaoFecharModal'), false);
@@ -2179,6 +2180,8 @@ function mostrarModal(nome) {
 				ocultarSalvarConfiguracaoTeclas();
 			else if (_gravarCifras)
 				ocultarGravarCifras();
+
+			_spanBotaoFecharModalPositions = document.getElementById('spanBotaoFecharModal').getBoundingClientRect();
 
 			selectInstrumento.style.display = 'none';
 			modalGravar.style.display = 'none';
@@ -2470,6 +2473,18 @@ function novoSalvamento() {
 		botaoFullscreen.dispatchEvent(eventoClick);
 }
 
+function trocarSalvamento() {
+	let compartilhados = localStorage.getItem('compartilhados');
+
+	if (compartilhados) {
+		if (confirm('SUBSTITUIR conjunto Salvamento (local) por Compartilhado?')) {
+			localStorage.setItem('salvamentosv2', compartilhados);
+			localStorage.removeItem('compartilhados');
+			ocultarModal();
+		}
+	}
+}
+
 function deletarSalvamento(todos = false) {
 	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
 
@@ -2649,7 +2664,8 @@ function salvarSalvamento(salvamentoSelecionado = '', nomeStorage) {
 }
 
 function carregar_Salvamento() {
-	modal01.style.display = 'none';
+	voltarParaOrgao();
+	ocultarModal();
 
 	let salvamentosStorage = localStorage.getItem('salvamentosv2');
 	let compartilhadosStorage = localStorage.getItem('compartilhados');
