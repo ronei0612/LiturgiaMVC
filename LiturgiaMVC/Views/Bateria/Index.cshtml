@@ -196,7 +196,8 @@
 
 		<form class="pure-form" id="trackerControls">
 			<div class="d-flex align-items-center justify-content-center">
-				<label for="bpm" class="naoSelecionarTexto me-1" ontouchstart="mostrarBateriaConfig(true)" ontouchend="mostrarBateriaConfig(false)">Temp:</label><input name="bpm" id="bpm" style="width: 50px" value="90" class="form-control me-1" onchange="mudarTempoCompasso()" onblur="mudarTempoCompasso(false)">
+				@* <label for="bpm" class="naoSelecionarTexto me-1" ontouchstart="mostrarBateriaConfig(true)" ontouchend="mostrarBateriaConfig(false)">Temp:</label><input name="bpm" id="bpm" style="width: 50px" value="90" class="form-control me-1" onchange="mudarTempoCompasso()" onblur="mudarTempoCompasso(false)"> *@
+				<label for="bpm" class="naoSelecionarTexto me-1" onclick="clicarUmBotaoTempo(parseInt(document.getElementById('bpm').value) + 5)">Temp:</label><input name="bpm" id="bpm" style="width: 50px" value="90" class="form-control me-1" onchange="mudarTempoCompasso()" onblur="mudarTempoCompasso(false)">
 				<button class="btn btn-success me-1" type="button" onclick="clicarUmBotaoTempo(60)">
 					60
 				</button>
