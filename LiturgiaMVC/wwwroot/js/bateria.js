@@ -1,4 +1,4 @@
-var _tempo = 92;
+var _tempo = 90;
 const ritmosNomes = Object.keys(ritmosJson);
 var _somSolo;
 
