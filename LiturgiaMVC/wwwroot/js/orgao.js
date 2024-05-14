@@ -1,4 +1,4 @@
-const notasFrequencias = {
+﻿const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -1839,22 +1839,22 @@ function prepararMudarTomCifra(tomSelecionado) {
 	//setTimeout(function () {
 		if (modal01.style.display === 'none') {
 			if (textoCifrasFrame.style.display === "none")
-			mudarTom(tomSelecionado);
+				mudarTom(tomSelecionado);
 
-		else {
-			if (tomSelecionado.includes('m'))
-				var index = tonsMenores.indexOf(tomSelecionado);
-			else
-				var index = tonsMaiores.indexOf(tomSelecionado);
+			else {
+				if (tomSelecionado.includes('m'))
+					var index = tonsMenores.indexOf(tomSelecionado);
+				else
+					var index = tonsMaiores.indexOf(tomSelecionado);
 
-			index = index - _tomIndex;
+				index = index - _tomIndex;
 
-			if (index < 0)
-				mudarTomCifra(false, Math.abs(index));
-			else
-				mudarTomCifra(true, index);
-				}
-		}
+				if (index < 0)
+					mudarTomCifra(false, Math.abs(index));
+				else
+					mudarTomCifra(true, index);
+					}
+			}
 	//}, esperar);
 	}
 }
@@ -2624,7 +2624,7 @@ function salvarSalvamentoNoStorage(salvamentoNome, nomeStorage) {
 		dadosSalvos.tomMenorSwitch = tomMenorSwitch.checked;
 
 	// Salvar informações do frame de texto de cifras se estiver visível
-	if (textoCifras.style.display !== 'none') {
+	if (textoCifrasFrame.style.display !== 'none') {
 		dadosSalvos.frameTom = tomSelect.value;
 		dadosSalvos.frameCifra = textoCifras.contentDocument.body.innerHTML;
 	}
