@@ -1836,9 +1836,9 @@ function prepararMudarTomCifra(tomSelecionado) {
 	if (typeof mudarTom !== 'function' || typeof mudarTomCifra !== 'function') //1º carregamento
 		esperar = 500;
 
-	setTimeout(function () {
-			if (modal01.style.display == 'none') {
-		if (textoCifrasFrame.style.display == "none")
+	//setTimeout(function () {
+		if (modal01.style.display === 'none') {
+			if (textoCifrasFrame.style.display === "none")
 			mudarTom(tomSelecionado);
 
 		else {
@@ -1855,7 +1855,7 @@ function prepararMudarTomCifra(tomSelecionado) {
 				mudarTomCifra(true, index);
 				}
 		}
-	}, esperar);
+	//}, esperar);
 	}
 }
 
