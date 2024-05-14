@@ -1,4 +1,4 @@
-﻿const notasFrequencias = {
+const notasFrequencias = {
 	a: 110.00,
 	a_: 116.54,
 	b: 123.47,
@@ -1831,11 +1831,13 @@ function showselectIframe(mostrar) {
 }
 
 function prepararMudarTomCifra(tomSelecionado) {
+	if (salvarDiv.style.display !== 'none') {
 	var esperar = 0;
 	if (typeof mudarTom !== 'function' || typeof mudarTomCifra !== 'function') //1º carregamento
 		esperar = 500;
 
 	setTimeout(function () {
+			if (modal01.style.display == 'none') {
 		if (textoCifrasFrame.style.display == "none")
 			mudarTom(tomSelecionado);
 
@@ -1851,8 +1853,10 @@ function prepararMudarTomCifra(tomSelecionado) {
 				mudarTomCifra(false, Math.abs(index));
 			else
 				mudarTomCifra(true, index);
+				}
 		}
 	}, esperar);
+	}
 }
 
 function pegarTomCifra(tomSelecionado) {
@@ -2665,7 +2669,6 @@ function salvarSalvamento(salvamentoSelecionado = '', nomeStorage) {
 
 function carregar_Salvamento() {
 	voltarParaOrgao();
-	ocultarModal();
 
 	let salvamentosStorage = localStorage.getItem('salvamentosv2');
 	let compartilhadosStorage = localStorage.getItem('compartilhados');
@@ -2689,18 +2692,12 @@ function carregar_Salvamento() {
 
 			if (keys.includes('frameCifra')) {
 				let tom = dadosSalvos['frameTom'];
-				//tomSelect.value = tom;
-
 				let cifraTexto = dadosSalvos['frameCifra'];
-				//eventoChange_tomSelect = false;
 				escreverCifraTextArea.style.display = 'block';
 
 				mostrarTextoCifrasCarregado(tom, cifraTexto);
 
 				textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
-				//textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
-				//textoCifras.style.height = selectTamanhoIframe.value + 'px';
-				//partituraFrame.style.height = selectTamanhoIframe.value + 'px';
 
 				let cifraElem = selecionarCifraId();
 				if (cifraElem)
@@ -2725,15 +2722,14 @@ function carregar_Salvamento() {
 						element.selectedIndex = value;
 					}
 
-					if (element.id === 'tomSelect') {
+					if (element.id !== 'tomSelect')
 						element.dispatchEvent(new Event('change'));
-					} else {
-						element.dispatchEvent(new Event('change'));
-					}
 				}
 			});
 		}
 	}
+
+	ocultarModal();
 }
 
 
