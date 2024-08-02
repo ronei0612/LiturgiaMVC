@@ -2688,9 +2688,11 @@ function carregar_Salvamento() {
 		var dadosSalvos = JSON.parse(storage)[salvamentoSelecionado];
 
 		if (dadosSalvos) {
+			let temCifra = false;
 			var keys = Object.keys(dadosSalvos);
 
 			if (keys.includes('frameCifra')) {
+				temCifra = true;
 				let tom = dadosSalvos['frameTom'];
 				let cifraTexto = dadosSalvos['frameCifra'];
 				escreverCifraTextArea.style.display = 'block';
@@ -2710,7 +2712,7 @@ function carregar_Salvamento() {
 				var value = dadosSalvos[key];
 				var element = document.getElementById(key);
 
-				if (element && element.id !== 'frameCifra' && element.id !== 'frameTom' && element.id !== 'tomSelect') {
+				if (element && element.id !== 'frameCifra' && element.id !== 'frameTom') {
 					if (key === 'bpm') {
 						element.value = value;
 						bpmRange.value = bpm.value;
@@ -2722,7 +2724,7 @@ function carregar_Salvamento() {
 						element.selectedIndex = value;
 					}
 
-					if (element.id !== 'tomSelect')
+					if ((temCifra && element.id === 'tomSelect') == false)
 						element.dispatchEvent(new Event('change'));
 				}
 			});
