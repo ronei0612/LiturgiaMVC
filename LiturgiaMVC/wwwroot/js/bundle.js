@@ -1104,7 +1104,7 @@ module.exports = {
     sampleSet:
       "./Sons/studio/samples.json",
     measureLength: 16,
-    bpm: 92,
+    bpm: 90,
     detune: 0,
     gainEnabled: "gain",
     attackAmp: 0,
@@ -1123,7 +1123,7 @@ module.exports = {
 
 },{}],15:[function(require,module,exports){
     const getSetFormValues = require('get-set-form-values');
-    const trackerControls = JSON.parse('{ "": 92, "adsrInterval": 0.1, "attackTime": 0, "bpm": 92, "decayAmp": 0.7, "decayTime": 0, "delay": 0.01, "filter": 1000, "releaseAmp": 1, "releaseTime": 2, "sustainAmp": 0.4, "sustainTime": 2 }');
+    const trackerControls = JSON.parse('{ "": 90, "adsrInterval": 0.1, "attackTime": 0, "bpm": 90, "decayAmp": 0.7, "decayTime": 0, "delay": 0.01, "filter": 1000, "releaseAmp": 1, "releaseTime": 2, "sustainAmp": 0.4, "sustainTime": 2 }');
 
 function getSetControls() {
     this.getTrackerControls = function () {

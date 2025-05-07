@@ -101,6 +101,7 @@ var _cifraParado = true;
 var _acordeBaixo;
 var _acordeNotas;
 var _notasSolo;
+var _spanBotaoFecharModalPositions;
 
 var _chimbalIsAberto = false;
 var _sourceChimbalAberto;
@@ -141,7 +142,7 @@ const eventos = {
 var notasAcordes = Object.keys(notasAcordesJson);
 
 const selectConfiguracao = document.getElementById('selectConfiguracao');
-const tableRitmo = document.getElementById('tableRitmo');
+//const tableRitmo = document.getElementById('tableRitmo');
 const instrumentoSelect = document.getElementById('instrumentoSelect');
 const autoCheck = document.getElementById('autoCheck');
 const autoCheckDiv = document.getElementById('autoCheckDiv');
@@ -1240,7 +1241,7 @@ function aumentarTom(aumentar, quant, select) {
 			tomElement.value = tonsArray[tomSelecionadoIndex - quant];
 	}
 
-	if (textoCifrasFrame.style.display === "block")
+	if (textoCifrasFrame.style.display !== "none" && liturgiaDiariaFrame.style.display === "none")
 		mudarTomCifra(aumentar, quant);
 	else
 		mudarTom(tomElement.value);
@@ -1290,7 +1291,7 @@ function mostrarTextoCifrasCarregado(tom = null, texto = null) {
 	addEventCifras(textoCifras);
 	mudarTamanhoFrameCifras(_orientacaoCelularPe);
 
-	tableRitmo.style.marginLeft = '';
+	//tableRitmo.style.marginLeft = '';
 }
 
 function selecionarCifraId() {
@@ -1488,10 +1489,9 @@ function rolagemTelaOracaoEucaristica(guardar = true) {
 
 function posicaoBotaoFecharModal(elemento, fixado) {
 	if (fixado) {
-		let rect = document.getElementById('spanBotaoFecharModal').getBoundingClientRect();
 		elemento.style.position = 'fixed';
-		elemento.style.top = rect.top + 'px';
-		elemento.style.left = rect.right + 'px';
+		elemento.style.top = _spanBotaoFecharModalPositions.top + 'px';
+		elemento.style.left = _spanBotaoFecharModalPositions.right + 'px';
 	}
 	else {
 		elemento.style.position = '';
@@ -1500,8 +1500,9 @@ function posicaoBotaoFecharModal(elemento, fixado) {
 	}
 }
 
-function mostrarLiturgiaDiaria(){
+function mostrarLiturgiaDiaria() {
 	modal01.style.display = 'none';
+	voltarParaOrgao();
 	textoCifrasFrame.style.display = 'block';
 	textoCifras.style.display = 'none';
 	document.getElementById('liturgiaDiariaFrame').style.display = '';
@@ -1555,7 +1556,7 @@ function voltarParaOrgao() {
 	adicionarTonsSelect('tomSelect', 0, true);
 	ultimoTomSelecionadoStorage();
 
-	tableRitmo.style.marginLeft = '-12px';
+	//tableRitmo.style.marginLeft = '-12px';
 }
 
 function mudarParaFullscreen() {
@@ -1606,7 +1607,7 @@ function mostrarNavBar() {
 	$('#switchDarkDiv').appendTo('#linhaNavBar');
 	$('#muteDiv').appendTo('#linhaNavBar');
 	navBar.style.display = 'block';
-	linhaSelectTom.style.width = '';
+	//linhaSelectTom.style.width = '';
 }
 
 function ocultarNavBar() {
@@ -1616,7 +1617,7 @@ function ocultarNavBar() {
 	$('#botaoSalvar').appendTo('#linhaSelectTom');
 	$('#muteDiv').appendTo('#linhaSelectTom');
 	navBar.style.display = 'none';
-	linhaSelectTom.style.width = '100%';
+	//linhaSelectTom.style.width = '100%';
 }
 
 function ultimoTomSelecionadoStorage() {
@@ -1830,28 +1831,32 @@ function showselectIframe(mostrar) {
 }
 
 function prepararMudarTomCifra(tomSelecionado) {
+	if (salvarDiv.style.display !== 'none') {
 	var esperar = 0;
 	if (typeof mudarTom !== 'function' || typeof mudarTomCifra !== 'function') //1º carregamento
 		esperar = 500;
 
-	setTimeout(function () {
-		if (textoCifrasFrame.style.display == "none")
-			mudarTom(tomSelecionado);
+	//setTimeout(function () {
+		if (modal01.style.display === 'none') {
+			if (textoCifrasFrame.style.display === "none")
+				mudarTom(tomSelecionado);
 
-		else {
-			if (tomSelecionado.includes('m'))
-				var index = tonsMenores.indexOf(tomSelecionado);
-			else
-				var index = tonsMaiores.indexOf(tomSelecionado);
+			else {
+				if (tomSelecionado.includes('m'))
+					var index = tonsMenores.indexOf(tomSelecionado);
+				else
+					var index = tonsMaiores.indexOf(tomSelecionado);
 
-			index = index - _tomIndex;
+				index = index - _tomIndex;
 
-			if (index < 0)
-				mudarTomCifra(false, Math.abs(index));
-			else
-				mudarTomCifra(true, index);
-		}
-	}, esperar);
+				if (index < 0)
+					mudarTomCifra(false, Math.abs(index));
+				else
+					mudarTomCifra(true, index);
+					}
+			}
+	//}, esperar);
+	}
 }
 
 function pegarTomCifra(tomSelecionado) {
@@ -2161,6 +2166,7 @@ function ocultarModal() {
 	botaoIniciar.style.display = '';
 	escreverCifraTextArea.style.display = '';
 	oracoesEucaristicasDiv.style.display = 'none';
+	salvarDiv.style.display = 'none';
 	//liturgiaDiariaDiv.style.display = 'none';
 	sobreDiv.style.display = 'none';
 	posicaoBotaoFecharModal(document.getElementById('botaoFecharModal'), false);
@@ -2178,6 +2184,8 @@ function mostrarModal(nome) {
 				ocultarSalvarConfiguracaoTeclas();
 			else if (_gravarCifras)
 				ocultarGravarCifras();
+
+			_spanBotaoFecharModalPositions = document.getElementById('spanBotaoFecharModal').getBoundingClientRect();
 
 			selectInstrumento.style.display = 'none';
 			modalGravar.style.display = 'none';
@@ -2215,7 +2223,6 @@ function mostrarModal(nome) {
 			else {
 				selectOpcoes.style.display = 'none';
 				selectInstrumento.style.display = 'none';
-				modalGravar.style.display = 'block';
 				salvarDiv.style.display = 'none';
 				compartilharDiv.style.display = 'none';
 				//compartilhadoDiv.style.display = 'none';
@@ -2232,6 +2239,7 @@ function mostrarModal(nome) {
 					//     textoCifras.style.display = '';
 				}
 			}
+			modalGravar.style.display = 'block';
 			break;
 		case 'salvar':
 			if (_configurandoTeclas) {
@@ -2251,6 +2259,7 @@ function mostrarModal(nome) {
 			modalGravar.style.display = 'none';
 			compartilharDiv.style.display = 'none';
 			selectConfiguracao.style.display = 'none';
+			salvarDiv.style.display = '';
 
 			if (selectSalvamento.value === '') {
 				let salvamentosStorage = localStorage.getItem('salvamentosv2');
@@ -2468,6 +2477,18 @@ function novoSalvamento() {
 		botaoFullscreen.dispatchEvent(eventoClick);
 }
 
+function trocarSalvamento() {
+	let compartilhados = localStorage.getItem('compartilhados');
+
+	if (compartilhados) {
+		if (confirm('SUBSTITUIR conjunto Salvamento (local) por Compartilhado?')) {
+			localStorage.setItem('salvamentosv2', compartilhados);
+			localStorage.removeItem('compartilhados');
+			ocultarModal();
+		}
+	}
+}
+
 function deletarSalvamento(todos = false) {
 	var nomeStorage = document.getElementById('selectConjuntoSalvamento').value;
 
@@ -2603,7 +2624,7 @@ function salvarSalvamentoNoStorage(salvamentoNome, nomeStorage) {
 		dadosSalvos.tomMenorSwitch = tomMenorSwitch.checked;
 
 	// Salvar informações do frame de texto de cifras se estiver visível
-	if (textoCifras.style.display !== 'none') {
+	if (textoCifrasFrame.style.display !== 'none') {
 		dadosSalvos.frameTom = tomSelect.value;
 		dadosSalvos.frameCifra = textoCifras.contentDocument.body.innerHTML;
 	}
@@ -2647,7 +2668,7 @@ function salvarSalvamento(salvamentoSelecionado = '', nomeStorage) {
 }
 
 function carregar_Salvamento() {
-	modal01.style.display = 'none';
+	voltarParaOrgao();
 
 	let salvamentosStorage = localStorage.getItem('salvamentosv2');
 	let compartilhadosStorage = localStorage.getItem('compartilhados');
@@ -2667,22 +2688,18 @@ function carregar_Salvamento() {
 		var dadosSalvos = JSON.parse(storage)[salvamentoSelecionado];
 
 		if (dadosSalvos) {
+			let temCifra = false;
 			var keys = Object.keys(dadosSalvos);
 
 			if (keys.includes('frameCifra')) {
+				temCifra = true;
 				let tom = dadosSalvos['frameTom'];
-				//tomSelect.value = tom;
-
 				let cifraTexto = dadosSalvos['frameCifra'];
-				//eventoChange_tomSelect = false;
 				escreverCifraTextArea.style.display = 'block';
 
 				mostrarTextoCifrasCarregado(tom, cifraTexto);
 
 				textoCifras.contentWindow.document.querySelector('pre').style.fontSize = selectFonte.value + 'px';
-				//textoCifrasFrame.style.height = selectTamanhoIframe.value + 'px';
-				//textoCifras.style.height = selectTamanhoIframe.value + 'px';
-				//partituraFrame.style.height = selectTamanhoIframe.value + 'px';
 
 				let cifraElem = selecionarCifraId();
 				if (cifraElem)
@@ -2695,7 +2712,7 @@ function carregar_Salvamento() {
 				var value = dadosSalvos[key];
 				var element = document.getElementById(key);
 
-				if (element && element.id !== 'frameCifra' && element.id !== 'frameTom' && element.id !== 'tomSelect') {
+				if (element && element.id !== 'frameCifra' && element.id !== 'frameTom') {
 					if (key === 'bpm') {
 						element.value = value;
 						bpmRange.value = bpm.value;
@@ -2707,15 +2724,14 @@ function carregar_Salvamento() {
 						element.selectedIndex = value;
 					}
 
-					if (element.id === 'tomSelect') {
+					if ((temCifra && element.id === 'tomSelect') == false)
 						element.dispatchEvent(new Event('change'));
-					} else {
-						element.dispatchEvent(new Event('change'));
-					}
 				}
 			});
 		}
 	}
+
+	ocultarModal();
 }
 
 

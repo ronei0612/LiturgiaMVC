@@ -7,14 +7,14 @@
 <body>
 	<br />
 
-	<form method="post" asp-controller="Youtube" asp-action="GerarLink" id="inputPesquisa" style="display:none">
-		<div class="input-group" >
-			<span class="input-group-text" id="basic-addon1">
+	<form onsubmit="event.preventDefault(); criarUrl();">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon1" name="texto" id="texto">
+			<button class="input-group-text" id="basic-addon1" onclick="criarUrl()">
 				<svg width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 					<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
 				</svg>
-			</span>
-			<input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon1" name="texto">
+			</button>
 		</div>
 	</form>
 
@@ -68,33 +68,6 @@
 				<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
 			</svg>
 		</button>
-
-		@*<button type="button" class="btn btn-secondary" id="pause">
-			<svg width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16" onclick="document.getElementsByTagName('video')[0].pause()">
-				<path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"></path>
-			</svg>
-		</button>
-
-		<button type="button" class="btn btn-secondary" id="play" onclick="Play()">
-			<svg width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
-				<path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z" />
-			</svg>
-		</button>
-
-		<button type="button" class="btn btn-secondary" id="acelerar" onclick="document.getElementsByTagName('video')[0].defaultPlaybackRate = 1.25">
-			<svg width="16" height="16" fill="currentColor" class="bi bi-fast-forward" viewBox="0 0 16 16">
-				<path d="M6.804 8 1 4.633v6.734L6.804 8Zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692Z" />
-				<path d="M14.804 8 9 4.633v6.734L14.804 8Zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C8.713 12.69 8 12.345 8 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692Z" />
-			</svg>
-		</button>
-
-		<button type="button" class="btn btn-secondary" id="fast" onclick="document.getElementsByTagName('video')[0].defaultPlaybackRate = 2.0">
-			<svg width="16" height="16" fill="currentColor" class="bi bi-fast-forward-fill" viewBox="0 0 16 16">
-				<path d="M7.596 7.304a.802.802 0 0 1 0 1.392l-6.363 3.692C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692Z"></path>
-				<path d="M15.596 7.304a.802.802 0 0 1 0 1.392l-6.363 3.692C8.713 12.69 8 12.345 8 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692Z"></path>
-			</svg>
-		</button>*@
-
 	</div>
 
 	<script>
@@ -129,6 +102,31 @@
 			else
 				frame.style.width = "33%";
 			linkElement.parentNode.replaceChild(frame, linkElement);
+		}
+
+		function criarUrl() {
+			var texto = document.getElementById('texto').value;
+			var url = new URL(texto);
+			var host = url.host;
+			var searchParams = new URLSearchParams(url.search);
+			var id;
+			
+			if (host.includes('youtube.com')) {
+				if (searchParams.has('v'))
+					id = 'v=' + searchParams.get('v');
+				else if (searchParams.has('list'))
+					id = 'list=' + searchParams.get('list');
+				else if (url.pathname.startsWith('/shorts/'))
+					id = 'v=' + url.pathname.split('/')[2];
+			} else if (host.includes('youtu.be')) {
+				id = url.pathname.slice(1);
+				if (searchParams.has('si'))
+					id += '?si=' + searchParams.get('si');
+				id = 'v=' + id;
+			}
+
+			if (id)
+				window.location.href = window.location.origin + '/youtube?' + id;
 		}
 	</script>
 </body>

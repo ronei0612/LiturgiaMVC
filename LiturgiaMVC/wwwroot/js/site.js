@@ -71,16 +71,24 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 async function verificarCertificadoVencendo() {
-	var url = window.location.origin + "/Home/ObterDataValidadeCertificado";
+	let validadeCertificadoCookieExists = document.cookie.indexOf('validadeCertificado=') !== -1;
 
-	fetch(url)
-		.then(response => response.json())
-		.then(data => {
-			if (!data.success) {
-				console.error("O certificado está próximo de expirar!!!");
-			}
-		})
-		.catch(error => console.error("Erro ao verificar a validade do certificado:", error));
+	if (!validadeCertificadoCookieExists) {
+		const dataHoje = new Date();
+		dataHoje.setHours(23, 59, 59, 999);
+		document.cookie = `validadeCertificado=VerificadoHoje; expires=${dataHoje.toUTCString()}; path=/`;
+
+		var url = window.location.origin + "/Home/ObterDataValidadeCertificado";
+
+		fetch(url)
+			.then(response => response.json())
+			.then(data => {
+				if (!data.success) {
+					alert("Se você é ADMINISTRADOR: O certificado está próximo de expirar!");
+				}
+			})
+			.catch(error => console.error("Erro ao verificar a validade do certificado:", error));
+	}
 }
 
 function removerComercial() {
